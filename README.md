@@ -1,4 +1,4 @@
-![logo](/img/logo.png)
+![logo](/img/logo.jpg)
 
 ## About us
 We are three students of the MSc of *Engineering in Computer Science* of *Sapienza University of Rome* and this project has been developed as part of the *Internet of Things 19-20 course*. Visit our LinkedIn profiles to learn more about us.
@@ -9,6 +9,7 @@ We are three students of the MSc of *Engineering in Computer Science* of *Sapien
 
 ## Design Advisor
 - [Andrea Nardone](https://www.linkedin.com/in/andrea-nardone-161740183/)
+
 
 
 ## ARte
