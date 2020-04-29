@@ -20,20 +20,25 @@ User experience is the second main aspect to be considered for the two web apps.
 - **Simplicity**: app must be intuitive for both types of user. Understandable use of features and and easily identifiable position are again something that has to be considered.
 - **GUI**: the eye wants its part, so polish interface and an inspired style are much appreciated by visitors and managers.
 - **UX**: the service we propose has to improve the overall user experience, providing something that can’t be observed visiting a museum which doesn’t use this kind of system. 
-- **Surveys and interviews**: AR web app has to propose features which can solicit people to use it. In this sense we conducted some interviews and and survey, aiming to find some liked interactions.
 - **Accessibility**: all kind of users has to be able to interact with the applications, also the ones affected by disabilities.
+- **Privacy**: users' personal informations need to remain hidden. No kind of data about people has to be stored 
+- **Surveys and interviews**: AR web app has to propose features which can solicit people to use it. In this sense we conducted some interviews and and survey, aiming to find some liked interactions.
+
+![User experience evaluation](/img/user_experience_evaluation.png) 
 
 ## Technical
 *QoS* (Quality of Service) is crucial for this system, this means we have different aspects that have to be analyzed from a technical point of view, such as:
 
 - **Latency**: the product needs to be efficient, so the values computed by the sensors and the actions performed by users (also by museum’s managers) must be registered without delays. 
 - **Scalability**: the whole system needs to remain performant with the increasing number of connected visitors, connected managers or registered works of art.
-- **Maintenance**: that regards either the database services and the message exchange. In order to satisfy every single visitor, which must have the best possible experience, the system needs to keep track of what type of artwork the users use.
-- **Cost**: the whole system doesn’t have to impact to much on museum’s expenses. The components has to be quite cheap and also cloud services has to be chosen looking at the best price/quality option.
+- **Performance**: it regards computational complexity, as code execution needs to be maintained fast. Algorithmic optimization is one of the keys for a good service.
 - **Reliability**: the used networks protocols has to assure the communication went fine, notifying the delivery of data. This is a synonym for assurance.
 - **Compliance with standards**: the code has to respect the main standards.
+- **Cost**: the whole system doesn’t have to impact to much on museum’s expenses. The components has to be quite cheap and also cloud services has to be chosen looking at the best price/quality option.
 
 We have chosen Amazon AWS services, because they specific features and technical needs which coincide with our needs, in overspecified terms, in particular for the part of the MQTT message broker. 
+
+![Technology evaluation](/img/technology_evaluation.png) 
 
 ## Tools and techniques for evaluation
 Here we propose some tools or technique that can be used to evaluate the before mentioned metrics:
