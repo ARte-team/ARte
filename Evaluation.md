@@ -1,9 +1,9 @@
 # Evaluation
 
 ## Overview
-In a kind of system as the one we want to create, **performances** need to be evaluated using different metrics, which are related to technical aspects, but also to user experience parameters. 
-As explained in design and architecture sections, the users that will use ARte application are of two different types: visitors, which has to easily interact with the smartphone app, having an **intuitive** and attractive interface, and managers, which needs data displayed in a understandable way and a **feasible** method to update artworks informations. 
-For sure another aspect that a final user will take into account will be **response time** performances, as no user will use the application if it isn’t enough **smooth** and no manager will allow to wait for a too large amount of time.
+In a kind of system as the one we want to create, **performances** need to be evaluated using different metrics, which are related to technical aspects, but also to user experience parameters.
+As explained in design and architecture sections, the users that will use ARte application are of two different types: visitors, which have to easily interact with the smartphone app, via an **intuitive** and attractive interface, and managers, which need data displayed in an understandable way and a **feasible** method to update artworks information.
+For sure another aspect that a final user will take into account will be **response time** performances, as no user will use the application if it isn’t enough **smooth** and no manager will allow to wait for required data for a too large amount of time.
 
 More in general, the **Key Performance Indicator** or **KPI**, provides a good understanding of the four main indicators a developer has to take care when projecting a new service:
 
@@ -12,33 +12,33 @@ More in general, the **Key Performance Indicator** or **KPI**, provides a good u
 - **Cost indicators**
 - **Service indicators**
 
- 
+
 ## User Experience
 User experience is the first main aspect to be considered for the two web apps. It needs to be polish, understandable, responsive, but also interesting and accessible:
 
-- **Usability**: nobody wants to wait to much for an animation to appear, for an action to be performed or a web page to be loaded. Also features needs to happen without bugs.
+- **Usability**: nobody wants to wait too much for a 3D model or an animation to appear, for an action to be performed or a web page to be loaded. Moreover features need to be bug-free.
 - **Simplicity**: app must be intuitive for both types of user. Understandable use of features and and easily identifiable position are again something that has to be considered.
 - **GUI**: the eye wants its part, so polish interface and an inspired style are much appreciated by visitors and managers.
-- **UX**: the service we propose has to improve the overall user experience, providing something that can’t be observed visiting a museum which doesn’t use this kind of system. 
-- **Accessibility**: all kind of users has to be able to interact with the applications, also the ones affected by disabilities.
-- **Privacy**: users' personal informations need to remain hidden. No kind of data about people has to be stored 
-- **Surveys and interviews**: AR web app has to propose features which can solicit people to use it. In this sense we conducted some interviews and and survey, aiming to find some liked interactions.
+- **UX**: the service we propose has to improve the overall user experience, providing something that can’t be observed visiting a museum which doesn’t use this kind of system.
+- **Accessibility**: all kind of users have to be able to interact with the applications, also the ones affected by disabilities.
+- **Privacy**: users' personal information need to remain hidden. No kind of data about people has to be stored.
+- **Surveys and interviews**: AR web app has to propose features which can solicit people to use it. In this sense we conducted some interviews and and survey, aiming to find some liked interactions. Interviews and surveys will support us in the entire development cycle in order to direct our work in the right direction.
 
-![User experience evaluation](/img/user_experience_evaluation.png) 
+![User experience evaluation](/img/user_experience_evaluation.png)
 
 ## Technical
 *QoS* (Quality of Service) is crucial for this system, this means we have different aspects that have to be analyzed from a technical point of view, such as:
 
-- **Latency**: the product needs to be efficient, so the values computed by the sensors and the actions performed by users (also by museum’s managers) must be registered without delays. 
+- **Latency**: the product needs to be efficient, so the values computed by the sensors and the actions performed by users (also by museum managers) must be registered without delays.
 - **Scalability**: the whole system needs to remain performant with the increasing number of connected visitors, connected managers or registered works of art.
 - **Performance**: it regards computational complexity, as code execution needs to be maintained fast. Algorithmic optimization is one of the keys for a good service.
 - **Reliability**: the used networks protocols has to assure the communication went fine, notifying the delivery of data. This is a synonym for assurance.
-- **Compliance with standards**: the code has to respect the main standards.
-- **Cost**: the whole system doesn’t have to impact to much on museum’s expenses. The components has to be quite cheap and also cloud services has to be chosen looking at the best price/quality option.
+- **Compliance with standards**: the code has to respect the main standards of good programming.
+- **Cost**: the whole system doesn’t have to impact to much on museum’s expenses. The components have to be quite cheap and also cloud services has to be chosen looking at the best price/quality option.
 
-We have chosen Amazon AWS services, because they specific features and technical needs which coincide with our needs, in overspecified terms, in particular for the part of the MQTT message broker. 
+We have chosen Amazon AWS services, because their specific features and technical aspects coincide with our needs, in overspecified terms, in particular for the part of the MQTT message broker.
 
-![Technology evaluation](/img/technology_evaluation.png) 
+![Technology evaluation](/img/technology_evaluation.png)
 
 ## Tools and techniques for evaluation
 Here we propose some tools or technique that can be used to evaluate the before mentioned metrics:
