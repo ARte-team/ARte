@@ -1,3 +1,5 @@
+# Evaluation
+
 ## Overview
 In a kind of system as the one we want to create, **performances** need to be evaluated using different metrics, which are related to technical aspects, but also to user experience parameters. 
 As explained in design and architecture sections, the users that will use ARte application are of two different types: visitors, which has to easily interact with the smartphone app, having an **intuitive** and attractive interface, and managers, which needs data displayed in a understandable way and a **feasible** method to update artworks informations. 
@@ -19,6 +21,8 @@ User experience is the second main aspect to be considered for the two web apps.
 - **Latency**: the product needs to be efficient, so the values computed by the sensors and the actions performed by users (also by museum’s managers) must be registered without delays. 
 - **Scalability**: the whole system needs to remain performant with the increasing number of connected visitors, connected managers or registered works of art.
 - **Maintenance**: that regards either the database services and the message exchange. In order to satisfy every single visitor, which must have the best possible experience, the system needs to keep track of what type of artwork the users use.
+- **Cost**: the whole system doesn’t have to impact to much on museum’s expenses. The components has to be quite cheap and also cloud services has to be chosen looking at the best price/quality option.
+- **Compliance with standards**: the code has to respect the main standards.
 
 We have chosen Amazon AWS services, because they specific features and technical needs which coincide with our needs, in overspecified terms, in particular for the part of the MQTT message broker. 
 

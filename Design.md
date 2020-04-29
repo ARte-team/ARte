@@ -1,3 +1,5 @@
+# Design
+
 ## Overview
 **ARte** (Augmented Reality to educate) is a smartphone **application**, available as a web service, for the *Sapienza University of Rome*'s [Arte Classica Museum](https://web.uniroma1.it/polomuseale/museo-arte-classica) which aims to improve the **interaction** between users and **artworks**.  
 Visitors will be able to perform various actions on their device in order to toggle features based on the **Augmented Reality** technology. This makes use of the smartphone's **camera** and each framed artwork will appear as a **3D model** in the scene.  
