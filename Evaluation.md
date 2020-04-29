@@ -14,7 +14,7 @@ More in general, the **Key Performance Indicator** or **KPI**, provides a good u
 
  
 ## User Experience
-User experience is the second main aspect to be considered for the two web apps. It needs to be polish, understandable, responsive, but also interesting and accessible:
+User experience is the first main aspect to be considered for the two web apps. It needs to be polish, understandable, responsive, but also interesting and accessible:
 
 - **Usability**: nobody wants to wait to much for an animation to appear, for an action to be performed or a web page to be loaded. Also features needs to happen without bugs.
 - **Simplicity**: app must be intuitive for both types of user. Understandable use of features and and easily identifiable position are again something that has to be considered.
