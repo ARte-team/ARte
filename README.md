@@ -15,7 +15,7 @@ We are three students of the MSc of *Engineering in Computer Science* of *Sapien
 **ARte** (Augmented Reality to educate) is a smartphone **application** for the *Sapienza University of Rome*'s [Arte Classica Museum](https://web.uniroma1.it/polomuseale/museo-arte-classica) that aims to improve the **interaction** between users and **artworks**.
 Accessing to the app website, visitors will be able to perform various functionalities on their device in order to toggle features based on the **Augmented Reality** technology.  
 
-At the same time, after an explicit agreement of the user, several data are anonymously collected to preserve **privacy** via **crowdsensing** and several **ARM Cortex boards**. Such data are then displayed on a **dashboard** website to allow museum managers to analyze them for statistical purposes.  
+At the same time, after an explicit agreement of the user, several data are anonymously collected to preserve **privacy** via **crowdsensing** and several **STM32 Nucleo boards**. Such data are then displayed on a **dashboard** website to allow museum managers to analyze them for statistical purposes.  
 
 
 ## Contents
