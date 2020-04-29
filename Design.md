@@ -11,14 +11,14 @@ The available functionalities, that can be interconnected in order to offer a be
 ## Why ARte?
 The world is continuously evolving and the way to visit a museum it is no an exception. Simply watch artworks is no longer enough, visitors want to interact with them. An initial proof of this concept was given to us by preliminary interviews and then was confirmed by this question in our first survey.
 
-![Interaction chart](/img/chart_interaction.png =650x)  
+![Interaction chart](/img/chart_interaction.png)  
 
 
 To fill this gap, we selected some features, among those proposed, for the smartphone app based on audience preferences.
 
 ![Features preferences chart](/img/chart_features_preferences.png)
 
-![Features money chart](/img/chart_features_money.png =700x)  
+![Features money chart](/img/chart_features_money.png)  
 
 
 ## User Personas
@@ -27,7 +27,7 @@ The analysis of such data also allowed us to define three user personas (a ficti
 - A freelance
 - A student
 
-![Occupation chart](/img/chart_occupation.png =700x)
+![Occupation chart](/img/chart_occupation.png)
 
 ![Employee](/img/user_employee.png)
 
