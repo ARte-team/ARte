@@ -2,7 +2,7 @@
 
 ## Overview
 In a kind of system as the one we want to create, **performances** need to be evaluated using different metrics, which are related to technical aspects, but also to user experience parameters.
-As explained in design and architecture sections, the users that will use ARte application are of two different types: visitors, which have to easily interact with the smartphone app, via an **intuitive** and attractive interface, and managers, which need data displayed in an understandable way and a **feasible** method to update artworks information.
+As explained in [design](Design.md) and [architecture](Architecture.md) sections, the users that will use ARte application are of two different types: visitors, which have to easily interact with the smartphone app, via an **intuitive** and attractive interface, and managers, which need data displayed in an understandable way and a **feasible** method to update artworks information.
 For sure another aspect that a final user will take into account will be **response time** performances, as no user will use the application if it isn’t enough **smooth** and no manager will allow to wait for required data for a too large amount of time.
 
 More in general, the **Key Performance Indicator** or **KPI**, provides a good understanding of the four main indicators a developer has to take care when projecting a new service:
@@ -36,7 +36,7 @@ User experience is the first main aspect to be considered for the two web apps. 
 - **Compliance with standards**: the code has to respect the main standards of good programming.
 - **Cost**: the whole system doesn’t have to impact to much on museum’s expenses. The components have to be quite cheap and also cloud services has to be chosen looking at the best price/quality option.
 
-We have chosen Amazon AWS services, because their specific features and technical aspects coincide with our needs, in overspecified terms, in particular for the part of the MQTT message broker.
+Security is also really important so we'll have to study how to avoid vulnerabilities. We have chosen Amazon AWS services, because their specific features and technical aspects coincide with our needs, in overspecified terms, in particular for the part of the MQTT message broker.
 
 ![Technology evaluation](/img/technology_evaluation.png)
 

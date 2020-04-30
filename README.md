@@ -22,5 +22,5 @@ At the same time, after an explicit agreement of the user, several data are anon
 - [Design](Design.md): a document that shows some details on the product/service from the user point of view.
 - [Architecture](Architecture.md): a document that includes details on the technical aspects of the product/service, including a high-level presentation of the conceptual architecture of the software and hardware components that make up the product/service, a description of the main software/hardware components, how these components interact and a network architecture.
 - [Evaluation](Evaluation.md): a document that provides details on how to evaluate the product/service, from a user experience point of view and from a technical point of view. The document describes the evaluation methodology for both the overall system as well as each individual component for the technical/user dimensions.
-- [Presentation]() of the product/idea and the evaluation plan.
-- [Presentation]() of the technical approach and architecture.
+- [Presentation](https://www.youtube.com/watch?v=NhSiwsODgNk&list=PLzUKKQs-wK7qTVbKUREnxrMRjf7VF-Sfi&index=2&t=0s) of the product/idea and the evaluation plan.
+- [Presentation](https://www.youtube.com/watch?v=OHi1ydnEaDs&list=PLzUKKQs-wK7qTVbKUREnxrMRjf7VF-Sfi&index=3&t=0s) of the technical approach and architecture.

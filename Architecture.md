@@ -1,7 +1,7 @@
 # Architecture
 
 ### Overview
-The architecture of **ARte** is mainly based on the **MQTT** communication protocol. The main purpose is to collect data about most liked works of art and areas of the museum, through the visitors' use of a **web application** and several **ARM Cortex boards**. The first one runs on the user’s smartphones, collects data with the camera and the use of augmented reality according to the **crowdsensing** technique, and finally sends them to an MQTT cloud message broker. The boards, instead, use a specific sensor to detect people entering in a certain area of the museum and publish messages on the broker as well. The broker is linked to a **database**, which has the role of storing all the informations. This last component has a specific structure, in order to obtain the best performances: two main relations manage web app data, storing info about real-time daily utilization, a third one deals with people counting and the last one with artwork's informations.
+The architecture of **ARte** is mainly based on the **MQTT** communication protocol. The main purpose is to collect data about most liked works of art and areas of the museum, through the visitors' use of a **web application** and several **STM32 NUcleo boards**. The first one runs on the user’s smartphones, collects data with the camera and the use of augmented reality according to the **crowdsensing** technique, and finally sends them to an MQTT cloud message broker. The boards, instead, use a specific sensor to detect people entering in a certain area of the museum and publish messages on the broker as well. The broker is linked to a **database**, which has the role of storing all the informations. This last component has a specific structure, in order to obtain the best performances: two main relations manage web app data, storing info about real-time daily utilization, a third one deals with people counting and the last one with artwork's informations.
 The **website** extracts informations from the database, providing a detailed report, in the form of a readable dashboard website, to museum’s managers. The visitors' web app also displays real-time data about the number of users occupying specific areas of the museum, in order to allow people to avoid crowded areas.
 
 ![Architecture](/img/architecture.png)  
@@ -14,14 +14,14 @@ The board makes use of the **X-NUCLEO-53L0A1 expansion board** that features the
 
 ### MQTT cloud message broker
 The broker runs on an online server, using **Amazon AWS IoT services**. It makes use of the MQTT protocol which offers a lightweight message exchange. The broker role is to forward messages published by the visitors’ devices to the database (persistent layer), which then will be queried by the dashboard website. Users’ privacy is guaranteed by the random generation of the device ID which is both used as a topic of the broker and converted into a specific key by the Daily relation of the database. Messages are JSONs of the following form:  
-{ &lt;deviceID&gt;, &lt;datetime&gt;, camera, &lt;feature&gt;, &lt;usageTime&gt; }  
-{ &lt;roomID&gt;, &lt;datetime&gt;, board, &lt;count&gt; }  
+{ &lt;deviceID&gt;, &lt;datetime&gt;, &lt;feature&gt;, &lt;usageTime&gt;, &lt;artworkID&gt; }  
+{ &lt;roomID&gt;, &lt;datetime&gt;, &lt;count&gt; }  
 respectively submitted by the smartphones and the boards on different topics.    
 
 ### Database
 The database is implemented using **Amazon DynamoDB**, a fully managed NoSQL database service that provides fast and predictable performance with seamless scalability, and contains four relations: two manage the data flow from users to museum’s managers, one for data collected by the boards and a last but not least to store information about artworks available in the museum. Here is a short description of how each database works:
 * _Daily relation_: it stores instant users habits on the web app. Each time a new user enters the museum, it is registered in a “visitors vector” and then it begins pushing data about used features on this relation. Each received message by the broker is stored as:  
-{ &lt;deviceID&gt;, &lt;datetime&gt;, &lt;feature&gt;, &lt;usageTime&gt; }  
+{ &lt;deviceID&gt;, &lt;datetime&gt;, &lt;feature&gt;, &lt;usageTime&gt;, &lt;artworkID&gt; }  
 where the *deviceID* and *datetime* attributes are the primary keys, *feature* is the used functionality and *usageTime* is the interval of time the visitor has used this feature.
 * _Cumulative relation_: it is updated periodically, cumulating info from the daily relation, in order to clean it improving performances and give quick pre-computed information to the website. It is populated by a **lambda function**, which stores tuples in this format:  
 { &lt;artworkID&gt;, &lt;datetime&gt;, camera, &lt;featuresAnalysis&gt;, &lt;deviceIDs&gt; }  
@@ -39,4 +39,4 @@ where the *roomID* and *datetime* attributes are the primary keys while *count* 
 where the *artworkID* attribute is the primary key, *datetime* references to the inserting or updating of the entry, *description* is self-explanatory and *roomID* is the room ID in which the artwork is located.  
 
 ### Website
-Implemented using the main web programming languages as *HTML* and *Javascript*, it offers a *Bootstrap* realized frontend for museum’s managers. Selected and reworked informations are proposed in a simple and comprehensible **dashboard**, with the use of charts and diagrams. Its functionalities include the possibility to modify information about a specific work of art, to remove it and to add a new one. It also displays informations about the most visited areas both in real-time and querying the database.
+Implemented using the main web programming languages as *HTML* and *Javascript*, it offers a *Bootstrap* realized frontend for museum’s managers. Selected and reworked informations are proposed in a simple and comprehensible **dashboard**, with the use of charts and diagrams. Its functionalities include the possibility to modify information about a specific work of art, to remove it and to add a new one. It also displays informations about the most visited areas both in real-time via MQTT broker messaging system and querying the database via javascript APIs provided by Amazon AWS.
