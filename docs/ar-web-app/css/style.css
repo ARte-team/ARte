@@ -31,13 +31,14 @@ body {
 }
 .commands {
     position: fixed;
-    bottom: 0;
+    bottom: -22vw;
     left: 0;
     width: 100vw;
     height: 22vw;
     background-color: rgba(255, 255, 255, 0.8);
     z-index: 1000;
     text-align: center;
+    transition: all 0.2s ease-in-out;
 }
 .commands div.button {
     width: calc( 16vw - 2px );

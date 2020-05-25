@@ -12,6 +12,7 @@
         
         <script src="./js/aws.js"></script>
         <script src="./js/pahoMQTTClient.js"></script>
+        <script src="./js/utils.js"></script>
         
         <script src="https://sdk.amazonaws.com/js/aws-sdk-2.7.16.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js"></script>
@@ -76,19 +77,6 @@
         </a-scene>
 
         <script>
-            
-            
-            // Create unique devideID            
-            function createUUID(){
-                var dt = new Date().getTime();
-                var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-                    var r = (dt + Math.random()*16)%16 | 0;
-                    dt = Math.floor(dt/16);
-                    return (c=='x' ? r :(r&0x3|0x8)).toString(16);
-                });
-                return uuid;
-            }
-
             var uuid;
             
             // Set cookie with deviceID if not present yet
@@ -113,7 +101,7 @@
               var host       = "";
               var requestUrl = SigV4Utils.getSignedUrl(host, AWS.config.region, AWS.config.credentials);
               mqttClient     = new PahoMQTTClient(requestUrl, uuid);
-              mqttClient.conn(idleCallback);//, callbackReceive);
+              mqttClient.conn(onConnect);//, callbackReceive);
             });
             
             
@@ -135,17 +123,49 @@
                 artworkID: ''
             }
             
-            var startTime = '';
+            var startTime = 0;
             
-            /*function idleCallback() {
-                window.requestIdleCallback(sendMessage);
-            }*/
             
+            // Initialize audio for storytelling
+            var audioElement = document.createElement('audio');
+            audioElement.setAttribute('src', 'http://www.soundjay.com/misc/sounds/bell-ringing-01.mp3');
+            audioElement.addEventListener('ended', function() {
+                this.play();
+            }, false);
+            
+            
+            
+            
+            function onConnect() {
+                
+            }
+            
+            
+            //startSimulation and pauseSimulation defined elsewhere
+            function handleVisibilityChange() {
+                if (document.hidden) {
+                    audioElement.pause();
+                    sendMessage();
+                    stopFeature();
+                    $('.commands .button').removeClass('pressed');
+                } else  {
+                    /*audioElement.play();
+                    startFeature();*/
+                }
+            }
+
+            document.addEventListener("visibilitychange", handleVisibilityChange, false);       
             
             // When a feature button is pressed, message is filled in the correct way
             function startFeature() {
                 message['feature'] = 'storytelling';
                 startTime = Date.now();
+            }
+            
+            // When phone is idle or feature is deactivated, stop the execution
+            function stopFeature() {
+                message['feature'] = '';
+                startTime = 0;
             }
             
             // Function triggered at the end of a feature
@@ -160,47 +180,15 @@
             
             
             
-            // Functions for cookie interaction
-            function createCookie(cookieName, cookieValue, hoursToExpire) {
-                var date = new Date();
-                date.setTime(date.getTime() + (hoursToExpire*60*60*1000));
-                document.cookie = cookieName + "=" + cookieValue + "; expires=" + date.toGMTString();
-            }
             
-            function accessCookie(cookieName) {
-                var name = cookieName + "=";
-                var allCookieArray = document.cookie.split(';');
-                for(var i = 0; i < allCookieArray.length; i++) {
-                    var temp = allCookieArray[i].trim();
-                    if (temp.indexOf(name) == 0)
-                        return temp.substring(name.length, temp.length);
-       	        }
-                return "";
-            }
+            
             
             
 
             
 
             $(document).ready(function() {
-
-                // Initialize audio for storytelling
-                var audioElement = document.createElement('audio');
-                audioElement.setAttribute('src', 'http://www.soundjay.com/misc/sounds/bell-ringing-01.mp3');
-                audioElement.addEventListener('ended', function() {
-                    this.play();
-                }, false);
-
-                audioElement.addEventListener("canplay",function(){
-                    $("#length").text("Duration:" + audioElement.duration + " seconds");
-                    $("#source").text("Source:" + audioElement.src);
-                    $("#status").text("Status: Ready to play").css("color","green");
-                });
-
-                audioElement.addEventListener("timeupdate",function(){
-                    $("#currentTime").text("Current second:" + audioElement.currentTime);
-                });
-
+                
                 $('#play').click(function() {
                     if( storytellingStatus == 2 ) {
                         audioElement.pause();
@@ -209,10 +197,6 @@
                         audioElement.play();
                         storytellingStatus = 2;
                     }
-                });
-
-                $('#restart').click(function() {
-                    audioElement.currentTime = 0;
                 });
 
                 // Changing style to buttons when pressed
@@ -242,6 +226,7 @@
                 $('body').on( "markerFound", function() {
                     artworkRecognized = 1;
                     message['artworkID'] = 1;
+                    $('.commands').css('bottom', 0);
                     $('#artwork').toggle();
                     $('#info').show().delay(3000).fadeOut();
                 });
@@ -249,7 +234,8 @@
                 // This event is triggered when a new marker is no more recognized
                 $('body').on( "markerLost", function() {
                     artworkRecognized = 0;
-                   $('#artwork').toggle();
+                    $('.commands').css('bottom', '-22vw');
+                    $('#artwork').toggle();
                 });
 
 
