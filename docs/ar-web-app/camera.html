@@ -3,98 +3,20 @@
     <head>
         <meta charset="utf-8">
         <title>ARte</title>
+        
+        <link rel="stylesheet" type="text/css" href="./css/style.css">
 
         <script src="./js/aframe-master.min.js"></script>
         <script src="./js/aframe-ar-nft.js"></script>
         <script src="./js/jquery-3.5.1.min.js"></script>
+        
+        <script src="./js/aws.js"></script>
+        <script src="./js/pahoMQTTClient.js"></script>
+        
+        <script src="https://sdk.amazonaws.com/js/aws-sdk-2.7.16.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js"></script>
 
-        <style>
-            .arjs-loader {
-                height: 100%;
-                width: 100%;
-                position: absolute;
-                top: 0;
-                left: 0;
-                background-color: rgba(0, 0, 0, 0.8);
-                z-index: 9999;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
-            .arjs-loader div {
-                text-align: center;
-                font-size: 1.25em;
-                color: white;
-            }
-            #artwork .title {
-                color: #FFF;
-                text-shadow: 1px 1px 0 0 #ABABAB;
-                position: fixed;
-                bottom: 25vw;
-                left: 2vw;
-                font-family: Helvetica;
-                font-size: 1.5rem;
-            }
-            body {
-                margin: 0px;
-                overflow: hidden;
-                font-family: Helvetica;
-            }
-            .commands {
-                position: fixed;
-                bottom: 0;
-                left: 0;
-                width: 100vw;
-                height: 22vw;
-                background-color: rgba(255, 255, 255, 0.8);
-                z-index: 1000;
-                text-align: center;
-            }
-            .commands div.button {
-                width: calc( 16vw - 2px );
-                height: calc( 16vw - 2px );
-                border-radius: 50%;
-                margin: 3vw 3.33vw 3vw 0;
-                border: 1px solid #ABABAB;
-                float: left;
-                transition: all 0.2s ease-in-out;
-            }
-            .commands div.button:first-of-type {
-                margin: 3vw 3.33vw 3vw 3.33vw;
-            }
-            .commands div.button.pressed {
-                background-color: #B7B7B7;
-            }
-            .commands div.button img {
-                margin: calc( 8vw - 1px ) calc( 4vw - 1px ) 0 calc( 4vw - 1px );
-                width: 8vw;
-                transform: translateY(-50%);
-            }
-            header {
-                background-color: rgba(255, 255, 255, 0.8);
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100vw;
-                height: 70px;
-                z-index: 1000;
-                text-align: center;
-            }
-            header a img {
-                height: 50px;
-                margin: 10px 0;
-            }
-            #info {
-                color: #FFF;
-                text-shadow: 1px 1px 0 0 #ABABAB;
-                position: fixed;
-                top: 80px;
-                width: 100vw;
-                text-align: center;
-                font-family: Helvetica;
-                font-size: 1rem;
-            }
-        </style>
+        
     </head>
     <body>
         <header>
@@ -114,7 +36,7 @@
         </div>
 
         <div id="info" hidden>
-            <p>Artwork detected</p>
+            <p></p>
         </div>
 
         <div class="commands">
@@ -154,14 +76,47 @@
         </a-scene>
 
         <script>
-            var message = {
-                deviceID: '',
-                datetime: '',
-                feature: '',
-                usageTime: '',
-                artworkID: ''
+            
+            
+            // Create unique devideID            
+            function createUUID(){
+                var dt = new Date().getTime();
+                var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                    var r = (dt + Math.random()*16)%16 | 0;
+                    dt = Math.floor(dt/16);
+                    return (c=='x' ? r :(r&0x3|0x8)).toString(16);
+                });
+                return uuid;
             }
 
+            var uuid;
+            
+            // Set cookie with deviceID if not present yet
+            if(accessCookie("deviceID") == "") {
+                uuid = createUUID();
+                createCookie("deviceID", uuid, 12);
+            } else {
+                uuid = accessCookie("deviceID");
+            }
+            
+            var mqttClient = null;
+
+            // Initialize Amazon Cognito credentials provider
+            AWS.config.region      = '';
+            AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+              IdentityPoolId: '',
+            });
+
+            // Obtain credentials
+            AWS.config.credentials.get(function(){
+              // Credentials will be available when this function is called
+              var host       = "";
+              var requestUrl = SigV4Utils.getSignedUrl(host, AWS.config.region, AWS.config.credentials);
+              mqttClient     = new PahoMQTTClient(requestUrl, uuid);
+              mqttClient.conn(idleCallback);//, callbackReceive);
+            });
+            
+            
             // Status: 0 -> Stopped, 1 -> Paused, 2 -> Playing
             var storytellingStatus = 0;
 
@@ -170,6 +125,62 @@
 
             // Recognized artwork?
             var artworkRecognized = 0;
+            
+            // Message for broker
+            var message = {
+                deviceID: uuid,
+                datetime: '',
+                feature: '',
+                usageTime: '',
+                artworkID: ''
+            }
+            
+            var startTime = '';
+            
+            /*function idleCallback() {
+                window.requestIdleCallback(sendMessage);
+            }*/
+            
+            
+            // When a feature button is pressed, message is filled in the correct way
+            function startFeature() {
+                message['feature'] = 'storytelling';
+                startTime = Date.now();
+            }
+            
+            // Function triggered at the end of a feature
+            function sendMessage() {
+                if(startTime > 0) {
+                    var stopTime = Date.now();
+                    message['usageTime'] = (stopTime - startTime) / 1000;
+                    message['datetime'] = stopTime;
+                    mqttClient.pub(JSON.stringify(message), "daily");
+                }
+            }
+            
+            
+            
+            // Functions for cookie interaction
+            function createCookie(cookieName, cookieValue, hoursToExpire) {
+                var date = new Date();
+                date.setTime(date.getTime() + (hoursToExpire*60*60*1000));
+                document.cookie = cookieName + "=" + cookieValue + "; expires=" + date.toGMTString();
+            }
+            
+            function accessCookie(cookieName) {
+                var name = cookieName + "=";
+                var allCookieArray = document.cookie.split(';');
+                for(var i = 0; i < allCookieArray.length; i++) {
+                    var temp = allCookieArray[i].trim();
+                    if (temp.indexOf(name) == 0)
+                        return temp.substring(name.length, temp.length);
+       	        }
+                return "";
+            }
+            
+            
+
+            
 
             $(document).ready(function() {
 
@@ -206,12 +217,22 @@
 
                 // Changing style to buttons when pressed
                 $('.commands .button').click(function() {
-                    var pressed = $(this).hasClass('pressed');
-                    if( pressed ) {
-                        $(this).removeClass('pressed');
+                    if(artworkRecognized) {
+                        var pressed = $(this).hasClass('pressed');
+                        sendMessage();
+                        startFeature();
+                        if( pressed ) {
+                            activeFeature = '';
+                            startTime = 0;
+                            $(this).removeClass('pressed');
+                        } else {
+                            $('.commands .button').removeClass('pressed');
+                            $(this).addClass('pressed');
+                        }
                     } else {
-                        $('.commands .button').removeClass('pressed');
-                        $(this).addClass('pressed');
+                        $('#info p').html('No artwork recognized!');
+                        $('#info').toggle();
+                        console.log('No artwork recognized!');
                     }
                 });
 
@@ -220,6 +241,7 @@
                 // We should show artwork's informations
                 $('body').on( "markerFound", function() {
                     artworkRecognized = 1;
+                    message['artworkID'] = 1;
                     $('#artwork').toggle();
                     $('#info').show().delay(3000).fadeOut();
                 });
