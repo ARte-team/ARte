@@ -321,7 +321,7 @@
                                     </a>
                                     <ul class="pcoded-submenu">
                                         <li class="active">
-                                            <a href="index-1.htm">
+                                            <a href="index.htm">
                                                 <span class="pcoded-mtext">General</span>
                                             </a>
                                         </li>
@@ -342,11 +342,23 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li>
-                                    <a href="manage_artworks.htm">
+                                <li class="pcoded-hasmenu">
+                                    <a href="javascript:void(0)">
                                         <span class="pcoded-micon"><i class="feather icon-sliders"></i></span>
                                         <span class="pcoded-mtext">Manage artworks</span>
                                     </a>
+                                    <ul class="pcoded-submenu">
+                                        <li>
+                                            <a href="manage_artworks_add.htm">
+                                                <span class="pcoded-mtext">Add</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="manage_artworks_edit.htm">
+                                                <span class="pcoded-mtext">Edit</span>
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </li>
                               </ul>
 
@@ -1786,7 +1798,7 @@
                                                         <div class="row align-items-center">
                                                             <div class="col">
                                                                 <p class="m-b-5">Today Tickets</p>
-                                                                <h4 class="m-b-0">42</h4>
+                                                                <h4 class="m-b-0">942</h4>
                                                             </div>
                                                             <div class="col col-auto text-right">
                                                                 <i class="feather icon-book f-50 text-c-pink"></i>
@@ -1800,11 +1812,11 @@
                                                     <div class="card-block">
                                                         <div class="row align-items-center">
                                                             <div class="col">
-                                                                <p class="m-b-5">Orders</p>
-                                                                <h4 class="m-b-0">€5,242</h4>
+                                                                <p class="m-b-5">Current visitors</p>
+                                                                <h4 class="m-b-0">81</h4>
                                                             </div>
                                                             <div class="col col-auto text-right">
-                                                                <i class="feather icon-shopping-cart f-50 text-c-blue"></i>
+                                                                <i class="feather icon-users f-50 text-c-blue"></i>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1820,7 +1832,7 @@
                                                   <div class="row align-items-center">
                                                     <div class="col">
                                                       <p class="m-b-5">Total Visitors</p>
-                                                      <h4 class="m-b-0">3852</h4>
+                                                      <h4 class="m-b-0">34023</h4>
                                                     </div>
                                                     <div class="col col-auto text-right">
                                                       <i class="feather icon-user f-50 text-c-yellow"></i>
@@ -1835,7 +1847,7 @@
                                                   <div class="row align-items-center">
                                                     <div class="col">
                                                       <p class="m-b-5">Total Income</p>
-                                                      <h4 class="m-b-0">€55,852</h4>
+                                                      <h4 class="m-b-0">€201,322</h4>
                                                     </div>
                                                     <div class="col col-auto text-right">
                                                       <i class="feather icon-credit-card f-50 text-c-green"></i>
@@ -1850,7 +1862,7 @@
                                                   <div class="row align-items-center">
                                                     <div class="col">
                                                       <p class="m-b-5">Total tickets</p>
-                                                      <h4 class="m-b-0">5042</h4>
+                                                      <h4 class="m-b-0">40872</h4>
                                                     </div>
                                                     <div class="col col-auto text-right">
                                                       <i class="feather icon-book f-50 text-c-pink"></i>
@@ -1864,11 +1876,11 @@
                                                 <div class="card-block">
                                                   <div class="row align-items-center">
                                                     <div class="col">
-                                                      <p class="m-b-5">Orders</p>
-                                                      <h4 class="m-b-0">$5,242</h4>
+                                                      <p class="m-b-5">Exhibitions</p>
+                                                      <h4 class="m-b-0">2</h4>
                                                     </div>
                                                     <div class="col col-auto text-right">
-                                                      <i class="feather icon-shopping-cart f-50 text-c-blue"></i>
+                                                      <i class="feather icon-image f-50 text-c-blue"></i>
                                                     </div>
                                                   </div>
                                                 </div>
@@ -1963,7 +1975,7 @@
                                             <div class="col-xl-4 col-md-6 m-auto">
                                                 <div class="card">
                                                     <div class="card-header">
-                                                        <h5>People using ARte web app</h5>
+                                                        <h5>Usage of ARte web app</h5>
                                                     </div>
                                                     <div class="card-block">
                                                         <canvas id="arteUserChart" height="250"></canvas>
@@ -1983,6 +1995,56 @@
                                                 </div>
                                             </div>
                                             <!-- /Chart users -->
+
+                                            <!-- Chart users today -->
+                                            <div class="col-xl-4 col-md-6 m-auto">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h5>Usage of ARte web app Today</h5>
+                                                    </div>
+                                                    <div class="card-block">
+                                                        <canvas id="arteUserChartToday" height="250"></canvas>
+                                                    </div>
+                                                    <div class="card-footer">
+                                                        <div class="row text-center b-t-default">
+                                                            <div class="col-6 b-r-default m-t-15">
+                                                                <h5>72%</h5>
+                                                                <p class="text-muted m-b-0">Using</p>
+                                                            </div>
+                                                            <div class="col-6 m-t-15">
+                                                                <h5>28%</h5>
+                                                                <p class="text-muted m-b-0">Not using</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- /Chart users today -->
+
+                                            <!-- Chart users now -->
+                                            <div class="col-xl-4 col-md-6 m-auto">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h5>Usage of ARte web app Now</h5>
+                                                    </div>
+                                                    <div class="card-block">
+                                                        <canvas id="arteUserChartNow" height="250"></canvas>
+                                                    </div>
+                                                    <div class="card-footer">
+                                                        <div class="row text-center b-t-default">
+                                                            <div class="col-6 b-r-default m-t-15">
+                                                                <h5>79%</h5>
+                                                                <p class="text-muted m-b-0">Using</p>
+                                                            </div>
+                                                            <div class="col-6 m-t-15">
+                                                                <h5>21%</h5>
+                                                                <p class="text-muted m-b-0">Not using</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- /Chart users now -->
 
                                             <script type="text/javascript">
                                             window.onload = function() {
@@ -2013,10 +2075,64 @@
                                                       }
                                                   }
                                               });
+
+                                              ctx = document.getElementById("arteUserChartToday").getContext("2d");
+                                              window.myDoughnut = new Chart(ctx, {
+                                                  type: "doughnut",
+                                                  data: {
+                                                      datasets: [{
+                                                          data: [72, 28],
+                                                          backgroundColor: ["#fe9365", "#01a9ac"],
+                                                          label: "Dataset"
+                                                      }],
+                                                      labels: ["Using", "Not using"]
+                                                  },
+                                                  options: {
+                                                      maintainAspectRatio: !1,
+                                                      responsive: !0,
+                                                      legend: {
+                                                          position: "bottom"
+                                                      },
+                                                      title: {
+                                                          display: !0,
+                                                          text: ""
+                                                      },
+                                                      animation: {
+                                                          animateScale: !0,
+                                                          animateRotate: !0
+                                                      }
+                                                  }
+                                              });
+
+                                              ctx = document.getElementById("arteUserChartNow").getContext("2d");
+                                              window.myDoughnut = new Chart(ctx, {
+                                                  type: "doughnut",
+                                                  data: {
+                                                      datasets: [{
+                                                          data: [79, 21],
+                                                          backgroundColor: ["#fe9365", "#01a9ac"],
+                                                          label: "Dataset"
+                                                      }],
+                                                      labels: ["Using", "Not using"]
+                                                  },
+                                                  options: {
+                                                      maintainAspectRatio: !1,
+                                                      responsive: !0,
+                                                      legend: {
+                                                          position: "bottom"
+                                                      },
+                                                      title: {
+                                                          display: !0,
+                                                          text: ""
+                                                      },
+                                                      animation: {
+                                                          animateScale: !0,
+                                                          animateRotate: !0
+                                                      }
+                                                  }
+                                              });
                                             }
                                             </script>
-
-
 
 
 

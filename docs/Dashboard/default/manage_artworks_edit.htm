@@ -347,11 +347,23 @@
                                   </li>
                               </ul>
                           </li>
-                          <li class="active">
-                              <a href="manage_artworks.htm">
+                          <li class="pcoded-hasmenu active pcoded-trigger">
+                              <a href="javascript:void(0)">
                                   <span class="pcoded-micon"><i class="feather icon-sliders"></i></span>
                                   <span class="pcoded-mtext">Manage artworks</span>
                               </a>
+                              <ul class="pcoded-submenu">
+                                  <li>
+                                      <a href="manage_artworks_add.htm">
+                                          <span class="pcoded-mtext">Add</span>
+                                      </a>
+                                  </li>
+                                  <li class="active">
+                                      <a href="">
+                                          <span class="pcoded-mtext">Edit</span>
+                                      </a>
+                                  </li>
+                              </ul>
                           </li>
                         </ul>
 
@@ -1745,19 +1757,33 @@
                         </ul>
                     </div>
                 </nav>
+
+
+                <!-- Addition -->
+                <style>
+                  .hide {
+                    display: none;
+                  }
+
+                  .pointer {
+                    cursor: pointer;
+                  }
+                </style>
+
+
+
                 <div class="pcoded-content">
                     <div class="pcoded-inner-content">
                         <!-- Main-body start -->
                         <div class="main-body">
                             <div class="page-wrapper">
                                 <!-- Page-header start -->
-                                <div class="page-header">
+                                <div id="pageHeader" class="page-header hide">
                                     <div class="row align-items-end">
                                         <div class="col-lg-8">
                                             <div class="page-header-title">
                                                 <div class="d-inline">
-                                                    <h4>Discobolus</h4>
-                                                    <span>lorem ipsum dolor sit amet, consectetur adipisicing elit</span>
+                                                    <h4 id="pageHeaderTitle">Discobolus</h4>
                                                 </div>
                                             </div>
                                         </div>
@@ -1765,11 +1791,11 @@
                                             <div class="page-header-breadcrumb">
                                                 <ul class="breadcrumb-title">
                                                     <li class="breadcrumb-item">
-                                                        <a href="index-1.htm"> <i class="feather icon-home"></i> </a>
+                                                        <a href="index.htm"> <i class="feather icon-home"></i></a>
                                                     </li>
-                                                    <li class="breadcrumb-item"><a href="#!">Search</a>
+                                                    <li class="breadcrumb-item"><a href="manage_artworks_edit.htm">Search</a>
                                                     </li>
-                                                    <li class="breadcrumb-item"><a href="#!">Discobolus</a>
+                                                    <li class="breadcrumb-item"><a id="searchName" href="">Discobolus</a>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -1793,24 +1819,25 @@
                                                         <div class="row seacrh-header">
                                                             <div class="col-lg-4 offset-lg-4 offset-sm-3 col-sm-6 offset-sm-1 col-xs-12">
                                                                 <div class="input-group input-group-button input-group-primary">
-                                                                    <input type="text" class="form-control" placeholder="Search here...">
-                                                                    <button class="btn btn-primary input-group-addon" id="basic-addon1">Search</button>
+                                                                    <input id="searchText" type="text" class="form-control" placeholder="Search here...">
+                                                                    <button class="btn btn-primary input-group-addon" id="basic-addon1" >Search</button>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <!-- Search result card end -->
-                                                <h4 class="m-b-20"><b>1</b> Search Result Found</h4>
+
+                                                <h4 id="searchResultTitle" class="m-b-20 hide"><b>1</b> Search Result Found</h4>
                                                 <!-- Search result found start -->
-                                                <div class="row search-result">
+                                                <div id="searchResultCards" class="row search-result hide">
                                                     <div class="col-lg-3 col-md-4 col-sm-6 ">
                                                         <div class="card">
-                                                            <a href="#">
+                                                            <span id="DiscobolusCard" class="pointer">
                                                               <img class="card-img-top img-fluid" src="..\files\assets\images\search-images\Discobolus.jpg" alt="Card image cap">
                                                               <div class="card-block">
                                                                 <h5 class="card-title">Discobolus</h5>
-                                                            </a>
+                                                            </span>
                                                                 <p class="card-text text-muted">The Discobolus of Myron is a Greek sculpture completed at the start of the Classical Period...</p>
                                                                 <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
                                                               </div>
@@ -1930,13 +1957,13 @@
                                                 <!-- Search result found end -->
 
                                                 <!-- Non-editable artwork -->
-                                                <div class="row">
+                                                <div id="nonEditArt" class="row hide">
                                                   <div class="col-sm-12">
                                                     <!-- Basic Form Inputs card start -->
                                                     <div class="card">
                                                       <div class="card-header">
                                                         <h5>Discobolus</h5>
-                                                        <a href="" class="form-txt-info"><i class="feather icon-edit"></i></a>
+                                                        <i class="feather icon-edit form-txt-info pointer" data-toggle="modal" data-target="#editModal"></i>
                                                       </div>
                                                       <div class="card-block">
                                                           <div class="sub-title"></div>
@@ -1980,6 +2007,12 @@
                                                                       <input type="file" class="form-control" disabled="">
                                                                   </div>
                                                               </div>
+                                                              <div class="form-group row">
+                                                                  <label class="col-sm-2 col-form-label">Upload photo</label>
+                                                                  <div class="col-sm-10">
+                                                                      <input type="file" class="form-control" disabled="">
+                                                                  </div>
+                                                              </div>
                                                           </form>
                                                       </div>
                                                     </div>
@@ -1988,10 +2021,8 @@
                                                 <!-- /Non-editable artwork -->
 
                                                 <!-- When clicking on edit a modal will appear which will require to insert a password to edit -->
-
-
                                                 <!-- Editable artwork -->
-                                                <div class="row">
+                                                <div id="editArt" class="row hide">
                                                   <div class="col-sm-12">
                                                     <!-- Basic Form Inputs card start -->
                                                     <div class="card">
@@ -2001,19 +2032,19 @@
                                                               <div class="form-group row">
                                                                   <label class="col-sm-2 col-form-label">Title</label>
                                                                   <div class="col-sm-10">
-                                                                      <input type="text" class="form-control" placeholder="Type the title of the artwork">
+                                                                      <input type="text" class="form-control" value="Type the title of the artwork">
                                                                   </div>
                                                               </div>
                                                               <div class="form-group row">
                                                                   <label class="col-sm-2 col-form-label">Author</label>
                                                                   <div class="col-sm-10">
-                                                                      <input type="text" class="form-control" placeholder="Type the author of the artwork">
+                                                                      <input type="text" class="form-control" value="Type the author of the artwork">
                                                                   </div>
                                                               </div>
                                                               <div class="form-group row">
                                                                   <label class="col-sm-2 col-form-label">Description</label>
                                                                   <div class="col-sm-10">
-                                                                      <textarea rows="5" cols="5" class="form-control" placeholder="Type a short description of the artwork"></textarea>
+                                                                      <textarea rows="5" cols="5" class="form-control">The Discobolus of Myron is a Greek sculpture completed at the start of the Classical Period...</textarea>
                                                                   </div>
                                                               </div>
                                                               <div class="form-group row">
@@ -2037,12 +2068,56 @@
                                                                       <input type="file" class="form-control">
                                                                   </div>
                                                               </div>
+                                                              <div class="form-group row">
+                                                                  <label class="col-sm-2 col-form-label">Upload photo</label>
+                                                                  <div class="col-sm-10">
+                                                                      <input type="file" class="form-control">
+                                                                  </div>
+                                                              </div>
+                                                              <div class="form-group row">
+                                                                <div class="col-sm-10">
+                                                                    <button type="button" class="btn btn-info">Submit</button>
+                                                                </div>
+                                                              </div>
                                                           </form>
                                                       </div>
                                                   </div>
                                                 </div>
                                               </div>
                                               <!-- /Editable artwork -->
+
+
+
+                                              <!-- Edit modal-->
+                                              <div class="modal fade" id="editModal" tabindex="-1" role="dialog">
+                                                  <div class="modal-dialog modal-lg" role="document">
+                                                      <div class="modal-content">
+                                                          <div class="modal-header">
+                                                              <h4 class="modal-title">Insert your password to continue</h4>
+                                                          </div>
+                                                          <div class="modal-body">
+                                                            <form>
+                                                              <div class="form-group row">
+                                                                  <label class="col-sm-2 col-form-label">Password</label>
+                                                                  <div class="col-sm-10">
+                                                                      <input id="passModal" type="password" class="form-control">
+                                                                  </div>
+                                                              </div>
+                                                              <div class="form-group row">
+                                                                  <label class="col-sm-2 col-form-label">Confirm Password</label>
+                                                                  <div class="col-sm-10">
+                                                                      <input id="confirmPassModal" type="password" class="form-control">
+                                                                  </div>
+                                                              </div>
+                                                            </form>
+                                                          </div>
+                                                          <div class="modal-footer">
+                                                              <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
+                                                              <button id="btnContinue" type="button" class="btn btn-primary waves-effect waves-light">Continue</button>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </div>
 
                                             </div>
                                         </div>
@@ -2058,6 +2133,79 @@
             </div>
         </div>
     </div>
+
+
+
+    <script type="text/javascript">
+    window.onload = function() {
+      document.getElementById("basic-addon1").onclick = function () {
+        search();
+      }
+
+      function search() {
+        var input = $("#searchText").val();
+        $("#searchResultTitle").fadeOut();
+        $("#searchResultCards").fadeOut();
+
+        if(searchArtwork(input).length == 0) {
+          setTimeout(function() {
+            alert("No result found");
+          }, 200);
+          return;
+        }
+
+        $("#pageHeaderTitle").text(input);
+        $("#searchName").text(input);
+
+        $("#pageHeader").fadeIn();
+        $("#searchResultTitle").fadeIn();
+        $("#searchResultCards").fadeIn();
+      }
+
+      var artworks = ["discobolus"];
+
+      function searchArtwork(input) {
+        var filter = input.toLowerCase();
+        var res = [];
+
+        // Loop through all list items
+        for (var i = 0; i < artworks.length; i++) {
+          var artwork = artworks[i];
+          if (artwork.indexOf(filter) != -1)
+            res.push(artwork);
+        }
+
+        return res;
+      }
+
+      document.getElementById("DiscobolusCard").onclick = function () {
+        $("#searchResultTitle").fadeOut();
+        $('#searchResultCards').fadeOut();
+        $('#nonEditArt').fadeIn()
+      }
+
+      document.getElementById("btnContinue").onclick = function () {
+        if(!checkPassword())
+          return;
+
+        this.setAttribute("data-dismiss", "modal");
+        document.getElementById('nonEditArt').style.display = "none";
+        document.getElementById('editArt').style.display = "initial";
+      }
+
+      function checkPassword() {
+        var pass    = document.getElementById("passModal").value;
+        var confirm = document.getElementById("confirmPassModal").value;
+
+        if(pass != confirm)
+          return false;
+
+        // TODO check password with the one of the user
+        return true;
+      }
+
+    }
+    </script>
 
 
 
