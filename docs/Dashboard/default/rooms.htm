@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -2068,6 +2069,10 @@
                                                         // List of rooms in the Database.
                                                         var rooms = new Set();
 
+                                                        // Variables to control the people flow
+                                                        var currentRoom = null;
+                                                        var flag = 0;
+
                                                         // Parameters for the scan of the DB.
                                                         var params = {
                                                             ExpressionAttributeNames: {
@@ -2077,123 +2082,134 @@
                                                             TableName: 'RoomsDB'
                                                         };
 
-                                                        // Update the select list.
-                                                        docClient.scan(params, function (err, data) {
-                                                            if (err) {
-                                                                console.log("Error", err);
-                                                            } else {
+                                                        function main() {
 
-                                                                var totalRooms = new Set();
-
-
-                                                                data.Items.forEach(function (element) {
-                                                                    totalRooms.add("1");
-                                                                });
-
-                                                                totalRooms = Array.from(totalRooms);
-                                                                totalRooms.sort();
-
-                                                                console.log("success", totalRooms);
-
-                                                                //var numRooms = totalRooms.length();
-                                                                //console.log("success", numRooms);
-
-                                                                var i;
-                                                                for (i = 0; i < 1; i++) {
-                                                                    $('#selectRoom').append($('<option>', {
-                                                                        value: totalRooms[i],
-                                                                        text: 'Room ' + totalRooms[i]
-                                                                    }));
-                                                                    console.log("ok " + totalRooms[i]);
-                                                                }
-                                                            }
-                                                        });
-
-                                                        /* function changeRoom() {
-                                                            var currentRoom = document.getElementById("selectRoom").value;
-                                                            document.getElementById("currentNum").style.display = "block";
-                                                            document.getElementById("totalNum").style.display = "block";
-
-                                                            function updateRoom() {
+                                                            // Update the cards if a room is selected.
+                                                            if (currentRoom != null)
                                                                 getLatestValue(currentRoom);
-                                                                setTimeout(updateRoom, 5000);
-                                                            }
-                                                            updateRoom();
-                                                        } */
 
-                                                        $('#selectRoom').on('change', function () {
-                                                            var currentRoom = $('#selectRoom').val();
-                                                            document.getElementById("currentCard").style.display = "block";
-                                                            document.getElementById("totalCard").style.display = "block";
-
-                                                            function updateRoom() {
-                                                                getLatestValue(currentRoom);
-                                                                setTimeout(updateRoom, 5000);
-                                                            }
-                                                            updateRoom();
-                                                        });
-
-
-                                                        function getLatestValue(currentRoom) {
-
-                                                            rooms = new Set();
-
-                                                            docClient.scan(params, onScan);
-
-                                                            // Function that scans the table EnvironmentalStationDB,
-                                                            // then adds the ID of the stations in the list 'stations'
-                                                            function onScan(err, data) {
+                                                            // Update the select list.
+                                                            docClient.scan(params, function (err, data) {
                                                                 if (err) {
                                                                     console.log("Error", err);
                                                                 } else {
+
+                                                                    var totalRooms = new Set();
+
                                                                     data.Items.forEach(function (element) {
-                                                                        rooms.add(element.id);
+                                                                        totalRooms.add(element.id);
                                                                     });
-                                                                    rooms = Array.from(rooms);
-                                                                    rooms.sort();
-                                                                    console.log("success", rooms);
 
-                                                                    rooms.forEach(function (id) {
-                                                                        // Parameters of the query.
-                                                                        var params = {
-                                                                            TableName: "RoomsDB",
-                                                                            ProjectionExpression: "id, #ts, currentNum, totalNum",
-                                                                            KeyConditionExpression: "id = :roomId",
-                                                                            ExpressionAttributeNames: {
-                                                                                "#ts": "timestamp"
-                                                                            },
-                                                                            ExpressionAttributeValues: {
-                                                                                ":roomId": currentRoom
-                                                                            }
-                                                                        };
+                                                                    totalRooms = Array.from(totalRooms);
+                                                                    totalRooms.sort();
 
-                                                                        console.log("prova", currentRoom);
+                                                                    var numRooms = Object.keys(totalRooms).length;
 
+                                                                    if (flag)
+                                                                        $('#selectRoom').empty();
 
-                                                                        // Query for each room.
-                                                                        docClient.query(params, function (err, data) {
-                                                                            if (err) {
-                                                                                console.log("Error", err);
-                                                                            } else {
+                                                                    flag = 1;
 
-                                                                                // In the variable 'latest' there will be the
-                                                                                // last values inserted in the DB.
-                                                                                // Since that the list is ordered from the oldest to
-                                                                                // the newest value, I have to reverse it.
-                                                                                var latest = data.Items.reverse()[0];
-                                                                                console.log("success");
-
-                                                                                // Insert latest value for the selected room.
-                                                                                document.getElementById('current').innerHTML = latest.currentNum;
-                                                                                document.getElementById('total').innerHTML = latest.totalNum;
-                                                                            }
-
-                                                                        });
-                                                                    });
+                                                                    var i;
+                                                                    for (i = 0; i < numRooms; i++) {
+                                                                        $('#selectRoom').append($('<option>', {
+                                                                            value: totalRooms[i],
+                                                                            text: 'Room ' + totalRooms[i]
+                                                                        }));
+                                                                    }
+                                                                    var optionValue = currentRoom;
+                                                                    $("#selectRoom").val(optionValue)
+                                                                        .find("option[value=" + optionValue + "]").attr('selected', true);
                                                                 }
-                                                            };
+                                                            });
 
+                                                            /* function changeRoom() {
+                                                                var currentRoom = document.getElementById("selectRoom").value;
+                                                                document.getElementById("currentNum").style.display = "block";
+                                                                document.getElementById("totalNum").style.display = "block";
+    
+                                                                function updateRoom() {
+                                                                    getLatestValue(currentRoom);
+                                                                    setTimeout(updateRoom, 5000);
+                                                                }
+                                                                updateRoom();
+                                                            } */
+
+                                                            $('#selectRoom').on('change', function () {
+                                                                currentRoom = $('#selectRoom').val();
+                                                                document.getElementById("currentCard").style.display = "block";
+                                                                document.getElementById("totalCard").style.display = "block";
+                                                                getLatestValue(currentRoom);
+                                                            });
+
+
+                                                            function getLatestValue(currentRoom) {
+
+                                                                rooms = new Set();
+
+                                                                docClient.scan(params, onScan);
+
+                                                                // Function that scans the table RoomsDB,
+                                                                // then adds the ID of the rooms in the list 'rooms'
+                                                                function onScan(err, data) {
+                                                                    if (err) {
+                                                                        console.log("Error", err);
+                                                                    } else {
+                                                                        data.Items.forEach(function (element) {
+                                                                            rooms.add(element.id);
+                                                                        });
+                                                                        rooms = Array.from(rooms);
+                                                                        rooms.sort();
+                                                                        console.log("success", rooms);
+
+                                                                        rooms.forEach(function (id) {
+                                                                            // Parameters of the query.
+                                                                            var params = {
+                                                                                TableName: "RoomsDB",
+                                                                                ProjectionExpression: "id, #ts, currentNum, totalNum",
+                                                                                KeyConditionExpression: "id = :roomId",
+                                                                                ExpressionAttributeNames: {
+                                                                                    "#ts": "timestamp"
+                                                                                },
+                                                                                ExpressionAttributeValues: {
+                                                                                    ":roomId": currentRoom
+                                                                                }
+                                                                            };
+
+                                                                            console.log("prova", currentRoom);
+
+
+                                                                            // Query for each room.
+                                                                            docClient.query(params, function (err, data) {
+                                                                                if (err) {
+                                                                                    console.log("Error", err);
+                                                                                } else {
+
+                                                                                    // In the variable 'latest' there will be the
+                                                                                    // last values inserted in the DB.
+                                                                                    // Since that the list is ordered from the oldest to
+                                                                                    // the newest value, I have to reverse it.
+                                                                                    var latest = data.Items.reverse()[0];
+                                                                                    console.log("success");
+
+                                                                                    // Insert latest value for the selected room.
+                                                                                    document.getElementById('current').innerHTML = latest.currentNum;
+                                                                                    document.getElementById('total').innerHTML = latest.totalNum;
+                                                                                }
+
+                                                                            });
+                                                                        });
+                                                                    }
+                                                                };
+
+                                                            }
                                                         }
+                                                        // Refresh the page every 5 seconds.
+                                                        function refreshPage() {
+                                                            main();
+                                                            setTimeout(refreshPage, 5000);
+                                                        }
+                                                        refreshPage();
                                                     }
                                                 </script>
 
@@ -2724,6 +2740,43 @@
 
             gtag('config', 'UA-23581568-13');
         </script>
-    </body>
+    <!-- Code injected by live-server -->
+<script type="text/javascript">
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script></body>
 
 </html>

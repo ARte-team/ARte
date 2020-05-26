@@ -109,9 +109,9 @@ static int con(char* addr, int port){
 }
 
 // function that permits to initialize the room at the first access only
-/*static int is_init(rooms* room){
+/*static int is_init(rooms* r){
   if(!flag){
-    room->flag = 1;
+    r->flag = 1;
     return 1;
   }
   return 0;
@@ -119,7 +119,7 @@ static int con(char* addr, int port){
 
 
 
-// function that initializes the struct
+// function that initializes the struct values
 static void init_num_people(t_rooms* r){
   r->currentNum = 0;
   r->totalNum   = 0;
@@ -155,14 +155,12 @@ static void gen_num_people(t_rooms* r){
 // new shell command: start the process
 static int cmd_start(int argc, char **argv){
   if (argc < 4) {
-      printf("Usage: %s <address> <port> <#rooms>\n", argv[0]);
+      printf("Usage: %s <address> <port> <roomID>\n", argv[0]);
       return 1;
   }
-  int i;
-  // total number of rooms
-  int numRooms = atoi(argv[3]);
+  
   // room structs
-  t_rooms* r[numRooms+1];
+  t_rooms* r = (t_rooms*)malloc(sizeof(t_rooms));
   // name of the topic
   char topic[32];
   sprintf(topic, "sensor/room");
@@ -170,17 +168,14 @@ static int cmd_start(int argc, char **argv){
   // json that it will published
   char json[128];
   
-  // initialize each room
-  for(i = 0; i < numRooms; i++){
-    init_num_people(r[i]);
-  }
+  // initialize the room
+  init_num_people(r);
   
   while(1){
     // it tries to connect to the gateway
     if (con(argv[1], atoi(argv[2]))) {
       continue;
     }
-    
     // takes the current date and time
     char datetime[20];
     time_t current;
@@ -192,25 +187,24 @@ static int cmd_start(int argc, char **argv){
       return 0;
     } 
 
-    for(i = 0; i < numRooms; i++){      
-      // update the values for each room
-      gen_num_people(r[i]);
+    // update the values for the room
+    gen_num_people(r);
       
-      // fills a json document for each room
-      sprintf(json, "{\"id\": \"%d\", \"timestamp\": \"%s\", \"currentNum\": \"%d\", \"totalNum\": \"%d\"}",
-                    i + 1, datetime, r[i]->currentNum, r[i]->totalNum);
+    // fills a json document for each room
+    sprintf(json, "{\"id\": \"%s\", \"timestamp\": \"%s\", \"currentNum\": \"%d\", \"totalNum\": \"%d\"}",
+                  argv[3], datetime, r->currentNum, r->totalNum);
 
-      // publish to the topic
-      pub(topic, json, 0);
-    }
+    // publish to the topic
+    pub(topic, json, 0);
 
     // it disconnects from the gateway
     discon();
 
+
     // it sleeps for five seconds
     xtimer_sleep(5);
   }
-
+  
   return 0;
 }
 
