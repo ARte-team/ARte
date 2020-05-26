@@ -319,7 +319,7 @@
                       <!-- Additions -->
                       <div class="pcoded-navigatio-lavel">Dashboard</div>
                       <ul class="pcoded-item pcoded-left-item">
-                          <li class="pcoded-hasmenu">
+                          <li class="pcoded-hasmenu active pcoded-trigger">
                               <a href="javascript:void(0)">
                                   <span class="pcoded-micon"><i class="feather icon-activity"></i></span>
                                   <span class="pcoded-mtext">Analytics</span>
@@ -330,8 +330,8 @@
                                           <span class="pcoded-mtext">General</span>
                                       </a>
                                   </li>
-                                  <li>
-                                      <a href="artworks.htm">
+                                  <li class="active">
+                                      <a href="">
                                           <span class="pcoded-mtext">Artworks</span>
                                       </a>
                                   </li>
@@ -347,7 +347,7 @@
                                   </li>
                               </ul>
                           </li>
-                          <li class="pcoded-hasmenu active pcoded-trigger">
+                          <li class="pcoded-hasmenu">
                               <a href="javascript:void(0)">
                                   <span class="pcoded-micon"><i class="feather icon-sliders"></i></span>
                                   <span class="pcoded-mtext">Manage artworks</span>
@@ -358,7 +358,7 @@
                                           <span class="pcoded-mtext">Add</span>
                                       </a>
                                   </li>
-                                  <li class="active">
+                                  <li>
                                       <a href="">
                                           <span class="pcoded-mtext">Edit</span>
                                       </a>
@@ -366,6 +366,10 @@
                               </ul>
                           </li>
                         </ul>
+
+                        <br>
+                        <br>
+                        <br>
                     </div>
                 </nav>
 
@@ -388,43 +392,100 @@
                         <!-- Main-body start -->
                         <div class="main-body">
                             <div class="page-wrapper">
-                                <!-- Page-header start -->
-                                <div id="pageHeader" class="page-header hide">
-                                    <div class="row align-items-end">
-                                        <div class="col-lg-8">
-                                            <div class="page-header-title">
-                                                <div class="d-inline">
-                                                    <h4 id="pageHeaderTitle">Discobolus</h4>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <div class="page-header-breadcrumb">
-                                                <ul class="breadcrumb-title">
-                                                    <li class="breadcrumb-item">
-                                                        <a href="index.htm"> <i class="feather icon-home"></i></a>
-                                                    </li>
-                                                    <li class="breadcrumb-item"><a href="manage_artworks_edit.htm">Search</a>
-                                                    </li>
-                                                    <li class="breadcrumb-item"><a id="searchName" href="">Discobolus</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Page-header end -->
 
                                     <div class="page-body">
                                         <div class="row">
                                             <div class="col-sm-12">
+
+                                              <!-- Most viewed artworks -->
+                                              <div class="card">
+                                                  <div class="card-header">
+                                                      <h5>Most viewed artworks</h5>
+                                                          <div class="card-header-right m-r-20">
+                                                            <ul class="list-unstyled card-option">
+                                                                <li><i class="feather icon-maximize full-card"></i></li>
+                                                                <li><i class="feather icon-minus minimize-card"></i></li>
+                                                                <li><i class="feather icon-trash-2 close-card"></i></li>
+                                                            </ul>
+                                                          </div>
+                                                  </div>
+                                                  <div class="card-block">
+                                                      <div class="table-responsive">
+                                                          <table class="table table-hover table-borderless">
+                                                                  <thead>
+                                                                      <tr>
+                                                                          <th>#</th>
+                                                                          <th></th>
+                                                                          <th>Name</th>
+                                                                          <th>Room</th>
+                                                                          <th>Views</th>
+                                                                          <th class="text-right">Most used feature</th>
+                                                                      </tr>
+                                                                  </thead>
+                                                                  <tbody>
+                                                                      <tr>
+                                                                          <td>1.</td>
+                                                                          <td><img src="..\files\assets\images\search-images\Discobolus.jpg" alt="" class="img-fluid img-30"></td>
+
+                                                                          <td>Discobolus</td>
+                                                                          <td>1</td>
+                                                                          <td>32029</td>
+                                                                          <td class="text-right">Contextualization (20328)</td>
+                                                                      </tr>
+                                                                      <tr>
+                                                                          <td>2.</td>
+                                                                          <td><img src="..\files\assets\images\search-images\Nike of Samothrace.png" alt="" class="img-fluid img-30"></td>
+
+                                                                          <td>Nike of Samothrace</td>
+                                                                          <td>4</td>
+                                                                          <td>31650</td>
+                                                                          <td class="text-right">Storytelling (23877)</td>
+                                                                      </tr>
+                                                                      <tr>
+                                                                          <td>3.</td>
+                                                                          <td><img src="..\files\assets\images\search-images\Kouros of Samo.jpg" alt="" class="img-fluid img-30"></td>
+
+                                                                          <td>Kouros of Samo</td>
+                                                                          <td>10</td>
+                                                                          <td>30956</td>
+                                                                          <td class="text-right">Contextualization (20375)</td>
+                                                                      </tr>
+                                                                      <tr>
+                                                                          <td>4.</td>
+                                                                          <td><img src="..\files\assets\images\search-images\Athena of Velletri.jpeg" alt="" class="img-fluid img-30"></td>
+
+                                                                          <td>Athena of Velletri</td>
+                                                                          <td>8</td>
+                                                                          <td>29689</td>
+                                                                          <td class="text-right">Animation (20799)</td>
+                                                                      </tr>
+                                                                      <tr>
+                                                                          <td>5.</td>
+                                                                          <td><img src="..\files\assets\images\search-images\Charioteer of Delphi.jpg" alt="" class="img-fluid img-30"></td>
+
+                                                                          <td>Charioteer of Delphi</td>
+                                                                          <td>5</td>
+                                                                          <td>29560</td>
+                                                                          <td class="text-right">Animation (23612)</td>
+                                                                      </tr>
+                                                                  </tbody>
+                                                              </table>
+                                                          </div>
+                                                      <div class="text-right  m-r-20">
+                                                          <a href="#" class="b-b-primary text-primary">View all</a>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                              <!-- /Most viewed artworks -->
+
+
                                                 <!-- Search result card start -->
                                                 <div class="card">
                                                     <div class="card-block">
                                                         <div class="row">
                                                             <div class="col-lg-6 offset-lg-3">
                                                               <h4 class="text-center"><b>Artwork Search Engine</b></h4>
-                                                              <p class="txt-highlight text-center m-t-20"> Search the artwork you want to modify</p>
+                                                              <p class="txt-highlight text-center m-t-20"> Enter the artwork you are looking for</p>
                                                             </div>
                                                         </div>
                                                         <div class="row search-header">
@@ -445,7 +506,7 @@
                                                     <div class="col-lg-3 col-md-4 col-sm-6 ">
                                                         <div class="card">
                                                             <span id="DiscobolusCard" class="pointer">
-                                                              <img class="card-img-top img-fluid" src="..\files\assets\images\search-images\Discobolus.jpg" alt="Card image cap">
+                                                              <img class="card-img-top img-fluid" src="..\files\assets\images\search-images\Discobolus.jpg" alt="Artwork image">
                                                               <div class="card-block">
                                                                 <h5 class="card-title">Discobolus</h5>
                                                             </span>
@@ -567,210 +628,54 @@
                                                 </div>
                                                 <!-- Search result found end -->
 
-                                                <!-- Non-editable artwork -->
-                                                <div id="nonEditArt" class="row hide">
-                                                  <div class="col-sm-12">
-                                                    <!-- Basic Form Inputs card start -->
-                                                    <div class="card">
-                                                      <div class="card-header">
-                                                        <div class="card-header-right m-r-20">
-                                                          <ul class="list-unstyled card-option">
-                                                              <li><i class="feather icon-maximize full-card"></i></li>
-                                                              <li><i id="btnCloseNonEdit" class="feather icon-trash-2"></i></li>
-                                                          </ul>
-                                                        </div>
-                                                      </div>
-                                                      <div class="card-block">
-                                                            <h5 class="sub-title">Discobolus &emsp;
-                                                              <i class="feather icon-edit form-txt-info pointer" data-toggle="modal" data-target="#editModal"></i>
-                                                            </h5>
-                                                          <form>
-                                                              <div class="form-group row">
-                                                                  <label class="col-sm-2 col-form-label">Title</label>
-                                                                  <div class="col-sm-10">
-                                                                      <input type="text" class="form-control" value="Discobolus" disabled="">
-                                                                  </div>
-                                                              </div>
-                                                              <div class="form-group row">
-                                                                  <label class="col-sm-2 col-form-label">Author</label>
-                                                                  <div class="col-sm-10">
-                                                                      <input type="text" class="form-control" value="Unknown" disabled="">
-                                                                  </div>
-                                                              </div>
-                                                              <div class="form-group row">
-                                                                  <label class="col-sm-2 col-form-label">Description</label>
-                                                                  <div class="col-sm-10">
-                                                                      <textarea rows="5" cols="5" class="form-control" placeholder="The Discobolus of Myron is a Greek sculpture completed at the start of the Classical Period..." disabled=""></textarea>
-                                                                  </div>
-                                                              </div>
-                                                              <div class="form-group row">
-                                                                  <label class="col-sm-2 col-form-label">Room</label>
-                                                                  <div class="col-sm-10">
-                                                                      <select name="select" class="form-control" disabled="">
-                                                                          <option value="opt1">1</option>
-                                                                          <option value="opt2">2</option>
-                                                                          <option value="opt3">3</option>
-                                                                          <option value="opt4">4</option>
-                                                                          <option value="opt5">5</option>
-                                                                          <option value="opt6">6</option>
-                                                                          <option value="opt7">7</option>
-                                                                          <option value="opt8">8</option>
-                                                                      </select>
-                                                                  </div>
-                                                              </div>
-                                                              <div class="form-group row">
-                                                                  <label class="col-sm-2 col-form-label">Upload 3D model</label>
-                                                                  <div class="col-sm-10">
-                                                                      <input type="file" class="form-control" disabled="">
-                                                                  </div>
-                                                              </div>
-                                                              <div class="form-group row">
-                                                                  <label class="col-sm-2 col-form-label">Upload photo</label>
-                                                                  <div class="col-sm-10">
-                                                                      <input type="file" class="form-control" disabled="">
-                                                                  </div>
-                                                              </div>
-                                                          </form>
-                                                      </div>
-                                                    </div>
-                                                  </div>
-                                                </div>
-                                                <!-- /Non-editable artwork -->
+                                                <!-- Artwork info -->
+                                                <div id="artInfo" class="card user-card-full hide">
+                                                      <div class="row">
+                                                            <div id="artInfoImage" class="col-sm-4 pointer">
+                                                                <img src="..\files\assets\images\search-images\Discobolus.jpg" class="img-fluid" alt="Artwork image">
+                                                            </div>
+                                                            <div class="col-sm-8">
 
-                                                <!-- When clicking on edit a modal will appear which will require to insert a password to edit -->
-                                                <!-- Editable artwork -->
-                                                <div id="editArt" class="row hide">
-                                                  <div class="col-sm-12">
-                                                    <!-- Basic Form Inputs card start -->
-                                                    <div class="card">
-                                                      <div class="card-header">
-                                                        <div class="card-header-right m-r-20">
-                                                          <ul class="list-unstyled card-option">
-                                                              <li><i class="feather icon-maximize full-card"></i></li>
-                                                              <li><i id="btnCloseEdit" class="feather icon-trash-2"></i></li>
-                                                          </ul>
-                                                        </div>
-                                                      </div>
-                                                      <div class="card-block">
-                                                          <h5 class="sub-title">Discobolus</h5>
-                                                          <form>
-                                                              <div class="form-group row">
-                                                                  <label class="col-sm-2 col-form-label">Title</label>
-                                                                  <div class="col-sm-10">
-                                                                      <input type="text" class="form-control" value="Type the title of the artwork">
-                                                                  </div>
-                                                              </div>
-                                                              <div class="form-group row">
-                                                                  <label class="col-sm-2 col-form-label">Author</label>
-                                                                  <div class="col-sm-10">
-                                                                      <input type="text" class="form-control" value="Type the author of the artwork">
-                                                                  </div>
-                                                              </div>
-                                                              <div class="form-group row">
-                                                                  <label class="col-sm-2 col-form-label">Description</label>
-                                                                  <div class="col-sm-10">
-                                                                      <textarea rows="5" cols="5" class="form-control">The Discobolus of Myron is a Greek sculpture completed at the start of the Classical Period...</textarea>
-                                                                  </div>
-                                                              </div>
-                                                              <div class="form-group row">
-                                                                  <label class="col-sm-2 col-form-label">Room</label>
-                                                                  <div class="col-sm-10">
-                                                                      <select name="select" class="form-control">
-                                                                          <option value="opt1">1</option>
-                                                                          <option value="opt2">2</option>
-                                                                          <option value="opt3">3</option>
-                                                                          <option value="opt4">4</option>
-                                                                          <option value="opt5">5</option>
-                                                                          <option value="opt6">6</option>
-                                                                          <option value="opt7">7</option>
-                                                                          <option value="opt8">8</option>
-                                                                      </select>
-                                                                  </div>
-                                                              </div>
-                                                              <div class="form-group row">
-                                                                  <label class="col-sm-2 col-form-label">Upload 3D model</label>
-                                                                  <div class="col-sm-10">
-                                                                      <input type="file" class="form-control">
-                                                                  </div>
-                                                              </div>
-                                                              <div class="form-group row">
-                                                                  <label class="col-sm-2 col-form-label">Upload photo</label>
-                                                                  <div class="col-sm-10">
-                                                                      <input type="file" class="form-control">
-                                                                  </div>
-                                                              </div>
-                                                              <div class="form-group row">
-                                                                <div class="col-sm-10">
-                                                                    <button id="btnSubmit" type="button" class="btn btn-info">Submit</button>
+                                                                <div class="card-header">
+                                                                    <h5>Information</h5>
+                                                                    <div class="card-header-right m-r-20">
+                                                                      <ul class="list-unstyled card-option">
+                                                                          <li><i class="feather icon-maximize full-card"></i></li>
+                                                                          <li><i id="btnClose" class="feather icon-trash-2"></i></li>
+                                                                      </ul>
+                                                                    </div>
+                                                                    <hr>
                                                                 </div>
-                                                              </div>
-                                                          </form>
-                                                      </div>
-                                                  </div>
-                                                </div>
-                                              </div>
-                                              <!-- /Editable artwork -->
 
-                                              <!-- Edit modal-->
-                                              <div id="editModal" class="modal fade" role="dialog">
-                                                  <div class="modal-dialog">
-                                                      <div class="login-card card-block login-card-modal">
-                                                          <form class="md-float-material">
-                                                              <!--<div class="text-center">
-                                                                  <img src="..\files\assets\images\auth\logo.png" alt="logo.png">
-                                                              </div>-->
-                                                              <div class="card m-t-15">
-                                                              <div class="auth-box card-block">
-                                                                  <div class="row m-b-20">
-                                                                      <div class="col-md-12">
-                                                                          <h3 class="text-center txt-primary">Insert your password to continue</h3>
-                                                                      </div>
-                                                                  </div>
-                                                                  <hr>
-                                                                  <div class="input-group">
-                                                                      <input id="passModal" type="password" class="form-control" placeholder="Password">
-                                                                      <span class="md-line"></span>
-                                                                  </div>
-                                                                  <div class="input-group">
-                                                                      <input id="confirmPassModal" type="password" class="form-control" placeholder="Confirm Password">
-                                                                      <span class="md-line"></span>
-                                                                  </div>
-                                                                  <!--<div class="row m-t-25 text-left">
-                                                                      <div class="col-sm-6 col-xs-12">
-                                                                          <div class="checkbox-fade fade-in-primary">
-                                                                              <label>
-                                                                                  <input type="checkbox" value="">
-                                                                                  <span class="cr"><i class="cr-icon icofont icofont-ui-check txt-primary"></i></span>
-                                                                                  <span class="text-inverse">Remember me</span>
-                                                                              </label>
-                                                                          </div>
-                                                                      </div>
-                                                                      <div class="col-sm-6 col-xs-12 forgot-phone text-right">
-                                                                          <a href="auth-reset-password.htm" class="text-right f-w-600 text-inverse"> Forgot Password?</a>
-                                                                      </div>
-                                                                  </div>-->
-                                                                  <div class="modal-footer">
-                                                                          <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-                                                                          <button id="btnContinue" type="button" class="btn btn-primary waves-effect text-center">Continue</button>
-                                                                  </div>
-                                                                  <!--<hr>
-                                                                  <div class="row">
-                                                                      <div class="col-md-10">
-                                                                          <p class="text-inverse text-left m-b-0">Thank you and enjoy our website.</p>
-                                                                          <p class="text-inverse text-left"><b>Your Authentication Team</b></p>
-                                                                      </div>
-                                                                      <div class="col-md-2">
-                                                                          <img src="..\files\assets\images\auth\Logo-small-bottom.png" alt="small-logo.png">
-                                                                      </div>
-                                                                  </div>-->
-                                                              </div>
-                                                              </div>
-                                                          </form>
-                                                          <!-- end of form -->
-                                                      </div>
-                                                  </div>
-                                              </div>
-                                              <!-- /Edit modal-->
+                                                                <div class="card-block">
+                                                                    <!--<h6 class="m-b-20 p-b-5 b-b-default f-w-600">Information</h6>-->
+
+                                                                    <div class="row">
+                                                                        <div class="col-sm-6">
+                                                                            <p class="m-b-10 f-w-600">Views</p>
+                                                                            <h6 class="text-muted f-w-400">32029</h6>
+                                                                        </div>
+                                                                        <div class="col-sm-6">
+                                                                            <p class="m-b-10 f-w-600">Most used feature</p>
+                                                                            <h6 class="text-muted f-w-400">Contextualization (20328)</h6>
+                                                                        </div>
+                                                                    </div>
+                                                                    <h6 class="m-b-20 m-t-40 p-b-5"></h6>
+                                                                    <div class="row">
+                                                                        <div class="col-sm-6">
+                                                                            <p class="m-b-10 f-w-600">Room</p>
+                                                                            <h6 class="text-muted f-w-400">1</h6>
+                                                                        </div>
+                                                                        <div class="col-sm-6">
+                                                                            <p class="m-b-10 f-w-600">Least used feature</p>
+                                                                            <h6 class="text-muted f-w-400">Rebuilding missing components (529)</h6>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                    </div>
+                                                </div>
+                                                <!-- /Artwork info -->
 
                                             </div>
                                         </div>
@@ -799,8 +704,7 @@
         var input = $("#searchText").val();
         $("#searchResultTitle").fadeOut();
         $("#searchResultCards").fadeOut();
-        $("#nonEditArt").fadeOut();
-        $("#editArt").fadeOut();
+        $("#artInfo").fadeOut();
 
 
         if(searchArtwork(input).length == 0) {
@@ -813,7 +717,6 @@
         $("#pageHeaderTitle").text(input);
         $("#searchName").text(input);
 
-        $("#pageHeader").fadeIn();
         $("#searchResultTitle").fadeIn();
         $("#searchResultCards").fadeIn();
       }
@@ -837,44 +740,27 @@
       document.getElementById("DiscobolusCard").onclick = function () {
         $("#searchResultTitle").fadeOut();
         $('#searchResultCards').fadeOut();
-        $('#nonEditArt').fadeIn()
+        setTimeout(function() {
+          $('#artInfo').fadeIn();
+        }, 400);
       }
 
-      document.getElementById("btnCloseNonEdit").onclick = function () {
-        $('#nonEditArt').fadeOut()
-        $("#searchResultTitle").fadeIn();
-        $('#searchResultCards').fadeIn();
+      document.getElementById("artInfoImage").onclick = function () {
+        closeCard();
       }
 
-      document.getElementById("btnCloseEdit").onclick = function () {
-        $('#editArt').fadeOut()
-        $("#searchResultTitle").fadeIn();
-        $('#searchResultCards').fadeIn();
+      document.getElementById("btnClose").onclick = function () {
+        closeCard();
       }
 
-      document.getElementById("btnContinue").onclick = function () {
-        if(!checkPassword())
-          return;
-
-        this.setAttribute("data-dismiss", "modal");
-        document.getElementById('nonEditArt').style.display = "none";
-        document.getElementById('editArt').style.display    = "inherit";
+      function closeCard() {
+        $("#artInfo").fadeOut();
+        setTimeout(function() {
+          $('#searchResultTitle').fadeIn();
+          $('#searchResultCards').fadeIn();
+        }, 400);
       }
 
-      function checkPassword() {
-        var pass    = document.getElementById("passModal").value;
-        var confirm = document.getElementById("confirmPassModal").value;
-
-        if(pass != confirm)
-          return false;
-
-        // TODO check password with the one of the user
-        return true;
-      }
-
-      document.getElementById("btnSubmit").onclick = function () {
-        // TODO send to backend
-      }
 
     }
     </script>

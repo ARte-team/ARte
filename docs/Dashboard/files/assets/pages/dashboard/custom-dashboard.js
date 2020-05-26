@@ -104,6 +104,7 @@ $(document).ready(function() {
         };
     }
 
+
     $(function() {
         var amchart = AmCharts.makeChart("sales-analytics", {
             "type": "serial",
@@ -343,7 +344,8 @@ $(document).ready(function() {
         }
     });
 
-    var ctx = document.getElementById('app-sale1').getContext("2d");
+    /* Commented in index.htm */
+    /*var ctx = document.getElementById('app-sale1').getContext("2d");
     var myChart = new Chart(ctx, {
         type: 'line',
         data: amuntchart('#11c15b', [1, 15, 30, 15, 25, 35, 45, 20, 25, 30], 'transparent'),
@@ -366,7 +368,7 @@ $(document).ready(function() {
         type: 'line',
         data: amuntchart('#536dfe', [1, 15, 45, 15, 25, 35, 45, 20, 25, 30], 'transparent'),
         options: buildchartoption(),
-    });
+    });*/
 
     function amuntchart(a, b, f) {
         if (f == null) {
