@@ -607,6 +607,7 @@
                                                                   <label class="col-sm-2 col-form-label">Room</label>
                                                                   <div class="col-sm-10">
                                                                       <select name="select" class="form-control" disabled="">
+                                                                          <option value="opt0">None</option>
                                                                           <option value="opt1">1</option>
                                                                           <option value="opt2">2</option>
                                                                           <option value="opt3">3</option>
@@ -615,6 +616,9 @@
                                                                           <option value="opt6">6</option>
                                                                           <option value="opt7">7</option>
                                                                           <option value="opt8">8</option>
+                                                                          <option value="opt9">9</option>
+                                                                          <option value="opt10">10</option>
+                                                                          <option value="opt11">11</option>
                                                                       </select>
                                                                   </div>
                                                               </div>
@@ -676,6 +680,7 @@
                                                                   <label class="col-sm-2 col-form-label">Room</label>
                                                                   <div class="col-sm-10">
                                                                       <select name="select" class="form-control">
+                                                                          <option value="opt0">None</option>
                                                                           <option value="opt1">1</option>
                                                                           <option value="opt2">2</option>
                                                                           <option value="opt3">3</option>
@@ -684,6 +689,9 @@
                                                                           <option value="opt6">6</option>
                                                                           <option value="opt7">7</option>
                                                                           <option value="opt8">8</option>
+                                                                          <option value="opt9">9</option>
+                                                                          <option value="opt10">10</option>
+                                                                          <option value="opt11">11</option>
                                                                       </select>
                                                                   </div>
                                                               </div>
@@ -701,6 +709,9 @@
                                                               </div>
                                                               <div class="form-group row">
                                                                 <div class="col-sm-10">
+                                                                    <button id="btnDelete" type="button" class="btn btn-danger">Delete artwork</button>
+                                                                    &emsp;
+
                                                                     <button id="btnSubmit" type="button" class="btn btn-info">Submit</button>
                                                                 </div>
                                                               </div>
@@ -771,6 +782,11 @@
                                                   </div>
                                               </div>
                                               <!-- /Edit modal-->
+
+                                              <!-- /Submit modal-->
+
+                                              <!-- /Submit modal-->
+
 
                                             </div>
                                         </div>
@@ -873,8 +889,65 @@
       }
 
       document.getElementById("btnSubmit").onclick = function () {
-        // TODO send to backend
+        // TODO send update to backend
+
+        swal("The artwork has been submitted!", {
+          icon: "success",
+          buttons: {
+            confirm: {
+              text: "Ok",
+              value: true,
+              visible: true,
+              className: "btn btn-primary",
+              closeModal: true
+            }
+         }
+       });
+
       }
+
+      document.getElementById("btnDelete").onclick = function () {
+        // TODO send delete to backend
+
+        swal({
+          title: "Are you sure?",
+          text: "You will not be able to undo this action!",
+          icon: "warning",
+          dangerMode: true,
+          buttons: {
+            cancel: {
+              text: "Cancel",
+              value: false,
+              visible: true,
+              className: "btn btn-default",
+              closeModal: true,
+            },
+            confirm: {
+              text: "Yes, delete it",
+              value: true,
+              visible: true,
+              className: "btn btn-danger",
+              closeModal: true
+            }
+        }
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+          swal("The artwork has been deleted!", {
+            icon: "success",
+            buttons: {
+              confirm: {
+                text: "Ok",
+                value: true,
+                visible: true,
+                className: "btn btn-primary",
+                closeModal: true
+              }
+          }
+        });
+      }
+     });
+    }
 
     }
     </script>
@@ -935,6 +1008,9 @@
     <!-- modernizr js -->
     <script type="text/javascript" src="..\files\bower_components\modernizr\js\modernizr.js"></script>
     <script type="text/javascript" src="..\files\bower_components\modernizr\js\css-scrollbars.js"></script>
+
+    <!-- Sweet alert js -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <!-- i18next.min.js -->
     <script type="text/javascript" src="..\files\bower_components\i18next\js\i18next.min.js"></script>
