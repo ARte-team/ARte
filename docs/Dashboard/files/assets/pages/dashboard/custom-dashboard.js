@@ -1,6 +1,7 @@
 'use strict';
 $(document).ready(function() {
-    var ctx = document.getElementById('update-chart-1').getContext("2d");
+    // Commented in index.htm
+    /*var ctx = document.getElementById('update-chart-1').getContext("2d");
     var myChart = new Chart(ctx, {
         type: 'bar',
         data: valincome('#fff', [25, 30, 20, 15, 20], '#fff'),
@@ -342,7 +343,7 @@ $(document).ready(function() {
         function zoomChart() {
             amchart.zoomToIndexes(Math.round(amchart.dataProvider.length * 0.4), Math.round(amchart.dataProvider.length * 0.55));
         }
-    });
+    });*/
 
     /* Commented in index.htm */
     /*var ctx = document.getElementById('app-sale1').getContext("2d");
