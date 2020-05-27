@@ -3,7 +3,7 @@
 ## Overview
 In a kind of system as the one we want to create, **performances** need to be evaluated using different metrics, which are related to technical aspects, but also to user experience parameters.
 As explained in [design](Design.md) and [architecture](Architecture.md) sections, the users that will use ARte application are of two different types: visitors, which have to easily interact with the smartphone app, via an **intuitive** and attractive interface, and managers, which need data displayed in an understandable way and a **feasible** method to update artworks information.
-For sure another aspect that a final user will take into account will be **response time** performances, as no user will use the application if it isn’t enough **smooth** and no manager will allow to wait for required data for a too large amount of time.
+For sure another aspect that a final user will take into account will be **response time** performances, as no user will use the application if it isn’t enough **smooth** and no manager will allow to wait for required data for a too large amount of time.  In order to achieve this results we also have to take into account the hardware components and verify the correctness of their implementation.  
 
 More in general, the **Key Performance Indicator** or **KPI**, provides a good understanding of the four main indicators a developer has to take care when projecting a new service:
 
@@ -29,16 +29,27 @@ User experience is the first main aspect to be considered for the two web apps. 
 ## Technical
 *QoS* (Quality of Service) is crucial for this system, this means we have different aspects that have to be analyzed from a technical point of view, such as:
 
-- **Latency**: the product needs to be efficient, so the values computed by the sensors and the actions performed by users (also by museum managers) must be registered without delays.
-- **Scalability**: the whole system needs to remain performant with the increasing number of connected visitors, connected managers or registered works of art.
-- **Performance**: it regards computational complexity, as code execution needs to be maintained fast. Algorithmic optimization is one of the keys for a good service.
+- **Latency**: the product needs to be efficient, so the values computed by the sensors of the boards and the actions performed by users (also by museum managers) must be registered without delays.
+- **Scalability**: the whole system needs to remain performant with the increasing number of connected visitors, connected managers or registered works of art. A new STM board, for example, must be able to be added in the museum without having the need to rework the whole infrastructure.
+- **Performance**: it regards computational complexity, as code execution needs to be maintained fast. Algorithmic optimization is one of the keys for a good service. This is a crucial point on a board like the one we want to use, as its hardware is not the most performing one.
 - **Reliability**: the used networks protocols has to assure the communication went fine, notifying the delivery of data. This is a synonym for assurance.
 - **Compliance with standards**: the code has to respect the main standards of good programming.
-- **Cost**: the whole system doesn’t have to impact to much on museum’s expenses. The components have to be quite cheap and also cloud services has to be chosen looking at the best price/quality option.
+- **Cost**: the whole system doesn’t have to impact to much on museum’s expenses. The components, which in our case are the STM boards and their sensors, have to be quite cheap and also cloud services has to be chosen looking at the best price/quality option.
 
 Security is also really important so we'll have to study how to avoid vulnerabilities. We have chosen Amazon AWS services, because their specific features and technical aspects coincide with our needs, in overspecified terms, in particular for the part of the MQTT message broker.
 
 ![Technology evaluation](/img/technology_evaluation.png)
+
+## Hardware and software choice
+ARte project is composed by different hardware components and software services. The previously mentioned features have been crucial in the choice of the different parts we’ll use to assemble the puzzle:
+
+- **STM32 Nucleo board**: This board was the first option we considered as it adopted the requested Cortex processor and it can implement the X-NUCLEO-53L0A1 expansion, needed for our people counting feature. Technical evaluations of its functioning will be done with empirical tests: counting people in the room in a real situation and comparing the number with the one obtained from the software. 
+- **Amazon AWS services**: One of the main features we considered when we analyzed the different cloud services on the market, was the cost. Amazon was the one which provided best performances with the higher saving. Every subservice we adopted has also some favorable characteristics:
+    - **DynamoDB**: it allows automatic rules for received message events from the AWS broker, ensuring reliability from broker and database, but also low latency, being designed and optimized for this purpose.
+    - **AWS IoT core**: it offers a really good broker and also a good level of security. Full table of the broker features is proposed at the end of the document.
+    - **AWS Lambda functions**: they are again helpful from the point of view of the performances aiming to have low latency in the final implementation, maintaining also a good grade of scalability. Their main role will be to optimize the size of the database relations.
+    - **Cognito**: the provided SDK help us with security problems, avoiding exposure of Amazon AWS access keys.
+- **AR.js APIs**: after having analysed different augmented reality libraries, we chose this one, because it offers a really simple implementation method and is probably the less experimental one, having a really good compatibility with all the browsers.
 
 ## Tools and techniques for evaluation
 Here we propose some tools or technique that can be used to evaluate the before mentioned metrics:
