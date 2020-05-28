@@ -15,6 +15,17 @@ The world is continuously evolving and the way to visit a museum it is no an exc
 
 ![Interaction chart](/img/chart_interaction.png)  
 
+Analyzing the answers, 91,2% of the users like to visit museum, but also the 93,8% of them admits that they would like to have some different kinds of interactions with the artworks. Moreover, someone in the small percentage who doesn’t like visit museum adds that he/she doesn’t like it because *“most of time the visit is not involving enough”* or because a simple visit may be *“boring”*. Furthermore, when we asked what they expect to find inside the *Sapienza's Arte Classica Museum? (in terms of artworks and services related to them)*, some answers focused again on **interactivity**.  
+
+Again, the majority of users would use an app to enhance their visit inside a museum
+
+![Improve experience chart](/img/chart_improve_experience.png)
+
+and half of all users would be tempted to go to a museum only knowing that they can interact with artworks
+
+![App temptation chart](/img/chart_app_temptation.png)
+
+In conclusion the need is real and is also justified by several investments done by some museums in the worlds like *The National Museum of Singapore*, *The Art Gallery of Ontario (Toronto)* and *The Smithsonian Institution, Washington D.C*.
 
 To fill this gap, we selected some features, among those proposed, for the smartphone app based on audience preferences.
 
@@ -55,10 +66,18 @@ To give you a better idea of our product, here you can find a storyboard for eac
 
 ## Museum’s managers
 In addition to visitors, we have another type of user who doesn’t use the **ARte** web app and that we haven’t mentioned so far: the museum’s manager. Few people belong to this group and are interested to **analyze data** for statistical purposes in order to find useful information for the museum. To meet this demand, we developed a website in which the museum’s managers, once logged in, can access data via a simple **dashboard**.  
-But what data? Never heard about **crowdsensing**? It is a technique where a large group of individuals having mobile devices capable of sensing and computing collectively share informations. Such data are sent completely **anonymously** by the visitors’ smartphones, after an explicit agreement of the user, and by several **STM32 Nucleo boards**. These are installed in each room of the museum and provide info by counting the number of visitors who entering and leaving. In this way museum’s manager may have a complete view on what happens inside the museum.  
+But what data? Never heard about **crowdsensing**? It is a technique where a large group of individuals having mobile devices capable of sensing and computing collectively share informations. Such data are sent completely **anonymously** by the visitors’ smartphones, after an explicit agreement of the user.  
+Smartphones are not the only devices which collect data because several **STM32 Nucleo boards** are installed in each room of the museum and provide info by **counting the number of visitors** who entering and leaving.
 
 ![People counting](/img/people_counting.png)  
 
+In the current particular historical period (COVID-19), this information can help maintaining **social distancing** and avoiding crowded situations, having the possibility for an user to **real-time** consult, via a map accessible in the web app, how much people are in next rooms we want to visit and, so, enter them later on. Moreover, this data are both displayed in the dashboard and placing a **LED** above each room entry, in order to avoid entering an excessive number of people in already crowded areas. In this way, the staff and users may can immediately know if the room in front of them is full or not.
+
+![Room situation](/img/led.png)  
+
+![Led chart](/img/chart_led.png)  
+
+In this way museum’s manager may have a complete view on what happens inside the museum.  
 Here there’s a not exhaustive list of what they can do:
 - to know what is the **favorite artwork** via data provided by the ARte web app
 - to know what is the **most visited room** via data sent by boards
@@ -73,3 +92,6 @@ We remember you again that we care about **privacy**, so data are collected comp
 In the end, the museum’s managers will also be allowed to update and edit informations about artworks, such as the position inside the museum, title, description or author via the dashboard. This will provide a good level of readjustment in case of museum rearranging.
 
 If you want to know more about how our system works, we suggest you take a look at the [ARte Architecture](Architecture.md).
+
+
+[Version 1](https://github.com/ARte-team/ARte/blob/325640a8c1b247c1c019b6fa6bcdf795172146f2/Design.md) of the document.

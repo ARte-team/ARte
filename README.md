@@ -22,5 +22,24 @@ At the same time, after an explicit agreement of the user, several data are anon
 - [Design](Design.md): a document that shows some details on the product/service from the user point of view.
 - [Architecture](Architecture.md): a document that includes details on the technical aspects of the product/service, including a high-level presentation of the conceptual architecture of the software and hardware components that make up the product/service, a description of the main software/hardware components, how these components interact and a network architecture.
 - [Evaluation](Evaluation.md): a document that provides details on how to evaluate the product/service, from a user experience point of view and from a technical point of view. The document describes the evaluation methodology for both the overall system as well as each individual component for the technical/user dimensions.
+- [2nd delivery](2nd delivery.md): a document that that briefly explains:
+  - the comments that we received during the 1st delivery and how we have addressed them,
+  - changes made to our design, architecture and evaluation plan since the 1st delivery,
+  - a brief presentation of the technical work done since the 1st delivery,
+  - a brief list of the functionalities that is still missing and will be done till the 3rd and final delivery,
+  - a brief presentation of the evaluation conducted since the 1st delivery,
+  - a brief list of what we expect to evaluate till the 3rd and final delivery.
+
+
+## Presentation 1
 - [Presentation](https://www.youtube.com/watch?v=NhSiwsODgNk&list=PLzUKKQs-wK7qTVbKUREnxrMRjf7VF-Sfi&index=2&t=0s) of the product/idea and the evaluation plan.
 - [Presentation](https://www.youtube.com/watch?v=OHi1ydnEaDs&list=PLzUKKQs-wK7qTVbKUREnxrMRjf7VF-Sfi&index=3&t=0s) of the technical approach and architecture.
+- Presentation lecture [slides]().
+- [Results](https://docs.google.com/forms/d/1Dy7tSe--2VEJ7W5ga6v32OjPgh2kgCQf6i635NsuEJ0/viewanalytics) of the first survey about the idea
+
+## Presentation 2
+- [Presentation](https://www.youtube.com/watch?v=E1BUo850kt4) of the project from a technical point of view, including a demo.
+- [Presentation](https://www.youtube.com/watch?v=qAFmwJzEGRQ&list=PLzUKKQs-wK7qTVbKUREnxrMRjf7VF-Sfi&index=4) of the evaluation of the project that has already be done.
+- [Presentation]() of the future plans for technical development and evaluation until the 3rd and final delivery
+- Presentation lecture [slides]().
+- [Results](https://docs.google.com/forms/d/11A8Guf2jv1bYf-7WIxithKmYAJZCRF3bdkaXESRKFlY/viewanalytics) of the second survey about the UX, UI and the idea.
