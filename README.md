@@ -40,6 +40,6 @@ At the same time, after an explicit agreement of the user, several data are anon
 ## Presentation 2
 - [Presentation](https://www.youtube.com/watch?v=E1BUo850kt4) of the project from a technical point of view, including a demo.
 - [Presentation](https://www.youtube.com/watch?v=qAFmwJzEGRQ&list=PLzUKKQs-wK7qTVbKUREnxrMRjf7VF-Sfi&index=4) of the evaluation of the project that has already be done.
-- [Presentation]() of the future plans for technical development and evaluation until the 3rd and final delivery
+- [Presentation](https://www.youtube.com/watch?v=Ld-WSwqXUuI) of the future plans for technical development and evaluation until the 3rd and final delivery
 - Presentation lecture [slides]().
 - [Results](https://docs.google.com/forms/d/11A8Guf2jv1bYf-7WIxithKmYAJZCRF3bdkaXESRKFlY/viewanalytics) of the second survey about the UX, UI and the idea.
