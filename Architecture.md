@@ -41,4 +41,5 @@ where the *artworkID* attribute is the primary key, *datetime* references to the
 ### Website
 Implemented using the main web programming languages as *HTML* and *Javascript*, it offers a *Bootstrap* realized frontend for museum’s managers. Selected and reworked informations are proposed in a simple and comprehensible **dashboard**, with the use of charts and diagrams. Its functionalities include the possibility to modify information about a specific work of art, to remove it and to add a new one. It also displays informations about the most visited areas both in real-time via MQTT broker messaging system and querying the database via javascript APIs provided by Amazon AWS.
 
+## Previous versions
 [Version 1](https://github.com/ARte-team/ARte/blob/325640a8c1b247c1c019b6fa6bcdf795172146f2/Architecture.md) of the document.

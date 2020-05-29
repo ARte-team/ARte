@@ -39,8 +39,8 @@ At the same time, after an explicit agreement of the user, several data are anon
 - [Results](https://docs.google.com/forms/d/1Dy7tSe--2VEJ7W5ga6v32OjPgh2kgCQf6i635NsuEJ0/viewanalytics) of the first survey about the idea
 
 ## Presentation 2
-- [Presentation](https://www.youtube.com/watch?v=E1BUo850kt4) of the project from a technical point of view, including a demo.
-- [Presentation](https://www.youtube.com/watch?v=qAFmwJzEGRQ&list=PLzUKKQs-wK7qTVbKUREnxrMRjf7VF-Sfi&index=4) of the evaluation of the project that has already be done.
-- [Presentation](https://www.youtube.com/watch?v=Ld-WSwqXUuI) of the future plans for technical development and evaluation until the 3rd and final delivery
+- [Presentation](https://www.youtube.com/watch?v=E1BUo850kt4&list=PLzUKKQs-wK7qTVbKUREnxrMRjf7VF-Sfi&index=3) of the project from a technical point of view, including a demo.
+- [Presentation](https://www.youtube.com/watch?v=Ld-WSwqXUuI&list=PLzUKKQs-wK7qTVbKUREnxrMRjf7VF-Sfi&index=5) of the evaluation of the project that has already been done.
+- [Presentation](https://www.youtube.com/watch?v=qAFmwJzEGRQ&list=PLzUKKQs-wK7qTVbKUREnxrMRjf7VF-Sfi&index=4) of the future plans for technical development and evaluation until the 3rd and final delivery.
 - Presentation lecture [slides](/presentations/Presentation2.pdf).
 - [Results](https://docs.google.com/forms/d/11A8Guf2jv1bYf-7WIxithKmYAJZCRF3bdkaXESRKFlY/viewanalytics) of the second survey about the UX, UI and the idea.

@@ -43,7 +43,7 @@ Security is also really important so we'll have to study how to avoid vulnerabil
 ## Hardware and software choice
 ARte project is composed by different hardware components and software services. The previously mentioned features have been crucial in the choice of the different parts we’ll use to assemble the puzzle:
 
-- **STM32 Nucleo board**: This board was the first option we considered as it adopted the requested Cortex processor and it can implement the X-NUCLEO-53L0A1 expansion, needed for our people counting feature. Technical evaluations of its functioning will be done with empirical tests: counting people in the room in a real situation and comparing the number with the one obtained from the software. 
+- **STM32 Nucleo board**: This board was the first option we considered as it adopted the requested Cortex processor and it can implement the X-NUCLEO-53L0A1 expansion, needed for our people counting feature. Technical evaluations of its functioning will be done with empirical tests: counting people in the room in a real situation and comparing the number with the one obtained from the software.
 - **Amazon AWS services**: One of the main features we considered when we analyzed the different cloud services on the market, was the cost. Amazon was the one which provided best performances with the higher saving. Every subservice we adopted has also some favorable characteristics:
     - **DynamoDB**: it allows automatic rules for received message events from the AWS broker, ensuring reliability from broker and database, but also low latency, being designed and optimized for this purpose.
     - **AWS IoT core**: it offers a really good broker and also a good level of security. Full table of the broker features is proposed at the end of the document.
@@ -54,11 +54,11 @@ ARte project is composed by different hardware components and software services.
 ## Tools and techniques for evaluation
 Here we propose some tools or technique that can be used to evaluate the before mentioned metrics:
 
-- [**Pagespeeds**](https://developers.google.com/speed/pagespeed/insights) by Google and [**Pingdom**](https://tools.pingdom.com/) are really great tools which can provide a complexive evaluation for webapp page loading and AR response times. They also offer informations about GUI and accessibility quality. The browser console can also be used for more details.
+- [Pagespeeds](https://developers.google.com/speed/pagespeed/insights) by Google and [Pingdom](https://tools.pingdom.com/) are really great tools which can provide a complexive evaluation for webapp page loading and AR response times. They also offer informations about GUI and accessibility quality. The browser console can also be used for more details.
 - **AWS services table** offers detailed informations about limits and available resources for each user. Observing it we can evaluate if it can be the right choice in terms of MQTT broker performances such as: message delivery times, multiple supported publishes and subscribes, etc. All these informations will be described in the last section of this document. They are also useful in the evaluation of the database performances.
 - **Users’ reactions and feedbacks** are another method, and probably the most effective one, to understand if all the aspects regarding user experience were satisfied. The main idea can also be improved with users’ proposals.
-- [**W3C validator**](https://validator.w3.org/) plays an important role in evaluating if the webcode respects technical standards.
-- [**Web accessibility**](https://webaccessibility.com/) website and [**a11y**](https://color.a11y.com/?wc3) color contrast analyzer are really good tools to quick evaluate accessibility, looking at readable fonts, optimal dimensions, color contrast, etc.
+- [W3C validator](https://validator.w3.org/) plays an important role in evaluating if the webcode respects technical standards.
+- [Web accessibility](https://webaccessibility.com/) website and [a11y](https://color.a11y.com/?wc3) color contrast analyzer are really good tools to quick evaluate accessibility, looking at readable fonts, optimal dimensions, color contrast, etc.
 
 ## AWS IoT Core Message Broker
 
@@ -78,3 +78,7 @@ Here we propose some tools or technique that can be used to evaluate the before 
 | Subscriptions per connection | AWS IoT Core supports 50 subscriptions per connection. AWS IoT Core might reject subscription requests on the same connection in excess of this amount and the connection is closed. Clients should validate the SUBACK message to ensure that their subscription requests have been successfully processed. | 50 | No |
 | Subscriptions per second per account | AWS IoT Core restricts an account to a maximum number of subscriptions per second. For example, if there are 2 MQTT SUBSCRIBE requests sent within a second, each with 3 subscriptions (topic filters), AWS IoT Core counts those as 6 subscriptions. | 500 | Yes |
 | Throughput per second per connection | Data received or sent over a client connection is processed at a maximum throughput rate. Data that exceeds the maximum throughput is delayed in processing. | 512 KiB | No |
+
+
+## Previous versions
+[Version 1](https://github.com/ARte-team/ARte/blob/325640a8c1b247c1c019b6fa6bcdf795172146f2/Evaluation.md) of the document.

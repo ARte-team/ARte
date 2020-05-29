@@ -25,7 +25,7 @@ and half of all users would be tempted to go to a museum only knowing that they 
 
 ![App temptation chart](/img/chart_app_temptation.png)
 
-In conclusion the need is real and is also justified by several investments done by some museums in the worlds like *The National Museum of Singapore*, *The Art Gallery of Ontario (Toronto)* and *The Smithsonian Institution, Washington D.C*.
+In conclusion the need is real and is also justified by several investments done by some museums in the worlds like *The National Museum of Singapore*, *The Art Gallery of Ontario (Toronto)* and *The Smithsonian Institution (Washington D.C.)*.
 
 To fill this gap, we selected some features, among those proposed, for the smartphone app based on audience preferences.
 
@@ -93,5 +93,5 @@ In the end, the museum’s managers will also be allowed to update and edit info
 
 If you want to know more about how our system works, we suggest you take a look at the [ARte Architecture](Architecture.md).
 
-
+## Previous versions
 [Version 1](https://github.com/ARte-team/ARte/blob/325640a8c1b247c1c019b6fa6bcdf795172146f2/Design.md) of the document.
