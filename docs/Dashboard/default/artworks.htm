@@ -325,14 +325,14 @@
                                   <span class="pcoded-mtext">Analytics</span>
                               </a>
                               <ul class="pcoded-submenu">
-                                  <li>
-                                      <a href="index.htm">
-                                          <span class="pcoded-mtext">General</span>
-                                      </a>
-                                  </li>
                                   <li class="active">
                                       <a href="">
                                           <span class="pcoded-mtext">Artworks</span>
+                                      </a>
+                                  </li>
+                                  <li>
+                                      <a href="index.htm">
+                                          <span class="pcoded-mtext">General</span>
                                       </a>
                                   </li>
                                   <li>
@@ -372,19 +372,6 @@
                         <br>
                     </div>
                 </nav>
-
-
-                <!-- Addition -->
-                <style>
-                  .hide {
-                    display: none;
-                  }
-
-                  .pointer {
-                    cursor: pointer;
-                  }
-                </style>
-
 
 
                 <div class="pcoded-content">
@@ -478,9 +465,8 @@
                                               </div>
                                               <!-- /Most viewed artworks -->
 
-
-                                                <!-- Search result card start -->
-                                                <div class="card">
+                                              <!-- Search engine card start -->
+                                              <div class="card">
                                                     <div class="card-block">
                                                         <div class="row">
                                                             <div class="col-lg-6 offset-lg-3">
@@ -492,144 +478,37 @@
                                                             <div class="col-lg-4 offset-lg-4 offset-sm-3 col-sm-6 offset-sm-1 col-xs-12">
                                                                 <div class="input-group input-group-button input-group-primary">
                                                                     <input id="searchText" type="text" class="form-control" placeholder="Search here...">
-                                                                    <button class="btn btn-primary input-group-addon" id="basic-addon1" >Search</button>
+                                                                    <button class="btn btn-primary input-group-addon" id="searchButton" >Search</button>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <!-- Search result card end -->
+                                              </div>
+                                              <!-- Search engine card end -->
 
-                                                <h4 id="searchResultTitle" class="m-b-20 hide"><b>1</b> Search Result Found</h4>
-                                                <!-- Search result found start -->
-                                                <div id="searchResultCards" class="row search-result hide">
+                                              <h4 id="searchResultTitle" class="m-b-20 hide"><b>1</b> Result Found</h4>
+
+                                              <!-- Search result card start -->
+                                              <div id="searchResultCards" class="row search-result hide">
                                                     <div class="col-lg-3 col-md-4 col-sm-6 ">
                                                         <div class="card">
-                                                            <span id="DiscobolusCard" class="pointer">
-                                                              <img class="card-img-top img-fluid" src="..\files\assets\images\search-images\Discobolus.jpg" alt="Artwork image">
+                                                            <div id="DiscobolusCard" class="pointer zoomable-card">
+                                                              <div class="card-img-wrap">
+                                                                <img class="card-img-top img-fluid" src="..\files\assets\images\search-images\Discobolus.jpg" alt="Artwork image">
+                                                              </div>
                                                               <div class="card-block">
                                                                 <h5 class="card-title">Discobolus</h5>
-                                                            </span>
                                                                 <p class="card-text text-muted">The Discobolus of Myron is a Greek sculpture completed at the start of the Classical Period...</p>
-                                                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                                                                <p class="card-text"><small class="text-muted">Last update 3 mins ago</small></p>
                                                               </div>
-                                                        </div>
-                                                    </div>
-                                                    <!--<div class="col-lg-3 col-md-4 col-sm-6 ">
-                                                        <div class="card">
-                                                            <img class="card-img-top img-fluid" src="..\files\assets\images\search-images\02.jpg" alt="Card image cap">
-                                                            <div class="card-block">
-                                                                <h5 class="card-title">Web Apps <a href="#"><i class="icofont icofont-question"></i></a></h5>
-                                                                <p class="card-text text-muted">This is a longer card with supporting text below as a natural </p>
-                                                                <p class="card-text"><small class="text-muted">Last updated 30 mins ago</small></p>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-3 col-md-4 col-sm-6 ">
-                                                        <div class="card">
-                                                            <img class="card-img-top img-fluid" src="..\files\assets\images\search-images\03.jpg" alt="Card image cap">
-                                                            <div class="card-block">
-                                                                <h5 class="card-title">Web Apps <a href="#"><i class="icofont icofont-question"></i></a></h5>
-                                                                <p class="card-text text-muted">This is a longer card with supporting text below as a natural </p>
-                                                                <p class="card-text"><small class="text-muted">Last updated 2 mins ago</small></p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-3 col-md-4 col-sm-6 ">
-                                                        <div class="card">
-                                                            <img class="card-img-top img-fluid" src="..\files\assets\images\search-images\04.jpg" alt="Card image cap">
-                                                            <div class="card-block">
-                                                                <h5 class="card-title">Web Apps <a href="#"><i class="icofont icofont-question"></i></a></h5>
-                                                                <p class="card-text text-muted">This is a longer card with supporting text below as a natural </p>
-                                                                <p class="card-text"><small class="text-muted">Last updated 20 mins ago</small></p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-3 col-md-4 col-sm-6 ">
-                                                        <div class="card">
-                                                            <img class="card-img-top img-fluid" src="..\files\assets\images\search-images\05.jpg" alt="Card image cap">
-                                                            <div class="card-block">
-                                                                <h5 class="card-title">Web Apps <a href="#"><i class="icofont icofont-question"></i></a></h5>
-                                                                <p class="card-text text-muted">This is a longer card with supporting text below as a natural </p>
-                                                                <p class="card-text"><small class="text-muted">Last updated 12 mins ago</small></p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-3 col-md-4 col-sm-6 ">
-                                                        <div class="card">
-                                                            <img class="card-img-top img-fluid" src="..\files\assets\images\search-images\06.jpg" alt="Card image cap">
-                                                            <div class="card-block">
-                                                                <h5 class="card-title">Web Apps <a href="#"><i class="icofont icofont-question f-right"></i></a></h5>
-                                                                <p class="card-text text-muted">This is a longer card with supporting text below as a natural </p>
-                                                                <p class="card-text"><small class="text-muted">Last updated 12 mins ago</small></p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-3 col-md-4 col-sm-6 ">
-                                                        <div class="card">
-                                                            <img class="card-img-top img-fluid" src="..\files\assets\images\search-images\01.jpg" alt="Card image cap">
-                                                            <div class="card-block">
-                                                                <h5 class="card-title">Web Apps <a href="#"><i class="icofont icofont-question f-right"></i></a></h5>
-                                                                <p class="card-text text-muted">This is a longer card with supporting text below as a natural </p>
-                                                                <p class="card-text"><small class="text-muted">Last updated 12 mins ago</small></p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-3 col-md-4 col-sm-6 ">
-                                                        <div class="card">
-                                                            <img class="card-img-top img-fluid" src="..\files\assets\images\search-images\03.jpg" alt="Card image cap">
-                                                            <div class="card-block">
-                                                                <h5 class="card-title">Web Apps <a href="#"><i class="icofont icofont-question f-right"></i></a></h5>
-                                                                <p class="card-text text-muted">This is a longer card with supporting text below as a natural </p>
-                                                                <p class="card-text"><small class="text-muted">Last updated 12 mins ago</small></p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-3 col-md-4 col-sm-6 ">
-                                                        <div class="card">
-                                                            <img class="card-img-top img-fluid" src="..\files\assets\images\search-images\02.jpg" alt="Card image cap">
-                                                            <div class="card-block">
-                                                                <h5 class="card-title">Web Apps <a href="#"><i class="icofont icofont-question"></i></a></h5>
-                                                                <p class="card-text text-muted">This is a longer card with supporting text below as a natural </p>
-                                                                <p class="card-text"><small class="text-muted">Last updated 30 mins ago</small></p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-3 col-md-4 col-sm-6 ">
-                                                        <div class="card">
-                                                            <img class="card-img-top img-fluid" src="..\files\assets\images\search-images\03.jpg" alt="Card image cap">
-                                                            <div class="card-block">
-                                                                <h5 class="card-title">Web Apps <a href="#"><i class="icofont icofont-question"></i></a></h5>
-                                                                <p class="card-text text-muted">This is a longer card with supporting text below as a natural </p>
-                                                                <p class="card-text"><small class="text-muted">Last updated 2 mins ago</small></p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-3 col-md-4 col-sm-6 ">
-                                                        <div class="card">
-                                                            <img class="card-img-top img-fluid" src="..\files\assets\images\search-images\04.jpg" alt="Card image cap">
-                                                            <div class="card-block">
-                                                                <h5 class="card-title">Web Apps <a href="#"><i class="icofont icofont-question"></i></a></h5>
-                                                                <p class="card-text text-muted">This is a longer card with supporting text below as a natural </p>
-                                                                <p class="card-text"><small class="text-muted">Last updated 20 mins ago</small></p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-3 col-md-4 col-sm-6 ">
-                                                        <div class="card">
-                                                            <img class="card-img-top img-fluid" src="..\files\assets\images\search-images\05.jpg" alt="Card image cap">
-                                                            <div class="card-block">
-                                                                <h5 class="card-title">Web Apps <a href="#"><i class="icofont icofont-question"></i></a></h5>
-                                                                <p class="card-text text-muted">This is a longer card with supporting text below as a natural </p>
-                                                                <p class="card-text"><small class="text-muted">Last updated 12 mins ago</small></p>
-                                                            </div>
-                                                        </div>
-                                                    </div>-->
-                                                </div>
-                                                <!-- Search result found end -->
+                                              </div>
+                                              <!-- Search result card end -->
 
-                                                <!-- Artwork info -->
-                                                <div id="artInfo" class="card user-card-full hide">
+                                              <!-- Artwork info -->
+                                              <div id="artInfo" class="card user-card-full hide">
                                                       <div class="row">
                                                             <div id="artInfoImage" class="col-sm-4 pointer">
                                                                 <img src="..\files\assets\images\search-images\Discobolus.jpg" class="img-fluid" alt="Artwork image">
@@ -640,8 +519,8 @@
                                                                     <h5>Information</h5>
                                                                     <div class="card-header-right m-r-20">
                                                                       <ul class="list-unstyled card-option">
-                                                                          <li><i class="feather icon-maximize full-card"></i></li>
-                                                                          <li><i id="btnClose" class="feather icon-trash-2"></i></li>
+                                                                          <!--<li><i class="feather icon-maximize full-card"></i></li>-->
+                                                                          <li><i id="btnClose" class="feather icon-x"></i></li>
                                                                       </ul>
                                                                     </div>
                                                                     <hr>
@@ -652,23 +531,25 @@
 
                                                                     <div class="row">
                                                                         <div class="col-sm-6">
-                                                                            <p class="m-b-10 f-w-600">Views</p>
-                                                                            <h6 class="text-muted f-w-400">32029</h6>
-                                                                        </div>
-                                                                        <div class="col-sm-6">
-                                                                            <p class="m-b-10 f-w-600">Most used feature</p>
-                                                                            <h6 class="text-muted f-w-400">Contextualization (20328)</h6>
-                                                                        </div>
-                                                                    </div>
-                                                                    <h6 class="m-b-20 m-t-40 p-b-5"></h6>
-                                                                    <div class="row">
-                                                                        <div class="col-sm-6">
                                                                             <p class="m-b-10 f-w-600">Room</p>
                                                                             <h6 class="text-muted f-w-400">1</h6>
                                                                         </div>
                                                                         <div class="col-sm-6">
-                                                                            <p class="m-b-10 f-w-600">Least used feature</p>
-                                                                            <h6 class="text-muted f-w-400">Rebuilding missing components (529)</h6>
+                                                                            <p class="m-b-10 f-w-600">Views</p>
+                                                                            <h6 class="text-muted f-w-400">32029</h6>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <h6 class="m-b-20 m-t-40 p-b-5"></h6>
+
+                                                                    <div class="row">
+                                                                        <div class="col-sm-6">
+                                                                            <p class="m-b-10 f-w-600">Most used feature</p>
+                                                                            <h6 class="text-muted f-w-400">Contextualization (20328)</h6>
+                                                                        </div>
+                                                                        <div class="col-sm-6">
+                                                                          <p class="m-b-10 f-w-600">Least used feature</p>
+                                                                          <h6 class="text-muted f-w-400">Rebuilding missing components (529)</h6>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -682,9 +563,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <div id="styleSelector">
+                            <!-- Customizable Settings -->
+                            <!--<div id="styleSelector">
 
-                            </div>
+                            </div>-->
                         </div>
                     </div>
                 </div>
@@ -693,12 +575,23 @@
     </div>
 
 
-
     <script type="text/javascript">
     window.onload = function() {
-      document.getElementById("basic-addon1").onclick = function () {
+      const searchButton = document.getElementById("searchButton");
+
+      searchButton.onclick = function () {
         search();
       }
+
+      // Execute the search also when the user press enter on the keyboard
+      document.getElementById("searchText").addEventListener("keyup", function(event) {
+        if (event.keyCode === 13) {
+          // Cancel the default action, if needed
+          event.preventDefault();
+          // Trigger the button element with a click
+          searchButton.click();
+        }
+      });
 
       function search() {
         var input = $("#searchText").val();
