@@ -2,6 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>ARte</title>
         
         <!-- CSS -->
@@ -24,11 +25,11 @@
         <!-- ARte js library -->
         <script src="./js/ARte.js"></script>
     </head>
-    <body>
+    <body class="page-camera">
         <!-- Header -->
         <header>
             <a href="">
-                <img src="./img/logo.png" alt="logo">
+                <img src="./img/logo_white.png" alt="logo">
             </a>
         </header>
 
@@ -49,7 +50,7 @@
 
         <!-- Features panel -->
         <div class="commands">
-           <div class="button">
+            <!--<div class="button">
                 <img src="./img/icons/animation.svg" alt="Animation">
             </div>
             <div class="button">
@@ -63,6 +64,12 @@
             </div>
             <div class="button" id="play">
                 <img src="./img/icons/storytelling.svg" alt="Storytelling">
+            </div>-->
+            <div class="button" id="color">
+                <img src="./img/icons/palette.svg" alt="Color">
+            </div>
+            <div class="button" id="music">
+                <img src="./img/icons/note.svg" alt="Music">
             </div>
         </div>
 
@@ -104,15 +111,15 @@
             function onConnect() {}
 
             // Initialize Amazon Cognito credentials provider
-            AWS.config.region      = 'us-east-1';
+            AWS.config.region      = '';
             AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-              IdentityPoolId: 'us-east-1:73b2cfba-525a-4f90-ba69-2c4ca9de375a',
+              IdentityPoolId: '',
             });
 
             // Obtain credentials
             AWS.config.credentials.get(function(){
               // Credentials will be available when this function is called
-              var host       = 'a38agfpa1egwwp-ats.iot.us-east-1.amazonaws.com';
+              var host       = '';
               var requestUrl = SigV4Utils.getSignedUrl(host, AWS.config.region, AWS.config.credentials);
               mqttClient     = new PahoMQTTClient(requestUrl, uuid);
               mqttClient.conn(onConnect);
