@@ -17938,7 +17938,8 @@ table.footable-paging-center>tfoot>tr.footable-paging>td {
 .login-block {
 	padding: 30px 0;
 	margin: 0 auto;
-	background: url(../images/auth/bg.jpg) no-repeat;
+	/*background: url(../images/auth/bg.jpg) no-repeat;*/
+	background: url(../images/auth/museum.jpg) no-repeat center center fixed;
 	background-size: cover;
 	min-height: 100vh;
 	display: -webkit-box;
