@@ -331,7 +331,7 @@
                                       </a>
                                   </li>
                                   <li>
-                                      <a href="index.htm">
+                                      <a href="general.htm">
                                           <span class="pcoded-mtext">General</span>
                                       </a>
                                   </li>
@@ -413,14 +413,14 @@
                                                         <div class="row">
                                                             <div class="col-lg-6 offset-lg-3">
                                                               <h4 class="text-center"><b>Artwork Search Engine</b></h4>
-                                                              <p class="txt-highlight text-center m-t-20"> Search the artwork you want to modify</p>
+                                                              <p class="txt-highlight text-center m-t-20"> Search the artwork you want to modify by typing its title</p>
                                                             </div>
                                                         </div>
                                                         <div class="row search-header">
                                                             <div class="col-lg-4 offset-lg-4 offset-sm-3 col-sm-6 offset-sm-1 col-xs-12">
                                                                 <div class="input-group input-group-button input-group-primary">
                                                                     <input id="searchText" type="text" class="form-control" placeholder="Search here...">
-                                                                    <button class="btn btn-primary input-group-addon" id="searchButton" >Search</button>
+                                                                    <button id="searchButton" class="btn btn-primary input-group-addon">Search</button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -428,11 +428,11 @@
                                                 </div>
                                                 <!-- Search engine card end -->
 
-                                                <h4 id="searchResultTitle" class="m-b-20 hide"><b>1</b> Search Result Found</h4>
+                                                <h4 id="searchResultTitle" class="m-b-20 hide"><b></b> Search Result Found</h4>
 
                                                 <!-- Search result card start -->
-                                                <div id="searchResultCards" class="row search-result hide">
-                                                    <div class="col-lg-3 col-md-4 col-sm-6 ">
+                                                <div id="searchResultCards" class="row search-result">
+                                                    <!--<div class="col-lg-3 col-md-4 col-sm-6">
                                                         <div class="card">
                                                             <div id="DiscobolusCard" class="pointer zoomable-card">
                                                               <div class="card-img-wrap">
@@ -445,11 +445,9 @@
                                                               </div>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </div>-->
                                                  </div>
                                                 <!-- Search result card end -->
-                                                <!--</div>-->
-                                                <!-- Search result found end -->
 
                                                 <!-- Non-editable artwork -->
                                                 <div id="nonEditArt" class="row hide">
@@ -459,63 +457,62 @@
                                                       <div class="card-header">
                                                         <div class="card-header-right m-r-20">
                                                           <ul class="list-unstyled card-option">
-                                                              <!--<li><i class="feather icon-maximize full-card"></i></li>-->
                                                               <li><i id="btnCloseNonEdit" class="feather icon-x"></i></li>
                                                           </ul>
                                                         </div>
                                                       </div>
                                                       <div class="card-block">
-                                                            <h5 class="sub-title">Discobolus &emsp;
+                                                            <h5 class="sub-title"><span id="subTitleNonEdit">Discobolus</span> &emsp;
                                                               <i class="feather icon-edit form-txt-info pointer" data-toggle="modal" data-target="#editModal"></i>
                                                             </h5>
                                                           <form>
                                                               <div class="form-group row">
                                                                   <label class="col-sm-2 col-form-label">Title</label>
                                                                   <div class="col-sm-10">
-                                                                      <input type="text" class="form-control" value="Discobolus" disabled="">
+                                                                      <input id="titleNonEdit" type="text" class="form-control" value="Discobolus" disabled>
                                                                   </div>
                                                               </div>
                                                               <div class="form-group row">
                                                                   <label class="col-sm-2 col-form-label">Author</label>
                                                                   <div class="col-sm-10">
-                                                                      <input type="text" class="form-control" value="Unknown" disabled="">
+                                                                      <input id="authorNonEdit" type="text" class="form-control" value="Unknown" disabled>
                                                                   </div>
                                                               </div>
                                                               <div class="form-group row">
                                                                   <label class="col-sm-2 col-form-label">Description</label>
                                                                   <div class="col-sm-10">
-                                                                      <textarea rows="5" cols="5" class="form-control" placeholder="The Discobolus of Myron is a Greek sculpture completed at the start of the Classical Period..." disabled=""></textarea>
+                                                                      <textarea id="descriptionNonEdit" rows="5" cols="5" class="form-control" disabled>The Discobolus of Myron is a Greek sculpture completed at the start of the Classical Period...</textarea>
                                                                   </div>
                                                               </div>
                                                               <div class="form-group row">
                                                                   <label class="col-sm-2 col-form-label">Room</label>
                                                                   <div class="col-sm-10">
-                                                                      <select name="select" class="form-control" disabled="">
-                                                                          <option value="opt0">None</option>
-                                                                          <option value="opt1">1</option>
-                                                                          <option value="opt2">2</option>
-                                                                          <option value="opt3">3</option>
-                                                                          <option value="opt4">4</option>
-                                                                          <option value="opt5">5</option>
-                                                                          <option value="opt6">6</option>
-                                                                          <option value="opt7">7</option>
-                                                                          <option value="opt8">8</option>
-                                                                          <option value="opt9">9</option>
-                                                                          <option value="opt10">10</option>
-                                                                          <option value="opt11">11</option>
+                                                                      <select id="roomNonEdit" class="form-control" disabled>
+                                                                          <option value="0">None</option>
+                                                                          <option value="1">1</option>
+                                                                          <option value="2">2</option>
+                                                                          <option value="3">3</option>
+                                                                          <option value="4">4</option>
+                                                                          <option value="5">5</option>
+                                                                          <option value="6">6</option>
+                                                                          <option value="7">7</option>
+                                                                          <option value="8">8</option>
+                                                                          <option value="9">9</option>
+                                                                          <option value="10">10</option>
+                                                                          <option value="11">11</option>
                                                                       </select>
                                                                   </div>
                                                               </div>
                                                               <div class="form-group row">
                                                                   <label class="col-sm-2 col-form-label">Upload 3D model</label>
                                                                   <div class="col-sm-10">
-                                                                      <input type="file" class="form-control" disabled="">
+                                                                      <input id="modelNonEdit" type="file" class="form-control" disabled>
                                                                   </div>
                                                               </div>
                                                               <div class="form-group row">
                                                                   <label class="col-sm-2 col-form-label">Upload photo</label>
                                                                   <div class="col-sm-10">
-                                                                      <input type="file" class="form-control" disabled="">
+                                                                      <input id="photoNonEdit" type="file" class="form-control" disabled>
                                                                   </div>
                                                               </div>
                                                           </form>
@@ -525,7 +522,7 @@
                                                 </div>
                                                 <!-- /Non-editable artwork -->
 
-                                                <!-- When clicking on edit a modal will appear which will require to insert a password to edit -->
+                                                <!-- When click on edit icon, a modal will appear which will require to insert the user password to edit -->
                                                 <!-- Editable artwork -->
                                                 <div id="editArt" class="row hide">
                                                   <div class="col-sm-12">
@@ -540,55 +537,60 @@
                                                         </div>
                                                       </div>
                                                       <div class="card-block">
-                                                          <h5 class="sub-title">Discobolus</h5>
+                                                          <h5 id="subTitle" class="sub-title">Discobolus</h5>
                                                           <form>
                                                               <div class="form-group row">
                                                                   <label class="col-sm-2 col-form-label">Title</label>
                                                                   <div class="col-sm-10">
-                                                                      <input type="text" class="form-control" value="Discobolus">
+                                                                    <input type="text" class="form-control" value="Discobolus" maxlength="127" id="title" name="title">
+                                                                    <p id="titleError"></p>
                                                                   </div>
                                                               </div>
                                                               <div class="form-group row">
                                                                   <label class="col-sm-2 col-form-label">Author</label>
                                                                   <div class="col-sm-10">
-                                                                      <input type="text" class="form-control" value="Unknown">
+                                                                    <input type="text" class="form-control" value="Unknown" maxlength="127" id="author" name="author">
+                                                                    <p id="authorError"></p>
                                                                   </div>
                                                               </div>
                                                               <div class="form-group row">
                                                                   <label class="col-sm-2 col-form-label">Description</label>
                                                                   <div class="col-sm-10">
-                                                                      <textarea rows="5" cols="5" class="form-control">The Discobolus of Myron is a Greek sculpture completed at the start of the Classical Period...</textarea>
+                                                                    <textarea rows="3" class="form-control max-textarea"  maxlength="255" id="description" name="description">The Discobolus of Myron is a Greek sculpture completed at the start of the Classical Period...</textarea>
+                                                                    <p id="descriptionError"></p>
                                                                   </div>
                                                               </div>
                                                               <div class="form-group row">
                                                                   <label class="col-sm-2 col-form-label">Room</label>
                                                                   <div class="col-sm-10">
-                                                                      <select name="select" class="form-control">
-                                                                          <option value="opt0">None</option>
-                                                                          <option value="opt1">1</option>
-                                                                          <option value="opt2">2</option>
-                                                                          <option value="opt3">3</option>
-                                                                          <option value="opt4">4</option>
-                                                                          <option value="opt5">5</option>
-                                                                          <option value="opt6">6</option>
-                                                                          <option value="opt7">7</option>
-                                                                          <option value="opt8">8</option>
-                                                                          <option value="opt9">9</option>
-                                                                          <option value="opt10">10</option>
-                                                                          <option value="opt11">11</option>
-                                                                      </select>
+                                                                    <select name="select" class="form-control" id="room" name="room">
+                                                                        <option disabled value="0">-- Please choose a room --</option>
+                                                                        <option selected value="1">1</option>
+                                                                        <option value="2">2</option>
+                                                                        <option value="3">3</option>
+                                                                        <option value="4">4</option>
+                                                                        <option value="5">5</option>
+                                                                        <option value="6">6</option>
+                                                                        <option value="7">7</option>
+                                                                        <option value="8">8</option>
+                                                                        <option value="9">9</option>
+                                                                        <option value="10">10</option>
+                                                                    </select>
+                                                                    <p id="roomError"></p>
                                                                   </div>
                                                               </div>
                                                               <div class="form-group row">
                                                                   <label class="col-sm-2 col-form-label">Upload 3D model</label>
                                                                   <div class="col-sm-10">
-                                                                      <input type="file" class="form-control">
+                                                                    <input type="file" class="form-control" id="model" name="model">
+                                                                    <p id="modelError"></p>
                                                                   </div>
                                                               </div>
                                                               <div class="form-group row">
                                                                   <label class="col-sm-2 col-form-label">Upload photo</label>
                                                                   <div class="col-sm-10">
-                                                                      <input type="file" class="form-control">
+                                                                    <input type="file" class="form-control" id="photo" name="photo">
+                                                                    <p id="photoError"></p>
                                                                   </div>
                                                               </div>
                                                               <div class="form-group row">
@@ -623,41 +625,19 @@
                                                                   </div>
                                                                   <hr>
                                                                   <div class="input-group">
-                                                                      <input id="passModal" type="password" class="form-control" placeholder="Password">
+                                                                      <input id="passModal" type="password" class="form-control" placeholder="Password" maxlength="127">
                                                                       <span class="md-line"></span>
                                                                   </div>
+                                                                  <p id="passwordError"></p>
                                                                   <div class="input-group">
-                                                                      <input id="confirmPassModal" type="password" class="form-control" placeholder="Confirm Password">
+                                                                      <input id="confirmPassModal" type="password" class="form-control" placeholder="Confirm Password" maxlength="127">
                                                                       <span class="md-line"></span>
                                                                   </div>
-                                                                  <!--<div class="row m-t-25 text-left">
-                                                                      <div class="col-sm-6 col-xs-12">
-                                                                          <div class="checkbox-fade fade-in-primary">
-                                                                              <label>
-                                                                                  <input type="checkbox" value="">
-                                                                                  <span class="cr"><i class="cr-icon icofont icofont-ui-check txt-primary"></i></span>
-                                                                                  <span class="text-inverse">Remember me</span>
-                                                                              </label>
-                                                                          </div>
-                                                                      </div>
-                                                                      <div class="col-sm-6 col-xs-12 forgot-phone text-right">
-                                                                          <a href="auth-reset-password.htm" class="text-right f-w-600 text-inverse"> Forgot Password?</a>
-                                                                      </div>
-                                                                  </div>-->
+                                                                  <p id="passwordMatchError"></p>
                                                                   <div class="modal-footer">
-                                                                          <button type="button" class="btn btn-default waves-effect" data-dismiss="modal">Close</button>
-                                                                          <button id="btnContinue" type="button" class="btn btn-primary waves-effect text-center">Continue</button>
+                                                                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                          <button id="btnContinue" type="button" class="btn btn-primary">Continue</button>
                                                                   </div>
-                                                                  <!--<hr>
-                                                                  <div class="row">
-                                                                      <div class="col-md-10">
-                                                                          <p class="text-inverse text-left m-b-0">Thank you and enjoy our website.</p>
-                                                                          <p class="text-inverse text-left"><b>Your Authentication Team</b></p>
-                                                                      </div>
-                                                                      <div class="col-md-2">
-                                                                          <img src="..\files\assets\images\auth\Logo-small-bottom.png" alt="small-logo.png">
-                                                                      </div>
-                                                                  </div>-->
                                                               </div>
                                                               </div>
                                                           </form>
@@ -667,188 +647,21 @@
                                               </div>
                                               <!-- /Edit modal-->
 
-                                              <!-- /Submit modal-->
-
-                                              <!-- /Submit modal-->
-
-
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div id="styleSelector">
+                            <!-- Customizable Settings -->
+                            <!--<div id="styleSelector">
 
-                            </div>
+                            </div>-->
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-
-
-    <script type="text/javascript">
-    window.onload = function() {
-      const searchButton = document.getElementById("searchButton");
-
-      searchButton.onclick = function () {
-        search();
-      }
-
-      // Execute the search also when the user press enter on the keyboard
-      document.getElementById("searchText").addEventListener("keyup", function(event) {
-        if (event.keyCode === 13) {
-          // Cancel the default action, if needed
-          event.preventDefault();
-          // Trigger the button element with a click
-          searchButton.click();
-        }
-      });
-
-      function search() {
-        var input = $("#searchText").val();
-        $("#searchResultTitle").fadeOut();
-        $("#searchResultCards").fadeOut();
-        $("#nonEditArt").fadeOut();
-        $("#editArt").fadeOut();
-
-
-        if(searchArtwork(input).length == 0) {
-          setTimeout(function() {
-            alert("No result found");
-          }, 200);
-          return;
-        }
-
-        $("#pageHeaderTitle").text(input);
-        $("#searchName").text(input);
-
-        $("#pageHeader").fadeIn();
-        $("#searchResultTitle").fadeIn();
-        $("#searchResultCards").fadeIn();
-      }
-
-      var artworks = ["discobolus"];
-
-      function searchArtwork(input) {
-        var filter = input.toLowerCase();
-        var res = [];
-
-        // Loop through all list items
-        for (var i = 0; i < artworks.length; i++) {
-          var artwork = artworks[i];
-          if (artwork.indexOf(filter) != -1)
-            res.push(artwork);
-        }
-
-        return res;
-      }
-
-      document.getElementById("DiscobolusCard").onclick = function () {
-        $("#searchResultTitle").fadeOut();
-        $('#searchResultCards').fadeOut();
-        $('#nonEditArt').fadeIn()
-      }
-
-      document.getElementById("btnCloseNonEdit").onclick = function () {
-        $('#nonEditArt').fadeOut()
-        $("#searchResultTitle").fadeIn();
-        $('#searchResultCards').fadeIn();
-      }
-
-      document.getElementById("btnCloseEdit").onclick = function () {
-        $('#editArt').fadeOut()
-        $("#searchResultTitle").fadeIn();
-        $('#searchResultCards').fadeIn();
-      }
-
-      document.getElementById("btnContinue").onclick = function () {
-        if(!checkPassword())
-          return;
-
-        this.setAttribute("data-dismiss", "modal");
-        document.getElementById('nonEditArt').style.display = "none";
-        document.getElementById('editArt').style.display    = "inherit";
-      }
-
-      function checkPassword() {
-        var pass    = document.getElementById("passModal").value;
-        var confirm = document.getElementById("confirmPassModal").value;
-
-        if(pass != confirm)
-          return false;
-
-        // TODO check password with the one of the user
-        return true;
-      }
-
-      document.getElementById("btnSubmit").onclick = function () {
-        // TODO send update to backend
-
-        swal("The artwork has been submitted!", {
-          icon: "success",
-          buttons: {
-            confirm: {
-              text: "Ok",
-              value: true,
-              visible: true,
-              className: "btn btn-primary",
-              closeModal: true
-            }
-         }
-       });
-
-      }
-
-      document.getElementById("btnDelete").onclick = function () {
-        // TODO send delete to backend
-
-        swal({
-          title: "Are you sure?",
-          text: "You will not be able to undo this action!",
-          icon: "warning",
-          dangerMode: true,
-          buttons: {
-            cancel: {
-              text: "Cancel",
-              value: false,
-              visible: true,
-              className: "btn btn-default",
-              closeModal: true,
-            },
-            confirm: {
-              text: "Yes, delete it",
-              value: true,
-              visible: true,
-              className: "btn btn-danger",
-              closeModal: true
-            }
-        }
-      })
-      .then((willDelete) => {
-        if (willDelete) {
-          swal("The artwork has been deleted!", {
-            icon: "success",
-            buttons: {
-              confirm: {
-                text: "Ok",
-                value: true,
-                visible: true,
-                className: "btn btn-primary",
-                closeModal: true
-              }
-          }
-        });
-      }
-     });
-    }
-
-    }
-    </script>
-
-
 
     <!-- Warning Section Starts -->
     <!-- Older IE warning message -->
@@ -904,19 +717,452 @@
     <!-- modernizr js -->
     <script type="text/javascript" src="..\files\bower_components\modernizr\js\modernizr.js"></script>
     <script type="text/javascript" src="..\files\bower_components\modernizr\js\css-scrollbars.js"></script>
-
+    <!-- Max-length js -->
+    <script type="text/javascript" src="..\files\bower_components\bootstrap-maxlength\js\bootstrap-maxlength.js"></script>
     <!-- Sweet alert js -->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <!-- AWS SDK -->
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.7.16.min.js"></script>
 
     <!-- i18next.min.js -->
     <script type="text/javascript" src="..\files\bower_components\i18next\js\i18next.min.js"></script>
     <script type="text/javascript" src="..\files\bower_components\i18next-xhr-backend\js\i18nextXHRBackend.min.js"></script>
     <script type="text/javascript" src="..\files\bower_components\i18next-browser-languagedetector\js\i18nextBrowserLanguageDetector.min.js"></script>
     <script type="text/javascript" src="..\files\bower_components\jquery-i18next\js\jquery-i18next.min.js"></script>
+
+    <!-- Custom js -->
+    <script type="text/javascript" src="../files/assets/js/artworkValidation.js"></script>
+    <script type="text/javascript" src="../files/assets/js/maxLengthTag.js"></script>
+    <script type="text/javascript" src="../files/assets/js/utils.js"></script>
+
+    <script type="text/javascript">
+      window.onload = function() {
+        // Initialize the Amazon Cognito credentials provider
+        AWS.config.region = 'us-east-1';
+        AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+            IdentityPoolId: 'us-east-1:33cfdc7c-d841-41cb-b3b4-af3b015348da',
+        });
+
+        // Set up connection with DynamoDB.
+        const dynamodb  = new AWS.DynamoDB();
+        const docClient = new AWS.DynamoDB.DocumentClient();
+
+        // Get modal inputs
+        const password       = document.getElementById("passModal");
+        const repeatPassword = document.getElementById("confirmPassModal");
+        let repeated = false;
+
+        const subTitleNonEdit    = document.getElementById("subTitleNonEdit");
+        // Get form input elements non editable card
+        const titleNonEdit       = document.getElementById("titleNonEdit");
+        const authorNonEdit      = document.getElementById("authorNonEdit");
+        const descriptionNonEdit = document.getElementById("descriptionNonEdit");
+        const roomNonEdit        = document.getElementById("roomNonEdit");
+        const modelNonEdit       = document.getElementById("modelNonEdit");
+        const photoNonEdit       = document.getElementById("photoNonEdit");
+
+        const subTitle    = document.getElementById("subTitle");
+        // Get form input elements editable card
+        const title       = document.getElementById("title");
+        const author      = document.getElementById("author");
+        const description = document.getElementById("description");
+        const room        = document.getElementById("room");
+        const model       = document.getElementById("model");
+        const photo       = document.getElementById("photo");
+
+        // Prepare inputs values
+        let titleValue       = "",
+            authorValue      = "",
+            descriptionValue = "",
+            roomValue        = "",
+            modelValue       = null,
+            photoValue       = null;
+
+        // Set modal input elements listeners
+        password.addEventListener("input", function(e) {
+          password.value !== "" ? showSuccess(password, passwordError) :
+                                  showError(password, passwordError, "Password cannot be blank");
+
+          if (!repeated)  return;
+
+          matchPasswords(password, repeatPassword) ? showSuccess(repeatPassword, passwordMatchError) :
+                                                     showError(repeatPassword, passwordMatchError, "Passwords do not match");
+        });
+
+        repeatPassword.addEventListener("input", function(e) {
+          if (!repeated)
+            repeated = true;
+
+          matchPasswords(password, repeatPassword) ? showSuccess(repeatPassword, passwordMatchError) :
+                                                     showError(repeatPassword, passwordMatchError, "Passwords do not match");
+        });
+
+        // Set form input elements listeners
+        title.addEventListener("input", function(e) {
+          validateTitle(title, titleError);
+        });
+
+        author.addEventListener("input", function(e) {
+          validateAuthor(author, authorError);
+        });
+
+        description.addEventListener("input", function(e) {
+          validateDescription(description, descriptionError);
+        });
+
+        room.addEventListener("input", function(e) {
+          validateRoom(room, roomError);
+        });
+
+        model.addEventListener("input", function(e) {
+          validate3Dmodel(model, modelError);
+        });
+
+        photo.addEventListener("input", function(e) {
+          validatePhoto(photo, photoError);
+        });
+
+        // Execute the search when the user press the associated button
+        document.getElementById("searchButton").onclick = function () {
+          search();
+        }
+
+        // Execute the search also when the user press enter on the keyboard
+        document.getElementById("searchText").addEventListener("keyup", function(event) {
+          if (event.keyCode === 13) {
+            // Cancel the default action, if needed
+            event.preventDefault();
+            search();
+          }
+        });
+
+        // Store artworks returned by the query as a map
+        let artworks = new Map();
+        // Store artwork to set the values of the forms
+        let artwork = null;
+
+        // Execute and show results of the search
+        async function search() {
+          var input = $("#searchText").val();
+          $("#searchResultTitle").fadeOut();
+          $("#searchResultCards").fadeOut();
+          $("#nonEditArt").fadeOut();
+          $("#editArt").fadeOut();
+
+          // Remove previous results cards
+          $("#searchResultCards").html("");
+          artworks.clear();
+
+          // Wait results of the search
+          const artworksNumber = await searchArtwork(input);
+          //console.log("after searchArtwork");
+
+          if(artworksNumber == 0) {
+            setTimeout(function() {
+              alert("No result found");
+            }, 200);
+            return;
+          }
+
+          //$("#pageHeaderTitle").text(input);
+          //$("#searchName").text(input);
+
+          // Set the number of found results
+          $("#searchResultTitle").find("b").html(artworksNumber);
+
+          //$("#pageHeader").fadeIn();
+          $("#searchResultTitle").fadeIn();
+          $("#searchResultCards").fadeIn();
+        }
+
+        // Search if the artwork title is in the DB
+        async function searchArtwork(input) {
+          var filter = input.toLowerCase();
+
+          return new Promise( async function(resolve) {
+            // Await the query to the DB and then return the promise
+            await queryData(filter);
+            //console.log("End searchArtwork");
+            resolve(artworks.size);
+          });
+        }
+
+        async function queryData(filter) {
+          const params = {
+            TableName : "ARte_Artworks",
+            FilterExpression: "begins_with(#t, :t)",
+            ExpressionAttributeNames: {
+                "#t": "title",
+            },
+            ExpressionAttributeValues: {
+                ":t": filter
+            }
+          };
+
+          // Await a scan
+          return new Promise( function(resolve) {
+            docClient.scan(params, onScan);
+
+            function onScan(err, data) {
+              if (err)
+                showErrorModal("An error occurred!");
+              else {
+                //console.log(data);
+
+                data.Items.forEach(function(artwork) {
+                  artworks.set(artwork.artworkID, artwork);
+                });
+
+                // Continue scanning if we have more movies (per scan 1MB limitation)
+                if (data.LastEvaluatedKey) {
+                  params.ExclusiveStartKey = data.LastEvaluatedKey;
+                  docClient.scan(params, onScan);
+                }
+
+                createCards();
+              }
+
+              //console.log("End scan");
+              resolve(artworks);
+            }
+          });
+        }
+
+        // Create artworks cards to display the search results
+        function createCards() {
+          for (let artwork of artworks.values()) {
+            $("#searchResultCards").append("<div class='col-lg-3 col-md-4 col-sm-6'><div class='card'><div id='" + artwork.artworkID + "' class='pointer zoomable-card'><div class='card-img-wrap'><img class='card-img-top img-fluid' src='../files/assets/images/search-images/Discobolus.jpg'" /*+ artwork.photo*/ + "alt='Artwork image'></div><div class='card-block'><h5 class='card-title'>" + artwork.title + "</h5><p class='card-text text-muted'>" + artwork.description + "</p><p class='card-text'><small class='text-muted'>Last update 3 mins ago</small></p></div></div></div></div>");
+          }
+
+          // When a card is clicked, open the non-editable card
+          $(".zoomable-card").click(function () {
+            openNonEditCard($(this).attr("id"));
+          });
+
+          /* Structure of each card
+          <div class='col-lg-3 col-md-4 col-sm-6'>
+              <div class='card'>
+                  <div id='DiscobolusCard' class='pointer zoomable-card'>
+                    <div class='card-img-wrap'>
+                      <img class='card-img-top img-fluid' src='..\files\assets\images\search-images\Discobolus.jpg' alt='Artwork image'>
+                    </div>
+                    <div class='card-block'>
+                      <h5 class='card-title'>Discobolus</h5>
+                      <p class='card-text text-muted'>The Discobolus of Myron is a Greek sculpture completed at the start of the Classical Period...</p>
+                      <p class='card-text'><small class='text-muted'>Last update 3 mins ago</small></p>
+                    </div>
+                  </div>
+              </div>
+          </div>*/
+        }
+
+        // Open the non-editable card
+        function openNonEditCard(artworkID) {
+          $("#searchResultTitle").fadeOut();
+          $('#searchResultCards').fadeOut();
+
+          // Get artwork from artworks
+          artwork = artworks.get(artworkID);
+
+          // Set the values of the card
+          subTitleNonEdit.innerHTML = artwork.title;
+          titleNonEdit.value       = artwork.title;
+          authorNonEdit.value      = artwork.author;
+          descriptionNonEdit.value = artwork.description;
+          roomNonEdit.value        = artwork.room;
+          //modelNonEdit.files       = [artwork.model];
+          //photoNonEdit.files       = [artwork.photo];
+
+          $('#nonEditArt').fadeIn();
+        }
+
+        // When the close button of the non-editable card is clicked, close it
+        document.getElementById("btnCloseNonEdit").onclick = function () {
+          $('#nonEditArt').fadeOut()
+          $("#searchResultTitle").fadeIn();
+          $('#searchResultCards').fadeIn();
+
+          // Unset the artwork
+          artwork = null;
+        }
+
+        // When the close button of the editable card is clicked, close it
+        document.getElementById("btnCloseEdit").onclick = function () {
+          closeEditCard();
+        }
+
+        // Close the editable card
+        function closeEditCard() {
+          $('#editArt').fadeOut()
+          $("#searchResultTitle").fadeIn();
+          $('#searchResultCards').fadeIn();
+
+          // Unset the artwork
+          artwork = null;
+        }
+
+        // When the continue button in the modal is clicked, check password and display the editable card
+        document.getElementById("btnContinue").onclick = function () {
+          if(!checkPassword())
+            return;
+
+          // Set the values of the card
+          subTitle.innerHTML = artwork.title;
+          title.value       = artwork.title;
+          author.value      = artwork.author;
+          description.value = artwork.description;
+          room.value        = artwork.room;
+          //model.files       = [artwork.model];
+          //photo.files       = [artwork.photo];
+
+          this.setAttribute("data-dismiss", "modal");
+          document.getElementById('nonEditArt').style.display = "none";
+          document.getElementById('editArt').style.display    = "inherit";
+        }
+
+        // Check passwords in the modal to unlock the editable card
+        function checkPassword() {
+          let err = password.value !== "" ? showSuccess(password, passwordError) :
+                                            showError(password, passwordError, "Password cannot be blank");
+
+          err += matchPasswords(password, repeatPassword) ? showSuccess(repeatPassword, passwordMatchError) :
+                                                            showError(repeatPassword, passwordMatchError, "Passwords do not match");
+          if (err > 0)  return false;
+
+          // TODO check password with the one of the user
+          return true;
+        }
+
+        // When the Submit button is clicked, validate the form and send update if ok
+        document.getElementById("btnSubmit").onclick = function () {
+          // Validate the form against the constraints
+          const err = validate();
+          //console.log("err: " + err);
+
+          // Get input values
+          titleValue       = title.value;
+          authorValue      = author.value;
+          descriptionValue = description.value;
+          roomValue        = room.value;
+          modelValue       = null; //model.files[0];
+          photoValue       = null; //photo.files[0];
+
+          if (err == 0)
+            updateItem();
+        }
+
+        // Validate the form and return the errors
+        function validate() {
+          let err = validateTitle(title, titleError);
+          err += validateAuthor(author, authorError);
+          err += validateDescription(description, descriptionError);
+          err += validateRoom(room, roomError);
+          err += validate3Dmodel(model, modelError);
+          err += validatePhoto(photo, photoError);
+          return err;
+        }
+
+        // Update the item of the DB
+        function updateItem() {
+          if (!artwork) return;
+
+          const params = {
+            TableName: "ARte_Artworks",
+            Key: {
+              "artworkID": artwork.artworkID
+            },
+            UpdateExpression: "set #dt = :dt, title = :t, author = :a, description = :d, room = :r, #m = :m, photo = :p",
+            ExpressionAttributeNames: {
+              "#dt": "datetime",
+              "#m":  "3Dmodel"
+            },
+            ExpressionAttributeValues:{
+              ":dt": getDatetime(),
+              ":t":  titleValue,
+              ":a":  authorValue,
+              ":d":  descriptionValue,
+              ":r":  roomValue,
+              ":m":  modelValue,
+              ":p":  photoValue
+            },
+            ReturnValues:"UPDATED_NEW"
+          };
+
+          docClient.update(params, function(err, data) {
+            if (err) {
+              console.log(JSON.stringify(err, undefined, 2));
+              showErrorModal("An error occurred!");
+            }
+            else
+              showSuccessModal("The artwork has been submitted!");
+          });
+        }
+
+        // When the Delete button is clicked, delete the artwork from the DB
+        document.getElementById("btnDelete").onclick = function () {
+          swal({
+            title: "Are you sure?",
+            text: "You will not be able to undo this action!",
+            icon: "warning",
+            dangerMode: true,
+            buttons: {
+              cancel: {
+                text: "Cancel",
+                value: false,
+                visible: true,
+                className: "btn btn-default",
+                closeModal: true
+              },
+              confirm: {
+                text: "Yes, delete it",
+                value: true,
+                visible: true,
+                className: "btn btn-danger",
+                closeModal: true
+              }
+           }
+         })
+        .then((willDelete) => {
+          if (willDelete) {
+            deleteItem();
+          }
+        });
+      }
+
+      function deleteItem() {
+        if (!artwork) return;
+
+        // Send delete to the backend
+        const params = {
+          TableName: "ARte_Artworks",
+          Key: {
+            "artworkID": artwork.artworkID
+          }
+        };
+
+        docClient.delete(params, function(err, data) {
+          if (err)
+            showErrorModal("An error occurred!");
+          else {
+            showSuccessModal("The artwork has been deleted!");
+            // Remove the card from the list
+            $("#" + artwork.artworkID).parent().parent().remove();
+            // Remove the artwork from the map
+            artworks.delete(artwork.artworkID);
+            // Set the number of found results
+            $("#searchResultTitle").find("b").html(artworks.size);
+            // Close the editable card
+            closeEditCard();
+          }
+        });
+      }
+
+      }
+    </script>
+
     <script src="..\files\assets\js\pcoded.min.js"></script>
     <script src="..\files\assets\js\vartical-layout.min.js"></script>
     <script src="..\files\assets\js\jquery.mCustomScrollbar.concat.min.js"></script>
-    <!-- Custom js -->
     <script type="text/javascript" src="..\files\assets\js\script.js"></script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->

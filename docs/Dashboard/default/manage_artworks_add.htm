@@ -330,7 +330,7 @@
                                       </a>
                                   </li>
                                   <li>
-                                      <a href="index.htm">
+                                      <a href="general.htm">
                                           <span class="pcoded-mtext">General</span>
                                       </a>
                                   </li>
@@ -385,7 +385,7 @@
                                                     <div class="card">
                                                       <div class="card-block">
                                                           <h5 class="sub-title">New artwork</h5>
-                                                          <form id="newArtwork" method="post" action="">
+                                                          <form id="newArtwork" method="post">
                                                               <div class="form-group row">
                                                                   <label class="col-sm-2 col-form-label">Title</label>
                                                                   <div class="col-sm-10">
@@ -443,7 +443,7 @@
                                                               <div class="form-group row">
                                                                   <label class="col-sm-2 col-form-label">Password</label>
                                                                   <div class="col-sm-10">
-                                                                    <input type="password" class="form-control" maxlength="127" id="password" name="password">
+                                                                    <input type="password" class="form-control" placeholder="Type your password" maxlength="127" id="password" name="password">
                                                                     <p id="passwordError"></p>
                                                                   </div>
                                                               </div>
@@ -472,9 +472,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <div id="styleSelector">
+                            <!-- Customizable Settings -->
+                            <!--<div id="styleSelector">
 
-                            </div>
+                            </div>-->
                         </div>
                     </div>
                 </div>
@@ -539,6 +540,10 @@
     <script type="text/javascript" src="..\files\bower_components\modernizr\js\css-scrollbars.js"></script>
     <!-- Max-length js -->
     <script type="text/javascript" src="..\files\bower_components\bootstrap-maxlength\js\bootstrap-maxlength.js"></script>
+    <!-- Sweet alert js -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <!-- AWS SDK -->
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.7.16.min.js"></script>
 
     <!-- i18next.min.js -->
     <script type="text/javascript" src="..\files\bower_components\i18next\js\i18next.min.js"></script>
@@ -547,41 +552,9 @@
     <script type="text/javascript" src="..\files\bower_components\jquery-i18next\js\jquery-i18next.min.js"></script>
 
     <!-- Custom js -->
-    <!-- Max length tag -->
-    <script type="text/javascript">
-      window.onload = function() {
-        // Default max-length
-        // The badge will show up by default when the remaining chars are 10 or less
-        $('input[maxlength]').maxlength();
-
-        // Threshold value
-        /*$('input.thresold-i').maxlength({
-          threshold: 20
-        });
-
-        //Color class
-        $('input.color-class').maxlength({
-            alwaysShow: true,
-            threshold: 10,
-            warningClass: "label label-success",
-            limitReachedClass: "label label-danger"
-        });
-
-        //Position class
-        $('input.position-class').maxlength({
-            alwaysShow: true,
-            placement: 'top-left'
-        });
-
-        // Textareas max-length
-        $('textarea.max-textarea').maxlength({
-            alwaysShow: true
-        });*/
-
-        // Textareas max-length
-        $('textarea.max-textarea').maxlength();
-      }
-    </script>
+    <script type="text/javascript" src="../files/assets/js/artworkValidation.js"></script>
+    <script type="text/javascript" src="../files/assets/js/maxLengthTag.js"></script>
+    <script type="text/javascript" src="../files/assets/js/utils.js"></script>
 
     <script type="text/javascript">
       window.onload = function() {
@@ -593,209 +566,155 @@
         });
 
         // Get the input elements
-        const title       = document.getElementById("title");
-        const author      = document.getElementById("author");
-        const description = document.getElementById("description");
-
-        const room  = document.getElementById("room");
-        const model = document.getElementById("model");
-        const photo = document.getElementById("photo");
-
+        const title          = document.getElementById("title");
+        const author         = document.getElementById("author");
+        const description    = document.getElementById("description");
+        const room           = document.getElementById("room");
+        const model          = document.getElementById("model");
+        const photo          = document.getElementById("photo");
         const password       = document.getElementById("password");
         const repeatPassword = document.getElementById("repeatPassword");
         let repeated = false;
 
+        // Prepare inputs values
+        let titleValue       = "",
+            authorValue      = "",
+            descriptionValue = "",
+            roomValue        = "",
+            modelValue       = null,
+            photoValue       = null,
+            passwordValue    = "";
+
         // Set input elements listeners
         title.addEventListener("input", function(e) {
-          validateTitle();
+          validateTitle(title, titleError);
         });
 
         author.addEventListener("input", function(e) {
-          validateAuthor();
+          validateAuthor(author, authorError);
         });
 
         description.addEventListener("input", function(e) {
-          validateDescription();
+          validateDescription(description, descriptionError);
         });
 
         room.addEventListener("input", function(e) {
-          validateRoom();
+          validateRoom(room, roomError);
         });
 
         model.addEventListener("input", function(e) {
-          validate3Dmodel();
+          validate3Dmodel(model, modelError);
         });
 
         photo.addEventListener("input", function(e) {
-          validatePhoto();
+          validatePhoto(photo, photoError);
         });
 
         password.addEventListener("input", function(e) {
-            validatePassword() ? showSuccess(password, passwordError) :
-                                 showError(password, passwordError, "Password must be at least 8 characters long");
+            password.value !== "" ? showSuccess(password, passwordError) :
+                                    showError(password, passwordError, "Password cannot be blank");
 
             if (!repeated)  return;
 
-            matchPasswords() ? showSuccess(repeatPassword, passwordMatchError) :
-                               showError(repeatPassword, passwordMatchError, "Passwords does not match");
+            matchPasswords(password, repeatPassword) ? showSuccess(repeatPassword, passwordMatchError) :
+                                                       showError(repeatPassword, passwordMatchError, "Passwords do not match");
         });
 
         repeatPassword.addEventListener("input", function(e) {
             if (!repeated)
-              repeated = true
+              repeated = true;
 
-            matchPasswords() ? showSuccess(repeatPassword, passwordMatchError) :
-                               showError(repeatPassword, passwordMatchError, "Passwords does not match")
+            matchPasswords(password, repeatPassword) ? showSuccess(repeatPassword, passwordMatchError) :
+                                                       showError(repeatPassword, passwordMatchError, "Passwords do not match");
         });
 
 
-        function validateTitle() {
-          return title.value !== "" ? showSuccess(title, titleError) :
-                                      showError(title, titleError, "Title cannot be blank");
-        }
-
-        function validateAuthor() {
-          return author.value !== "" ? showSuccess(author, authorError) :
-                                       showError(author, authorError, "Author cannot be blank");
-        }
-
-        function validateDescription() {
-          return description.value !== "" ? showSuccess(description, descriptionError) :
-                                            showError(description, descriptionError, "Description cannot be blank");
-        }
-
-        function validateRoom() {
-          return room.value !== "0" ? showSuccess(room, roomError) :
-                                      showError(room, roomError, "Room cannot be blank");
-        }
-
-        function validate3Dmodel() {
-          // Check if input file contains the files entry
-          if (!"files" in model)
-            return showError(model, modelError, "3D model cannot be blank");
-
-          // Else check if a file has been selected
-          else if (model.files.length < 1)
-            return showError(model, modelError, "3D model cannot be blank");
-
-          // Else get extension and check if the selected file is a photo
-          else {
-            const file = model.files[0];
-            if ("name" in file) {
-              const f = file.name.split(".");
-              const extension = f[f.length-1];
-
-              const extensions = ["jpg", "jpeg", "png"]
-
-              for (const ext of extensions) {
-                if (extension === ext)
-                  return showSuccess(model, modelError);
-              }
-
-              return showError(model, modelError, "3D model must be one of the following formats: .jpg, .jpeg or .png");
-            }
-          }
-        }
-
-        function validatePhoto() {
-          // Check if input file contains the files entry
-          if (!"files" in photo)
-            return showError(photo, photoError, "Photo cannot be blank");
-
-          // Else check if a file has been selected
-          else if (photo.files.length < 1)
-            return showError(photo, photoError, "Photo cannot be blank");
-
-          // Else get extension and check if the selected file is a photo
-          else {
-            const file = photo.files[0];
-            if ("name" in file) {
-              const f = file.name.split(".");
-              const extension = f[f.length-1];
-
-              const extensions = ["jpg", "jpeg", "png"]
-
-              for (const ext of extensions) {
-                if (extension === ext)
-                  return showSuccess(photo, photoError);
-              }
-
-              return showError(photo, photoError, "Photo must be one of the following formats: .jpg, .jpeg or .png");
-            }
-          }
-        }
-
-        // Return true if password is ok
-        function validatePassword() {
-          if (!password)  return;
-          return password.value.length >= 8;
-        }
-
-        // Return true if passwords match
-        function matchPasswords() {
-          if (password && repeatPassword)
-            return password.value === repeatPassword.value;
-          else
-            return false;
-        }
-
         function validatePasswords() {
-          let err = validatePassword() ? showSuccess(password, passwordError) :
-                                         showError(password, passwordError, "Password must be at least 8 characters long");
+          let err = password.value !== "" ? showSuccess(password, passwordError) :
+                                            showError(password, passwordError, "Password cannot be blank");
 
-          return err + matchPasswords() ? showSuccess(repeatPassword, passwordMatchError) :
-                                          showError(repeatPassword, passwordMatchError, "Passwords does not match");
-        }
+          return err + (matchPasswords(password, repeatPassword) ? showSuccess(repeatPassword, passwordMatchError) :
+                                                                   showError(repeatPassword, passwordMatchError, "Passwords do not match"));
 
-        // Set error classes and text and return 1
-        function showError(inputElement, textElement, text) {
-          if (!inputElement || !textElement || !text)  return 1;
-          // Set error classes and text
-          inputElement.parentNode.parentNode.classList.add("has-danger");
-          inputElement.classList.add("form-control-danger");
-
-          textElement.classList.add("text-danger");
-          textElement.classList.add("error");
-          textElement.innerText = text;
-          return 0;
-        }
-
-        // Remove error classes and text and return 0 if ok
-        function showSuccess(inputElement, textElement) {
-          if (!inputElement || !textElement)  return 1;
-
-          // Remove error classes
-          inputElement.parentNode.parentNode.classList.remove("has-danger");
-          inputElement.classList.remove("form-control-danger");
-          textElement.classList.remove("text-danger");
-          textElement.classList.remove("error");
-
-          // Remove error text
-          textElement.innerText = "";
-          return 0;
+          //TODO check with user password
         }
 
         function handleFormSubmit() {
-            // Validate the form against the constraints
-            const err = validate();
+          // Validate the form against the constraints
+          const err = validate();
+          //console.log("err: " + err);
 
-            if (err == 0)
-              showSuccess();
+          if (err == 0)
+            submit();
         }
 
         // Validate the form and return the errors
         function validate() {
-          let err = validateTitle();
-          err += validateAuthor();
-          err += validateDescription();
-          err += validateRoom();
-          err += validate3Dmodel();
-          err += validatePhoto();
+          let err = validateTitle(title, titleError);
+          err += validateAuthor(author, authorError);
+          err += validateDescription(description, descriptionError);
+          err += validateRoom(room, roomError);
+          err += validate3Dmodel(model, modelError);
+          err += validatePhoto(photo, photoError);
           err += validatePasswords();
           return err;
         }
+
+        function submit() {
+          // Initialize the Amazon Cognito credentials provider
+          AWS.config.region = 'us-east-1';
+          AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+              IdentityPoolId: 'us-east-1:33cfdc7c-d841-41cb-b3b4-af3b015348da',
+          });
+
+          // Set up connection with DynamoDB.
+          const dynamodb  = new AWS.DynamoDB();
+          const docClient = new AWS.DynamoDB.DocumentClient();
+
+          // Get input values
+          titleValue       = title.value;
+          authorValue      = author.value;
+          descriptionValue = description.value;
+          roomValue        = room.value;
+          modelValue       = null; //model.files[0];
+          photoValue       = null; //photo.files[0];
+
+          /*console.log("titleValue: " + titleValue);
+          console.log("authorValue: " + authorValue);
+          console.log("descriptionValue: " + descriptionValue);
+          console.log("roomValue: " + roomValue);
+          console.log("modelValue: " + modelValue);
+          console.log("photoValue: " + photoValue);*/
+
+          createItem(docClient);
+        }
+
+        // Create and put an item into the DB
+        function createItem(docClient) {
+          const params = {
+            TableName: "ARte_Artworks",
+            Item: {
+              "artworkID":   createUUID(),
+              "datetime":    getDatetime(),
+              "title":       titleValue,
+              "author":      authorValue,
+              "description": descriptionValue,
+              "room":        roomValue,
+              "3Dmodel":     modelValue,
+              "photo":       photoValue
+            }
+          };
+
+          docClient.put(params, function(err, data) {
+            if (err)
+              showErrorModal("An error occurred!");
+            else
+              showSuccessModal("The artwork has been submitted!");
+          });
+        }
+
     }
-    </script>
+  </script>
 
 
     <script src="..\files\assets\js\pcoded.min.js"></script>
