@@ -17,7 +17,7 @@
         <meta name="keywords" content="">
         <meta name="author" content="ARte team">
         <!-- Favicon icon -->
-        <link rel="icon" href="..\files\assets\images\favicon.ico" type="image/x-icon">
+        <link rel="icon" href="../files/assets/images/arte_icon.png" type="image/x-icon">
         <!-- Google font-->
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
         <!-- Required Fremwork -->
@@ -406,202 +406,24 @@
                               <!-- Main-body start -->
                               <div class="main-body">
                                   <div class="page-wrapper">
-
-                                        <!--<div style="padding:15px;">
-                                            <select id="selectRoom">
-                                                <option disabled selected value> Select a Room </option>
-                                            </select>
-                                        </div>
-                                        <br>-->
-
                                         <div class="page-body">
-                                            <!-- OLD -->
-                                            <!--<div class="row">
-                                                <div class="col-xl-3 col-md-6">
-                                                    <select id="selectRoom">
-                                                        <option disabled selected value> Select a Room </option>
+                                            <div id="rooms" class="row">
+
+                                                <div class="col-sm-7 col-xl-9">
+                                                  <h4 id="lastUpdate" class="m-b-20">Last update: <b>N/A</b></h4>
+                                                </div>
+
+                                                <div class="col-sm-5 col-xl-3 m-b-30" >
+                                                    <select id="sortBy" name="sortBy" class="form-control form-control-default float-right">
+                                                        <option value="idAscending" selected>Sort by room id (ascending)</option>
+                                                        <option value="idDescending">Sort by room id (descending)</option>
+                                                        <option value="currentAscending">Sort by current visitors per room (ascending)</option>
+                                                        <option value="currentDescending">Sort by current visitors per room (descending)</option>
+                                                        <option value="totalAscending">Sort by total visitors per room (ascending)</option>
+                                                        <option value="totalDescending">Sort by total visitors per room (descending)</option>
                                                     </select>
                                                 </div>
-                                            </div>
-                                            <br>-->
 
-                                            <div class="row">
-                                                <!-- statistic-card start -->
-                                                <!-- OLD -->
-                                                <!--<div id="currentCard" class="col-xl-3 col-md-6" style="display:none;">
-
-                                                    <div class="card bg-c-yellow text-white">
-                                                        <div class="card-block">
-                                                            <div class="row align-items-center">
-                                                                <div class="col">
-                                                                    <p class="m-b-5">Current Number</p>
-                                                                    <h4 id="current" class="m-b-0"></h4>
-                                                                </div>
-                                                                <div class="col col-auto text-right">
-                                                                    <i class="feather icon-user f-50 text-c-yellow"></i>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>-->
-                                                <!-- /OLD -->
-
-                                                <div class="col-sm-12">
-                                                  <h4 id="dateTime" class="m-b-20">Last update: <b>18/10/2020 19:34:28</b></h4>
-                                                </div>
-
-                                                <!-- Room number ok -->
-                                                <div class="col-md-6 col-lg-3">
-                                                    <div class="card statustic-card">
-                                                        <div class="card-header">
-                                                            <h5>Room 1</h5>
-                                                        </div>
-                                                        <div class="card-block text-center">
-                                                            <span class="d-block text-c-green f-36">15</span>
-                                                            <p class="m-b-0">Current visitors</p>
-
-                                                            <div class="widget-statstic-card">
-                                                              <div class="text-right">
-                                                                <span class="f-right bg-c-green">56%</span>
-                                                              </div>
-                                                            </div>
-
-                                                            <div class="progress">
-                                                                <div class="progress-bar bg-c-green" style="width:56%"></div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="card-footer bg-c-green">
-                                                            <h6 class="text-white m-b-0">Total visitors: 3423</h6>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- /Room number ok -->
-
-                                                <!-- Room number alert -->
-                                                <div class="col-md-6 col-lg-3">
-                                                    <div class="card statustic-card">
-                                                        <div class="card-header">
-                                                            <h5>Room 2</h5>
-                                                        </div>
-                                                        <div class="card-block text-center">
-                                                            <span class="d-block text-c-yellow f-36">8</span>
-                                                            <p class="m-b-0">Current visitors</p>
-
-                                                            <div class="widget-statstic-card">
-                                                              <div class="text-right">
-                                                                <span class="f-right bg-c-yellow">75%</span>
-                                                              </div>
-                                                            </div>
-
-                                                            <div class="progress">
-                                                                <div class="progress-bar bg-c-yellow" style="width:75%"></div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="card-footer bg-c-yellow">
-                                                            <h6 class="text-white m-b-0">Total visitors: 2947</h6>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- /Room number alert -->
-
-                                                <!-- Room number full -->
-                                                <div class="col-md-6 col-lg-3">
-                                                    <div class="card statustic-card">
-                                                        <div class="card-header">
-                                                            <h5>Room 3</h5>
-                                                        </div>
-                                                        <div class="card-block text-center">
-                                                            <span class="d-block text-c-pink f-36">21</span>
-                                                            <p class="m-b-0">Current visitors</p>
-
-                                                            <div class="widget-statstic-card">
-                                                              <div class="text-right">
-                                                                <span class="f-right bg-c-pink">93%</span>
-                                                              </div>
-                                                            </div>
-
-                                                            <div class="progress">
-                                                                <div class="progress-bar bg-c-pink" style="width:93%"></div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="card-footer bg-c-pink">
-                                                            <h6 class="text-white m-b-0">Total visitors: 4076</h6>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- /Room number full -->
-
-                                                <!-- Room number full -->
-                                                <div class="col-md-6 col-lg-3">
-                                                    <div class="card statustic-card">
-                                                        <div class="card-header">
-                                                            <h5>Room 4</h5>
-                                                        </div>
-                                                        <div class="card-block text-center">
-                                                            <span class="d-block text-c-pink f-36">25</span>
-                                                            <p class="m-b-0">Current visitors</p>
-
-                                                            <div class="widget-statstic-card">
-                                                              <div class="text-right">
-                                                                <span class="f-right bg-c-pink">98%</span>
-                                                              </div>
-                                                            </div>
-
-                                                            <div class="progress">
-                                                                <div class="progress-bar bg-c-pink" style="width:98%"></div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="card-footer bg-c-pink">
-                                                            <h6 class="text-white m-b-0">Total visitors: 3829</h6>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- /Room number full -->
-
-                                                <!-- Room number ok -->
-                                                <div class="col-md-6 col-lg-3">
-                                                    <div class="card statustic-card">
-                                                        <div class="card-header">
-                                                            <h5>Room 5</h5>
-                                                        </div>
-                                                        <div class="card-block text-center">
-                                                            <span class="d-block text-c-green f-36">12</span>
-                                                            <p class="m-b-0">Current visitors</p>
-
-                                                            <div class="widget-statstic-card">
-                                                              <div class="text-right">
-                                                                <span class="f-right bg-c-green">41%</span>
-                                                              </div>
-                                                            </div>
-
-                                                            <div class="progress">
-                                                                <div class="progress-bar bg-c-green" style="width:41%"></div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="card-footer bg-c-green">
-                                                            <h6 class="text-white m-b-0">Total visitors: 3338</h6>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- /Room number ok -->
-
-                                                <!-- OLD -->
-                                                <!--<div id="totalCard" class="col-xl-3 col-md-6" style="display:none;">
-                                                    <div class="card bg-c-pink text-white">
-                                                        <div class="card-block">
-                                                            <div class="row align-items-center">
-                                                                <div class="col">
-                                                                    <p class="m-b-5">Total Number</p>
-                                                                    <h4 id="total" class="m-b-0"></h4>
-                                                                </div>
-                                                                <div class="col col-auto text-right">
-                                                                    <i class="feather icon-book f-50 text-c-pink"></i>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>-->
-                                                <!-- OLD -->
                                             </div>
                                         </div>
                                     </div>
@@ -617,169 +439,6 @@
                 </div>
             </div>
         </div>
-
-
-        <!-- AWS SDK -->
-        <script src="https://sdk.amazonaws.com/js/aws-sdk-2.7.16.min.js"></script>
-
-        <script type="text/javascript">
-            window.onload = function () {
-                // Configuration with AWS Cognito Identity Credentials.
-                AWS.config.region = "us-east-1";
-                AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-                    IdentityPoolId: "us-east-1:f79208a2-a26f-4c2b-be6d-ec367432dded"
-                });
-
-                // Set up connection with DynamoDB.
-                var dynamodb = new AWS.DynamoDB();
-                var docClient = new AWS.DynamoDB.DocumentClient();
-
-                // List of rooms in the Database.
-                var rooms = new Set();
-
-                // Variables to control the people flow
-                var currentRoom = null;
-                var flag = 0;
-
-                // Parameters for the scan of the DB.
-                var params = {
-                    ExpressionAttributeNames: {
-                        "#id": "id"
-                    },
-                    ProjectionExpression: '#id',
-                    TableName: 'RoomsDB'
-                };
-
-                function main() {
-                    // Update the cards if a room is selected.
-                    if (currentRoom != null)
-                        getLatestValue(currentRoom);
-
-                    // Update the select list.
-                    docClient.scan(params, function (err, data) {
-                        if (err) {
-                            console.log("Error", err);
-                        } else {
-
-                            var totalRooms = new Set();
-
-                            data.Items.forEach(function (element) {
-                                totalRooms.add(element.id);
-                            });
-
-                            totalRooms = Array.from(totalRooms);
-                            totalRooms.sort();
-
-                            var numRooms = Object.keys(totalRooms).length;
-
-                            if (flag)
-                                $('#selectRoom').empty();
-
-                            flag = 1;
-
-                            var i;
-                            for (i = 0; i < numRooms; i++) {
-                                $('#selectRoom').append($('<option>', {
-                                    value: totalRooms[i],
-                                    text: 'Room ' + totalRooms[i]
-                                }));
-                            }
-                            var optionValue = currentRoom;
-                            $("#selectRoom").val(optionValue)
-                                .find("option[value=" + optionValue + "]").attr('selected', true);
-                        }
-                    });
-
-                    /* function changeRoom() {
-                        var currentRoom = document.getElementById("selectRoom").value;
-                        document.getElementById("currentNum").style.display = "block";
-                        document.getElementById("totalNum").style.display = "block";
-
-                        function updateRoom() {
-                            getLatestValue(currentRoom);
-                            setTimeout(updateRoom, 5000);
-                        }
-                        updateRoom();
-                    } */
-
-                    $('#selectRoom').on('change', function () {
-                        currentRoom = $('#selectRoom').val();
-                        document.getElementById("currentCard").style.display = "block";
-                        document.getElementById("totalCard").style.display = "block";
-                        getLatestValue(currentRoom);
-                    });
-
-
-                    function getLatestValue(currentRoom) {
-
-                        rooms = new Set();
-
-                        docClient.scan(params, onScan);
-
-                        // Function that scans the table RoomsDB,
-                        // then adds the ID of the rooms in the list 'rooms'
-                        function onScan(err, data) {
-                            if (err) {
-                                console.log("Error", err);
-                            } else {
-                                data.Items.forEach(function (element) {
-                                    rooms.add(element.id);
-                                });
-                                rooms = Array.from(rooms);
-                                rooms.sort();
-                                console.log("success", rooms);
-
-                                rooms.forEach(function (id) {
-                                    // Parameters of the query.
-                                    var params = {
-                                        TableName: "RoomsDB",
-                                        ProjectionExpression: "id, #ts, currentNum, totalNum",
-                                        KeyConditionExpression: "id = :roomId",
-                                        ExpressionAttributeNames: {
-                                            "#ts": "timestamp"
-                                        },
-                                        ExpressionAttributeValues: {
-                                            ":roomId": currentRoom
-                                        }
-                                    };
-
-                                    console.log("prova", currentRoom);
-
-
-                                    // Query for each room.
-                                    docClient.query(params, function (err, data) {
-                                        if (err) {
-                                            console.log("Error", err);
-                                        } else {
-
-                                            // In the variable 'latest' there will be the
-                                            // last values inserted in the DB.
-                                            // Since that the list is ordered from the oldest to
-                                            // the newest value, I have to reverse it.
-                                            var latest = data.Items.reverse()[0];
-                                            console.log("success");
-
-                                            // Insert latest value for the selected room.
-                                            document.getElementById('current').innerHTML = latest.currentNum;
-                                            document.getElementById('total').innerHTML = latest.totalNum;
-                                        }
-
-                                    });
-                                });
-                            }
-                        };
-
-                    }
-                }
-
-                // Refresh the page every 5 seconds
-                function refreshPage() {
-                    main();
-                    setTimeout(refreshPage, 5000);
-                }
-                refreshPage();
-            }
-        </script>
 
 
         <!-- Required Jquery -->
@@ -802,11 +461,199 @@
         <script src="..\files\assets\pages\widget\amchart\light.js"></script>
         <script src="..\files\assets\js\jquery.mCustomScrollbar.concat.min.js"></script>
         <script type="text/javascript" src="..\files\assets\js\SmoothScroll.js"></script>
-        <script src="..\files\assets\js\pcoded.min.js"></script>
+        <!-- AWS SDK -->
+        <script src="https://sdk.amazonaws.com/js/aws-sdk-2.7.16.min.js"></script>
         <!-- custom js -->
+        <script type="text/javascript">
+          window.onload = function () {
+            // Initialize the Amazon Cognito credentials provider
+            AWS.config.region = 'us-east-1';
+            AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+                IdentityPoolId: 'us-east-1:33cfdc7c-d841-41cb-b3b4-af3b015348da',
+            });
+
+            // Set up connection with DynamoDB
+            const dynamodb  = new AWS.DynamoDB();
+            const docClient = new AWS.DynamoDB.DocumentClient();
+
+            // Parameters for the scan of the DB
+            const params = {
+              TableName: 'ARte_Rooms'
+            };
+
+            // Store rooms returned by the query as a map
+            let rooms = new Map();
+
+            // Get the HTML elements
+            const roomsDiv   = document.getElementById("rooms");
+            const lastUpdate = document.getElementById("lastUpdate").firstElementChild;
+            const sortBy     = document.getElementById("sortBy");
+
+            let sortByValue = sortBy.value;
+
+            // Set select listener
+            sortBy.addEventListener("input", function(e) {
+              sortByValue = sortBy.value;
+
+              // Sort rooms based on select element
+              sortRooms();
+
+              // Reposition the cards
+              $(".room-card").remove()
+              for (let room of rooms.values())
+                createCard(room.room)
+            });
+
+            function main() {
+              docClient.scan(params, onScan);
+
+              function onScan(err, data) {
+                if (err)
+                  showErrorModal("An error occurred!");
+                else {
+                  data.Items.forEach(function(room) {
+
+                    // Check if the room is already in the map and set a flag accordingly
+                    if (rooms.has(room.roomID))
+                      rooms.set(room.roomID, {room: room, update: true});
+                    else
+                      rooms.set(room.roomID, {room: room, update: false});
+                  });
+
+                  // Continue scanning if we have more rooms (per scan 1MB limitation)
+                  if (data.LastEvaluatedKey) {
+                    params.ExclusiveStartKey = data.LastEvaluatedKey;
+                    docClient.scan(params, onScan);
+                  }
+
+                  // Sort rooms based on select element
+                  sortRooms();
+                  //console.log(rooms);
+
+                  updateCards();
+                }
+              }
+            }
+
+            // Sort rooms based on select element
+            function sortRooms() {
+              switch (sortByValue) {
+                case "idAscending":
+                  rooms = new Map([...rooms.entries()].sort());
+                  break;
+                case "idDescending":
+                  rooms = new Map([...rooms.entries()].sort( (x,y) => y[0] - x[0] ));
+                  break;
+                case "currentAscending":
+                  rooms = new Map([...rooms.entries()].sort( (x,y) => x[1].room.peopleCurrent - y[1].room.peopleCurrent ));
+                  break;
+                case "currentDescending":
+                  rooms = new Map([...rooms.entries()].sort( (x,y) => y[1].room.peopleCurrent - x[1].room.peopleCurrent ));
+                  break;
+                case "totalAscending":
+                  rooms = new Map([...rooms.entries()].sort( (x,y) => x[1].room.peopleTotal - y[1].room.peopleTotal ));
+                  break;
+                case "totalDescending":
+                  rooms = new Map([...rooms.entries()].sort( (x,y) => y[1].room.peopleTotal - x[1].room.peopleTotal ));
+                  break;
+              }
+            }
+
+            // Update room cards
+            function updateCards() {
+              if (rooms.size == 0)   return;
+
+              let obj, room;
+              for (obj of rooms.values()) {
+                room = obj.room;
+
+                // Check if room was already in rooms
+                if (obj.update)
+                  updateCard(room);
+                else
+                  createCard(room);
+              }
+
+              // Update last update label
+              lastUpdate.innerHTML = room.datetime;
+            }
+
+            // Create room card
+            function createCard(room) {
+              // Create different cards based on current room crowding
+              let card = "";
+              const crowding = room.crowding * 100;
+
+              if (room.crowding <= 0.5)
+                card = "<div id='" + room.roomID + "' class='col-md-6 col-lg-3 room-card'><div class='card statustic-card'><div class='card-header'><h5>Room " + room.roomID + "</h5></div><div class='card-block text-center'><span class='d-block text-c-green f-36'>" + room.peopleCurrent + "</span><p class='m-b-0'>Current visitors</p><div class='widget-statstic-card'><div class='text-right'><span class='f-right bg-c-green'>" + crowding + "%</span></div></div><div class='progress'><div class='progress-bar bg-c-green' style='width:" + crowding + "%''></div></div></div><div class='card-footer bg-c-green'><h6 class='text-white m-b-0'>Total visitors: " + room.peopleTotal + "</h6></div></div></div>";
+              else if (room.crowding <= 0.75)
+                card = "<div id='" + room.roomID + "' class='col-md-6 col-lg-3 room-card'><div class='card statustic-card'><div class='card-header'><h5>Room " + room.roomID + "</h5></div><div class='card-block text-center'><span class='d-block text-c-yellow f-36'>" + room.peopleCurrent + "</span><p class='m-b-0'>Current visitors</p><div class='widget-statstic-card'><div class='text-right'><span class='f-right bg-c-yellow'>" + crowding + "%</span></div></div><div class='progress'><div class='progress-bar bg-c-yellow' style='width:" + crowding + "%''></div></div></div><div class='card-footer bg-c-yellow'><h6 class='text-white m-b-0'>Total visitors: " + room.peopleTotal + "</h6></div></div></div>";
+              else
+                card = "<div id='" + room.roomID + "' class='col-md-6 col-lg-3 room-card'><div class='card statustic-card'><div class='card-header'><h5>Room " + room.roomID + "</h5></div><div class='card-block text-center'><span class='d-block text-c-pink f-36'>" + room.peopleCurrent + "</span><p class='m-b-0'>Current visitors</p><div class='widget-statstic-card'><div class='text-right'><span class='f-right bg-c-pink'>" + crowding + "%</span></div></div><div class='progress'><div class='progress-bar bg-c-pink' style='width:" + crowding + "%''></div></div></div><div class='card-footer bg-c-pink'><h6 class='text-white m-b-0'>Total visitors: " + room.peopleTotal + "</h6></div></div></div>";
+
+              roomsDiv.insertAdjacentHTML("beforeend", card);
+
+              /* Card Structure
+              <!-- Room number ok -->
+              <div class="col-md-6 col-lg-3">
+                  <div class="card statustic-card">
+                      <div class="card-header">
+                          <h5>Room 1</h5>
+                      </div>
+                      <div class="card-block text-center">
+                          <span class="d-block text-c-green f-36">15</span>
+                          <p class="m-b-0">Current visitors</p>
+
+                          <div class="widget-statstic-card">
+                            <div class="text-right">
+                              <span class="f-right bg-c-green">56%</span>
+                            </div>
+                          </div>
+
+                          <div class="progress">
+                              <div class="progress-bar bg-c-green" style="width:56%"></div>
+                          </div>
+                      </div>
+                      <div class="card-footer bg-c-green">
+                          <h6 class="text-white m-b-0">Total visitors: 3423</h6>
+                      </div>
+                  </div>
+              </div>
+              <!-- /Room number ok -->
+              */
+            }
+
+            // Update room card
+            function updateCard(room) {
+              //console.log(room);
+              // Create different cards based on current room crowding
+              let card = "";
+              const crowding = room.crowding * 100;
+
+              if (room.crowding <= 0.5)
+                card = "<div class='card statustic-card'><div class='card-header'><h5>Room " + room.roomID + "</h5></div><div class='card-block text-center'><span class='d-block text-c-green f-36'>" + room.peopleCurrent + "</span><p class='m-b-0'>Current visitors</p><div class='widget-statstic-card'><div class='text-right'><span class='f-right bg-c-green'>" + crowding + "%</span></div></div><div class='progress'><div class='progress-bar bg-c-green' style='width:" + crowding + "%''></div></div></div><div class='card-footer bg-c-green'><h6 class='text-white m-b-0'>Total visitors: " + room.peopleTotal + "</h6></div></div>";
+              else if (room.crowding <= 0.75)
+                card = "<div class='card statustic-card'><div class='card-header'><h5>Room " + room.roomID + "</h5></div><div class='card-block text-center'><span class='d-block text-c-yellow f-36'>" + room.peopleCurrent + "</span><p class='m-b-0'>Current visitors</p><div class='widget-statstic-card'><div class='text-right'><span class='f-right bg-c-yellow'>" + crowding + "%</span></div></div><div class='progress'><div class='progress-bar bg-c-yellow' style='width:" + crowding + "%''></div></div></div><div class='card-footer bg-c-yellow'><h6 class='text-white m-b-0'>Total visitors: " + room.peopleTotal + "</h6></div></div>";
+              else
+                card = "<div class='card statustic-card'><div class='card-header'><h5>Room " + room.roomID + "</h5></div><div class='card-block text-center'><span class='d-block text-c-pink f-36'>" + room.peopleCurrent + "</span><p class='m-b-0'>Current visitors</p><div class='widget-statstic-card'><div class='text-right'><span class='f-right bg-c-pink'>" + crowding + "%</span></div></div><div class='progress'><div class='progress-bar bg-c-pink' style='width:" + crowding + "%''></div></div></div><div class='card-footer bg-c-pink'><h6 class='text-white m-b-0'>Total visitors: " + room.peopleTotal + "</h6></div></div>";
+
+              document.getElementById(room.roomID).innerHTML = card;
+            }
+
+            // Refresh the page every 5 seconds
+            function refreshPage() {
+              main();
+              setTimeout(refreshPage, 5000);
+            }
+            refreshPage();
+          }
+        </script>
+
+        <script src="..\files\assets\js\pcoded.min.js"></script>
         <script src="..\files\assets\js\vartical-layout.min.js"></script>
         <script type="text/javascript" src="..\files\assets\pages\dashboard\custom-dashboard.js"></script>
         <script type="text/javascript" src="..\files\assets\js\script.min.js"></script>
+
         <!-- Global site tag (gtag.js) - Google Analytics -->
         <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
         <script>

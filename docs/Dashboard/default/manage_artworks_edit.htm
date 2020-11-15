@@ -17,8 +17,7 @@
     <meta name="keywords" content="">
     <meta name="author" content="ARte team">
     <!-- Favicon icon -->
-
-    <link rel="icon" href="..\files\assets\images\favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../files/assets/images/arte_icon.png" type="image/x-icon">
     <!-- Google font-->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,800" rel="stylesheet">
     <!-- Required Fremwork -->
@@ -743,7 +742,7 @@
             IdentityPoolId: 'us-east-1:33cfdc7c-d841-41cb-b3b4-af3b015348da',
         });
 
-        // Set up connection with DynamoDB.
+        // Set up connection with DynamoDB
         const dynamodb  = new AWS.DynamoDB();
         const docClient = new AWS.DynamoDB.DocumentClient();
 
@@ -913,7 +912,7 @@
                   artworks.set(artwork.artworkID, artwork);
                 });
 
-                // Continue scanning if we have more movies (per scan 1MB limitation)
+                // Continue scanning if we have more artworks (per scan 1MB limitation)
                 if (data.LastEvaluatedKey) {
                   params.ExclusiveStartKey = data.LastEvaluatedKey;
                   docClient.scan(params, onScan);
@@ -930,8 +929,13 @@
 
         // Create artworks cards to display the search results
         function createCards() {
+          current = getDatetime();
+
           for (let artwork of artworks.values()) {
-            $("#searchResultCards").append("<div class='col-lg-3 col-md-4 col-sm-6'><div class='card'><div id='" + artwork.artworkID + "' class='pointer zoomable-card'><div class='card-img-wrap'><img class='card-img-top img-fluid' src='../files/assets/images/search-images/Discobolus.jpg'" /*+ artwork.photo*/ + "alt='Artwork image'></div><div class='card-block'><h5 class='card-title'>" + artwork.title + "</h5><p class='card-text text-muted'>" + artwork.description + "</p><p class='card-text'><small class='text-muted'>Last update 3 mins ago</small></p></div></div></div></div>");
+            ms = difference(current, artwork.datetime);
+            //console.log("ms: " + ms + " => " + elapsedTime(ms));
+
+            $("#searchResultCards").append("<div class='col-lg-3 col-md-4 col-sm-6'><div class='card'><div id='" + artwork.artworkID + "' class='pointer zoomable-card'><div class='card-img-wrap'><img class='card-img-top img-fluid' src='../files/assets/images/search-images/Discobolus.jpg'" /*+ artwork.photo*/ + "alt='Artwork image'></div><div class='card-block'><h5 class='card-title'>" + artwork.title + "</h5><p class='card-text text-muted'>" + artwork.description + "</p><p class='card-text'><small class='text-muted'>Last update " + elapsedTime(ms) + " ago</small></p></div></div></div></div>");
           }
 
           // When a card is clicked, open the non-editable card
