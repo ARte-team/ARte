@@ -429,7 +429,7 @@
                                                               <div class="form-group row">
                                                                   <label class="col-sm-2 col-form-label">Upload 3D model</label>
                                                                   <div class="col-sm-10">
-                                                                      <input type="file" class="form-control" id="model" name="model">
+                                                                      <input type="file" class="form-control" id="model" name="model" multiple>
                                                                       <p id="modelError"></p>
                                                                   </div>
                                                               </div>
@@ -676,17 +676,54 @@
           authorValue      = author.value;
           descriptionValue = description.value;
           roomValue        = room.value;
-          modelValue       = null; //model.files[0];
-          photoValue       = null; //photo.files[0];
+          modelValue       = model.files;
+          photoValue       = photo.files[0];
 
-          /*console.log("titleValue: " + titleValue);
-          console.log("authorValue: " + authorValue);
-          console.log("descriptionValue: " + descriptionValue);
-          console.log("roomValue: " + roomValue);
-          console.log("modelValue: " + modelValue);
-          console.log("photoValue: " + photoValue);*/
+          // TODO
+          //photoValue = resizeImage(document, photoValue);
 
-          createItem(docClient);
+          const formData = new FormData();
+          formData.append("photo", photoValue);
+          formData.append("title", titleValue);
+
+          for (let file of modelValue)
+            formData.append("model3D[]", file);
+
+          // Upload 3D model and photo
+          $.ajax({
+            url: "../files/assets/php/uploadArtwork.php", // point to server-side PHP script
+            dataType: "text",  // what to expect back from the PHP script, if anything
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: formData,
+            type: "post",
+            success: function(data){
+              //console.log("php return data:\n" + data);
+              const obj = JSON.parse(data);
+
+              if (obj.status !== "success") {
+                showErrorModal(obj.msg);
+                return;
+              }
+
+              // Get URLs to be send to the db
+              modelValue = obj.modelURLs;
+              photoValue = obj.photoURL;
+
+               /*console.log("titleValue: " + titleValue);
+               console.log("authorValue: " + authorValue);
+               console.log("descriptionValue: " + descriptionValue);
+               console.log("roomValue: " + roomValue);
+               console.log("modelValue: " + modelValue);
+               console.log("photoValue: " + photoValue);*/
+
+              createItem(docClient);
+            },
+            error: function() {
+              showErrorModal("An error occurred!");
+            }
+         });
         }
 
         // Create and put an item into the DB
@@ -700,7 +737,7 @@
               "author":      authorValue,
               "description": descriptionValue,
               "room":        roomValue,
-              "3Dmodel":     modelValue,
+              "model3D":     modelValue,
               "photo":       photoValue
             }
           };

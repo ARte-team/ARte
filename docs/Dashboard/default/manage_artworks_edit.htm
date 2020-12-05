@@ -448,6 +448,19 @@
                                                  </div>
                                                 <!-- Search result card end -->
 
+                                                <style>
+                                                /*input[type='file'] {
+                                                  color: transparent;
+                                                }*/
+
+                                                .fake-input-disabled {
+                                                  background: #E9ECEF;
+                                                  opacity: 0.5;
+                                                  cursor: not-allowed;
+                                                }
+
+                                              </style>
+
                                                 <!-- Non-editable artwork -->
                                                 <div id="nonEditArt" class="row hide">
                                                   <div class="col-sm-12">
@@ -505,13 +518,21 @@
                                                               <div class="form-group row">
                                                                   <label class="col-sm-2 col-form-label">Upload 3D model</label>
                                                                   <div class="col-sm-10">
-                                                                      <input id="modelNonEdit" type="file" class="form-control" disabled>
+                                                                      <input id="modelNonEdit" type="file" class="form-control"  multiple disabled hidden>
+                                                                      <label for="modelNonEdit" class="form-control fake-input-disabled">
+                                                                        <button disabled>Scegli file</button>
+                                                                        <span id="modelNonEditText"></span>
+                                                                      </label>
                                                                   </div>
                                                               </div>
                                                               <div class="form-group row">
                                                                   <label class="col-sm-2 col-form-label">Upload photo</label>
                                                                   <div class="col-sm-10">
-                                                                      <input id="photoNonEdit" type="file" class="form-control" disabled>
+                                                                      <input id="photoNonEdit" type="file" class="form-control"  disabled hidden>
+                                                                      <label for="photoNonEdit" class="form-control fake-input-disabled">
+                                                                        <button disabled>Scegli file</button>
+                                                                        <span id="photoNonEditText"></span>
+                                                                      </label>
                                                                   </div>
                                                               </div>
                                                           </form>
@@ -581,14 +602,22 @@
                                                               <div class="form-group row">
                                                                   <label class="col-sm-2 col-form-label">Upload 3D model</label>
                                                                   <div class="col-sm-10">
-                                                                    <input type="file" class="form-control" id="model" name="model">
+                                                                    <input type="file" class="form-control" id="model" name="model" multiple hidden>
+                                                                    <label for="model" class="form-control">
+                                                                      <button id="modelFakeBtn">Scegli file</button>
+                                                                      <span id="modelEditText"></span>
+                                                                    </label>
                                                                     <p id="modelError"></p>
                                                                   </div>
                                                               </div>
                                                               <div class="form-group row">
                                                                   <label class="col-sm-2 col-form-label">Upload photo</label>
                                                                   <div class="col-sm-10">
-                                                                    <input type="file" class="form-control" id="photo" name="photo">
+                                                                    <input type="file" class="form-control" id="photo" name="photo" hidden>
+                                                                    <label for="photo" class="form-control">
+                                                                      <button id="photoFakeBtn">Scegli file</button>
+                                                                      <span id="photoEditText"></span>
+                                                                    </label>
                                                                     <p id="photoError"></p>
                                                                   </div>
                                                               </div>
@@ -759,6 +788,8 @@
         const roomNonEdit        = document.getElementById("roomNonEdit");
         const modelNonEdit       = document.getElementById("modelNonEdit");
         const photoNonEdit       = document.getElementById("photoNonEdit");
+        const modelNonEditText   = document.getElementById("modelNonEditText");
+        const photoNonEditText   = document.getElementById("photoNonEditText");
 
         const subTitle    = document.getElementById("subTitle");
         // Get form input elements editable card
@@ -768,6 +799,8 @@
         const room        = document.getElementById("room");
         const model       = document.getElementById("model");
         const photo       = document.getElementById("photo");
+        const modelEditText   = document.getElementById("modelEditText");
+        const photoEditText   = document.getElementById("photoEditText");
 
         // Prepare inputs values
         let titleValue       = "",
@@ -814,12 +847,44 @@
         });
 
         model.addEventListener("input", function(e) {
-          validate3Dmodel(model, modelError);
+          setFakeInputFileValue(modelEditText, model.files, true, "\\")
+          const err = validate3Dmodel(model, modelError);
+
+          if (err) {
+            modelEditText.style.color = "#eb3422";
+            modelEditText.parentNode.style.borderColor = "#eb3422";
+          }
+          else {
+            modelEditText.style.color = "#495057";
+            modelEditText.parentNode.style.borderColor = "#ccc";
+          }
         });
 
         photo.addEventListener("input", function(e) {
-          validatePhoto(photo, photoError);
+          setFakeInputFileValue(photoEditText, photo.value, false, "\\")
+          const err = validatePhoto(photo, photoError);
+
+          if (err) {
+            photoEditText.style.color = "#eb3422";
+            photoEditText.parentNode.style.borderColor = "#eb3422";
+          }
+          else {
+            photoEditText.style.color = "#495057";
+            photoEditText.parentNode.style.borderColor = "#ccc";
+          }
         });
+
+        // Trigger the input file
+        document.getElementById("modelFakeBtn").onclick = function(event) {
+           event.preventDefault();
+           model.click();
+        }
+
+        // Trigger the input file
+        document.getElementById("photoFakeBtn").onclick = function(event) {
+           event.preventDefault();
+           photo.click();
+        }
 
         // Execute the search when the user press the associated button
         document.getElementById("searchButton").onclick = function () {
@@ -834,6 +899,58 @@
             search();
           }
         });
+
+        function setFakeInputFileValue(elem, value, multiple=false, sep="/") {
+          if(!elem) return;
+
+          /*console.log("======= setFakeInputFileValue =======");
+          console.log("value: " + value);
+          console.log("model.files: " + model.files);
+          console.log("photo.files: " + photo.files);
+          console.log("model.files.length: " + model.files.length);
+          console.log("model.files.length: " + photo.files.length);
+
+          if (model.files.length > 0)
+            console.log("model.files[0].name: " + model.files[0].name);
+          if (photo.files.length > 0)
+            console.log("photo.files[0].name: " + photo.files[0].name);
+
+          console.log("=====================================");*/
+
+          // Check if multiple input value
+          if(multiple) {
+            const n = value.length;
+
+            if (n == 0)
+              elem.innerHTML = "Nessun file selezionato";
+
+            else if (n == 1) {
+              str = "";
+
+              // Check if value[0] is directly a string (i.e. just retrieved URL from server)
+              if (value instanceof String)
+                str = value;
+              // Else user has selected a file, so access the name
+              else
+                str = value[0].name;
+
+              const s = str.split(sep);
+      	      elem.innerHTML = s[s.length-1];
+            }
+
+            else
+    	       elem.innerHTML = n + " file";
+          }
+          // Else (no multiple input value)
+          else {
+            const s = value.split(sep);
+            //console.log("s: " + s + "\ts.length: " + s.length);
+            if (s.length == 1)
+              elem.innerHTML = "Nessun file selezionato";
+            else
+    	        elem.innerHTML = s[s.length-1];
+          }
+        }
 
         // Store artworks returned by the query as a map
         let artworks = new Map();
@@ -935,7 +1052,11 @@
             ms = difference(current, artwork.datetime);
             //console.log("ms: " + ms + " => " + elapsedTime(ms));
 
-            $("#searchResultCards").append("<div class='col-lg-3 col-md-4 col-sm-6'><div class='card'><div id='" + artwork.artworkID + "' class='pointer zoomable-card'><div class='card-img-wrap'><img class='card-img-top img-fluid' src='../files/assets/images/search-images/Discobolus.jpg'" /*+ artwork.photo*/ + "alt='Artwork image'></div><div class='card-block'><h5 class='card-title'>" + artwork.title + "</h5><p class='card-text text-muted'>" + artwork.description + "</p><p class='card-text'><small class='text-muted'>Last update " + elapsedTime(ms) + " ago</small></p></div></div></div></div>");
+            // ORIGINALE
+            /*$("#searchResultCards").append("<div class='col-lg-3 col-md-4 col-sm-6'><div class='card'><div id='" + artwork.artworkID + "' class='pointer zoomable-card'><div class='card-img-wrap'><img class='card-img-top img-fluid' src='" + artwork.photo + "' alt='Artwork image'></div><div class='card-block'><h5 class='card-title'>" + artwork.title + "</h5><p class='card-text text-muted'>" + artwork.description + "</p><p class='card-text'><small class='text-muted'>Last update " + elapsedTime(ms) + " ago</small></p></div></div></div></div>");*/
+
+            // IMG FISSA
+            $("#searchResultCards").append("<div class='col-lg-3 col-md-4 col-sm-6'><div class='card'><div id='" + artwork.artworkID + "' class='pointer zoomable-card'><div class='card-img-wrap'><img class='card-img-top' src='" + artwork.photo + "' alt='Artwork image' width='350' height='350'></div><div class='card-block'><h5 class='card-title'>" + artwork.title + "</h5><p class='card-text text-muted'>" + artwork.description + "</p><p class='card-text'><small class='text-muted'>Last update " + elapsedTime(ms) + " ago</small></p></div></div></div></div>");
           }
 
           // When a card is clicked, open the non-editable card
@@ -974,8 +1095,10 @@
           authorNonEdit.value      = artwork.author;
           descriptionNonEdit.value = artwork.description;
           roomNonEdit.value        = artwork.room;
-          //modelNonEdit.files       = [artwork.model];
-          //photoNonEdit.files       = [artwork.photo];
+
+          // Simulate assignment to file inputs
+          setFakeInputFileValue(modelNonEditText, artwork.model3D, true)
+          setFakeInputFileValue(photoNonEditText, artwork.photo)
 
           $('#nonEditArt').fadeIn();
         }
@@ -1016,8 +1139,10 @@
           author.value      = artwork.author;
           description.value = artwork.description;
           room.value        = artwork.room;
-          //model.files       = [artwork.model];
-          //photo.files       = [artwork.photo];
+
+          // Simulate assignment to file inputs
+          setFakeInputFileValue(modelEditText, artwork.model3D, true)
+          setFakeInputFileValue(photoEditText, artwork.photo)
 
           this.setAttribute("data-dismiss", "modal");
           document.getElementById('nonEditArt').style.display = "none";
@@ -1043,16 +1168,8 @@
           const err = validate();
           //console.log("err: " + err);
 
-          // Get input values
-          titleValue       = title.value;
-          authorValue      = author.value;
-          descriptionValue = description.value;
-          roomValue        = room.value;
-          modelValue       = null; //model.files[0];
-          photoValue       = null; //photo.files[0];
-
           if (err == 0)
-            updateItem();
+            submit();
         }
 
         // Validate the form and return the errors
@@ -1061,9 +1178,77 @@
           err += validateAuthor(author, authorError);
           err += validateDescription(description, descriptionError);
           err += validateRoom(room, roomError);
-          err += validate3Dmodel(model, modelError);
-          err += validatePhoto(photo, photoError);
+          err += model.files.length > 0 ? validate3Dmodel(model, modelError) : 0;
+          err += photo.files.length > 0 ? validatePhoto(photo, photoError)   : 0;
           return err;
+        }
+
+        function submit() {
+          // Get input values
+          titleValue       = title.value;
+          authorValue      = author.value;
+          descriptionValue = description.value;
+          roomValue        = room.value;
+          modelValue       = artwork.model3D;
+          photoValue       = artwork.photo;
+
+          const formData = new FormData();
+          let updated = false;
+
+          // Check if the model has been changed
+          if (model.files.length > 0) {
+            updated = true;
+            modelValue = model.files;
+
+            for (let file of modelValue)
+              formData.append("model3D[]", file);
+          }
+
+          // Check if the photo has been changed
+          if (photo.files.length > 0) {
+            updated = true;
+            photoValue = photo.files[0];
+
+            // TODO
+            //photoValue = resizeImage(document, photoValue);
+
+            formData.append("photo", photoValue);
+          }
+
+          // Check if at least one of the two types of file has been changed
+          if (updated) {
+            formData.append("title", titleValue);
+            formData.append("update", true);
+
+            // Upload 3D model and photo
+            $.ajax({
+              url: "../files/assets/php/uploadArtwork.php", // point to server-side PHP script
+              dataType: "text",  // what to expect back from the PHP script, if anything
+              cache: false,
+              contentType: false,
+              processData: false,
+              data: formData,
+              type: "post",
+              success: function(data){
+                //console.log("php return data:\n" + data);
+                const obj = JSON.parse(data);
+
+                if (obj.status !== "success") {
+                  showErrorModal(obj.msg);
+                  return;
+                }
+
+                // Get URLs to be send to the db
+                modelValue = obj.modelURLs;
+                photoValue = obj.photoURL;
+
+                updateItem();
+              },
+              error: function() {
+                showErrorModal("An error occurred!");
+              }
+            });
+          }
         }
 
         // Update the item of the DB
@@ -1078,7 +1263,7 @@
             UpdateExpression: "set #dt = :dt, title = :t, author = :a, description = :d, room = :r, #m = :m, photo = :p",
             ExpressionAttributeNames: {
               "#dt": "datetime",
-              "#m":  "3Dmodel"
+              "#m":  "model3D"
             },
             ExpressionAttributeValues:{
               ":dt": getDatetime(),
@@ -1149,17 +1334,48 @@
             showErrorModal("An error occurred!");
           else {
             showSuccessModal("The artwork has been deleted!");
+
             // Remove the card from the list
             $("#" + artwork.artworkID).parent().parent().remove();
+
             // Remove the artwork from the map
             artworks.delete(artwork.artworkID);
+
             // Set the number of found results
             $("#searchResultTitle").find("b").html(artworks.size);
-            // Close the editable card
+
+            // Remove photo and model files from the server
+            removeFiles();
+
+            // Close the editable card and unset the current artwork
             closeEditCard();
           }
         });
-      }
+       }
+
+       // Remove photo and model files from the server
+       function removeFiles() {
+         if (!artwork)  return;
+
+         const data = new FormData();
+         data.append("title", artwork.title);
+
+         $.ajax({
+           url: "../files/assets/php/removeArtwork.php", // point to server-side PHP script
+           dataType: "text",  // what to expect back from the PHP script, if anything
+           cache: false,
+           contentType: false,
+           processData: false,
+           data: data,
+           type: "post",
+           success: function(data){
+             console.log("php return data:\n" + data);
+           },
+           error: function() {
+             console.log("php error while removing the artwork from the server");
+           }
+         });
+       }
 
       }
     </script>

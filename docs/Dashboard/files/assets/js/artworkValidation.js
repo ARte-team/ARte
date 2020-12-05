@@ -44,9 +44,28 @@ function validate3Dmodel(model, modelError) {
   else if (model.files.length < 1)
     return showError(model, modelError, "3D model cannot be blank");
 
-  // Else get extension and check if the selected file is a photo
+  // Else get extension and check if the selected file is a 3D model
   else {
-    const file = model.files[0];
+    for (let file of model.files) {
+      if ("name" in file) {
+        const f = file.name.split(".");
+        const extension = f[f.length-1];
+
+        const extensions = ["gltf", "fbx", "obj", "bin"];
+
+        for (const ext of extensions) {
+          if (extension === ext) {
+            //modelValue = file;
+            return showSuccess(model, modelError);
+          }
+        }
+
+        return showError(model, modelError, "3D model must be one of the following formats: .fbx, .gltf, .obj or .bin");
+      }
+    }
+
+
+    /*const file = model.files[0];
     if ("name" in file) {
       const f = file.name.split(".");
       const extension = f[f.length-1];
@@ -61,7 +80,7 @@ function validate3Dmodel(model, modelError) {
       }
 
       return showError(model, modelError, "3D model must be one of the following formats: .fbx, .gltf or .obj");
-    }
+    }*/
   }
 }
 

@@ -142,3 +142,47 @@ function showSuccessModal(title) {
   $(".btn-success").on('mouseenter', function() { $(this).css('background', '#0df3a3') });
   $(".btn-success").on('mouseleave', function() { $(this).css('background', '#0ac282') });
 }
+
+// TODO
+async function resizeImage(document, file) {
+  var img = document.createElement("img");
+  var canvas = document.createElement("canvas");
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    img.src = e.target.result
+  }
+  reader.readAsDataURL(file);
+
+  //var ctx = canvas.getContext("2d");
+  //ctx.drawImage(img, 0, 0);
+
+  var MAX_WIDTH  = 720;
+  var MAX_HEIGHT = 720;
+  var width  = img.width;
+  var height = img.height;
+
+  if (width > height) {
+    if (width > MAX_WIDTH) {
+      height *= MAX_WIDTH / width;
+      width = MAX_WIDTH;
+    }
+  } else {
+    if (height > MAX_HEIGHT) {
+      width *= MAX_HEIGHT / height;
+      height = MAX_HEIGHT;
+    }
+  }
+
+  canvas.width = width;
+  canvas.height = height;
+  var ctx = canvas.getContext("2d");
+  ctx.drawImage(img, 0, 0, width, height);
+
+  //return canvas.toDataURL();
+
+  // Get the binary (aka blob)
+  const blob = await new Promise(rs => canvas.toBlob(rs, 1))
+  return new File([blob], file.name, file)
+
+  //Post dataurl to the server with AJAX
+}
