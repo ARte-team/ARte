@@ -143,6 +143,39 @@ function showSuccessModal(title) {
   $(".btn-success").on('mouseleave', function() { $(this).css('background', '#0ac282') });
 }
 
+// Animate value of a HTML element as a counter
+function animateValue(elem, start, end, duration, step=10) {
+  if (!elem || start == end)  return;
+
+  const range = end - start;
+  const increment = start < end ? step : -step;
+  let current = start;
+  const stepTime = Math.abs(Math.floor(duration / range));
+
+  const timer = setInterval(function() {
+    current += increment;
+    if (current >= end) {
+      clearInterval(timer);
+      elem.innerHTML = end;
+    }
+    else
+      elem.innerHTML = current;
+  }, stepTime);
+}
+
+// Convert to 32bit integer
+/*function stringToHash(string) {
+  let hash = 0;
+
+  for (i = 0; i < string.length; i++) {
+    char = string.charCodeAt(i);
+    hash = ((hash << 5) - hash) + char;
+    hash = hash & hash;
+  }
+
+  return hash;
+}*/
+
 // TODO
 async function resizeImage(document, file) {
   var img = document.createElement("img");

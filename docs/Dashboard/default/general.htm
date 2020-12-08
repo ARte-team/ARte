@@ -22,6 +22,8 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
     <!-- Required Framework -->
     <link rel="stylesheet" type="text/css" href="..\files\bower_components\bootstrap\css\bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" type="text/css" href="..\files\assets\icon\font-awesome\css\font-awesome.min.css">
     <!-- feather Awesome -->
     <link rel="stylesheet" type="text/css" href="..\files\assets\icon\feather\css\feather.css">
     <!-- Style.css -->
@@ -381,10 +383,10 @@
                                                         <div class="row align-items-center">
                                                             <div class="col">
                                                                 <p class="m-b-5">Today Visitors</p>
-                                                                <h4 class="m-b-0">852</h4>
+                                                                <h4 id="todayVisitors" class="m-b-0">N/A</h4>
                                                             </div>
                                                             <div class="col col-auto text-right">
-                                                                <i class="feather icon-user f-50 text-c-yellow"></i>
+                                                                <i class="fa fa-users f-50 text-c-yellow"></i>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -398,10 +400,10 @@
                                                         <div class="row align-items-center">
                                                             <div class="col">
                                                                 <p class="m-b-5">Today Income</p>
-                                                                <h4 class="m-b-0">€5,852</h4>
+                                                                <h4 id="todayIncome" class="m-b-0">N/A</h4>
                                                             </div>
                                                             <div class="col col-auto text-right">
-                                                                <i class="feather icon-credit-card f-50 text-c-green"></i>
+                                                                <i class="fa fa-eur f-50 text-c-green"></i>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -412,11 +414,11 @@
                                                     <div class="card-block">
                                                         <div class="row align-items-center">
                                                             <div class="col">
-                                                                <p class="m-b-5">Today Tickets</p>
-                                                                <h4 class="m-b-0">942</h4>
+                                                                <p class="m-b-5">Today Exhibitions</p>
+                                                                <h4 id="todayExhibitions" class="m-b-0">N/A</h4>
                                                             </div>
                                                             <div class="col col-auto text-right">
-                                                                <i class="feather icon-book f-50 text-c-pink"></i>
+                                                                <i class="fa fa-university f-50 text-c-pink"></i>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -427,11 +429,11 @@
                                                     <div class="card-block">
                                                         <div class="row align-items-center">
                                                             <div class="col">
-                                                                <p class="m-b-5">Current visitors</p>
-                                                                <h4 class="m-b-0">81</h4>
+                                                                <p class="m-b-5">Today Artworks</p>
+                                                                <h4 id="todayArtworks" class="m-b-0">N/A</h4>
                                                             </div>
                                                             <div class="col col-auto text-right">
-                                                                <i class="feather icon-users f-50 text-c-blue"></i>
+                                                                <i class="fa fa-image f-50 text-c-blue"></i>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -444,10 +446,10 @@
                                                   <div class="row align-items-center">
                                                     <div class="col">
                                                       <p class="m-b-5">Total Visitors</p>
-                                                      <h4 class="m-b-0">34023</h4>
+                                                      <h4 id="totalVisitors" class="m-b-0">N/A</h4>
                                                     </div>
                                                     <div class="col col-auto text-right">
-                                                      <i class="feather icon-user f-50 text-c-yellow"></i>
+                                                      <i class="fa fa-users f-50 text-c-yellow"></i>
                                                     </div>
                                                   </div>
                                                 </div>
@@ -459,10 +461,10 @@
                                                   <div class="row align-items-center">
                                                     <div class="col">
                                                       <p class="m-b-5">Total Income</p>
-                                                      <h4 class="m-b-0">€201,322</h4>
+                                                      <h4 id="totalIncome" class="m-b-0">N/A</h4>
                                                     </div>
                                                     <div class="col col-auto text-right">
-                                                      <i class="feather icon-credit-card f-50 text-c-green"></i>
+                                                      <i class="fa fa-eur f-50 text-c-green"></i>
                                                     </div>
                                                   </div>
                                                 </div>
@@ -473,11 +475,11 @@
                                                 <div class="card-block">
                                                   <div class="row align-items-center">
                                                     <div class="col">
-                                                      <p class="m-b-5">Total tickets</p>
-                                                      <h4 class="m-b-0">40872</h4>
+                                                      <p class="m-b-5">Total Exhibitions</p>
+                                                      <h4 id="totalExhibitions" class="m-b-0">N/A</h4>
                                                     </div>
                                                     <div class="col col-auto text-right">
-                                                      <i class="feather icon-book f-50 text-c-pink"></i>
+                                                      <i class="fa fa-university f-50 text-c-pink"></i>
                                                     </div>
                                                   </div>
                                                 </div>
@@ -488,11 +490,11 @@
                                                 <div class="card-block">
                                                   <div class="row align-items-center">
                                                     <div class="col">
-                                                      <p class="m-b-5">Exhibitions</p>
-                                                      <h4 class="m-b-0">2</h4>
+                                                      <p class="m-b-5">Total Artworks</p>
+                                                      <h4 id="totalArtworks" class="m-b-0">N/A</h4>
                                                     </div>
                                                     <div class="col col-auto text-right">
-                                                      <i class="feather icon-image f-50 text-c-blue"></i>
+                                                      <i class="fa fa-image f-50 text-c-blue"></i>
                                                     </div>
                                                   </div>
                                                 </div>
@@ -596,313 +598,26 @@
                                             </div>
                                             <!-- /Visitors analytics -->
 
-                                            <script type="text/javascript">
-                                            window.onload = function() {
-                                              var ctx = document.getElementById("arteUserChart").getContext("2d");
-                                              window.myDoughnut = new Chart(ctx, {
-                                                  type: "doughnut",
-                                                  data: {
-                                                      datasets: [{
-                                                          data: [85, 15],
-                                                          backgroundColor: ["#fe9365", "#01a9ac"],
-                                                          label: "Dataset"
-                                                      }],
-                                                      labels: ["Using", "Not using"]
-                                                  },
-                                                  options: {
-                                                      maintainAspectRatio: !1,
-                                                      responsive: !0,
-                                                      legend: {
-                                                          position: "bottom"
-                                                      },
-                                                      title: {
-                                                          display: !0,
-                                                          text: ""
-                                                      },
-                                                      animation: {
-                                                          animateScale: !0,
-                                                          animateRotate: !0
-                                                      }
-                                                  }
-                                              });
-
-                                              ctx = document.getElementById("arteUserChartToday").getContext("2d");
-                                              window.myDoughnut = new Chart(ctx, {
-                                                  type: "doughnut",
-                                                  data: {
-                                                      datasets: [{
-                                                          data: [72, 28],
-                                                          backgroundColor: ["#fe9365", "#01a9ac"],
-                                                          label: "Dataset"
-                                                      }],
-                                                      labels: ["Using", "Not using"]
-                                                  },
-                                                  options: {
-                                                      maintainAspectRatio: !1,
-                                                      responsive: !0,
-                                                      legend: {
-                                                          position: "bottom"
-                                                      },
-                                                      title: {
-                                                          display: !0,
-                                                          text: ""
-                                                      },
-                                                      animation: {
-                                                          animateScale: !0,
-                                                          animateRotate: !0
-                                                      }
-                                                  }
-                                              });
-
-                                              ctx = document.getElementById("arteUserChartNow").getContext("2d");
-                                              window.myDoughnut = new Chart(ctx, {
-                                                  type: "doughnut",
-                                                  data: {
-                                                      datasets: [{
-                                                          data: [79, 21],
-                                                          backgroundColor: ["#fe9365", "#01a9ac"],
-                                                          label: "Dataset"
-                                                      }],
-                                                      labels: ["Using", "Not using"]
-                                                  },
-                                                  options: {
-                                                      maintainAspectRatio: !1,
-                                                      responsive: !0,
-                                                      legend: {
-                                                          position: "bottom"
-                                                      },
-                                                      title: {
-                                                          display: !0,
-                                                          text: ""
-                                                      },
-                                                      animation: {
-                                                          animateScale: !0,
-                                                          animateRotate: !0
-                                                      }
-                                                  }
-                                              });
-
-
-                                              var amchart = AmCharts.makeChart("visitors-analytics", {
-                                                      "type": "serial",
-                                                      "theme": "light",
-                                                      "marginTop": 0,
-                                                      "marginRight": 0,
-                                                      "dataProvider": [{
-                                                           "date": "20-04-2020",
-                                                           "value": 428
-                                                       }, {
-                                                           "date": "21-04-2020",
-                                                           "value": 882
-                                                       }, {
-                                                           "date": "22-04-2020",
-                                                           "value": 746
-                                                       }, {
-                                                           "date": "23-04-2020",
-                                                           "value": 603
-                                                       }, {
-                                                           "date": "24-04-2020",
-                                                           "value": 588
-                                                       }, {
-                                                           "date": "25-04-2020",
-                                                           "value": 829
-                                                      }, {
-                                                           "date": "26-04-2020",
-                                                           "value": 798
-                                                      }, {
-                                                           "date": "27-04-2020",
-                                                           "value": 872
-                                                      }, {
-                                                           "date": "28-04-2020",
-                                                           "value": 633
-                                                      }, {
-                                                           "date": "29-04-2020",
-                                                           "value": 454
-                                                      }, {
-                                                           "date": "30-04-2020",
-                                                           "value": 984
-                                                      }, {
-                                                          //"date": "2002",
-                                                          "date": "01-05-2020",
-                                                          "value": 426
-                                                      }, {
-                                                          //"date": "2002",
-                                                          "date": "02-05-2020",
-                                                          "value": 155
-                                                      }, {
-                                                          //"date": "2002",
-                                                          "date": "03-05-2020",
-                                                          "value": 812
-                                                      }, {
-                                                          //"date": "2002",
-                                                          "date": "04-05-2020",
-                                                          "value": 854
-                                                      }, {
-                                                          //"date": "2002",
-                                                          "date": "05-05-2020",
-                                                          "value": 522
-                                                      }, {
-                                                          //"date": "2002",
-                                                          "date": "06-05-2020",
-                                                          "value": 741
-                                                      }, {
-                                                          //"date": "2002",
-                                                          "date": "07-05-2020",
-                                                          "value": 717
-                                                      }, {
-                                                          //"date": "2002",
-                                                          "date": "08-05-2020",
-                                                          "value": 874
-                                                      }, {
-                                                          //"date": "2002",
-                                                          "date": "09-05-2020",
-                                                          "value": 711
-                                                      }, {
-                                                          //"date": "2002",
-                                                          "date": "10-05-2020",
-                                                          "value": 719
-                                                      }, {
-                                                          //"date": "2003",
-                                                          "date": "11-05-2020",
-                                                          "value": 1396
-                                                      }, {
-                                                          //"date": "2004",
-                                                          "date": "12-05-2020",
-                                                          "value": 1131
-                                                      }, {
-                                                          //"date": "2005",
-                                                          "date": "13-05-2020",
-                                                          "value": 892
-                                                      }, {
-                                                          //"date": "2006",
-                                                          "date": "14-05-2020",
-                                                          "value": 696
-                                                      }, {
-                                                          //"date": "2007",
-                                                          "date": "15-05-2020",
-                                                          "value": 993
-                                                      }, {
-                                                          //"date": "2008",
-                                                          "date": "16-05-2020",
-                                                          "value": 1139
-                                                      }, {
-                                                          //"date": "2009",
-                                                          "date": "17-05-2020",
-                                                          "value": 1679
-                                                      }, {
-                                                          //"date": "2010",
-                                                          "date": "18-05-2020",
-                                                          "value": 1230
-                                                      }, {
-                                                          //"date": "2011",
-                                                          "date": "19-05-2020",
-                                                          "value": 1890
-                                                      }, {
-                                                          //"date": "2012",
-                                                          "date": "20-05-2020",
-                                                          "value": 891
-                                                      }, {
-                                                          //"date": "2013",
-                                                          "date": "21-05-2020",
-                                                          "value": 901
-                                                      }, {
-                                                          //"date": "2014",
-                                                          "date": "22-05-2020",
-                                                          "value": 554
-                                                      }, {
-                                                          //"date": "2015",
-                                                          "date": "23-05-2020",
-                                                          "value": 730
-                                                      }, {
-                                                          //"date": "2016",
-                                                          "date": "24-05-2020",
-                                                          "value": 1891
-                                                      }, {
-                                                          //"date": "2017",
-                                                          "date": "25-05-2020",
-                                                          "value": 1489
-                                                      }, {
-                                                          //"date": "2018",
-                                                          "date": "26-05-2020",
-                                                          "value": 902
-                                                      }, {
-                                                          //"date": "2019",
-                                                          "date": "27-05-2020",
-                                                          "value": 1340
-                                                      }, {
-                                                          //"date": "2020",
-                                                          "date": "28-05-2020",
-                                                          "value": 942
-                                                      }],
-                                                      "valueAxes": [{
-                                                          "axisAlpha": 0,
-                                                          "gridAlpha": 0,
-                                                          "position": "left"
-                                                      }],
-                                                      "graphs": [{
-                                                          "id": "g2",
-                                                          "balloonText": "[[category]]<br><b><span style='font-size:14px;'>[[value]]</span></b>",
-                                                          "bullet": "round",
-                                                          "bulletSize": 8,
-                                                          "lineColor": "#fe5d70",
-                                                          "lineThickness": 2,
-                                                          "negativeLineColor": "#fe9365",
-                                                          "type": "smoothedLine",
-                                                          "valueField": "value"
-                                                      }],
-                                                      "chartScrollbar": {
-                                                          "graph": "g2",
-                                                          "gridAlpha": 0,
-                                                          "color": "#888888",
-                                                          "scrollbarHeight": 55,
-                                                          "backgroundAlpha": 0,
-                                                          "selectedBackgroundAlpha": 0.1,
-                                                          "selectedBackgroundColor": "#888888",
-                                                          "graphFillAlpha": 0,
-                                                          "autoGridCount": true,
-                                                          "selectedGraphFillAlpha": 0,
-                                                          "graphLineAlpha": 0.2,
-                                                          "graphLineColor": "#c2c2c2",
-                                                          "selectedGraphLineColor": "#888888",
-                                                          "selectedGraphLineAlpha": 1
-
-                                                      },
-                                                      "chartCursor": {
-                                                          //"categoryBalloonDateFormat": "YYYY",
-                                                          "categoryBalloonDateFormat": "DD-MM-YYYY",
-                                                          "cursorAlpha": 0,
-                                                          "valueLineEnabled": true,
-                                                          "valueLineBalloonEnabled": true,
-                                                          "valueLineAlpha": 0.5,
-                                                          "fullWidth": true
-                                                      },
-                                                      //"dataDateFormat": "YYYY",
-                                                      "dataDateFormat": "DD-MM-YYYY",
-                                                      "categoryField": "date",
-                                                      "categoryAxis": {
-                                                          //"minPeriod": "YYYY",
-                                                          "minPeriod": "DD",
-                                                          "parseDates": true,
-                                                          "gridAlpha": 0,
-                                                          "minorGridAlpha": 0,
-                                                          "minorGridEnabled": true
-                                                      },
-                                                      "export": {
-                                                          "enabled": true
-                                                      }
-                                                  });
-
-                                                  amchart.addListener("rendered", zoomChart);
-                                                  if (amchart.zoomChart) {
-                                                      amchart.zoomChart();
-                                                  }
-
-                                                  function zoomChart() {
-                                                      amchart.zoomToIndexes(Math.round(amchart.dataProvider.length * 0.4), Math.round(amchart.dataProvider.length * 0.55));
-                                                  }
-
-                                            }
-                                            </script>
+                                            <!-- Income analytics -->
+                                            <div class="col-xl-12 col-md-12">
+                                              <div class="card">
+                                                <div class="card-header">
+                                                  <h5>Income Analytics</h5>
+                                                  <span class="text-muted">See the income day by day</span>
+                                                  <div class="card-header-right">
+                                                    <ul class="list-unstyled card-option">
+                                                      <li><i class="feather icon-maximize full-card"></i></li>
+                                                      <li><i class="feather icon-minus minimize-card"></i></li>
+                                                      <li><i class="feather icon-trash-2 close-card"></i></li>
+                                                    </ul>
+                                                  </div>
+                                                </div>
+                                                <div class="card-block">
+                                                  <div id="income-analytics" style="height: 400px;"></div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <!-- /Income analytics -->
 
                                         </div>
                                     </div>
@@ -982,7 +697,293 @@
     <script src="..\files\assets\js\jquery.mCustomScrollbar.concat.min.js"></script>
     <script type="text/javascript" src="..\files\assets\js\SmoothScroll.js"></script>
     <script src="..\files\assets\js\pcoded.min.js"></script>
+    <!-- AWS SDK -->
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.7.16.min.js"></script>
     <!-- custom js -->
+    <script type="text/javascript" src="../files/assets/js/utils.js"></script>
+
+    <script type="text/javascript">
+    window.onload = function() {
+      // Initialize the Amazon Cognito credentials provider
+      AWS.config.region = 'us-east-1';
+      AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+          IdentityPoolId: 'us-east-1:33cfdc7c-d841-41cb-b3b4-af3b015348da',
+      });
+
+      // Set up connection with DynamoDB
+      const dynamodb  = new AWS.DynamoDB();
+      const docClient = new AWS.DynamoDB.DocumentClient();
+
+      // Parameters for the scan of the DB
+      const params = {
+        TableName: 'ARte_DailyStats'
+      };
+
+      // Store days for the 2 chrono charts
+      const daysPeople = [];
+      const daysIncome = [];
+
+      // Get the HTML elements
+      const todayVisitors    = document.getElementById("todayVisitors");
+      const todayIncome      = document.getElementById("todayIncome");
+      const todayExhibitions = document.getElementById("todayExhibitions");
+      const todayArtworks    = document.getElementById("todayArtworks");
+
+      const totalVisitors    = document.getElementById("totalVisitors");
+      const totalIncome      = document.getElementById("totalIncome");
+      const totalExhibitions = document.getElementById("totalExhibitions");
+      const totalArtworks    = document.getElementById("totalArtworks");
+
+      // Constants
+      const ticketCost = 5;
+
+      main();
+
+
+
+      var ctx = document.getElementById("arteUserChart").getContext("2d");
+      window.myDoughnut = new Chart(ctx, {
+          type: "doughnut",
+          data: {
+              datasets: [{
+                  data: [85, 15],
+                  backgroundColor: ["#fe9365", "#01a9ac"],
+                  label: "Dataset"
+              }],
+              labels: ["Using", "Not using"]
+          },
+          options: {
+              maintainAspectRatio: !1,
+              responsive: !0,
+              legend: {
+                  position: "bottom"
+              },
+              title: {
+                  display: !0,
+                  text: ""
+              },
+              animation: {
+                  animateScale: !0,
+                  animateRotate: !0
+              }
+          }
+      });
+
+      ctx = document.getElementById("arteUserChartToday").getContext("2d");
+      window.myDoughnut = new Chart(ctx, {
+          type: "doughnut",
+          data: {
+              datasets: [{
+                  data: [72, 28],
+                  backgroundColor: ["#fe9365", "#01a9ac"],
+                  label: "Dataset"
+              }],
+              labels: ["Using", "Not using"]
+          },
+          options: {
+              maintainAspectRatio: !1,
+              responsive: !0,
+              legend: {
+                  position: "bottom"
+              },
+              title: {
+                  display: !0,
+                  text: ""
+              },
+              animation: {
+                  animateScale: !0,
+                  animateRotate: !0
+              }
+          }
+      });
+
+      ctx = document.getElementById("arteUserChartNow").getContext("2d");
+      window.myDoughnut = new Chart(ctx, {
+          type: "doughnut",
+          data: {
+              datasets: [{
+                  data: [79, 21],
+                  backgroundColor: ["#fe9365", "#01a9ac"],
+                  label: "Dataset"
+              }],
+              labels: ["Using", "Not using"]
+          },
+          options: {
+              maintainAspectRatio: !1,
+              responsive: !0,
+              legend: {
+                  position: "bottom"
+              },
+              title: {
+                  display: !0,
+                  text: ""
+              },
+              animation: {
+                  animateScale: !0,
+                  animateRotate: !0
+              }
+          }
+      });
+
+
+
+      function main() {
+        // Variables for top cards
+        let peopleTotal = 0;
+        let peopleTotalToday = 0;
+
+        // Get current datetime in the following format: DD-MM-YYYY
+        const today = getDatetime().substring(0, 10);
+
+        docClient.scan(params, onScan);
+
+        function onScan(err, data) {
+          if (err)
+          showErrorModal("An error occurred!");
+          else {
+            data.Items.forEach(function(day) {
+              daysPeople.push({ "date": day.datetime, "value": day.peopleTotal });
+              daysIncome.push({ "date": day.datetime, "value": day.peopleTotal * ticketCost });
+
+              peopleTotal += day.peopleTotal;
+
+              if (day.datetime == today)
+                peopleTotalToday = day.peopleTotal;
+            });
+
+            // Continue scanning if we have more rooms (per scan 1MB limitation)
+            if (data.LastEvaluatedKey) {
+              params.ExclusiveStartKey = data.LastEvaluatedKey;
+              docClient.scan(params, onScan);
+            }
+
+            updateCards(peopleTotal, peopleTotalToday);
+            updateCharts();
+          }
+        }
+      }
+
+      function updateCards(peopleTotal, peopleTotalToday) {
+        if (daysPeople.size == 0)   return;
+
+        /*todayVisitors.innerHTML    = Number(peopleTotalToday).toLocaleString();
+        todayIncome.innerHTML      = Number(peopleTotalToday * ticketCost).toLocaleString() + " €";
+        todayExhibitions.innerHTML = 2;
+        todayArtworks.innerHTML    = 995;
+
+        totalVisitors.innerHTML    = Number(peopleTotal).toLocaleString();
+        totalIncome.innerHTML      = Number(peopleTotal * ticketCost).toLocaleString() + " €";
+        totalExhibitions.innerHTML = 83;
+        totalArtworks.innerHTML    = 1187;*/
+
+        const duration = 500;
+        animateValue(todayVisitors, 0, peopleTotalToday, duration);
+        animateValue(todayIncome, 0, peopleTotalToday * ticketCost, duration, 100);
+        animateValue(todayExhibitions, 0, 2, duration, 5);
+        animateValue(todayArtworks, 0, 995, duration);
+
+        animateValue(totalVisitors, 0, peopleTotal, duration, 100);
+        animateValue(totalIncome, 0, peopleTotal * ticketCost, duration, 100);
+        animateValue(totalExhibitions, 0, 83, duration, 5);
+        animateValue(totalArtworks, 0, 1187, duration);
+      }
+
+      function updateCharts() {
+        if (daysPeople.size == 0)   return;
+
+        daysPeople.sort( (x,y) => compareDates(x,y) );
+        daysIncome.sort( (x,y) => compareDates(x,y) );
+
+        function compareDates(x, y) {
+          var d1 = new Date(x.date);
+          var d2 = new Date(y.date);
+
+          if (d1 < d2)       return -1;
+          else if (d1 == d2) return 0;
+          else               return 1;
+        }
+
+        updateAmChart("visitors-analytics", daysPeople, "#fe5d70", "#fe9365");
+        updateAmChart("income-analytics", daysIncome, "#0ac282", "#0df3a3");
+      }
+
+      function updateAmChart(name, data, lineColor, negativeLineColor) {
+        const amchart = AmCharts.makeChart(name, {
+          "type": "serial",
+          "theme": "light",
+          "marginTop": 0,
+          "marginRight": 0,
+          "dataProvider": data,
+          "valueAxes": [{
+            "axisAlpha": 0,
+            "gridAlpha": 0,
+            "position": "left"
+          }],
+          "graphs": [{
+            "id": "g2",
+            "balloonText": "[[category]]<br><b><span style='font-size:14px;'>[[value]]</span></b>",
+            "bullet": "round",
+            "bulletSize": 8,
+            "lineColor": lineColor,
+            "lineThickness": 2,
+            "negativeLineColor": negativeLineColor,
+            "type": "smoothedLine",
+            "valueField": "value"
+          }],
+          "chartScrollbar": {
+            "graph": "g2",
+            "gridAlpha": 0,
+            "color": "#888888",
+            "scrollbarHeight": 55,
+            "backgroundAlpha": 0,
+            "selectedBackgroundAlpha": 0.1,
+            "selectedBackgroundColor": "#888888",
+            "graphFillAlpha": 0,
+            "autoGridCount": true,
+            "selectedGraphFillAlpha": 0,
+            "graphLineAlpha": 0.2,
+            "graphLineColor": "#c2c2c2",
+            "selectedGraphLineColor": "#888888",
+            "selectedGraphLineAlpha": 1
+
+          },
+          "chartCursor": {
+            "categoryBalloonDateFormat": "DD-MM-YYYY",
+            "cursorAlpha": 0,
+            "valueLineEnabled": true,
+            "valueLineBalloonEnabled": true,
+            "valueLineAlpha": 0.5,
+            "fullWidth": true
+          },
+          "dataDateFormat": "DD-MM-YYYY",
+          "categoryField": "date",
+          "categoryAxis": {
+            "minPeriod": "DD",
+            "parseDates": true,
+            "gridAlpha": 0,
+            "minorGridAlpha": 0,
+            "minorGridEnabled": true
+          },
+          "export": {
+            "enabled": true
+          }
+        });
+
+        amchart.addListener("rendered", zoomChart);
+        if (amchart.zoomChart) {
+          amchart.zoomChart();
+        }
+      }
+
+      function zoomChart() {
+        amchart.zoomToIndexes(
+          Math.round(amchart.dataProvider.length * 0.4), Math.round(amchart.dataProvider.length * 0.55)
+        );
+      }
+
+    }
+    </script>
+
     <script src="..\files\assets\js\vartical-layout.min.js"></script>
     <script type="text/javascript" src="..\files\assets\pages\dashboard\custom-dashboard.js"></script>
     <script type="text/javascript" src="..\files\assets\js\script.min.js"></script>

@@ -427,38 +427,17 @@
                                                 </div>
                                                 <!-- Search engine card end -->
 
-                                                <h4 id="searchResultTitle" class="m-b-20 hide"><b></b> Search Result Found</h4>
+                                                <h4 id="searchResultTitle" class="m-b-20 hide"><b></b> Results Found</h4>
 
-                                                <!-- Search result card start -->
-                                                <div id="searchResultCards" class="row search-result">
-                                                    <!--<div class="col-lg-3 col-md-4 col-sm-6">
-                                                        <div class="card">
-                                                            <div id="DiscobolusCard" class="pointer zoomable-card">
-                                                              <div class="card-img-wrap">
-                                                                <img class="card-img-top img-fluid" src="..\files\assets\images\search-images\Discobolus.jpg" alt="Artwork image">
-                                                              </div>
-                                                              <div class="card-block">
-                                                                <h5 class="card-title">Discobolus</h5>
-                                                                <p class="card-text text-muted">The Discobolus of Myron is a Greek sculpture completed at the start of the Classical Period...</p>
-                                                                <p class="card-text"><small class="text-muted">Last update 3 mins ago</small></p>
-                                                              </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>-->
-                                                 </div>
-                                                <!-- Search result card end -->
+                                                <!-- Search result card -->
+                                                <div id="searchResultCards" class="row search-result"></div>
 
                                                 <style>
-                                                /*input[type='file'] {
-                                                  color: transparent;
-                                                }*/
-
                                                 .fake-input-disabled {
                                                   background: #E9ECEF;
                                                   opacity: 0.5;
                                                   cursor: not-allowed;
                                                 }
-
                                               </style>
 
                                                 <!-- Non-editable artwork -->
@@ -474,7 +453,7 @@
                                                         </div>
                                                       </div>
                                                       <div class="card-block">
-                                                            <h5 class="sub-title"><span id="subTitleNonEdit">Discobolus</span> &emsp;
+                                                            <h5 class="sub-title"><span id="subTitleNonEdit"></span> &emsp;
                                                               <i class="feather icon-edit form-txt-info pointer" data-toggle="modal" data-target="#editModal"></i>
                                                             </h5>
                                                           <form>
@@ -493,7 +472,7 @@
                                                               <div class="form-group row">
                                                                   <label class="col-sm-2 col-form-label">Description</label>
                                                                   <div class="col-sm-10">
-                                                                      <textarea id="descriptionNonEdit" rows="5" cols="5" class="form-control" disabled>The Discobolus of Myron is a Greek sculpture completed at the start of the Classical Period...</textarea>
+                                                                      <textarea id="descriptionNonEdit" rows="5" cols="5" class="form-control" disabled></textarea>
                                                                   </div>
                                                               </div>
                                                               <div class="form-group row">
@@ -557,7 +536,7 @@
                                                         </div>
                                                       </div>
                                                       <div class="card-block">
-                                                          <h5 id="subTitle" class="sub-title">Discobolus</h5>
+                                                          <h5 id="subTitle" class="sub-title"></h5>
                                                           <form>
                                                               <div class="form-group row">
                                                                   <label class="col-sm-2 col-form-label">Title</label>
@@ -576,7 +555,7 @@
                                                               <div class="form-group row">
                                                                   <label class="col-sm-2 col-form-label">Description</label>
                                                                   <div class="col-sm-10">
-                                                                    <textarea rows="3" class="form-control max-textarea"  maxlength="255" id="description" name="description">The Discobolus of Myron is a Greek sculpture completed at the start of the Classical Period...</textarea>
+                                                                    <textarea rows="3" class="form-control max-textarea"  maxlength="255" id="description" name="description"></textarea>
                                                                     <p id="descriptionError"></p>
                                                                   </div>
                                                               </div>
@@ -799,8 +778,14 @@
         const room        = document.getElementById("room");
         const model       = document.getElementById("model");
         const photo       = document.getElementById("photo");
-        const modelEditText   = document.getElementById("modelEditText");
-        const photoEditText   = document.getElementById("photoEditText");
+        const modelEditText = document.getElementById("modelEditText");
+        const photoEditText = document.getElementById("photoEditText");
+
+        const searchTextJQ        = $("#searchText");
+        const searchResultTitleJQ = $("#searchResultTitle");
+        const searchResultCardsJQ = $("#searchResultCards");
+        const nonEditArtJQ        = $("#nonEditArt");
+        const editArtJQ           = $("#editArt");
 
         // Prepare inputs values
         let titleValue       = "",
@@ -926,13 +911,18 @@
 
             else if (n == 1) {
               str = "";
+              v = value[0];
+
+              /*console.log("value[0]: " + value[0]);
+              console.log("value[0] instanceof String? " + (value[0] instanceof String));
+              console.log("typeof value[0] === 'string'? " + (typeof value[0] === "string"));*/
 
               // Check if value[0] is directly a string (i.e. just retrieved URL from server)
-              if (value instanceof String)
-                str = value;
+              if (typeof v === "string" || v instanceof String)
+                str = v;
               // Else user has selected a file, so access the name
               else
-                str = value[0].name;
+                str = v[0].name;
 
               const s = str.split(sep);
       	      elem.innerHTML = s[s.length-1];
@@ -959,14 +949,14 @@
 
         // Execute and show results of the search
         async function search() {
-          var input = $("#searchText").val();
-          $("#searchResultTitle").fadeOut();
-          $("#searchResultCards").fadeOut();
-          $("#nonEditArt").fadeOut();
-          $("#editArt").fadeOut();
+          let input = searchTextJQ.val();
+          searchResultTitleJQ.fadeOut();
+          searchResultCardsJQ.fadeOut();
+          nonEditArtJQ.fadeOut();
+          editArtJQ.fadeOut();
 
           // Remove previous results cards
-          $("#searchResultCards").html("");
+          searchResultCardsJQ.html("");
           artworks.clear();
 
           // Wait results of the search
@@ -983,35 +973,37 @@
           //$("#pageHeaderTitle").text(input);
           //$("#searchName").text(input);
 
-          // Set the number of found results
-          $("#searchResultTitle").find("b").html(artworksNumber);
+          // Set the number of results found
+          let s = "<b>" + artworksNumber + "</b>";
+          s += artworksNumber > 1 ? " Results found" : " Result found";
+          searchResultTitleJQ.html(s);
 
           //$("#pageHeader").fadeIn();
-          $("#searchResultTitle").fadeIn();
-          $("#searchResultCards").fadeIn();
+          searchResultTitleJQ.fadeIn();
+          searchResultCardsJQ.fadeIn();
         }
 
         // Search if the artwork title is in the DB
         async function searchArtwork(input) {
-          var filter = input.toLowerCase();
+          const filteredInput = input.toLowerCase();
 
           return new Promise( async function(resolve) {
             // Await the query to the DB and then return the promise
-            await queryData(filter);
+            await queryData(filteredInput);
             //console.log("End searchArtwork");
             resolve(artworks.size);
           });
         }
 
-        async function queryData(filter) {
+        async function queryData(input) {
           const params = {
             TableName : "ARte_Artworks",
-            FilterExpression: "begins_with(#t, :t)",
+            FilterExpression: "begins_with(#k, :i)",
             ExpressionAttributeNames: {
-                "#t": "title",
+                "#k": "keyword",
             },
             ExpressionAttributeValues: {
-                ":t": filter
+                ":i": input
             }
           };
 
@@ -1053,10 +1045,10 @@
             //console.log("ms: " + ms + " => " + elapsedTime(ms));
 
             // ORIGINALE
-            /*$("#searchResultCards").append("<div class='col-lg-3 col-md-4 col-sm-6'><div class='card'><div id='" + artwork.artworkID + "' class='pointer zoomable-card'><div class='card-img-wrap'><img class='card-img-top img-fluid' src='" + artwork.photo + "' alt='Artwork image'></div><div class='card-block'><h5 class='card-title'>" + artwork.title + "</h5><p class='card-text text-muted'>" + artwork.description + "</p><p class='card-text'><small class='text-muted'>Last update " + elapsedTime(ms) + " ago</small></p></div></div></div></div>");*/
+            /*searchResultCardsJQ.append("<div class='col-lg-3 col-md-4 col-sm-6'><div class='card'><div id='" + artwork.artworkID + "' class='pointer zoomable-card'><div class='card-img-wrap'><img class='card-img-top img-fluid' src='" + artwork.photo + "' alt='Artwork image'></div><div class='card-block'><h5 class='card-title'>" + artwork.title + "</h5><p class='card-text text-muted text-ellipsis'>" + artwork.description + "</p><p class='card-text'><small class='text-muted'>Last update " + elapsedTime(ms) + " ago</small></p></div></div></div></div>");*/
 
             // IMG FISSA
-            $("#searchResultCards").append("<div class='col-lg-3 col-md-4 col-sm-6'><div class='card'><div id='" + artwork.artworkID + "' class='pointer zoomable-card'><div class='card-img-wrap'><img class='card-img-top' src='" + artwork.photo + "' alt='Artwork image' width='350' height='350'></div><div class='card-block'><h5 class='card-title'>" + artwork.title + "</h5><p class='card-text text-muted'>" + artwork.description + "</p><p class='card-text'><small class='text-muted'>Last update " + elapsedTime(ms) + " ago</small></p></div></div></div></div>");
+            searchResultCardsJQ.append("<div class='col-lg-3 col-md-4 col-sm-6'><div class='card'><div id='" + artwork.artworkID + "' class='pointer zoomable-card'><div class='card-img-wrap'><img class='card-img-top' src='" + artwork.photo + "' alt='Artwork image' width='350' height='350'></div><div class='card-block'><h5 class='card-title'>" + artwork.title + "</h5><p class='card-text text-muted text-ellipsis'>" + artwork.description + "</p><p class='card-text'><small class='text-muted'>Last update " + elapsedTime(ms) + " ago</small></p></div></div></div></div>");
           }
 
           // When a card is clicked, open the non-editable card
@@ -1083,8 +1075,8 @@
 
         // Open the non-editable card
         function openNonEditCard(artworkID) {
-          $("#searchResultTitle").fadeOut();
-          $('#searchResultCards').fadeOut();
+          searchResultTitleJQ.fadeOut();
+          searchResultCardsJQ.fadeOut();
 
           // Get artwork from artworks
           artwork = artworks.get(artworkID);
@@ -1100,14 +1092,14 @@
           setFakeInputFileValue(modelNonEditText, artwork.model3D, true)
           setFakeInputFileValue(photoNonEditText, artwork.photo)
 
-          $('#nonEditArt').fadeIn();
+          nonEditArtJQ.fadeIn();
         }
 
         // When the close button of the non-editable card is clicked, close it
         document.getElementById("btnCloseNonEdit").onclick = function () {
-          $('#nonEditArt').fadeOut()
-          $("#searchResultTitle").fadeIn();
-          $('#searchResultCards').fadeIn();
+          nonEditArtJQ.fadeOut()
+          searchResultTitleJQ.fadeIn();
+          searchResultCardsJQ.fadeIn();
 
           // Unset the artwork
           artwork = null;
@@ -1120,9 +1112,9 @@
 
         // Close the editable card
         function closeEditCard() {
-          $('#editArt').fadeOut()
-          $("#searchResultTitle").fadeIn();
-          $('#searchResultCards').fadeIn();
+          editArtJQ.fadeOut()
+          searchResultTitleJQ.fadeIn();
+          searchResultCardsJQ.fadeIn();
 
           // Unset the artwork
           artwork = null;
@@ -1243,11 +1235,27 @@
                 photoValue = obj.photoURL;
 
                 updateItem();
+
+                // Close the editable card and unset the current artwork
+                closeEditCard();
+
+                // Reload the artworks
+                search();
               },
               error: function() {
                 showErrorModal("An error occurred!");
               }
             });
+          }
+          // Else directly update item
+          else {
+            updateItem();
+
+            // Close the editable card and unset the current artwork
+            closeEditCard();
+
+            // Reload the artworks
+            search();
           }
         }
 
@@ -1260,7 +1268,7 @@
             Key: {
               "artworkID": artwork.artworkID
             },
-            UpdateExpression: "set #dt = :dt, title = :t, author = :a, description = :d, room = :r, #m = :m, photo = :p",
+            UpdateExpression: "set #dt = :dt, title = :t, author = :a, description = :d, room = :r, #m = :m, photo = :p, keyword = :k",
             ExpressionAttributeNames: {
               "#dt": "datetime",
               "#m":  "model3D"
@@ -1272,7 +1280,8 @@
               ":d":  descriptionValue,
               ":r":  roomValue,
               ":m":  modelValue,
-              ":p":  photoValue
+              ":p":  photoValue,
+              ":k":  titleValue.toLowerCase()
             },
             ReturnValues:"UPDATED_NEW"
           };
@@ -1341,8 +1350,11 @@
             // Remove the artwork from the map
             artworks.delete(artwork.artworkID);
 
-            // Set the number of found results
-            $("#searchResultTitle").find("b").html(artworks.size);
+            // Set the number of results found
+            const n = artworks.size;
+            let s = "<b>" + n + "</b>";
+            s += n > 1 ? " Results found" : " Result found";
+            searchResultTitleJQ.html(s);
 
             // Remove photo and model files from the server
             removeFiles();
@@ -1369,7 +1381,7 @@
            data: data,
            type: "post",
            success: function(data){
-             console.log("php return data:\n" + data);
+             //console.log("php return data:\n" + data);
            },
            error: function() {
              console.log("php error while removing the artwork from the server");

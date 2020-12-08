@@ -93,7 +93,6 @@ if (!$update) {
 }
 
 // Check size of each file
-//$file = $modelFile;
 $filesize = $modelFiles["size"][0];
 $maxSize = 15728640; // 15 Mb
 for ($i = 0; $i < $n; $i++) {
@@ -138,9 +137,11 @@ $target = $modelURLs[0];
 echo "tmp_name model[0]: " . $file . "\n";
 echo "tmp_name photo: " . $photoFile["tmp_name"] . "\n";
 
-echo $modelFiles["size"][0] . "\n";
-echo $modelFiles["size"][1] . "\n";
-echo $photoFile["size"] . "\n";*/
+echo "modelFiles['size'][0]: " . $modelFiles["size"][0] . "\n";
+echo "modelFiles['size'][1]: " . $modelFiles["size"][1] . "\n";
+echo "photoFile['size']: " . $photoFile["size"] . "\n";
+
+echo "modelFiles['error'][0]: " . $modelFiles['error'][0];//*/
 
 for ($i = 0; $i < $n; $i++) {
   if ($i < $n-1) {
@@ -154,10 +155,6 @@ for ($i = 0; $i < $n; $i++) {
 
   //echo $file . "\n";
   //echo $target . "\n";
-
-  // PER ORA BLOCCO IL .bin
-  if ($i == 0)
-    continue;
 
   if (!move_uploaded_file($file, $target)) {
     if ($i < $n-1)

@@ -35,6 +35,15 @@
 .swal-footer {
 	text-align: center;
 }
+
+/* Add ellipsis when the text is longer than 2 lines */
+.text-ellipsis {
+   overflow: hidden;
+   text-overflow: ellipsis;
+   display: -webkit-box;
+   -webkit-line-clamp: 2; /* number of lines to show */
+   -webkit-box-orient: vertical;
+}
 /* /Additions */
 
 

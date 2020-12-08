@@ -408,8 +408,8 @@
                                                                           <th class="text-right">Most used feature</th>
                                                                       </tr>
                                                                   </thead>
-                                                                  <tbody>
-                                                                      <tr>
+                                                                  <tbody id="tableBody">
+                                                                      <!--<tr>
                                                                           <td>1.</td>
                                                                           <td><img src="..\files\assets\images\search-images\Discobolus.jpg" alt="" class="img-fluid img-30"></td>
 
@@ -453,12 +453,12 @@
                                                                           <td>5</td>
                                                                           <td>29560</td>
                                                                           <td class="text-right">Animation (23612)</td>
-                                                                      </tr>
+                                                                      </tr>-->
                                                                   </tbody>
                                                               </table>
                                                           </div>
                                                       <div class="text-right  m-r-20">
-                                                          <a href="#" class="b-b-primary text-primary">View all</a>
+                                                          <a id="viewTable" class="b-b-primary text-primary">View all</a>
                                                       </div>
                                                   </div>
                                               </div>
@@ -477,7 +477,7 @@
                                                             <div class="col-lg-4 offset-lg-4 offset-sm-3 col-sm-6 offset-sm-1 col-xs-12">
                                                                 <div class="input-group input-group-button input-group-primary">
                                                                     <input id="searchText" type="text" class="form-control" placeholder="Search here...">
-                                                                    <button class="btn btn-primary input-group-addon" id="searchButton" >Search</button>
+                                                                    <button id="searchButton" class="btn btn-primary input-group-addon" >Search</button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -485,32 +485,18 @@
                                               </div>
                                               <!-- Search engine card end -->
 
-                                              <h4 id="searchResultTitle" class="m-b-20 hide"><b>1</b> Result Found</h4>
+                                              <h4 id="searchResultTitle" class="m-b-20 hide"></h4>
 
-                                              <!-- Search result card start -->
-                                              <div id="searchResultCards" class="row search-result hide">
-                                                    <div class="col-lg-3 col-md-4 col-sm-6 ">
-                                                        <div class="card">
-                                                            <div id="DiscobolusCard" class="pointer zoomable-card">
-                                                              <div class="card-img-wrap">
-                                                                <img class="card-img-top img-fluid" src="..\files\assets\images\search-images\Discobolus.jpg" alt="Artwork image">
-                                                              </div>
-                                                              <div class="card-block">
-                                                                <h5 class="card-title">Discobolus</h5>
-                                                                <p class="card-text text-muted">The Discobolus of Myron is a Greek sculpture completed at the start of the Classical Period...</p>
-                                                                <p class="card-text"><small class="text-muted">Last update 3 mins ago</small></p>
-                                                              </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                              </div>
-                                              <!-- Search result card end -->
+                                              <!-- Search result card -->
+                                              <div id="searchResultCards" class="row search-result"></div>
 
                                               <!-- Artwork info -->
                                               <div id="artInfo" class="card user-card-full hide">
                                                       <div class="row">
-                                                            <div id="artInfoImage" class="col-sm-4 pointer">
-                                                                <img src="..\files\assets\images\search-images\Discobolus.jpg" class="img-fluid" alt="Artwork image">
+                                                            <!--<div id="artInfoImage" class="col-sm-4 pointer">-->
+                                                            <div id="artInfoImage" class="col-sm-4">
+                                                                <!--<img id="artworkImage" class="img-fluid" alt="Artwork image">-->
+                                                                <img id="artworkImage" alt="Artwork image" width='350' height='350'>
                                                             </div>
                                                             <div class="col-sm-8">
 
@@ -531,7 +517,7 @@
                                                                     <div class="row">
                                                                         <div class="col-sm-6">
                                                                             <p class="m-b-10 f-w-600">Room</p>
-                                                                            <h6 class="text-muted f-w-400">1</h6>
+                                                                            <h6 id="artworkRoom" class="text-muted f-w-400"></h6>
                                                                         </div>
                                                                         <div class="col-sm-6">
                                                                             <p class="m-b-10 f-w-600">Views</p>
@@ -572,92 +558,6 @@
             </div>
         </div>
     </div>
-
-
-    <script type="text/javascript">
-    window.onload = function() {
-      const searchButton = document.getElementById("searchButton");
-
-      searchButton.onclick = function () {
-        search();
-      }
-
-      // Execute the search also when the user press enter on the keyboard
-      document.getElementById("searchText").addEventListener("keyup", function(event) {
-        if (event.keyCode === 13) {
-          // Cancel the default action, if needed
-          event.preventDefault();
-          // Trigger the button element with a click
-          searchButton.click();
-        }
-      });
-
-      function search() {
-        var input = $("#searchText").val();
-        $("#searchResultTitle").fadeOut();
-        $("#searchResultCards").fadeOut();
-        $("#artInfo").fadeOut();
-
-
-        if(searchArtwork(input).length == 0) {
-          setTimeout(function() {
-            alert("No result found");
-          }, 200);
-          return;
-        }
-
-        $("#pageHeaderTitle").text(input);
-        $("#searchName").text(input);
-
-        $("#searchResultTitle").fadeIn();
-        $("#searchResultCards").fadeIn();
-      }
-
-      var artworks = ["discobolus"];
-
-      function searchArtwork(input) {
-        var filter = input.toLowerCase();
-        var res = [];
-
-        // Loop through all list items
-        for (var i = 0; i < artworks.length; i++) {
-          var artwork = artworks[i];
-          if (artwork.indexOf(filter) != -1)
-            res.push(artwork);
-        }
-
-        return res;
-      }
-
-      document.getElementById("DiscobolusCard").onclick = function () {
-        $("#searchResultTitle").fadeOut();
-        $('#searchResultCards').fadeOut();
-        setTimeout(function() {
-          $('#artInfo').fadeIn();
-        }, 400);
-      }
-
-      document.getElementById("artInfoImage").onclick = function () {
-        closeCard();
-      }
-
-      document.getElementById("btnClose").onclick = function () {
-        closeCard();
-      }
-
-      function closeCard() {
-        $("#artInfo").fadeOut();
-        setTimeout(function() {
-          $('#searchResultTitle').fadeIn();
-          $('#searchResultCards').fadeIn();
-        }, 400);
-      }
-
-
-    }
-    </script>
-
-
 
     <!-- Warning Section Starts -->
     <!-- Older IE warning message -->
@@ -713,7 +613,6 @@
     <!-- modernizr js -->
     <script type="text/javascript" src="..\files\bower_components\modernizr\js\modernizr.js"></script>
     <script type="text/javascript" src="..\files\bower_components\modernizr\js\css-scrollbars.js"></script>
-
     <!-- i18next.min.js -->
     <script type="text/javascript" src="..\files\bower_components\i18next\js\i18next.min.js"></script>
     <script type="text/javascript" src="..\files\bower_components\i18next-xhr-backend\js\i18nextXHRBackend.min.js"></script>
@@ -722,7 +621,300 @@
     <script src="..\files\assets\js\pcoded.min.js"></script>
     <script src="..\files\assets\js\vartical-layout.min.js"></script>
     <script src="..\files\assets\js\jquery.mCustomScrollbar.concat.min.js"></script>
+    <!-- AWS SDK -->
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.7.16.min.js"></script>
     <!-- Custom js -->
+    <script type="text/javascript" src="../files/assets/js/utils.js"></script> <!--UTILEEEEEEEEEE?????-->
+
+    <script type="text/javascript">
+      window.onload = function() {
+        // Initialize the Amazon Cognito credentials provider
+        AWS.config.region = 'us-east-1';
+        AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+            IdentityPoolId: 'us-east-1:33cfdc7c-d841-41cb-b3b4-af3b015348da',
+        });
+
+        // Set up connection with DynamoDB
+        const dynamodb  = new AWS.DynamoDB();
+        const docClient = new AWS.DynamoDB.DocumentClient();
+
+        // Get the HTML elements
+        const artworkImage = document.getElementById("artworkImage");
+        const artworkRoom  = document.getElementById("artworkRoom");
+
+        const viewTable = document.getElementById("viewTable");
+        const tableBodyJQ         = $("#tableBody");
+
+        const searchTextJQ        = $("#searchText");
+        const searchResultTitleJQ = $("#searchResultTitle");
+        const searchResultCardsJQ = $("#searchResultCards");
+        const artInfoJQ           = $("#artInfo");
+
+        // Store artworks in a list for the table
+        let arts = [];
+
+        // Scan DB to populate the table
+        scanData();
+
+        function scanData() {
+          const params = {
+            TableName : "ARte_Artworks"
+          };
+
+          docClient.scan(params, onScan);
+
+          function onScan(err, data) {
+              if (err)
+                showErrorModal("An error occurred!");
+              else {
+                data.Items.forEach(function(artwork) {
+                  arts.push(artwork);
+                });
+
+                // Continue scanning if we have more artworks (per scan 1MB limitation)
+                if (data.LastEvaluatedKey) {
+                  params.ExclusiveStartKey = data.LastEvaluatedKey;
+                  docClient.scan(params, onScan);
+                }
+
+                // Sort in descending order
+                //arts = arts.sort( (x,y) => y.views - x.views );
+
+                updateTable(5);
+              }
+          }
+
+        }
+
+        // Insert first n rows in the table
+        function updateTable(rows) {
+          if (!arts) return;
+
+          //const arts = arts.sort( (x,y) => y.views - x.views );
+
+          let test = [
+           { "title": "a", "room": 3, "photo": "", "views": 23652 },
+           { "title": "b", "room": 5, "photo": "", "views": 21547 },
+           { "title": "c", "room": 4, "photo": "", "views": 24264 },
+           { "title": "d", "room": 5, "photo": "", "views": 20123 },
+           { "title": "e", "room": 2, "photo": "", "views": 23245 },
+           { "title": "f", "room": 3, "photo": "", "views": 22348 },
+           { "title": "g", "room": 6, "photo": "", "views": 24247 },
+           { "title": "h", "room": 1, "photo": "", "views": 20322 },
+           { "title": "i", "room": 2, "photo": "", "views": 23562 }
+          ];
+
+          // Sort in descending order
+          test = test.sort( (x,y) => y.views - x.views );
+
+          // Clean table
+          tableBodyJQ.html("");
+
+          for (let i=0; i<rows; i++) {
+            const artwork = test[i]; //arts[i];
+            tableBodyJQ.append("<tr><td>" + (i+1) + ".</td><td><img src='" + artwork.photo + "' alt='Artwork image' class='img-fluid img-30'></td><td>" + artwork.title + "</td><td>" + artwork.room + "</td><td>" + artwork.views + "</td><td class='text-right'>Contextualization (20328)</td></tr>");
+
+            /* Structure of each table row
+            <tr>
+                <td>1.</td>
+                <td><img src="..\files\assets\images\search-images\Discobolus.jpg" alt="" class="img-fluid img-30"></td>
+
+                <td>Discobolus</td>
+                <td>1</td>
+                <td>32029</td>
+                <td class="text-right">Contextualization (20328)</td>
+            </tr>*/
+          }
+        }
+
+        viewTable.onclick = function () {
+          // TODO close 
+          updateTable(arts.length);
+        }
+
+        // Execute the search when the user press the associated button
+        document.getElementById("searchButton").onclick = function () {
+          search();
+        }
+
+        // Execute the search also when the user press enter on the keyboard
+        document.getElementById("searchText").addEventListener("keyup", function(event) {
+          if (event.keyCode === 13) {
+            // Cancel the default action, if needed
+            event.preventDefault();
+            search();
+          }
+        });
+
+        // Store artworks returned by the query as a map
+        let artworks = new Map();
+        // Store artwork to set the values of the info
+        let artwork = null;
+
+        // Execute and show results of the search
+        async function search() {
+          let input = searchTextJQ.val();
+          searchResultTitleJQ.fadeOut();
+          searchResultCardsJQ.fadeOut();
+          artInfoJQ.fadeOut();
+
+          // Remove previous results cards
+          searchResultCardsJQ.html("");
+          artworks.clear();
+
+          // Wait results of the search
+          const artworksNumber = await searchArtwork(input);
+          //console.log("after searchArtwork");
+
+          if(artworksNumber == 0) {
+            setTimeout(function() {
+              alert("No result found");
+            }, 200);
+            return;
+          }
+
+          //$("#pageHeaderTitle").text(input);
+          //$("#searchName").text(input);
+
+          // Set the number of found results
+          let s = "<b>" + artworksNumber + "</b>";
+          s += artworksNumber > 1 ? " Results found" : " Result found";
+          searchResultTitleJQ.html(s);
+
+          //$("#pageHeader").fadeIn();
+          searchResultTitleJQ.fadeIn();
+          searchResultCardsJQ.fadeIn();
+        }
+
+        // Search if the artwork title is in the DB
+        async function searchArtwork(input) {
+          const filteredInput = input.toLowerCase();
+
+          return new Promise( async function(resolve) {
+            // Await the query to the DB and then return the promise
+            await queryData(filteredInput);
+            //console.log("End searchArtwork");
+            resolve(artworks.size);
+          });
+        }
+
+        async function queryData(input) {
+          const params = {
+            TableName : "ARte_Artworks",
+            FilterExpression: "begins_with(#k, :i)",
+            ExpressionAttributeNames: {
+                "#k": "keyword",
+            },
+            ExpressionAttributeValues: {
+                ":i": input
+            }
+          };
+
+          // Await a scan
+          return new Promise( function(resolve) {
+            docClient.scan(params, onScan);
+
+            function onScan(err, data) {
+              if (err)
+                showErrorModal("An error occurred!");
+              else {
+                //console.log(data);
+
+                data.Items.forEach(function(artwork) {
+                  artworks.set(artwork.artworkID, artwork);
+                });
+
+                // Continue scanning if we have more artworks (per scan 1MB limitation)
+                if (data.LastEvaluatedKey) {
+                  params.ExclusiveStartKey = data.LastEvaluatedKey;
+                  docClient.scan(params, onScan);
+                }
+
+                createCards();
+              }
+
+              //console.log("End scan");
+              resolve(artworks);
+            }
+          });
+        }
+
+        // Create artworks cards to display the search results
+        function createCards() {
+          current = getDatetime();
+
+          for (let artwork of artworks.values()) {
+            ms = difference(current, artwork.datetime);
+            //console.log("ms: " + ms + " => " + elapsedTime(ms));
+
+            // ORIGINALE
+            /*searchResultCardsJQ.append("<div class='col-lg-3 col-md-4 col-sm-6'><div class='card'><div id='" + artwork.artworkID + "' class='pointer zoomable-card'><div class='card-img-wrap'><img class='card-img-top img-fluid' src='" + artwork.photo + "' alt='Artwork image'></div><div class='card-block'><h5 class='card-title'>" + artwork.title + "</h5><p class='card-text text-muted text-ellipsis'>" + artwork.description + "</p><p class='card-text'><small class='text-muted'>Last update " + elapsedTime(ms) + " ago</small></p></div></div></div></div>");*/
+
+            // IMG FISSA
+            searchResultCardsJQ.append("<div class='col-lg-3 col-md-4 col-sm-6'><div class='card'><div id='" + artwork.artworkID + "' class='pointer zoomable-card'><div class='card-img-wrap'><img class='card-img-top' src='" + artwork.photo + "' alt='Artwork image' width='350' height='350'></div><div class='card-block'><h5 class='card-title'>" + artwork.title + "</h5><p class='card-text text-muted text-ellipsis'>" + artwork.description + "</p><p class='card-text'><small class='text-muted'>Last update " + elapsedTime(ms) + " ago</small></p></div></div></div></div>");
+          }
+
+          // When a card is clicked, open the non-editable card
+          $(".zoomable-card").click(function () {
+            openCard($(this).attr("id"));
+          });
+
+          /* Structure of each card
+          <div class='col-lg-3 col-md-4 col-sm-6'>
+              <div class='card'>
+                  <div id='DiscobolusCard' class='pointer zoomable-card'>
+                    <div class='card-img-wrap'>
+                      <img class='card-img-top img-fluid' src='..\files\assets\images\search-images\Discobolus.jpg' alt='Artwork image'>
+                    </div>
+                    <div class='card-block'>
+                      <h5 class='card-title'>Discobolus</h5>
+                      <p class='card-text text-muted'>The Discobolus of Myron is a Greek sculpture completed at the start of the Classical Period...</p>
+                      <p class='card-text'><small class='text-muted'>Last update 3 mins ago</small></p>
+                    </div>
+                  </div>
+              </div>
+          </div>*/
+        }
+
+        // Open the info card
+        function openCard(artworkID) {
+          searchResultTitleJQ.fadeOut();
+          searchResultCardsJQ.fadeOut();
+
+          // Get artwork from artworks
+          artwork = artworks.get(artworkID);
+
+          // Set the values of the card
+          /*titleNonEdit.value       = artwork.title;
+          authorNonEdit.value      = artwork.author;
+          descriptionNonEdit.value = artwork.description;*/
+          artworkImage.src = artwork.photo;
+          artworkRoom.innerHTML   = artwork.room;
+
+          setTimeout(function() {
+            artInfoJQ.fadeIn();
+          }, 400);
+        }
+
+        /*document.getElementById("artInfoImage").onclick = function () {
+          closeCard();
+        }*/
+
+        document.getElementById("btnClose").onclick = function () {
+          closeCard();
+        }
+
+        // Close the info card
+        function closeCard() {
+          artInfoJQ.fadeOut();
+          setTimeout(function() {
+            searchResultTitleJQ.fadeIn();
+            searchResultCardsJQ.fadeIn();
+          }, 400);
+        }
+
+      }
+    </script>
     <script type="text/javascript" src="..\files\assets\js\script.js"></script>
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
