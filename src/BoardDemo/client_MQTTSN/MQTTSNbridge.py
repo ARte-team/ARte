@@ -1,11 +1,8 @@
 from AWSIoTPythonSDK.MQTTLib import AWSIoTMQTTClient
 import MQTTSNclient
 import json
-import boto3
 
-# connection to DynamoDB and access to the table EnvironmentalStationDB
-dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
-dynamoTable = dynamodb.Table('RoomsDB')
+# JSON file to be published
 jsonP = ''
 
 # clients for MQTT and MQTTS
@@ -20,7 +17,6 @@ class Callback:
       jsonP = json.loads(message) 
       print(topicName, message)
       MQTTClient.publish(topicName, message, qos)
-      dynamoTable.put_item(Item=jsonP)
       return True
 
 # path that indicates the certificates position
@@ -45,7 +41,7 @@ MQTTSNClient.registerCallback(Callback())
 MQTTClient.connect()
 MQTTSNClient.connect()
 
-# subscribe to the topic
+# subscribe to the topics
 MQTTSNClient.subscribe("sensor/room")
 
 # cycle that wait for a command to close the program
