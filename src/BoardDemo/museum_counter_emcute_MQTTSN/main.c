@@ -119,24 +119,24 @@ static int init_values(int* a, int n){
 // function that controls the people flow with
 // a probability that depends on the visiting hour
 int* people_flow(t_museum* m){
-  
+
   time_t my_time;
-  struct tm* timeinfo; 
+  struct tm* timeinfo;
   time(&my_time);
   timeinfo = localtime(&my_time);
-  
+
   int i;
-  
+
   for(i = 0; i < m->numRooms; i++){
-    
+
     int p = rand() % 100;
-    
+
     // opening hours of the museum 9am - 7pm
     if(timeinfo->tm_hour < 9 || timeinfo->tm_hour > 18) {
       m->peopleTotal = 0;
       break;
     }
-    
+
     // people flow based on the visiting hour
     if(timeinfo->tm_hour == 9 || timeinfo->tm_hour == 18) {
       if(p <= 25)
@@ -144,7 +144,7 @@ int* people_flow(t_museum* m){
       else if(m->array[i] > 0)
         m->array[i] -= 1;
     }
-      
+
     else if((timeinfo->tm_hour < 12) ||
        (timeinfo->tm_hour > 15 && timeinfo->tm_hour < 18)) {
       if(p <= 75)
@@ -152,7 +152,7 @@ int* people_flow(t_museum* m){
       else if(m->array[i] > 0)
         m->array[i] -= 1;
     }
-    
+
     else {
       if(p <= 50)
         m->array[i] += 1;
@@ -160,7 +160,7 @@ int* people_flow(t_museum* m){
         m->array[i] -= 1;
     }
   }
-  
+
   return m->array;
 }
 
@@ -168,13 +168,13 @@ int* people_flow(t_museum* m){
 // based on probability
 static int gen_num_people(t_museum* m){
   int i, sum = 0;
-  
+
   m->array = people_flow(m);
-  
+
   for(i = 0; i < m->numRooms; i++){
     sum += m->array[i];
   }
-  
+
   return sum;
 }
 
@@ -184,27 +184,27 @@ static int cmd_start(int argc, char **argv){
       printf("Usage: %s <address> <port> <numRooms>\n", argv[0]);
       return 1;
   }
-  
+
   // museum structs
   t_museum* m = (t_museum*)malloc(sizeof(t_museum));
-  
+
   // number of rooms
   m->numRooms = atoi(argv[3]);
-  
+
   // array for the rooms
   int roomsArray[m->numRooms];
   m->array = roomsArray;
-  
+
   // name of the topic
   char topic[32];
   sprintf(topic, "sensor/room");
-  
+
   // json that it will published
   char json[128];
-  
+
   // initialize the array and the daily number of people
   init_values(m->array, m->numRooms);
-  
+
   while(1){
     // it tries to connect to the gateway
     if (con(argv[1], atoi(argv[2]))) {
@@ -219,15 +219,15 @@ static int cmd_start(int argc, char **argv){
     if(c == 0) {
       printf("Error! Invalid format\n");
       return 0;
-    } 
+    }
 
     // update the values for the museum
     m->peopleCurrent = gen_num_people(m);
     m->peopleTotal  += m->peopleCurrent;
-      
+
     // fills a json document for each room
-    sprintf(json, "{\"roomID\": \"%d\", \"datetime\": \"%s\", \"peopleCurrent\": \"%d\", "
-                  "\"peopleTotal\": \"%d\"}",
+    sprintf(json, "{\"roomID\": %d, \"datetime\": \"%s\", \"peopleCurrent\": %d, "
+                  "\"peopleTotal\": %d}",
                   0, datetime, m->peopleCurrent, m->peopleTotal);
 
     // publish to the topic
@@ -239,7 +239,7 @@ static int cmd_start(int argc, char **argv){
     // it sleeps for ten seconds
     xtimer_sleep(10);
   }
-  
+
   return 0;
 }
 

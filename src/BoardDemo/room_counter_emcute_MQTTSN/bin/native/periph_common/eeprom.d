@@ -1,23 +1,28 @@
-/home/francesco/Documenti/UNIVERSITÀ/Magistrale/1Anno2Semestre/InternetOfThings/RIOT/examples/emcute_mqttsn/bin/native/periph_common/eeprom.o: \
- /home/francesco/Documenti/UNIVERSITÀ/Magistrale/1Anno2Semestre/InternetOfThings/RIOT/drivers/periph_common/eeprom.c \
+/home/ivan/Scrivania/Internet_of_Things/ARte/src/BoardDemo/room_counter_emcute_MQTTSN/bin/native/periph_common/eeprom.o: \
+ /home/ivan/Scrivania/Internet_of_Things/ARte/src/RIOT/drivers/periph_common/eeprom.c \
  /usr/include/stdc-predef.h \
- /home/francesco/Documenti/UNIVERSITÀ/Magistrale/1Anno2Semestre/InternetOfThings/RIOT/examples/emcute_mqttsn/bin/native/riotbuild/riotbuild.h \
- /usr/include/string.h /usr/include/features.h /usr/include/sys/cdefs.h \
- /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
- /usr/include/gnu/stubs-32.h \
- /usr/lib/gcc/x86_64-linux-gnu/7/include/stddef.h /usr/include/xlocale.h \
- /home/francesco/Documenti/UNIVERSITÀ/Magistrale/1Anno2Semestre/InternetOfThings/RIOT/cpu/native/include/periph_cpu.h \
- /home/francesco/Documenti/UNIVERSITÀ/Magistrale/1Anno2Semestre/InternetOfThings/RIOT/drivers/include/periph/dev_enums.h \
- /home/francesco/Documenti/UNIVERSITÀ/Magistrale/1Anno2Semestre/InternetOfThings/RIOT/cpu/native/include/periph_conf.h \
- /home/francesco/Documenti/UNIVERSITÀ/Magistrale/1Anno2Semestre/InternetOfThings/RIOT/core/include/assert.h \
- /home/francesco/Documenti/UNIVERSITÀ/Magistrale/1Anno2Semestre/InternetOfThings/RIOT/core/include/panic.h \
- /home/francesco/Documenti/UNIVERSITÀ/Magistrale/1Anno2Semestre/InternetOfThings/RIOT/core/include/kernel_defines.h
+ /home/ivan/Scrivania/Internet_of_Things/ARte/src/BoardDemo/room_counter_emcute_MQTTSN/bin/native/riotbuild/riotbuild.h \
+ /usr/include/string.h /usr/include/bits/libc-header-start.h \
+ /usr/include/features.h /usr/include/sys/cdefs.h \
+ /usr/include/bits/wordsize.h /usr/include/bits/long-double.h \
+ /usr/include/gnu/stubs.h /usr/include/gnu/stubs-32.h \
+ /usr/lib/gcc/x86_64-linux-gnu/7/include/stddef.h \
+ /usr/include/bits/types/locale_t.h /usr/include/bits/types/__locale_t.h \
+ /usr/include/strings.h \
+ /home/ivan/Scrivania/Internet_of_Things/ARte/src/RIOT/cpu/native/include/periph_cpu.h \
+ /home/ivan/Scrivania/Internet_of_Things/ARte/src/RIOT/drivers/include/periph/dev_enums.h \
+ /home/ivan/Scrivania/Internet_of_Things/ARte/src/RIOT/cpu/native/include/periph_conf.h \
+ /home/ivan/Scrivania/Internet_of_Things/ARte/src/RIOT/core/include/assert.h \
+ /home/ivan/Scrivania/Internet_of_Things/ARte/src/RIOT/core/include/panic.h \
+ /home/ivan/Scrivania/Internet_of_Things/ARte/src/RIOT/core/include/kernel_defines.h
 
 /usr/include/stdc-predef.h:
 
-/home/francesco/Documenti/UNIVERSITÀ/Magistrale/1Anno2Semestre/InternetOfThings/RIOT/examples/emcute_mqttsn/bin/native/riotbuild/riotbuild.h:
+/home/ivan/Scrivania/Internet_of_Things/ARte/src/BoardDemo/room_counter_emcute_MQTTSN/bin/native/riotbuild/riotbuild.h:
 
 /usr/include/string.h:
+
+/usr/include/bits/libc-header-start.h:
 
 /usr/include/features.h:
 
@@ -25,22 +30,28 @@
 
 /usr/include/bits/wordsize.h:
 
+/usr/include/bits/long-double.h:
+
 /usr/include/gnu/stubs.h:
 
 /usr/include/gnu/stubs-32.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/7/include/stddef.h:
 
-/usr/include/xlocale.h:
+/usr/include/bits/types/locale_t.h:
 
-/home/francesco/Documenti/UNIVERSITÀ/Magistrale/1Anno2Semestre/InternetOfThings/RIOT/cpu/native/include/periph_cpu.h:
+/usr/include/bits/types/__locale_t.h:
 
-/home/francesco/Documenti/UNIVERSITÀ/Magistrale/1Anno2Semestre/InternetOfThings/RIOT/drivers/include/periph/dev_enums.h:
+/usr/include/strings.h:
 
-/home/francesco/Documenti/UNIVERSITÀ/Magistrale/1Anno2Semestre/InternetOfThings/RIOT/cpu/native/include/periph_conf.h:
+/home/ivan/Scrivania/Internet_of_Things/ARte/src/RIOT/cpu/native/include/periph_cpu.h:
 
-/home/francesco/Documenti/UNIVERSITÀ/Magistrale/1Anno2Semestre/InternetOfThings/RIOT/core/include/assert.h:
+/home/ivan/Scrivania/Internet_of_Things/ARte/src/RIOT/drivers/include/periph/dev_enums.h:
 
-/home/francesco/Documenti/UNIVERSITÀ/Magistrale/1Anno2Semestre/InternetOfThings/RIOT/core/include/panic.h:
+/home/ivan/Scrivania/Internet_of_Things/ARte/src/RIOT/cpu/native/include/periph_conf.h:
 
-/home/francesco/Documenti/UNIVERSITÀ/Magistrale/1Anno2Semestre/InternetOfThings/RIOT/core/include/kernel_defines.h:
+/home/ivan/Scrivania/Internet_of_Things/ARte/src/RIOT/core/include/assert.h:
+
+/home/ivan/Scrivania/Internet_of_Things/ARte/src/RIOT/core/include/panic.h:
+
+/home/ivan/Scrivania/Internet_of_Things/ARte/src/RIOT/core/include/kernel_defines.h:

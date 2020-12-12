@@ -112,14 +112,14 @@ static int cmd_start(int argc, char **argv){
       printf("Usage: %s <address> <port> <roomID> <maxValue>\n", argv[0]);
       return 1;
   }
-  
+
   // name of the topic
   char topic[32];
   sprintf(topic, "sensor/room");
-  
+
   // json that it will published
   char json[128];
-  
+
   while(1){
     // it tries to connect to the gateway
     if (con(argv[1], atoi(argv[2]))) {
@@ -134,16 +134,16 @@ static int cmd_start(int argc, char **argv){
     if(c == 0) {
       printf("Error! Invalid format\n");
       return 0;
-    } 
+    }
 
     // variable for the infrared radiation ready to be loaded
     float infrared_value;
 
     // update the value
     infrared_value = gen_random_value(atoi(argv[4]));
-      
+
     // fills a json document for each room
-    sprintf(json, "{\"roomID\": \"%d\", \"datetime\": \"%s\", \"value\": \"%.2f\"}",
+    sprintf(json, "{\"roomID\": %d, \"datetime\": \"%s\", \"value\": \"%.2f\"}",
                   atoi(argv[3]), datetime, infrared_value);
 
     // publish to the topic
@@ -156,7 +156,7 @@ static int cmd_start(int argc, char **argv){
     // it sleeps for five seconds
     xtimer_sleep(5);
   }
-  
+
   return 0;
 }
 

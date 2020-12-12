@@ -1,8 +1,8 @@
-/home/francesco/Documenti/UNIVERSITÀ/Magistrale/1Anno2Semestre/InternetOfThings/RIOT/examples/emcute_mqttsn/bin/native/cpu/tramp.o: \
- /home/francesco/Documenti/UNIVERSITÀ/Magistrale/1Anno2Semestre/InternetOfThings/RIOT/cpu/native/tramp.S \
+/home/ivan/Scrivania/Internet_of_Things/ARte/src/BoardDemo/museum_counter_emcute_MQTTSN/bin/native/cpu/tramp.o: \
+ /home/ivan/Scrivania/Internet_of_Things/ARte/src/RIOT/cpu/native/tramp.S \
  /usr/include/stdc-predef.h \
- /home/francesco/Documenti/UNIVERSITÀ/Magistrale/1Anno2Semestre/InternetOfThings/RIOT/examples/emcute_mqttsn/bin/native/riotbuild/riotbuild.h
+ /home/ivan/Scrivania/Internet_of_Things/ARte/src/BoardDemo/museum_counter_emcute_MQTTSN/bin/native/riotbuild/riotbuild.h
 
 /usr/include/stdc-predef.h:
 
-/home/francesco/Documenti/UNIVERSITÀ/Magistrale/1Anno2Semestre/InternetOfThings/RIOT/examples/emcute_mqttsn/bin/native/riotbuild/riotbuild.h:
+/home/ivan/Scrivania/Internet_of_Things/ARte/src/BoardDemo/museum_counter_emcute_MQTTSN/bin/native/riotbuild/riotbuild.h:

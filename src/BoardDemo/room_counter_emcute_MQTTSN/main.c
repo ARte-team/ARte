@@ -115,18 +115,18 @@ static void init_num_people(t_rooms* r){
 // function that controls the people flow with
 // a probability that depends on the visiting hour
 int people_flow(void){
-  
+
   time_t my_time;
-  struct tm* timeinfo; 
+  struct tm* timeinfo;
   time(&my_time);
   timeinfo = localtime(&my_time);
-  
+
   // opening hours of the museum 9am - 7pm
   if(timeinfo->tm_hour < 9 || timeinfo->tm_hour > 18)
     return 0;
-  
+
   int p = rand() % 100;
-  
+
   // people flow based on the visiting hour
   if(timeinfo->tm_hour == 9 || timeinfo->tm_hour == 18) {
     if(p <= 25)
@@ -134,7 +134,7 @@ int people_flow(void){
     else
       return 0;
   }
-    
+
   if((timeinfo->tm_hour < 12) ||
      (timeinfo->tm_hour > 14 && timeinfo->tm_hour < 17)) {
     if(p <= 50)
@@ -142,7 +142,7 @@ int people_flow(void){
     else
       return 0;
   }
-  
+
   else {
     if(p <= 75)
       return 1;
@@ -170,27 +170,33 @@ static void gen_num_people(t_rooms* r, int capacity){
 
 // new shell command: start the process
 static int cmd_start(int argc, char **argv){
-  if (argc < 5) {
-      printf("Usage: %s <address> <port> <roomID> <roomCapacity>\n", argv[0]);
+  if (argc < 6) {
+      printf("Usage: %s <address> <port> <roomID> <roomCapacity> <infraredSensors>\n", argv[0]);
       return 1;
   }
-  
+
   // room struct
   t_rooms* r = (t_rooms*)malloc(sizeof(t_rooms));
-  
+
+  // id of the room
+  int roomID = atoi(argv[3]);
+
   // capacity of the room
   int capacity = atoi(argv[4]);
-  
+
+  // infrared sensors of the room
+  int infraredSensors = atoi(argv[5]);
+
   // name of the topic
   char topic[32];
   sprintf(topic, "sensor/room");
-  
+
   // json that it will published
   char json[128];
-  
+
   // initialize the room
   init_num_people(r);
-  
+
   while(1){
     // it tries to connect to the gateway
     if (con(argv[1], atoi(argv[2]))) {
@@ -205,16 +211,16 @@ static int cmd_start(int argc, char **argv){
     if(c == 0) {
       printf("Error! Invalid format\n");
       return 0;
-    } 
+    }
 
     // update the values for the room
     gen_num_people(r, capacity);
-      
+
     // fills a json document for each room
-    sprintf(json, "{\"roomID\": \"%d\", \"datetime\": \"%s\", \"peopleCurrent\": \"%d\", "
-                  "\"peopleTotal\": \"%d\", \"crowding\": \"%.2f\"}",
-                  atoi(argv[3]), datetime, r->peopleCurrent, r->peopleTotal, 
-                  (float)r->peopleCurrent / atoi(argv[4]));
+    sprintf(json, "{\"roomID\": %d, \"datetime\": \"%s\", \"infraredSensors\": %d, "
+                  "\"peopleCurrent\": %d, \"peopleTotal\": %d, \"crowding\": \"%.2f\"}",
+                  roomID, datetime, infraredSensors,
+                  r->peopleCurrent, r->peopleTotal, (float)r->peopleCurrent / capacity);
 
     // publish to the topic
     pub(topic, json, 0);
@@ -225,7 +231,7 @@ static int cmd_start(int argc, char **argv){
     // it sleeps for five seconds
     xtimer_sleep(5);
   }
-  
+
   return 0;
 }
 
