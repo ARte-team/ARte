@@ -73,7 +73,7 @@
                                     </div>
                                     <div class="row m-t-30">
                                         <div class="col-md-12">
-                                            <button type="button" class="btn btn-primary btn-md btn-block waves-effect waves-light text-center m-b-20">Sign in</button>
+                                            <button type="submit" class="btn btn-primary btn-md btn-block waves-effect waves-light text-center m-b-20" id="signIn">Sign in</button>
                                         </div>
                                     </div>
                                 </div>
@@ -147,6 +147,10 @@
     <script type="text/javascript" src="..\files\bower_components\i18next-browser-languagedetector\js\i18nextBrowserLanguageDetector.min.js"></script>
     <script type="text/javascript" src="..\files\bower_components\jquery-i18next\js\jquery-i18next.min.js"></script>
     <script type="text/javascript" src="..\files\assets\js\common-pages.js"></script>
+    <!-- AWS SDK -->
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.7.16.min.js"></script>
+    <!-- custom js -->
+    <script type="text/javascript" src="../files/assets/js/artworkValidation.js"></script>
 
     <script type="text/javascript">
       window.onload = function() {
@@ -156,6 +160,16 @@
             ev.preventDefault();
             handleFormSubmit();
         });
+
+        // Initialize the Amazon Cognito credentials provider
+        AWS.config.region = "us-east-1";
+        AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+            IdentityPoolId: "us-east-1:33cfdc7c-d841-41cb-b3b4-af3b015348da",
+        });
+
+        // Set up connection with DynamoDB
+        const dynamodb  = new AWS.DynamoDB();
+        const docClient = new AWS.DynamoDB.DocumentClient();
 
         // Get the input elements
         const email    = document.getElementById("email");
@@ -167,8 +181,8 @@
         });
 
         password.addEventListener("input", function(e) {
-            validatePassword() ? showSuccess(password, passwordError) :
-                                 showError(password, passwordError, "Password must be at least 8 characters long");
+          validatePassword(password, password.value) ? showSuccess(password, passwordError) :
+                                                       showError(password, passwordError, "Password must be at least 8 characters long");
         });
 
 
@@ -181,53 +195,60 @@
                                          showError(email, emailError, "You have entered an invalid email address");
         }
 
-        function validatePassword() {
-          let err = true ? showSuccess(password, passwordError) :
-                                         showError(password, passwordError, "Email or password wrong");
-          }
-
-        // Set error classes and text and return 1
-        function showError(inputElement, textElement, text) {
-          if (!inputElement || !textElement || !text)  return 1;
-          // Set error classes and text
-          inputElement.parentNode.parentNode.classList.add("has-danger");
-          inputElement.classList.add("form-control-danger");
-
-          textElement.classList.add("text-danger");
-          textElement.classList.add("error");
-          textElement.innerText = text;
-          return 0;
-        }
-
-        // Remove error classes and text and return 0 if ok
-        function showSuccess(inputElement, textElement) {
-          if (!inputElement || !textElement)  return 1;
-
-          // Remove error classes
-          inputElement.parentNode.parentNode.classList.remove("has-danger");
-          inputElement.classList.remove("form-control-danger");
-          textElement.classList.remove("text-danger");
-          textElement.classList.remove("error");
-
-          // Remove error text
-          textElement.innerText = "";
-          return 0;
-        }
-
         function handleFormSubmit() {
             // Validate the form against the constraints
             const err = validate();
 
+            console.log("errors: " + err);
+
             if (err == 0)
-              showSuccess();
+              signIn();
         }
 
         // Validate the form and return the errors
         function validate() {
           let err = validateEmail();
-          err += validatePasswords();
+          err += validatePassword(password, password.value) ? 0 : 1;
           return err;
         }
+
+        function signIn() {
+          const params = {
+            TableName : "ARte_Users",
+            KeyConditionExpression: "#e = :e",
+            FilterExpression: "#p = :p",
+            ExpressionAttributeNames: {
+              "#e": "email",
+              "#p": "password"
+            },
+            ExpressionAttributeValues: {
+                ":e": email.value,
+                ":p": password.value
+            }
+          };
+
+          docClient.query(params, onQuery);
+
+          function onQuery(err, data) {
+            if (err)
+              showError(password, passwordError, "Error, try again");
+            else {
+              if (data.Items.length == 0)
+                showError(password, passwordError, "Email or password wrong");
+
+              data.Items.forEach(function(item) {
+                  //console.log(item.email);
+                  location.replace("./general.htm");
+              });
+            }
+          }
+        }
+
+
+                /*function validatePassword() {
+                  let err = true ? showSuccess(password, passwordError) :
+                                   showError(password, passwordError, "Email or password wrong");
+                  }*/
     }
     </script>
 

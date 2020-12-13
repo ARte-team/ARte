@@ -28,6 +28,8 @@
     <link rel="stylesheet" type="text/css" href="..\files\assets\icon\icofont\css\icofont.css">
     <!-- feather Awesome -->
     <link rel="stylesheet" type="text/css" href="..\files\assets\icon\feather\css\feather.css">
+    <!-- Switch component css -->
+    <link rel="stylesheet" type="text/css" href="..\files\bower_components\switchery\css\switchery.min.css">
     <!-- Style.css -->
     <link rel="stylesheet" type="text/css" href="..\files\assets\css\style.css">
     <link rel="stylesheet" type="text/css" href="..\files\assets\css\jquery.mCustomScrollbar.css">
@@ -514,6 +516,12 @@
                                                                       </label>
                                                                   </div>
                                                               </div>
+                                                              <div class="form-group row">
+                                                                  <label class="col-sm-2 col-form-label">Available</label>
+                                                                  <div class="col-sm-10">
+                                                                      <input type="checkbox" class="js-single" id="availableNonEdit" disabled>
+                                                                  </div>
+                                                              </div>
                                                           </form>
                                                       </div>
                                                     </div>
@@ -598,6 +606,12 @@
                                                                       <span id="photoEditText"></span>
                                                                     </label>
                                                                     <p id="photoError"></p>
+                                                                  </div>
+                                                              </div>
+                                                              <div class="form-group row">
+                                                                  <label class="col-sm-2 col-form-label">Available</label>
+                                                                  <div class="col-sm-10">
+                                                                      <input type="checkbox" class="js-single" name="available" id="available">
                                                                   </div>
                                                               </div>
                                                               <div class="form-group row">
@@ -728,6 +742,8 @@
     <script type="text/javascript" src="..\files\bower_components\bootstrap-maxlength\js\bootstrap-maxlength.js"></script>
     <!-- Sweet alert js -->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <!-- Switch component js -->
+    <script type="text/javascript" src="..\files\bower_components\switchery\js\switchery.min.js"></script>
     <!-- AWS SDK -->
     <script src="https://sdk.amazonaws.com/js/aws-sdk-2.7.16.min.js"></script>
 
@@ -745,9 +761,9 @@
     <script type="text/javascript">
       window.onload = function() {
         // Initialize the Amazon Cognito credentials provider
-        AWS.config.region = 'us-east-1';
+        AWS.config.region = "us-east-1";
         AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-            IdentityPoolId: 'us-east-1:33cfdc7c-d841-41cb-b3b4-af3b015348da',
+            IdentityPoolId: "us-east-1:33cfdc7c-d841-41cb-b3b4-af3b015348da",
         });
 
         // Set up connection with DynamoDB
@@ -769,6 +785,7 @@
         const photoNonEdit       = document.getElementById("photoNonEdit");
         const modelNonEditText   = document.getElementById("modelNonEditText");
         const photoNonEditText   = document.getElementById("photoNonEditText");
+        const availableNonEdit   = document.getElementById("availableNonEdit");
 
         const subTitle    = document.getElementById("subTitle");
         // Get form input elements editable card
@@ -778,8 +795,13 @@
         const room        = document.getElementById("room");
         const model       = document.getElementById("model");
         const photo       = document.getElementById("photo");
+        const available   = document.getElementById("available");
         const modelEditText = document.getElementById("modelEditText");
         const photoEditText = document.getElementById("photoEditText");
+
+        // Switch element
+        new Switchery(availableNonEdit, { color: "#4680ff", jackColor: "#fff" });
+        new Switchery(available, { color: "#4680ff", jackColor: "#fff" });
 
         const searchTextJQ        = $("#searchText");
         const searchResultTitleJQ = $("#searchResultTitle");
@@ -1132,6 +1154,10 @@
           description.value = artwork.description;
           room.value        = artwork.room;
 
+          // Use click since the switchery lib doesn't work well setting directly the checked property
+          if ((artwork.available && !available.checked) || (!artwork.available && available.checked))
+            available.click()
+
           // Simulate assignment to file inputs
           setFakeInputFileValue(modelEditText, artwork.model3D, true)
           setFakeInputFileValue(photoEditText, artwork.photo)
@@ -1183,6 +1209,7 @@
           roomValue        = room.value;
           modelValue       = artwork.model3D;
           photoValue       = artwork.photo;
+          availableValue   = available.checked;
 
           const formData = new FormData();
           let updated = false;
@@ -1268,7 +1295,7 @@
             Key: {
               "artworkID": artwork.artworkID
             },
-            UpdateExpression: "set #dt = :dt, title = :t, author = :a, description = :d, room = :r, #m = :m, photo = :p, keyword = :k",
+            UpdateExpression: "set #dt = :dt, title = :t, author = :a, description = :d, room = :r, #m = :m, photo = :p, available = :av, keyword = :k",
             ExpressionAttributeNames: {
               "#dt": "datetime",
               "#m":  "model3D"
@@ -1281,6 +1308,7 @@
               ":r":  roomValue,
               ":m":  modelValue,
               ":p":  photoValue,
+              ":av": availableValue,
               ":k":  titleValue.toLowerCase()
             },
             ReturnValues:"UPDATED_NEW"

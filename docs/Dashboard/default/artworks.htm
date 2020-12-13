@@ -401,64 +401,18 @@
                                                                   <thead>
                                                                       <tr>
                                                                           <th>#</th>
-                                                                          <th></th>
+                                                                          <th>Photo</th>
                                                                           <th>Name</th>
                                                                           <th>Room</th>
                                                                           <th>Views</th>
                                                                           <th class="text-right">Most used feature</th>
                                                                       </tr>
                                                                   </thead>
-                                                                  <tbody id="tableBody">
-                                                                      <!--<tr>
-                                                                          <td>1.</td>
-                                                                          <td><img src="..\files\assets\images\search-images\Discobolus.jpg" alt="" class="img-fluid img-30"></td>
-
-                                                                          <td>Discobolus</td>
-                                                                          <td>1</td>
-                                                                          <td>32029</td>
-                                                                          <td class="text-right">Contextualization (20328)</td>
-                                                                      </tr>
-                                                                      <tr>
-                                                                          <td>2.</td>
-                                                                          <td><img src="..\files\assets\images\search-images\Nike of Samothrace.png" alt="" class="img-fluid img-30"></td>
-
-                                                                          <td>Nike of Samothrace</td>
-                                                                          <td>4</td>
-                                                                          <td>31650</td>
-                                                                          <td class="text-right">Storytelling (23877)</td>
-                                                                      </tr>
-                                                                      <tr>
-                                                                          <td>3.</td>
-                                                                          <td><img src="..\files\assets\images\search-images\Kouros of Samo.jpg" alt="" class="img-fluid img-30"></td>
-
-                                                                          <td>Kouros of Samo</td>
-                                                                          <td>10</td>
-                                                                          <td>30956</td>
-                                                                          <td class="text-right">Contextualization (20375)</td>
-                                                                      </tr>
-                                                                      <tr>
-                                                                          <td>4.</td>
-                                                                          <td><img src="..\files\assets\images\search-images\Athena of Velletri.jpeg" alt="" class="img-fluid img-30"></td>
-
-                                                                          <td>Athena of Velletri</td>
-                                                                          <td>8</td>
-                                                                          <td>29689</td>
-                                                                          <td class="text-right">Animation (20799)</td>
-                                                                      </tr>
-                                                                      <tr>
-                                                                          <td>5.</td>
-                                                                          <td><img src="..\files\assets\images\search-images\Charioteer of Delphi.jpg" alt="" class="img-fluid img-30"></td>
-
-                                                                          <td>Charioteer of Delphi</td>
-                                                                          <td>5</td>
-                                                                          <td>29560</td>
-                                                                          <td class="text-right">Animation (23612)</td>
-                                                                      </tr>-->
-                                                                  </tbody>
+                                                                  <tbody id="tableBody"></tbody>
                                                               </table>
                                                           </div>
                                                       <div class="text-right  m-r-20">
-                                                          <a id="viewTable" class="b-b-primary text-primary">View all</a>
+                                                          <a id="viewTable" class="b-b-primary text-primary pointer">View all</a>
                                                       </div>
                                                   </div>
                                               </div>
@@ -512,8 +466,6 @@
                                                                 </div>
 
                                                                 <div class="card-block">
-                                                                    <!--<h6 class="m-b-20 p-b-5 b-b-default f-w-600">Information</h6>-->
-
                                                                     <div class="row">
                                                                         <div class="col-sm-6">
                                                                             <p class="m-b-10 f-w-600">Room</p>
@@ -521,7 +473,7 @@
                                                                         </div>
                                                                         <div class="col-sm-6">
                                                                             <p class="m-b-10 f-w-600">Views</p>
-                                                                            <h6 class="text-muted f-w-400">32029</h6>
+                                                                            <h6 id="artworkViews" class="text-muted f-w-400"></h6>
                                                                         </div>
                                                                     </div>
 
@@ -629,9 +581,9 @@
     <script type="text/javascript">
       window.onload = function() {
         // Initialize the Amazon Cognito credentials provider
-        AWS.config.region = 'us-east-1';
+        AWS.config.region = "us-east-1";
         AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-            IdentityPoolId: 'us-east-1:33cfdc7c-d841-41cb-b3b4-af3b015348da',
+            IdentityPoolId: "us-east-1:33cfdc7c-d841-41cb-b3b4-af3b015348da",
         });
 
         // Set up connection with DynamoDB
@@ -641,9 +593,10 @@
         // Get the HTML elements
         const artworkImage = document.getElementById("artworkImage");
         const artworkRoom  = document.getElementById("artworkRoom");
+        const artworkViews  = document.getElementById("artworkViews");
 
-        const viewTable = document.getElementById("viewTable");
-        const tableBodyJQ         = $("#tableBody");
+        const viewTable   = document.getElementById("viewTable");
+        const tableBodyJQ = $("#tableBody");
 
         const searchTextJQ        = $("#searchText");
         const searchResultTitleJQ = $("#searchResultTitle");
@@ -652,6 +605,9 @@
 
         // Store artworks in a list for the table
         let arts = [];
+
+        // Flag to toggle view all artworks of the table
+        let viewAll = false;
 
         // Scan DB to populate the table
         scanData();
@@ -678,7 +634,7 @@
                 }
 
                 // Sort in descending order
-                //arts = arts.sort( (x,y) => y.views - x.views );
+                arts = arts.sort( (x,y) => y.views - x.views );
 
                 updateTable(5);
               }
@@ -690,29 +646,14 @@
         function updateTable(rows) {
           if (!arts) return;
 
-          //const arts = arts.sort( (x,y) => y.views - x.views );
-
-          let test = [
-           { "title": "a", "room": 3, "photo": "", "views": 23652 },
-           { "title": "b", "room": 5, "photo": "", "views": 21547 },
-           { "title": "c", "room": 4, "photo": "", "views": 24264 },
-           { "title": "d", "room": 5, "photo": "", "views": 20123 },
-           { "title": "e", "room": 2, "photo": "", "views": 23245 },
-           { "title": "f", "room": 3, "photo": "", "views": 22348 },
-           { "title": "g", "room": 6, "photo": "", "views": 24247 },
-           { "title": "h", "room": 1, "photo": "", "views": 20322 },
-           { "title": "i", "room": 2, "photo": "", "views": 23562 }
-          ];
-
-          // Sort in descending order
-          test = test.sort( (x,y) => y.views - x.views );
-
           // Clean table
           tableBodyJQ.html("");
 
           for (let i=0; i<rows; i++) {
-            const artwork = test[i]; //arts[i];
-            tableBodyJQ.append("<tr><td>" + (i+1) + ".</td><td><img src='" + artwork.photo + "' alt='Artwork image' class='img-fluid img-30'></td><td>" + artwork.title + "</td><td>" + artwork.room + "</td><td>" + artwork.views + "</td><td class='text-right'>Contextualization (20328)</td></tr>");
+            const artwork = arts[i];
+            /*tableBodyJQ.append("<tr><td>" + (i+1) + ".</td><td><img src='" + artwork.photo + "' alt='Artwork image' class='img-fluid img-30'></td><td>" + artwork.title + "</td><td>" + artwork.room + "</td><td>" + artwork.views + "</td><td class='text-right'>Contextualization (20328)</td></tr>");*/
+
+            tableBodyJQ.append("<tr><td>" + (i+1) + ".</td><td><img src='" + artwork.photo + "' alt='Artwork image' width='30' height='30'></td><td>" + artwork.title + "</td><td>" + artwork.room + "</td><td>" + artwork.views + "</td><td class='text-right'>Contextualization (20328)</td></tr>");
 
             /* Structure of each table row
             <tr>
@@ -728,8 +669,16 @@
         }
 
         viewTable.onclick = function () {
-          // TODO close 
-          updateTable(arts.length);
+          viewAll = !viewAll;
+
+          if (viewAll) {
+            updateTable(arts.length);
+            viewTable.innerHTML = "Hide";
+          }
+          else {
+            updateTable(5);
+            viewTable.innerHTML = "View All";
+          }
         }
 
         // Execute the search when the user press the associated button
@@ -889,7 +838,8 @@
           authorNonEdit.value      = artwork.author;
           descriptionNonEdit.value = artwork.description;*/
           artworkImage.src = artwork.photo;
-          artworkRoom.innerHTML   = artwork.room;
+          artworkRoom.innerHTML  = artwork.room;
+          artworkViews.innerHTML = artwork.views;
 
           setTimeout(function() {
             artInfoJQ.fadeIn();

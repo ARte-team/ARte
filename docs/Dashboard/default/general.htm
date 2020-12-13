@@ -383,7 +383,7 @@
                                                         <div class="row align-items-center">
                                                             <div class="col">
                                                                 <p class="m-b-5">Today Visitors</p>
-                                                                <h4 id="todayVisitors" class="m-b-0">N/A</h4>
+                                                                <h4 id="todayVisitors" class="m-b-0">0</h4>
                                                             </div>
                                                             <div class="col col-auto text-right">
                                                                 <i class="fa fa-users f-50 text-c-yellow"></i>
@@ -400,7 +400,7 @@
                                                         <div class="row align-items-center">
                                                             <div class="col">
                                                                 <p class="m-b-5">Today Income</p>
-                                                                <h4 id="todayIncome" class="m-b-0">N/A</h4>
+                                                                <h4 id="todayIncome" class="m-b-0">0</h4>
                                                             </div>
                                                             <div class="col col-auto text-right">
                                                                 <i class="fa fa-eur f-50 text-c-green"></i>
@@ -415,7 +415,7 @@
                                                         <div class="row align-items-center">
                                                             <div class="col">
                                                                 <p class="m-b-5">Today Exhibitions</p>
-                                                                <h4 id="todayExhibitions" class="m-b-0">N/A</h4>
+                                                                <h4 id="todayExhibitions" class="m-b-0">0</h4>
                                                             </div>
                                                             <div class="col col-auto text-right">
                                                                 <i class="fa fa-university f-50 text-c-pink"></i>
@@ -429,8 +429,8 @@
                                                     <div class="card-block">
                                                         <div class="row align-items-center">
                                                             <div class="col">
-                                                                <p class="m-b-5">Today Artworks</p>
-                                                                <h4 id="todayArtworks" class="m-b-0">N/A</h4>
+                                                                <p class="m-b-5">Today Available Artworks</p>
+                                                                <h4 id="todayArtworks" class="m-b-0">0</h4>
                                                             </div>
                                                             <div class="col col-auto text-right">
                                                                 <i class="fa fa-image f-50 text-c-blue"></i>
@@ -446,7 +446,7 @@
                                                   <div class="row align-items-center">
                                                     <div class="col">
                                                       <p class="m-b-5">Total Visitors</p>
-                                                      <h4 id="totalVisitors" class="m-b-0">N/A</h4>
+                                                      <h4 id="totalVisitors" class="m-b-0">0</h4>
                                                     </div>
                                                     <div class="col col-auto text-right">
                                                       <i class="fa fa-users f-50 text-c-yellow"></i>
@@ -461,7 +461,7 @@
                                                   <div class="row align-items-center">
                                                     <div class="col">
                                                       <p class="m-b-5">Total Income</p>
-                                                      <h4 id="totalIncome" class="m-b-0">N/A</h4>
+                                                      <h4 id="totalIncome" class="m-b-0">0</h4>
                                                     </div>
                                                     <div class="col col-auto text-right">
                                                       <i class="fa fa-eur f-50 text-c-green"></i>
@@ -476,7 +476,7 @@
                                                   <div class="row align-items-center">
                                                     <div class="col">
                                                       <p class="m-b-5">Total Exhibitions</p>
-                                                      <h4 id="totalExhibitions" class="m-b-0">N/A</h4>
+                                                      <h4 id="totalExhibitions" class="m-b-0">0</h4>
                                                     </div>
                                                     <div class="col col-auto text-right">
                                                       <i class="fa fa-university f-50 text-c-pink"></i>
@@ -490,8 +490,8 @@
                                                 <div class="card-block">
                                                   <div class="row align-items-center">
                                                     <div class="col">
-                                                      <p class="m-b-5">Total Artworks</p>
-                                                      <h4 id="totalArtworks" class="m-b-0">N/A</h4>
+                                                      <p class="m-b-5">Total Available Artworks</p>
+                                                      <h4 id="totalArtworks" class="m-b-0">0</h4>
                                                     </div>
                                                     <div class="col col-auto text-right">
                                                       <i class="fa fa-image f-50 text-c-blue"></i>
@@ -582,6 +582,27 @@
                                                 <div class="card">
                                                     <div class="card-header">
                                                         <h5>Visitors Analytics</h5>
+                                                        <span class="text-muted">See today's trend in the number of people</span>
+                                                        <div class="card-header-right">
+                                                            <ul class="list-unstyled card-option">
+                                                                <li><i class="feather icon-maximize full-card"></i></li>
+                                                                <li><i class="feather icon-minus minimize-card"></i></li>
+                                                                <li><i class="feather icon-trash-2 close-card"></i></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-block">
+                                                        <div id="todayVisitorsAnalytics" style="height: 400px;"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- /Visitors analytics -->
+
+                                            <!-- Visitors analytics -->
+                                            <div class="col-xl-12 col-md-12">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h5>Visitors Analytics</h5>
                                                         <span class="text-muted">See the number of visitors day by day</span>
                                                         <div class="card-header-right">
                                                             <ul class="list-unstyled card-option">
@@ -592,7 +613,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="card-block">
-                                                        <div id="visitors-analytics" style="height: 400px;"></div>
+                                                        <div id="visitorsAnalytics" style="height: 400px;"></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -613,7 +634,7 @@
                                                   </div>
                                                 </div>
                                                 <div class="card-block">
-                                                  <div id="income-analytics" style="height: 400px;"></div>
+                                                  <div id="incomeAnalytics" style="height: 400px;"></div>
                                                 </div>
                                               </div>
                                             </div>
@@ -714,14 +735,11 @@
       const dynamodb  = new AWS.DynamoDB();
       const docClient = new AWS.DynamoDB.DocumentClient();
 
-      // Parameters for the scan of the DB
-      const params = {
-        TableName: 'ARte_DailyStats'
-      };
+      // Store days returned by the query for the chrono charts
+      const days = [];
 
-      // Store days for the 2 chrono charts
-      const daysPeople = [];
-      const daysIncome = [];
+      // Store lists of timesAndPeople of every day returned by the query as a map
+      const timesAndPeople = new Map()
 
       // Get the HTML elements
       const todayVisitors    = document.getElementById("todayVisitors");
@@ -736,6 +754,9 @@
 
       // Constants
       const ticketCost = 5;
+
+      // Get current datetime in the following format: DD-MM-YYYY
+      const today = getDatetime().substring(0, 10);
 
       main();
 
@@ -827,72 +848,116 @@
 
 
 
-      function main() {
+      async function main() {
         // Variables for top cards
-        let peopleTotal = 0;
-        let peopleTotalToday = 0;
+        let peopleTotal       = 0;
+        let peopleTotalToday  = 0;
+        let artworksNumber    = 0;
+        let artworksAvailable = 0;
 
-        // Get current datetime in the following format: DD-MM-YYYY
-        const today = getDatetime().substring(0, 10);
+        let res = await scanStatsDB(peopleTotal, peopleTotalToday);
+        peopleTotal = res[0];
+        peopleTotalToday = res[1];
 
-        docClient.scan(params, onScan);
+        res = await scanArtworksDB(artworksNumber, artworksAvailable);
+        artworksNumber = res[0];
+        artworksAvailable = res[1];
 
-        function onScan(err, data) {
-          if (err)
-          showErrorModal("An error occurred!");
-          else {
-            data.Items.forEach(function(day) {
-              daysPeople.push({ "date": day.datetime, "value": day.peopleTotal });
-              daysIncome.push({ "date": day.datetime, "value": day.peopleTotal * ticketCost });
-
-              peopleTotal += day.peopleTotal;
-
-              if (day.datetime == today)
-                peopleTotalToday = day.peopleTotal;
-            });
-
-            // Continue scanning if we have more rooms (per scan 1MB limitation)
-            if (data.LastEvaluatedKey) {
-              params.ExclusiveStartKey = data.LastEvaluatedKey;
-              docClient.scan(params, onScan);
-            }
-
-            updateCards(peopleTotal, peopleTotalToday);
-            updateCharts();
-          }
-        }
+        updateCards(peopleTotal, peopleTotalToday, artworksNumber, artworksAvailable);
+        updateCharts();
       }
 
-      function updateCards(peopleTotal, peopleTotalToday) {
-        if (daysPeople.size == 0)   return;
+      async function scanStatsDB(peopleTotal, peopleTotalToday) {
+        // Parameters for the scan of the Stats DB
+        const params = {
+          TableName: 'ARte_DailyStats'
+        };
 
-        /*todayVisitors.innerHTML    = Number(peopleTotalToday).toLocaleString();
-        todayIncome.innerHTML      = Number(peopleTotalToday * ticketCost).toLocaleString() + " €";
-        todayExhibitions.innerHTML = 2;
-        todayArtworks.innerHTML    = 995;
+        return new Promise( function(resolve) {
+          docClient.scan(params, onScan);
 
-        totalVisitors.innerHTML    = Number(peopleTotal).toLocaleString();
-        totalIncome.innerHTML      = Number(peopleTotal * ticketCost).toLocaleString() + " €";
-        totalExhibitions.innerHTML = 83;
-        totalArtworks.innerHTML    = 1187;*/
+          function onScan(err, data) {
+            if (err)
+              showErrorModal("An error occurred!");
+            else {
+              data.Items.forEach(function(day) {
+                days.push({ "date": day.datetime, "value": day.peopleTotal });
+                timesAndPeople.set(day.datetime, day.timesAndPeople);
+
+                peopleTotal += day.peopleTotal;
+
+                if (day.datetime == today)
+                  peopleTotalToday = day.peopleTotal;
+              });
+
+              // Continue scanning if we have more rooms (per scan 1MB limitation)
+              if (data.LastEvaluatedKey) {
+                params.ExclusiveStartKey = data.LastEvaluatedKey;
+                docClient.scan(params, onScan);
+              }
+
+              console.log("peopleTotal in function: " + peopleTotal);
+              console.log("peopleTotalToday in function: " + peopleTotalToday);
+
+              resolve([peopleTotal, peopleTotalToday]);
+            }
+          }
+        });
+      }
+
+      async function scanArtworksDB(artworksNumber, artworksAvailable) {
+        // Parameters for the scan of the DB
+        const params = {
+          TableName: 'ARte_Artworks'
+        };
+
+        return new Promise( function(resolve) {
+          docClient.scan(params, onScan);
+
+          function onScan(err, data) {
+            if (err)
+              showErrorModal("An error occurred!");
+            else {
+              data.Items.forEach(function(artwork) {
+                if (artwork.available)
+                  artworksAvailable++;
+
+                artworksNumber++;
+              });
+
+              // Continue scanning if we have more rooms (per scan 1MB limitation)
+              if (data.LastEvaluatedKey) {
+                params.ExclusiveStartKey = data.LastEvaluatedKey;
+                docClient.scan(params, onScan);
+              }
+
+              console.log("artworksNumber in onScan function: " + artworksNumber);
+              console.log("artworksAvailable in onScan function: " + artworksAvailable);
+              resolve([artworksNumber, artworksAvailable]);
+            }
+          }
+        });
+      }
+
+      function updateCards(peopleTotal, peopleTotalToday, artworksNumber, artworksAvailable) {
+        if (days.size == 0)   return;
 
         const duration = 500;
-        animateValue(todayVisitors, 0, peopleTotalToday, duration);
-        animateValue(todayIncome, 0, peopleTotalToday * ticketCost, duration, 100);
+        animateValue(todayVisitors, 0, peopleTotalToday, duration, 100);
+        animateValue(todayIncome, 0, peopleTotalToday * ticketCost, duration, 1000);
         animateValue(todayExhibitions, 0, 2, duration, 5);
-        animateValue(todayArtworks, 0, 995, duration);
+        animateValue(todayArtworks, 0, artworksAvailable, duration);
 
         animateValue(totalVisitors, 0, peopleTotal, duration, 100);
-        animateValue(totalIncome, 0, peopleTotal * ticketCost, duration, 100);
+        animateValue(totalIncome, 0, peopleTotal * ticketCost, duration, 1000);
         animateValue(totalExhibitions, 0, 83, duration, 5);
-        animateValue(totalArtworks, 0, 1187, duration);
+        animateValue(totalArtworks, 0, artworksNumber, duration);
       }
 
       function updateCharts() {
-        if (daysPeople.size == 0)   return;
+        if (days.size == 0)   return;
 
-        daysPeople.sort( (x,y) => compareDates(x,y) );
-        daysIncome.sort( (x,y) => compareDates(x,y) );
+        days.sort( (x,y) => compareDates(x,y) );
 
         function compareDates(x, y) {
           var d1 = new Date(x.date);
@@ -903,11 +968,19 @@
           else               return 1;
         }
 
-        updateAmChart("visitors-analytics", daysPeople, "#fe5d70", "#fe9365");
-        updateAmChart("income-analytics", daysIncome, "#0ac282", "#0df3a3");
+        function convertIntoIncomes(item) {
+          return { "date": item.date, "value": item.value * ticketCost };
+        }
+
+        todayPeople = timesAndPeople.get(today);
+        updateAmChart("todayVisitorsAnalytics", todayPeople, "#fe9365", "#6579fe", "time", "people", "JJ:NN:SS", "ss");
+
+        updateAmChart("visitorsAnalytics", days, "#fe5d70", "#fe9365");
+        updateAmChart("incomeAnalytics", days.map(convertIntoIncomes), "#0ac282", "#0df3a3");
       }
 
-      function updateAmChart(name, data, lineColor, negativeLineColor) {
+      function updateAmChart(name, data, lineColor, negativeLineColor,
+                             dateField="date", valueField="value", dateFormat="DD/MM/YYYY", minPeriod="DD") {
         const amchart = AmCharts.makeChart(name, {
           "type": "serial",
           "theme": "light",
@@ -928,7 +1001,7 @@
             "lineThickness": 2,
             "negativeLineColor": negativeLineColor,
             "type": "smoothedLine",
-            "valueField": "value"
+            "valueField": valueField
           }],
           "chartScrollbar": {
             "graph": "g2",
@@ -948,17 +1021,17 @@
 
           },
           "chartCursor": {
-            "categoryBalloonDateFormat": "DD-MM-YYYY",
+            "categoryBalloonDateFormat": dateFormat,
             "cursorAlpha": 0,
             "valueLineEnabled": true,
             "valueLineBalloonEnabled": true,
             "valueLineAlpha": 0.5,
             "fullWidth": true
           },
-          "dataDateFormat": "DD-MM-YYYY",
-          "categoryField": "date",
+          "dataDateFormat": dateFormat,
+          "categoryField": dateField,
           "categoryAxis": {
-            "minPeriod": "DD",
+            "minPeriod": minPeriod,
             "parseDates": true,
             "gridAlpha": 0,
             "minorGridAlpha": 0,

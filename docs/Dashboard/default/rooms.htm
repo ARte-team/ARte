@@ -510,7 +510,6 @@
                   showErrorModal("An error occurred!");
                 else {
                   data.Items.forEach(function(room) {
-
                     // Check if the room is already in the map and set a flag accordingly
                     if (rooms.has(room.roomID))
                       rooms.set(room.roomID, {room: room, update: true});
