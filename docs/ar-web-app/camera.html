@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!--<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">-->
         <title>ARte</title>
         
         <!-- CSS -->
@@ -72,20 +72,26 @@
                 <img src="./img/icons/note.svg" alt="Music">
             </div>
         </div>
+        
+        
+        <!-- Color animation box -->
+        <div id="color-box"></div>
+        <div id="color-box-2"></div>
 
         <!-- AR core -->
         <a-scene
-            vr-mode-ui='enabled: false;'
+            vr-mode-ui="enabled: false;"
             renderer="logarithmicDepthBuffer: true;"
-            embedded arjs='trackingMethod: best; sourceType: webcam; debugUIEnabled: false;'>
+            embedded arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;">
 
             <!-- use rawgithack to retrieve the correct url for nft marker (see 'pinball' below) -->
             <a-nft type='nft' url='https://arte-team.github.io/ARte/ar-web-app/img/markers/1' smooth='true' smoothCount='10' smoothTolerance='0.01' smoothThreshold='5'>
                 <a-entity
                     gltf-model='./models/scene.gltf'
                     scale="0.15 0.15 0.15"
-                    position="100 -50 50"
+                    position="50 -200 50"
                     rotation="-90 0 0"
+                    style="z-index: 5000;"
                     >
                 </a-entity>
             </a-nft>
@@ -156,8 +162,19 @@
             }
             document.addEventListener( 'visibilitychange', sendMessageIdle, false);       
             
+            
+            var rooms = [10, 4, 2, 5, 7, 3, 2, 10, 5, 6, 8, 8];
+            var colors = rooms
+            for(var i = 0; i < colors.length; i++)
+                colors[i] = (rooms[i] % 50) * 255 / 50;
+            var d = (rooms.reduce( function( a, b ){ return a + b; }, 0 ) % 200) * 360 / 200;
+            var deg = (rooms.reduce( function( a, b ){ return a + b; }, 0 ) % 200) * 360 / 200;
+            var color_event = 0;
+            
 
-            $(document).ready(function() {
+            $( document ).ready(function() {
+                
+                $( '#color-box' ).css( 'background', 'linear-gradient( ' + d + 'deg, rgba(' + colors[0] + ',' + colors[1] + ',' + colors[2] + ',1) 0%, rgba(' + colors[6] + ',' + colors[7] + ',' + colors[8] + ',1) 100%)' );
                 
                 // Storytelling manager
                 $('#play').click(function() {
@@ -169,6 +186,24 @@
                     } else if( status < 2 ) {
                         audioElement.play();
                         arte.featureAttributes.status = 2;
+                    }
+                });
+                
+                
+                // Color manager
+                $('#color').click(function() {
+                    var status = arte.featureAttributes.status;
+                    
+                    if( status == 0 ) {
+                        $( '#color-box' ).css( 'opacity', '1');
+                        $( '#color-box-2' ).css( 'opacity', '1');
+                        color_event = setInterval( color, 1000 );
+                        arte.featureAttributes.status = 1;
+                    } else if( status == 1 ) {
+                        clearInterval( color_event );
+                        $( '#color-box' ).css( 'opacity', '0');
+                        $( '#color-box-2' ).css( 'opacity', '0');
+                        arte.featureAttributes.status = 0;
                     }
                 });
 
@@ -214,6 +249,31 @@
 
 
             });
+            
+            function color() {
+                var time = 0;
+                var l = rooms.length;
+                
+                for(var i = 0; i < l; i++) {
+                    rooms[i] = rooms[i] + ( Math.round(Math.random()) + (Math.round(Math.random()) * -1) );
+                    colors[i] = colors[i] + ( (Math.round(Math.random()) * 5) + (Math.round(Math.random()) * -5) );
+                }
+                var d = (rooms.reduce( function( a, b ){ return a + b; }, 0 ) % 200) * 360 / 200;
+                
+                deg = (deg + ((deg-d)/100)) % 360;
+                
+                if( time % 2 == 0 ) {
+                    $( '#color-box' ).css( 'background', 'linear-gradient( ' + d + 'deg, rgba(' + colors[0] + ',' + colors[1] + ',' + colors[2] + ',1) 0%, rgba(' + colors[6] + ',' + colors[7] + ',' + colors[8] + ',1) 100%)' );
+                    $( '#color-box' ).css( 'opacity', '1');
+                } else {
+                    $( '#color-box-2' ).css( 'background', 'linear-gradient( ' + d + 'deg, rgba(' + colors[0] + ',' + colors[1] + ',' + colors[2] + ',1) 0%, rgba(' + colors[6] + ',' + colors[7] + ',' + colors[8] + ',1) 100%)' );
+                    $( '#color-box' ).css( 'opacity', '0');
+                }
+                
+                time = time + 1;
+                    
+                //$( '#box' ).css( 'background', 'linear-gradient( ' + d + 'deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 22%, rgba(0,212,255,1) 100%)' );
+            }
         </script>
     </body>
 </html>
