@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <dwsync>
-<file name="aframe-ar.js" server="ftp.programmingtestsite.altervista.org" local="132347208199453903" remote="132347207400000000" Dst="2" />
-<file name="aframe-master.min.js" server="ftp.programmingtestsite.altervista.org" local="132347208204830415" remote="132347207400000000" Dst="2" />
-<file name="jquery-3.5.1.min.js" server="ftp.programmingtestsite.altervista.org" local="132347208207501894" remote="132347207400000000" Dst="2" />
-<file name="aframe-ar-nft.js" server="ftp.programmingtestsite.altervista.org" local="132347208227629317" remote="132347207400000000" Dst="2" />
-<file name="pahoMQTTClient.js" server="ftp.programmingtestsite.altervista.org" local="132348779489275000" remote="132348779400000000" Dst="2" />
-<file name="aws.js" server="ftp.programmingtestsite.altervista.org" local="132348782212717911" remote="132348787200000000" Dst="2" />
-<file name="utils.js" server="ftp.programmingtestsite.altervista.org" local="132349121125974517" remote="132349120800000000" Dst="2" />
-<file name="ARte.js" server="ftp.programmingtestsite.altervista.org" local="132349616835409786" remote="132349616400000000" Dst="2" />
+<file name="aframe-ar.js" server="ftp.programmingtestsite.altervista.org" local="132350789529889519" remote="132524141400000000" Dst="1" />
+<file name="aframe-master.min.js" server="ftp.programmingtestsite.altervista.org" local="132350789530087090" remote="132524141400000000" Dst="1" />
+<file name="jquery-3.5.1.min.js" server="ftp.programmingtestsite.altervista.org" local="132350789530087090" remote="132524141400000000" Dst="1" />
+<file name="aframe-ar-nft.js" server="ftp.programmingtestsite.altervista.org" local="132350789529889519" remote="132524141400000000" Dst="1" />
+<file name="pahoMQTTClient.js" server="ftp.programmingtestsite.altervista.org" local="132350789530087090" remote="132524141400000000" Dst="1" />
+<file name="aws.js" server="ftp.programmingtestsite.altervista.org" local="132350789530087090" remote="132524141400000000" Dst="1" />
+<file name="utils.js" server="ftp.programmingtestsite.altervista.org" local="132350789530087090" remote="132524141400000000" Dst="1" />
+<file name="ARte.js" server="ftp.programmingtestsite.altervista.org" local="132350789529687851" remote="132524141400000000" Dst="1" />
+<file name="gesture-detector.js" server="ftp.programmingtestsite.altervista.org" local="132525415102908540" remote="132525418200000000" Dst="1" />
+<file name="gesture-handler.js" server="ftp.programmingtestsite.altervista.org" local="132525415037074627" remote="132525418200000000" Dst="1" />
 </dwsync>

@@ -34,7 +34,7 @@ body {
 }
 #color-box {
     width: 100%;
-    height: 100vh;
+    height: 100%;
     position: absolute;
     top: 0;
     left: 0;
@@ -44,7 +44,7 @@ body {
 }
 #color-box-2 {
     width: 100%;
-    height: 100vh;
+    height: 100%;
     position: absolute;
     top: 0;
     left: 0;
@@ -54,7 +54,7 @@ body {
 }
 .commands {
     position: fixed;
-    bottom: 0;/*-22vw;*/
+    bottom: -22vw;
     left: 0;
     width: 100vw;
     height: 22vw;
