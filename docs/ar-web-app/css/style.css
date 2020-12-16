@@ -38,7 +38,7 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    transition: opacity 0.9s linear;
+    transition: opacity 1.4s linear;
     z-index: 500;
     opacity: 0;
 }
@@ -48,7 +48,7 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    transition: opacity 0.9s linear;
+    transition: opacity 1.4s linear;
     z-index: 499; 
     opacity: 0;
 }
