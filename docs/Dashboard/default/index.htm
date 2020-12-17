@@ -40,7 +40,7 @@
                     <!-- Authentication card start -->
                         <form id="login" class="md-float-material form-material" method="post" action="">
                             <div class="text-center">
-                                <img src="../files/assets/images/arte_logo_3.png" alt="Home logo" width="50%" height="50%">
+                                <img src="../files/assets/images/arte_logo_black.png" alt="Home logo" width="50%" height="50%">
                             </div>
                             <div class="auth-box card">
                                 <div class="card-block">
@@ -147,10 +147,14 @@
     <script type="text/javascript" src="..\files\bower_components\i18next-browser-languagedetector\js\i18nextBrowserLanguageDetector.min.js"></script>
     <script type="text/javascript" src="..\files\bower_components\jquery-i18next\js\jquery-i18next.min.js"></script>
     <script type="text/javascript" src="..\files\assets\js\common-pages.js"></script>
+    <!-- Sweet alert js -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <!-- AWS SDK -->
-    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.7.16.min.js"></script>
+    <script src="https://rawgit.com/aws/amazon-cognito-identity-js/master/dist/aws-cognito-sdk.min.js"></script>
+    <script src="https://rawgit.com/aws/amazon-cognito-identity-js/master/dist/amazon-cognito-identity.min.js"></script>
     <!-- custom js -->
     <script type="text/javascript" src="../files/assets/js/artworkValidation.js"></script>
+    <script type="text/javascript" src="../files/assets/js/utils.js"></script>
 
     <script type="text/javascript">
       window.onload = function() {
@@ -160,16 +164,6 @@
             ev.preventDefault();
             handleFormSubmit();
         });
-
-        // Initialize the Amazon Cognito credentials provider
-        AWS.config.region = "us-east-1";
-        AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-            IdentityPoolId: "us-east-1:33cfdc7c-d841-41cb-b3b4-af3b015348da",
-        });
-
-        // Set up connection with DynamoDB
-        const dynamodb  = new AWS.DynamoDB();
-        const docClient = new AWS.DynamoDB.DocumentClient();
 
         // Get the input elements
         const email    = document.getElementById("email");
@@ -181,8 +175,11 @@
         });
 
         password.addEventListener("input", function(e) {
-          validatePassword(password, password.value) ? showSuccess(password, passwordError) :
-                                                       showError(password, passwordError, "Password must be at least 8 characters long");
+          /*validatePassword(password, password.value) ? showSuccess(password, passwordError) :
+                                                       showError(password, passwordError, "Password must be at least 8 characters long");*/
+
+          password.value !== "" ? showSuccess(password, passwordError) :
+                                  showError(password, passwordError, "Password cannot be blank");
         });
 
 
@@ -208,47 +205,77 @@
         // Validate the form and return the errors
         function validate() {
           let err = validateEmail();
-          err += validatePassword(password, password.value) ? 0 : 1;
+          //err += validatePassword(password, password.value) ? 0 : 1;
+          err += password.value !== "" ? showSuccess(password, passwordError) :
+                                         showError(password, passwordError, "Password cannot be blank");
           return err;
         }
 
         function signIn() {
-          const params = {
-            TableName : "ARte_Users",
-            KeyConditionExpression: "#e = :e",
-            FilterExpression: "#p = :p",
-            ExpressionAttributeNames: {
-              "#e": "email",
-              "#p": "password"
-            },
-            ExpressionAttributeValues: {
-                ":e": email.value,
-                ":p": password.value
-            }
+          const emailValue    = email.value;
+          const passwordValue = password.value;
+
+          const authenticationData = {
+            Username: emailValue,
+            Password: passwordValue
+          };
+          const authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails(authenticationData);
+
+          const poolData = {
+            UserPoolId : 'us-east-1_IpBxtOHw2',
+            ClientId :   '3qa315r85liu2ecnc1tkiobvuc'
+          };
+          const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+          const userData = {
+            Username : emailValue,
+            Pool :     userPool
           };
 
-          docClient.query(params, onQuery);
+          const cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
+          cognitoUser.authenticateUser(authenticationDetails, {
+              onSuccess: function (result) {
+                  const accessToken = result.getAccessToken().getJwtToken();
 
-          function onQuery(err, data) {
-            if (err)
-              showError(password, passwordError, "Error, try again");
-            else {
-              if (data.Items.length == 0)
-                showError(password, passwordError, "Email or password wrong");
+                  // Use the idToken for Logins Map when Federating User Pools with identity pools or
+                  // when passing through an Authorization Header to an API Gateway Authorizer 
+                  const idToken = result.idToken.jwtToken;
 
-              data.Items.forEach(function(item) {
-                  //console.log(item.email);
-                  location.replace("./general.htm");
-              });
-            }
-          }
+                  cognitoUser.getUserAttributes(function(err, result) {
+                  	if (err) {
+                  		alert(err.message || JSON.stringify(err));
+                  		return;
+                  	}
+                  	for (i = 0; i < result.length; i++) {
+                  		console.log(
+                  			'attribute ' + result[i].getName() + ' has value ' + result[i].getValue()
+                  		);
+                  	}
+                  });
+
+                  // Redirect the user to the general page without keeping the login page in the browser navigation
+                  //location.replace("./general.htm");
+              },
+              onFailure: function(err) {
+                  showErrorModal(err.message);
+              },
+              newPasswordRequired: function(userAttributes, requiredAttributes) {
+                // User was signed up by an admin and must provide new
+                // password and required attributes, if any, to complete
+                // authentication.
+
+                // The api doesn't accept this field back
+                delete userAttributes.email_verified;
+
+                console.log("userAttributes:");
+                console.log(userAttributes);
+
+                // Set new password for the user
+                //cognitoUser.completeNewPasswordChallenge(newPassword, userAttributes, this.newPasswordRequired);
+              }
+          });
+
         }
 
-
-                /*function validatePassword() {
-                  let err = true ? showSuccess(password, passwordError) :
-                                   showError(password, passwordError, "Email or password wrong");
-                  }*/
     }
     </script>
 

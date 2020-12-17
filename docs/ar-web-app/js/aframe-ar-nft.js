@@ -170,7 +170,7 @@ THREEx.ArMarkerCloak = function(videoTexture){
 		originalsFaceVertexUvs[0][i*4+0][0].set( xMin/2+0.5, yMax/2+0.5 )
 		originalsFaceVertexUvs[0][i*4+0][1].set( xMin/2+0.5, yMin/2+0.5 )
 		originalsFaceVertexUvs[0][i*4+0][2].set( xMax/2+0.5, yMax/2+0.5 )
-		
+
 		originalsFaceVertexUvs[0][i*4+1][0].set( xMin/2+0.5, yMin/2+0.5 )
 		originalsFaceVertexUvs[0][i*4+1][1].set( xMax/2+0.5, yMin/2+0.5 )
 		originalsFaceVertexUvs[0][i*4+1][2].set( xMax/2+0.5, yMax/2+0.5 )
@@ -179,7 +179,7 @@ THREEx.ArMarkerCloak = function(videoTexture){
 		originalsFaceVertexUvs[0][i*4+2][0].set( xMin/2+0.5, yMin/2+0.5 )
 		originalsFaceVertexUvs[0][i*4+2][1].set( xMin/2+0.5, yMax/2+0.5 )
 		originalsFaceVertexUvs[0][i*4+2][2].set( xMax/2+0.5, yMin/2+0.5 )
-		
+
 		originalsFaceVertexUvs[0][i*4+3][0].set( xMin/2+0.5, yMax/2+0.5 )
 		originalsFaceVertexUvs[0][i*4+3][1].set( xMax/2+0.5, yMax/2+0.5 )
 		originalsFaceVertexUvs[0][i*4+3][2].set( xMax/2+0.5, yMin/2+0.5 )
@@ -187,7 +187,7 @@ THREEx.ArMarkerCloak = function(videoTexture){
 
         if( updateInShaderEnabled === true ){
                 cloakMesh.geometry.faceVertexUvs = originalsFaceVertexUvs
-                cloakMesh.geometry.uvsNeedUpdate = true                
+                cloakMesh.geometry.uvsNeedUpdate = true
         }
 
 	//////////////////////////////////////////////////////////////////////////////
@@ -221,7 +221,7 @@ THREEx.ArMarkerCloak = function(videoTexture){
                         updateUvs(modelViewMatrix, cameraProjectionMatrix)
                 }
 	}
-        
+
         return
 
         // update cloakMesh
@@ -246,7 +246,7 @@ THREEx.ArMarkerCloak = function(videoTexture){
                                 cloakMesh.geometry.faceVertexUvs[0][faceIndex][uvIndex].set(transformedUv.x, transformedUv.y)
                         })
                 })
-        
+
                 // cloakMesh.geometry.faceVertexUvs = faceVertexUvs
                 cloakMesh.geometry.uvsNeedUpdate = true
         }
@@ -879,12 +879,12 @@ var THREEx = THREEx || {}
  */
 THREEx.ArSmoothedControls = function(object3d, parameters){
 	var _this = this
-	
+
 	THREEx.ArBaseControls.call(this, object3d)
-	
+
 	// copy parameters
 	this.object3d.visible = false
-	
+
 	this._lastLerpStepAt = null
 	this._visibleStartedAt = null
 	this._unvisibleStartedAt = null
@@ -905,7 +905,7 @@ THREEx.ArSmoothedControls = function(object3d, parameters){
 		// minimum delay the sub-control must be unvisible before this controls become unvisible - default to 0 seconds
 		minUnvisibleDelay: 0.2,
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////////////
 	//		setParameters
 	//////////////////////////////////////////////////////////////////////////////
@@ -931,7 +931,7 @@ THREEx.ArSmoothedControls = function(object3d, parameters){
 		}
 	}
 }
-	
+
 THREEx.ArSmoothedControls.prototype = Object.create( THREEx.ArBaseControls.prototype );
 THREEx.ArSmoothedControls.prototype.constructor = THREEx.ArSmoothedControls;
 
@@ -967,10 +967,10 @@ THREEx.ArSmoothedControls.prototype.update = function(targetObject3d){
 	if( wasVisible === true && targetObject3d.visible === false ){
 		var unvisibleFor = present - this._unvisibleStartedAt
 		if( unvisibleFor >= this.parameters.minUnvisibleDelay ){
-			object3d.visible = false			
+			object3d.visible = false
 		}
 	}
-	
+
 	//////////////////////////////////////////////////////////////////////////////
 	//		apply lerp on positon/quaternion/scale
 	//////////////////////////////////////////////////////////////////////////////
@@ -988,7 +988,7 @@ THREEx.ArSmoothedControls.prototype.update = function(targetObject3d){
 	}
 
 	// disable the lerp by directly copying targetObject3d position/quaternion/scale
-	if( false ){		
+	if( false ){
 		snapDirectlyToTarget()
 	}
 
@@ -1012,8 +1012,8 @@ THREEx.ArSmoothedControls.prototype.update = function(targetObject3d){
 		object3d.position.copy( targetObject3d.position )
 		object3d.quaternion.copy( targetObject3d.quaternion )
 		object3d.scale.copy( targetObject3d.scale )
-	}	
-	
+	}
+
 	function applyOneSlerpStep(){
 		object3d.position.lerp(targetObject3d.position, parameters.lerpPosition)
 		object3d.quaternion.slerp(targetObject3d.quaternion, parameters.lerpQuaternion)
@@ -1624,9 +1624,11 @@ ARjs.Source.prototype._initSourceWebcam = function (onReady, onError) {
 
     // init default value
     onError = onError || function (error) {
-        alert('Webcam Error\nName: ' + error.name + '\nMessage: ' + error.message)
+        /*alert('Webcam Error\nName: ' + error.name + '\nMessage: ' + error.message)
         var event = new CustomEvent('camera-error', { error: error });
-        window.dispatchEvent(event);
+        window.dispatchEvent(event);*/
+
+				location.assign("../Dashboard/default/error-camera.htm");
     }
 
     var domElement = document.createElement('video');
@@ -1895,9 +1897,9 @@ ARjs.Source.prototype.onResize = function (arToolkitContext, renderer, camera) {
 }
 var THREEx = THREEx || {}
 
-THREEx.ArVideoInWebgl = function(videoTexture){	
+THREEx.ArVideoInWebgl = function(videoTexture){
 	var _this = this
-	
+
 	//////////////////////////////////////////////////////////////////////////////
 	//	plane always in front of the camera, exactly as big as the viewport
 	//////////////////////////////////////////////////////////////////////////////
@@ -1913,41 +1915,41 @@ THREEx.ArVideoInWebgl = function(videoTexture){
 	var seethruPlane = new THREE.Mesh(geometry, material);
 	this.object3d = seethruPlane
 	// scene.add(seethruPlane);
-	
+
 	// arToolkitSource.domElement.style.visibility = 'hidden'
 
 	// TODO extract the fov from the projectionMatrix
 	// camera.fov = 43.1
 	this.update = function(camera){
 		camera.updateMatrixWorld(true)
-		
+
 		// get seethruPlane position
 		var position = new THREE.Vector3(-0,0,-20)	// TODO how come you got that offset on x ???
 		var position = new THREE.Vector3(-0,0,-20)	// TODO how come you got that offset on x ???
 		seethruPlane.position.copy(position)
 		camera.localToWorld(seethruPlane.position)
-		
+
 		// get seethruPlane quaternion
-		camera.matrixWorld.decompose( camera.position, camera.quaternion, camera.scale );	
+		camera.matrixWorld.decompose( camera.position, camera.quaternion, camera.scale );
 		seethruPlane.quaternion.copy( camera.quaternion )
-		
+
 		// extract the fov from the projectionMatrix
 		var fov = THREE.Math.radToDeg(Math.atan(1/camera.projectionMatrix.elements[5]))*2;
 	// console.log('fov', fov)
-		
+
 		var elementWidth = parseFloat( arToolkitSource.domElement.style.width.replace(/px$/,''), 10 )
 		var elementHeight = parseFloat( arToolkitSource.domElement.style.height.replace(/px$/,''), 10 )
-		
+
 		var aspect = elementWidth / elementHeight
-		
+
 		// camera.fov = fov
 		// if( vrDisplay.isPresenting ){
 		// 	fov *= 2
 		// 	aspect *= 2
 		// }
-		
+
 		// get seethruPlane height relative to fov
-		seethruPlane.scale.y = Math.tan(THREE.Math.DEG2RAD * fov/2)*position.length() 
+		seethruPlane.scale.y = Math.tan(THREE.Math.DEG2RAD * fov/2)*position.length()
 		// get seethruPlane aspect
 		seethruPlane.scale.x = seethruPlane.scale.y * aspect
 	}
@@ -1956,22 +1958,22 @@ THREEx.ArVideoInWebgl = function(videoTexture){
 	//		Code Separator
 	//////////////////////////////////////////////////////////////////////////////
 	// var video = arToolkitSource.domElement;
-	// 
+	//
 	// window.addEventListener('resize', function(){
-	// 	updateSeeThruAspectUv(seethruPlane)	
+	// 	updateSeeThruAspectUv(seethruPlane)
 	// })
 	// video.addEventListener('canplaythrough', function(){
 	// 	updateSeeThruAspectUv(seethruPlane)
 	// })
 	// function updateSeeThruAspectUv(plane){
-	// 
+	//
 	// 	// if video isnt yet ready to play
 	// 	if( video.videoWidth === 0 || video.videoHeight === 0 )	return
-	// 
+	//
 	// 	var faceVertexUvs = plane.geometry.faceVertexUvs[0]
 	// 	var screenAspect = window.innerWidth / window.innerHeight
 	// 	var videoAspect = video.videoWidth / video.videoHeight
-	// 	
+	//
 	// 	plane.geometry.uvsNeedUpdate = true
 	// 	if( screenAspect >= videoAspect ){
 	// 		var actualHeight = videoAspect / screenAspect;
@@ -1989,7 +1991,7 @@ THREEx.ArVideoInWebgl = function(videoTexture){
 	// 		faceVertexUvs[0][0].x = 0.5 - actualWidth/2
 	// 		faceVertexUvs[0][1].x = 0.5 - actualWidth/2
 	// 		faceVertexUvs[1][0].x = 0.5 - actualWidth/2
-	// 		
+	//
 	// 		// faceVertexUvs x 1
 	// 		faceVertexUvs[0][2].x = 0.5 + actualWidth/2
 	// 		faceVertexUvs[1][1].x = 0.5 + actualWidth/2
@@ -2005,14 +2007,14 @@ var THREEx = THREEx || {}
 /**
  * - maybe support .onClickFcts in each object3d
  * - seems an easy light layer for clickable object
- * - up to 
+ * - up to
  */
 THREEx.HitTestingPlane = function(sourceElement){
 	this._sourceElement = sourceElement
 
 	// create _pickingScene
 	this._pickingScene = new THREE.Scene
-	
+
 	// create _pickingPlane
 	var geometry = new THREE.PlaneGeometry(20,20,19,19).rotateX(-Math.PI/2)
 	// var geometry = new THREE.PlaneGeometry(20,20).rotateX(-Math.PI/2)
@@ -2029,7 +2031,7 @@ THREEx.HitTestingPlane = function(sourceElement){
 	var fullWidth = parseInt(sourceElement.style.width)
 	var fullHeight = parseInt(sourceElement.style.height)
 	// TODO hardcoded fov - couch
-	this._pickingCamera = new THREE.PerspectiveCamera(42, fullWidth / fullHeight, 0.1, 30);	
+	this._pickingCamera = new THREE.PerspectiveCamera(42, fullWidth / fullHeight, 0.1, 30);
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -2039,7 +2041,7 @@ THREEx.HitTestingPlane = function(sourceElement){
 THREEx.HitTestingPlane.prototype.update = function(camera, pickingRoot, changeMatrixMode){
 
 	this.onResize()
-	
+
 
 	if( changeMatrixMode === 'modelViewMatrix' ){
 		// set pickingPlane position
@@ -2062,7 +2064,7 @@ THREEx.HitTestingPlane.prototype.update = function(camera, pickingRoot, changeMa
 // console.log('pickingPlane position', position.x.toFixed(2), position.y.toFixed(2), position.z.toFixed(2))
 // var position = this._pickingCamera.position
 // console.log('his._pickingCamera position', position.x.toFixed(2), position.y.toFixed(2), position.z.toFixed(2))
-	
+
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -2072,9 +2074,9 @@ THREEx.HitTestingPlane.prototype.update = function(camera, pickingRoot, changeMa
 THREEx.HitTestingPlane.prototype.onResize = function(){
 	var sourceElement = this._sourceElement
 	var pickingCamera = this._pickingCamera
-	
+
 // FIXME why using css here ??? not even computed style
-// should get the size of the elment directly independantly 
+// should get the size of the elment directly independantly
 	var fullWidth = parseInt(sourceElement.style.width)
 	var fullHeight = parseInt(sourceElement.style.height)
 	pickingCamera.aspect = fullWidth / fullHeight
@@ -2089,7 +2091,7 @@ THREEx.HitTestingPlane.prototype.test = function(mouseX, mouseY){
 	// convert mouseX, mouseY to [-1, +1]
 	mouseX = (mouseX-0.5)*2
 	mouseY =-(mouseY-0.5)*2
-	
+
 	this._pickingScene.updateMatrixWorld(true)
 
 	// compute intersections between mouseVector3 and pickingPlane
@@ -2105,7 +2107,7 @@ THREEx.HitTestingPlane.prototype.test = function(mouseX, mouseY){
 	// TODO here do a look at the camera ?
 	var quaternion = new THREE.Quaternion
 	var scale = new THREE.Vector3(1,1,1)//.multiplyScalar(1)
-	
+
 	return {
 		position : position,
 		quaternion : quaternion,
@@ -2714,7 +2716,7 @@ ARjs.MarkersAreaControls = THREEx.ArMultiMarkerControls = function(arToolkitCont
 		// change matrix mode - [modelViewMatrix, cameraTransformMatrix]
 		changeMatrixMode : parameters.changeMatrixMode !== undefined ? parameters.changeMatrixMode : 'modelViewMatrix',
 	}
-	
+
 	this.object3d.visible = false
 	// honor obsolete stuff - add a warning to use
 	this.subMarkersControls = this.parameters.subMarkersControls
@@ -2759,7 +2761,7 @@ ARjs.MarkersAreaControls.prototype._onSourceProcessed = function(){
 	var firstQuaternion = _this.parameters.subMarkersControls[0].object3d.quaternion
 
 	this.parameters.subMarkersControls.forEach(function(markerControls, markerIndex){
-		
+
 		var markerObject3d = markerControls.object3d
 		// if this marker is not visible, ignore it
 		if( markerObject3d.visible === false )	return
@@ -2787,7 +2789,7 @@ ARjs.MarkersAreaControls.prototype._onSourceProcessed = function(){
 	if( stats.count > 0 ){
 		_this.object3d.visible = true
 	}else{
-		_this.object3d.visible = false			
+		_this.object3d.visible = false
 	}
 
 	// if at least one sub-marker has been detected, make the average of all detected markers
@@ -2822,7 +2824,7 @@ ARjs.MarkersAreaControls.averageQuaternion = function(quaternionSum, newQuaterni
 	quaternionAverage = quaternionAverage || new THREE.Quaternion()
 	// sanity check
 	console.assert(firstQuaternion instanceof THREE.Quaternion === true)
-	
+
 	// from http://wiki.unity3d.com/index.php/Averaging_Quaternions_and_Vectors
 	if( newQuaternion.dot(firstQuaternion) > 0 ){
 		newQuaternion = new THREE.Quaternion(-newQuaternion.x, -newQuaternion.y, -newQuaternion.z, -newQuaternion.w)
@@ -2832,12 +2834,12 @@ ARjs.MarkersAreaControls.averageQuaternion = function(quaternionSum, newQuaterni
 	quaternionSum.y += newQuaternion.y
 	quaternionSum.z += newQuaternion.z
 	quaternionSum.w += newQuaternion.w
-	
+
 	quaternionAverage.x = quaternionSum.x/count
 	quaternionAverage.y = quaternionSum.y/count
 	quaternionAverage.z = quaternionSum.z/count
 	quaternionAverage.w = quaternionSum.w/count
-	
+
 	quaternionAverage.normalize()
 
 	return quaternionAverage
@@ -2846,15 +2848,15 @@ ARjs.MarkersAreaControls.averageQuaternion = function(quaternionSum, newQuaterni
 
 ARjs.MarkersAreaControls.averageVector3 = function(vector3Sum, vector3, count, vector3Average){
 	vector3Average = vector3Average || new THREE.Vector3()
-	
+
 	vector3Sum.x += vector3.x
 	vector3Sum.y += vector3.y
 	vector3Sum.z += vector3.z
-	
+
 	vector3Average.x = vector3Sum.x / count
 	vector3Average.y = vector3Sum.y / count
 	vector3Average.z = vector3Sum.z / count
-	
+
 	return vector3Average
 }
 
@@ -2871,27 +2873,27 @@ ARjs.MarkersAreaControls.computeCenter = function(jsonData){
 		count : 0,
 		position : {
 			sum: new THREE.Vector3(0,0,0),
-			average: new THREE.Vector3(0,0,0),						
+			average: new THREE.Vector3(0,0,0),
 		},
 		quaternion : {
 			sum: new THREE.Quaternion(0,0,0,0),
-			average: new THREE.Quaternion(0,0,0,0),						
+			average: new THREE.Quaternion(0,0,0,0),
 		},
 		scale : {
 			sum: new THREE.Vector3(0,0,0),
-			average: new THREE.Vector3(0,0,0),						
+			average: new THREE.Vector3(0,0,0),
 		},
 	}
 	var firstQuaternion = new THREE.Quaternion() // FIXME ???
-	
+
 	multiMarkerFile.subMarkersControls.forEach(function(item){
 		var poseMatrix = new THREE.Matrix4().fromArray(item.poseMatrix)
-		
+
 		var position = new THREE.Vector3
 		var quaternion = new THREE.Quaternion
 		var scale = new THREE.Vector3
 		poseMatrix.decompose(position, quaternion, scale)
-		
+
 		// http://wiki.unity3d.com/index.php/Averaging_Quaternions_and_Vectors
 		stats.count++
 
@@ -2899,7 +2901,7 @@ ARjs.MarkersAreaControls.computeCenter = function(jsonData){
 		ARjs.MarkersAreaControls.averageQuaternion(stats.quaternion.sum, quaternion, firstQuaternion, stats.count, stats.quaternion.average)
 		ARjs.MarkersAreaControls.averageVector3(stats.scale.sum, scale, stats.count, stats.scale.average)
 	})
-	
+
 	var averageMatrix = new THREE.Matrix4()
 	averageMatrix.compose(stats.position.average, stats.quaternion.average, stats.scale.average)
 
@@ -2912,7 +2914,7 @@ ARjs.MarkersAreaControls.computeBoundingBox = function(jsonData){
 
 	multiMarkerFile.subMarkersControls.forEach(function(item){
 		var poseMatrix = new THREE.Matrix4().fromArray(item.poseMatrix)
-		
+
 		var position = new THREE.Vector3
 		var quaternion = new THREE.Quaternion
 		var scale = new THREE.Vector3
@@ -2987,14 +2989,14 @@ ARjs.MarkersAreaControls.fromJSON = function(arToolkitContext, parent3D, markerR
 // if( true ){
 		// store it in the parameters
 		subMarkersControls.push(subMarkerControls)
-		subMarkerPoses.push(new THREE.Matrix4().fromArray(item.poseMatrix))	
+		subMarkerPoses.push(new THREE.Matrix4().fromArray(item.poseMatrix))
 // }else{
 // 		// build a smoothedControls
 // 		var smoothedRoot = new THREE.Group()
 // 		parent3D.add(smoothedRoot)
 // 		var smoothedControls = new THREEx.ArSmoothedControls(smoothedRoot, {
 // 			lerpPosition : 0.1,
-// 			lerpQuaternion : 0.1, 
+// 			lerpQuaternion : 0.1,
 // 			lerpScale : 0.1,
 // 			minVisibleDelay: 0,
 // 			minUnvisibleDelay: 0,
@@ -3002,21 +3004,21 @@ ARjs.MarkersAreaControls.fromJSON = function(arToolkitContext, parent3D, markerR
 // 		onRenderFcts.push(function(delta){
 // 			smoothedControls.update(markerRoot)	// TODO this is a global
 // 		})
-// 	
-// 
+//
+//
 // 		// store it in the parameters
 // 		subMarkersControls.push(smoothedControls)
 // 		subMarkerPoses.push(new THREE.Matrix4().fromArray(item.poseMatrix))
 // }
 	})
-	
+
 	parameters.subMarkersControls = subMarkersControls
 	parameters.subMarkerPoses = subMarkerPoses
 	// create a new THREEx.ArMultiMarkerControls
 	var multiMarkerControls = new THREEx.ArMultiMarkerControls(arToolkitContext, markerRoot, parameters)
 
 	// return it
-	return multiMarkerControls	
+	return multiMarkerControls
 }
 var ARjs = ARjs || {}
 var THREEx = THREEx || {}
@@ -3028,7 +3030,7 @@ ARjs.MarkersAreaLearning = THREEx.ArMultiMakersLearning = function(arToolkitCont
 	// Init variables
 	this.subMarkersControls = subMarkersControls
 	this.enabled = true
-		
+
 	// listen to arToolkitContext event 'sourceProcessed'
 	// - after we fully processed one image, aka when we know all detected poses in it
 	arToolkitContext.addEventListener('sourceProcessed', function(){
@@ -3046,8 +3048,8 @@ ARjs.MarkersAreaLearning = THREEx.ArMultiMakersLearning = function(arToolkitCont
  */
 ARjs.MarkersAreaLearning.prototype._onSourceProcessed = function(){
 	var originQuaternion = this.subMarkersControls[0].object3d.quaternion
-	// here collect the statistic on relative positioning 
-	
+	// here collect the statistic on relative positioning
+
 	// honor this.enabled
 	if( this.enabled === false )	return
 
@@ -3062,7 +3064,7 @@ ARjs.MarkersAreaLearning.prototype._onSourceProcessed = function(){
 	var quaternionDelta = new THREE.Quaternion()
 	var scaleDelta = new THREE.Vector3()
 	var tmpMatrix = new THREE.Matrix4()
-	
+
 	// go thru all the visibleMarkerControls
 	for(var i = 0; i < count; i++){
 		var markerControls1 = visibleMarkerControls[i]
@@ -3088,29 +3090,29 @@ ARjs.MarkersAreaLearning.prototype._onSourceProcessed = function(){
 					count : 0,
 					position : {
 						sum: new THREE.Vector3(0,0,0),
-						average: new THREE.Vector3(0,0,0),						
+						average: new THREE.Vector3(0,0,0),
 					},
 					quaternion : {
 						sum: new THREE.Quaternion(0,0,0,0),
-						average: new THREE.Quaternion(0,0,0,0),						
+						average: new THREE.Quaternion(0,0,0,0),
 					},
 					scale : {
 						sum: new THREE.Vector3(0,0,0),
-						average: new THREE.Vector3(0,0,0),						
+						average: new THREE.Vector3(0,0,0),
 					},
 				}
 			}
 
-			
+
 			//////////////////////////////////////////////////////////////////////////////
 			//		Compute markerControls2 position relative to markerControls1
 			//////////////////////////////////////////////////////////////////////////////
-			
+
 			// compute markerControls2 position/quaternion/scale in relation with markerControls1
 			tmpMatrix.getInverse(markerControls1.object3d.matrix)
 			tmpMatrix.multiply(markerControls2.object3d.matrix)
 			tmpMatrix.decompose(positionDelta, quaternionDelta, scaleDelta)
-			
+
 			//////////////////////////////////////////////////////////////////////////////
 			//		update statistics
 			//////////////////////////////////////////////////////////////////////////////
@@ -3142,8 +3144,8 @@ ARjs.MarkersAreaLearning.prototype.computeResult = function(){
 		confidenceFactor: 1,
 	}
 	// TODO here check if the originSubControls has been seen at least once!!
-	
-	
+
+
 	/**
 	 * ALGO in pseudo code
 	 *
@@ -3152,13 +3154,13 @@ ARjs.MarkersAreaLearning.prototype.computeResult = function(){
 	 * Start Looping
 	 * - For a given sub marker, skip it if it already has a result.
 	 * - if no result, check all seen couple and find n ones which has a progress of 1 or more.
-	 * - So the other seen sub markers, got a valid transformation matrix. 
-	 * - So take local averages position/orientation/scale, compose a transformation matrix. 
+	 * - So the other seen sub markers, got a valid transformation matrix.
+	 * - So take local averages position/orientation/scale, compose a transformation matrix.
 	 *   - aka transformation matrix from parent matrix * transf matrix pos/orientation/scale
-	 * - Multiple it by the other seen marker matrix. 
+	 * - Multiple it by the other seen marker matrix.
 	 * - Loop on the array until one pass could not compute any new sub marker
 	 */
-	
+
 	do{
 		var resultChanged = false
 		// loop over each subMarkerControls
@@ -3168,21 +3170,21 @@ ARjs.MarkersAreaLearning.prototype.computeResult = function(){
 			var result = subMarkerControls.object3d.userData.result
 			var isLearned = (result !== undefined && result.confidenceFactor >= 1) ? true : false
 			if( isLearned === true )	return
-			
+
 			// console.log('compute subMarkerControls', subMarkerControls.name())
 			var otherSubControlsID = _this._getLearnedCoupleStats(subMarkerControls)
 			if( otherSubControlsID === null ){
 				// console.log('no learnedCoupleStats')
 				return
 			}
-			
+
 			var otherSubControls = _this._getSubMarkerControlsByID(otherSubControlsID)
 
 			var seenCoupleStats = subMarkerControls.object3d.userData.seenCouples[otherSubControlsID]
-			
+
 			var averageMatrix = new THREE.Matrix4()
 			averageMatrix.compose(seenCoupleStats.position.average, seenCoupleStats.quaternion.average, seenCoupleStats.scale.average)
-				
+
 			var otherAverageMatrix = otherSubControls.object3d.userData.result.averageMatrix
 
 			var matrix = new THREE.Matrix4().getInverse(otherAverageMatrix).multiply(averageMatrix)
@@ -3193,12 +3195,12 @@ ARjs.MarkersAreaLearning.prototype.computeResult = function(){
 				averageMatrix: matrix,
 				confidenceFactor: 1
 			}
-			
+
 			resultChanged = true
 		})
 		// console.log('loop')
 	}while(resultChanged === true)
-	
+
 	// debugger
 	// console.log('json:', this.toJSON())
 	// this.subMarkersControls.forEach(function(subMarkerControls){
@@ -3211,14 +3213,14 @@ ARjs.MarkersAreaLearning.prototype.computeResult = function(){
 //		Utility function
 //////////////////////////////////////////////////////////////////////////////
 
-/** 
+/**
  * get a _this.subMarkersControls id based on markerControls.id
  */
 ARjs.MarkersAreaLearning.prototype._getLearnedCoupleStats	= function(subMarkerControls){
 
 	// if this subMarkerControls has never been seen with another subMarkerControls
 	if( subMarkerControls.object3d.userData.seenCouples === undefined )	return null
-	
+
 	var seenCouples = subMarkerControls.object3d.userData.seenCouples
 	var coupleControlsIDs = Object.keys(seenCouples).map(Number)
 
@@ -3226,7 +3228,7 @@ ARjs.MarkersAreaLearning.prototype._getLearnedCoupleStats	= function(subMarkerCo
 		var otherSubControlsID = coupleControlsIDs[i]
 		// get otherSubControls
 		var otherSubControls = this._getSubMarkerControlsByID(otherSubControlsID)
-			
+
 		// if otherSubControls isnt learned, skip it
 		var result = otherSubControls.object3d.userData.result
 		var isLearned = (result !== undefined && result.confidenceFactor >= 1) ? true : false
@@ -3235,12 +3237,12 @@ ARjs.MarkersAreaLearning.prototype._getLearnedCoupleStats	= function(subMarkerCo
 		// return this seenCouplesStats
 		return otherSubControlsID
 	}
-	
+
 	// if none is found, return null
 	return null
 }
 
-/** 
+/**
  * get a _this.subMarkersControls based on markerControls.id
  */
 ARjs.MarkersAreaLearning.prototype._getSubMarkerControlsByID	= function(controlsID){
@@ -3270,7 +3272,7 @@ ARjs.MarkersAreaLearning.prototype.toJSON = function(){
 		meta : {
 			createdBy : "Area Learning - AR.js "+THREEx.ArToolkitContext.REVISION,
 			createdAt : new Date().toJSON(),
-			
+
 		},
 		trackingBackend: this._arToolkitContext.parameters.trackingBackend,
 		subMarkersControls : [],
@@ -3279,13 +3281,13 @@ ARjs.MarkersAreaLearning.prototype.toJSON = function(){
 	var originSubControls = this.subMarkersControls[0]
 	var originMatrixInverse = new THREE.Matrix4().getInverse(originSubControls.object3d.matrix)
 	this.subMarkersControls.forEach(function(subMarkerControls, index){
-		
+
 		// if a subMarkerControls has no result, ignore it
 		if( subMarkerControls.object3d.userData.result === undefined )	return
 
 		var poseMatrix = subMarkerControls.object3d.userData.result.averageMatrix
 		console.assert(poseMatrix instanceof THREE.Matrix4)
-		
+
 
 		// build the info
 		var info = {
@@ -3306,8 +3308,8 @@ ARjs.MarkersAreaLearning.prototype.toJSON = function(){
 	})
 
 	var strJSON = JSON.stringify(data, null, '\t');
-	
-	
+
+
 	//////////////////////////////////////////////////////////////////////////////
 	//		round matrix elements to ease readability - for debug
 	//////////////////////////////////////////////////////////////////////////////
@@ -3322,8 +3324,8 @@ ARjs.MarkersAreaLearning.prototype.toJSON = function(){
 		})
 		strJSON = JSON.stringify(tmp, null, '\t');
 	}
-	
-	return strJSON;	
+
+	return strJSON;
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -3335,7 +3337,7 @@ ARjs.MarkersAreaLearning.prototype.toJSON = function(){
  */
 ARjs.MarkersAreaLearning.prototype.resetStats = function(){
 	this.deleteResult()
-	
+
 	this.subMarkersControls.forEach(function(markerControls){
 		delete markerControls.object3d.userData.seenCouples
 	})
@@ -4705,7 +4707,7 @@ AFRAME.registerComponent('gps-projected-camera', {
         var worldCoords = this.latLonToWorld(this.currentCoords.latitude, this.currentCoords.longitude);
 
         position.x = worldCoords[0];
-        position.z = worldCoords[1]; 
+        position.z = worldCoords[1];
 
         // update position
         this.el.setAttribute('position', position);
@@ -4717,8 +4719,8 @@ AFRAME.registerComponent('gps-projected-camera', {
      * Returns distance in meters between camera and destination input.
      *
      * Assume we are using a metre-based projection. Not all 'metre-based'
-     * projections give exact metres, e.g. Spherical Mercator, but it appears 
-     * close enough to be used for AR at least in middle temperate 
+     * projections give exact metres, e.g. Spherical Mercator, but it appears
+     * close enough to be used for AR at least in middle temperate
      * latitudes (40 - 55). It is heavily distorted near the poles, however.
      *
      * @param {Position} dest
@@ -4741,16 +4743,16 @@ AFRAME.registerComponent('gps-projected-camera', {
         return distance;
     },
     /**
-     * Converts latitude/longitude to OpenGL world coordinates. 
+     * Converts latitude/longitude to OpenGL world coordinates.
      *
-     * First projects lat/lon to absolute Spherical Mercator and then 
+     * First projects lat/lon to absolute Spherical Mercator and then
      * calculates the world coordinates by comparing the Spherical Mercator
      * coordinates with the Spherical Mercator coordinates of the origin point.
      *
-     * @param {Number} lat 
-     * @param {Number} lon 
+     * @param {Number} lat
+     * @param {Number} lon
      *
-     * @returns {array} world coordinates 
+     * @returns {array} world coordinates
      */
     latLonToWorld: function(lat, lon) {
         var projected = this._project (lat, lon);
@@ -4758,19 +4760,19 @@ AFRAME.registerComponent('gps-projected-camera', {
         return [ projected[0] - this.originCoordsProjected[0], -(projected[1] - this.originCoordsProjected[1]) ];
     },
     /**
-     * Converts latitude/longitude to Spherical Mercator coordinates. 
+     * Converts latitude/longitude to Spherical Mercator coordinates.
      * Algorithm is used in several OpenStreetMap-related applications.
      *
-     * @param {Number} lat 
-     * @param {Number} lon 
+     * @param {Number} lat
+     * @param {Number} lon
      *
-     * @returns {array} Spherical Mercator coordinates 
+     * @returns {array} Spherical Mercator coordinates
      */
     _project: function (lat, lon) {
         const HALF_EARTH = 20037508.34;
 
         // Convert the supplied coords to Spherical Mercator (EPSG:3857), also
-        // known as 'Google Projection', using the algorithm used extensively 
+        // known as 'Google Projection', using the algorithm used extensively
         // in various OpenStreetMap software.
         var y = Math.log(Math.tan((90 + lat) * Math.PI / 360.0)) / (Math.PI / 180.0);
         return [ (lon / 180.0) * HALF_EARTH, y * HALF_EARTH / 180.0 ];
@@ -4779,15 +4781,15 @@ AFRAME.registerComponent('gps-projected-camera', {
      * Converts Spherical Mercator coordinates to latitude/longitude.
      * Algorithm is used in several OpenStreetMap-related applications.
      *
-     * @param {Number} spherical mercator easting 
-     * @param {Number} spherical mercator northing 
+     * @param {Number} spherical mercator easting
+     * @param {Number} spherical mercator northing
      *
      * @returns {object} lon/lat
      */
     _unproject: function (e, n) {
         const HALF_EARTH = 20037508.34;
         var yp = (n / HALF_EARTH) * 180.0;
-        return { 
+        return {
             longitude: (e / HALF_EARTH) * 180.0,
             latitude: 180.0 / Math.PI * (2 * Math.atan(Math.exp(yp * Math.PI / 180.0)) - Math.PI / 2)
         };
@@ -4880,10 +4882,10 @@ AFRAME.registerComponent('gps-projected-camera', {
  * entities or the current location to the original location, this version
  * makes use of the "Google" Spherical Mercactor projection, aka epsg:3857.
  *
- * The original location on startup (lat/lon) is projected into Spherical 
+ * The original location on startup (lat/lon) is projected into Spherical
  * Mercator and stored.
  *
- * When 'entity-places' are added, their Spherical Mercator coords are 
+ * When 'entity-places' are added, their Spherical Mercator coords are
  * calculated and converted into world coordinates, relative to the original
  * position, using the Spherical Mercator projection calculation in
  * gps-projected-camera.
@@ -4922,7 +4924,7 @@ AFRAME.registerComponent('gps-projected-entity-place', {
                 this._updatePosition();
             }
         };
-        
+
 
 
         // update position needs to worry about distance but nothing else?
@@ -4975,7 +4977,7 @@ AFRAME.registerComponent('gps-projected-entity-place', {
      * @returns {void}
      */
 
-    // set position to world coords using the lat/lon 
+    // set position to world coords using the lat/lon
     _updatePosition: function() {
         var worldPos = this._cameraGps.latLonToWorld(this.data.latitude, this.data.longitude);
         var position = this.el.getAttribute('position');
@@ -4984,9 +4986,9 @@ AFRAME.registerComponent('gps-projected-entity-place', {
         //this.el.setAttribute('position', position);
         this.el.setAttribute('position', {
             x: worldPos[0],
-            y: position.y, 
+            y: position.y,
             z: worldPos[1]
-        }); 
+        });
     },
 });
 
