@@ -67,7 +67,7 @@
                                                 </label>
                                             </div>
                                             <div class="forgot-phone text-right f-right">
-                                                <a href="auth-reset-password.htm" class="text-right f-w-600"> Forgot Password?</a>
+                                                <a href="forgot-password.htm" class="text-right f-w-600"> Forgot Password?</a>
                                             </div>
                                         </div>
                                     </div>
@@ -149,7 +149,7 @@
     <script type="text/javascript" src="..\files\assets\js\common-pages.js"></script>
     <!-- Sweet alert js -->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <!-- AWS SDK -->
+    <!-- AWS Cognito SDK -->
     <script src="https://rawgit.com/aws/amazon-cognito-identity-js/master/dist/aws-cognito-sdk.min.js"></script>
     <script src="https://rawgit.com/aws/amazon-cognito-identity-js/master/dist/amazon-cognito-identity.min.js"></script>
     <!-- custom js -->
@@ -195,8 +195,7 @@
         function handleFormSubmit() {
             // Validate the form against the constraints
             const err = validate();
-
-            console.log("errors: " + err);
+            //console.log("errors: " + err);
 
             if (err == 0)
               signIn();
@@ -222,8 +221,8 @@
           const authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails(authenticationData);
 
           const poolData = {
-            UserPoolId : 'us-east-1_IpBxtOHw2',
-            ClientId :   '3qa315r85liu2ecnc1tkiobvuc'
+            UserPoolId : 'us-east-1_nFn2Epxsq',
+            ClientId :   '770tifd14ogfb9vmo6onje5r5r'
           };
           const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
           const userData = {
@@ -234,26 +233,17 @@
           const cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
           cognitoUser.authenticateUser(authenticationDetails, {
               onSuccess: function (result) {
-                  const accessToken = result.getAccessToken().getJwtToken();
+                  //const accessToken = result.getAccessToken().getJwtToken();
 
                   // Use the idToken for Logins Map when Federating User Pools with identity pools or
-                  // when passing through an Authorization Header to an API Gateway Authorizer 
-                  const idToken = result.idToken.jwtToken;
+                  // when passing through an Authorization Header to an API Gateway Authorizer
+                  //const idToken = result.idToken.jwtToken;
 
-                  cognitoUser.getUserAttributes(function(err, result) {
-                  	if (err) {
-                  		alert(err.message || JSON.stringify(err));
-                  		return;
-                  	}
-                  	for (i = 0; i < result.length; i++) {
-                  		console.log(
-                  			'attribute ' + result[i].getName() + ' has value ' + result[i].getValue()
-                  		);
-                  	}
-                  });
+                  //console.log("result");
+                  //console.log(result);
 
                   // Redirect the user to the general page without keeping the login page in the browser navigation
-                  //location.replace("./general.htm");
+                  location.replace("./general.htm");
               },
               onFailure: function(err) {
                   showErrorModal(err.message);
@@ -269,8 +259,22 @@
                 console.log("userAttributes:");
                 console.log(userAttributes);
 
+                // Set required attributes for a sign up
+                /*userAttributes.gender      = "<YOUR_GENDER>"
+                userAttributes.name        = "<YOUR_NAME>"
+                userAttributes.family_name = "<YOUR_FAMILY_NAME>"
+
+                console.log("userAttributes:");
+                console.log(userAttributes);
+
                 // Set new password for the user
-                //cognitoUser.completeNewPasswordChallenge(newPassword, userAttributes, this.newPasswordRequired);
+                cognitoUser.completeNewPasswordChallenge("<YOUR_PASSWORD>", userAttributes, {
+                  onSuccess: function(result) {
+                    console.log("Password changed with success");
+                  },
+                  onFailure: function(err) {
+                    console.log(err);}
+                });*/
               }
           });
 
@@ -279,18 +283,6 @@
     }
     </script>
 
-
-
-
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-23581568-13');
-</script>
 </body>
 
 </html>
