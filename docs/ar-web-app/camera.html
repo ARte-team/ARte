@@ -2,7 +2,6 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <!--<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">-->
         <meta name="description" content="ARte web app">
         <meta name="keywords" content="">
         <meta name="author" content="ARte team">
@@ -28,7 +27,6 @@
         <!-- ARte js library -->
         <script src="./js/ARte.js"></script>
         <script src="./js/gesture-detector.js"></script>
-        <script src="./js/gesture-handler.js"></script>
     </head>
     <body class="page-camera">
         <!-- Header -->
@@ -84,10 +82,28 @@
                    smoothCount='10'
                    smoothTolerance='0.01'
                    smoothThreshold='5'>
+                <a-light type="directional"
+                         position="0 0 0" 
+                         rotation="-90 0 0" 
+                         color="#FFF" 
+                         target="#directionaltarget"
+                         light="intensity: 1;"
+                         id="light">
+                    <a-entity id="directionaltarget" position="0 0 -1"></a-entity>
+                </a-light>
+                <a-light type="directional"
+                         position="0 0 0" 
+                         rotation="-90 0 0" 
+                         color="#FFF" 
+                         target="#directionaltarget"
+                         light="intensity: 0;"
+                         id="light2">
+                    <a-entity id="directionaltarget" position="0 0 -1"></a-entity>
+                </a-light>
                 <a-entity
                     gltf-model='./models/scene.gltf'
                     scale="0.15 0.15 0.15"
-                    position="50 50 0"
+                    position="80 -50 -100"
                     rotation="-90 0 0"
                     id="model"
                     gesture-handler="minScale: 0.25; maxScale: 10">
@@ -97,8 +113,6 @@
         </a-scene>
 
         <script>
-
-
             // Set unique deviceID for the user
             // Check if cookie is already present
             var uuid;
@@ -115,16 +129,16 @@
             function onConnect() {}
 
             // Initialize Amazon Cognito credentials provider
-            AWS.config.region      = '';
+            AWS.config.region      = 'us-east-1';
             AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-              IdentityPoolId: '',
+              IdentityPoolId: 'us-east-1:73b2cfba-525a-4f90-ba69-2c4ca9de375a',
             });
 
 
             // Obtain credentials
             AWS.config.credentials.get(function(){
               // Credentials will be available when this function is called
-              var host       = '';
+              var host       = 'a38agfpa1egwwp-ats.iot.us-east-1.amazonaws.com';
               var requestUrl = SigV4Utils.getSignedUrl(host, AWS.config.region, AWS.config.credentials);
               mqttClient     = new PahoMQTTClient(requestUrl, uuid);
               mqttClient.conn(onConnect);
@@ -140,39 +154,40 @@
             // Send message to broker when browser is idle mode
             // Set visibilitychange event listener
             function sendMessageIdle() {
-                if (document.hidden) {
-                    audioElement.pause();
+                if ( document.hidden ) {
                     message = arte.getMessage();
                     mqttClient.pub(message, 'daily');
                     arte.stopFeature();
 
                     $('.commands .button').removeClass('pressed');
                 } else  {
-                    /*audioElement.play();
-                    startFeature();*/
+                    //startFeature();
                 }
             }
 
             document.addEventListener( 'visibilitychange', sendMessageIdle, false );
 
-
+            var el = document.getElementById( "model" );
+            var initialScale = el.object3D.scale.clone();
+            var scaleFactor = 1;
+            var rotationFactor = 2;
+            
+            
             // Scale model when double finger gesture is detected
             function handleScale( event ) {
-                var model = document.getElementById( "model" );
-                var scaleFactor = Math.min( Math.max( 2, 0.25 ), 10 );
+                scaleFactor *= 1 + event.detail.spreadChange / event.detail.startSpread;
+                scaleFactor = Math.min( Math.max( scaleFactor, 0.25 ), 10 );
 
-                model.object3D.scale.x = scaleFactor * initialScale.x;
-                model.object3D.scale.y = scaleFactor * initialScale.y;
-                model.object3D.scale.z = scaleFactor * initialScale.z;
+                el.object3D.scale.x = scaleFactor * initialScale.x;
+                el.object3D.scale.y = scaleFactor * initialScale.y;
+                el.object3D.scale.z = scaleFactor * initialScale.z;
             }
+            
 
             // Rotate model when one finger gesture is detected
-            function handleRotation(event) {
-                var el = document.getElementById( "model" );
-                var rotationFactor = 2;
-
-                el.object3D.rotation.y += event.detail.positionChange.x * rotationFactor;
-                el.object3D.rotation.x += event.detail.positionChange.y * rotationFactor;
+            function handleRotation( event ) {
+                sceneEl.camera.rotation.y += event.detail.positionChange.x;// * rotationFactor;
+                sceneEl.camera.rotation.x += event.detail.positionChange.y;// * rotationFactor;
             }
 
             var sceneEl = document.getElementById( "scene" );
@@ -182,7 +197,16 @@
 
             // Background gradient simulation
             var rooms = [10, 4, 2, 5, 15, 3, 2, 10, 5, 6, 8, 8, 20, 1, 0, 13, 7, 9, 10];
-            var colors = []
+            var colors = [];
+            var lights = [];
+            
+            var mult = Math.floor( rooms.length / 6 );      // Multiplicator for background colors value calculation
+            var time = 0;                                   // Clock for background gradient
+            var dir = 1;                                    // Light gradient direction
+            
+            var color_event;
+            var light_event;
+            
             for( i = 0; i < 6; i++ ) {
                 colors[i] = 0;
                 for( j = 0; j < Math.floor( rooms.length / 6 ); j++ ) {
@@ -190,20 +214,21 @@
                 }
             }
 
-            var mult = Math.floor( rooms.length / 6 );
-
-            for(var i = 0; i < colors.length; i++)
-                colors[i] = Math.min( ( rooms[i] * 255 / ( 30*mult ) ) + ( 20*i ), 255 );
+            for(i = 0; i < colors.length; i++) {
+                colors[i] = Math.max( Math.min( ( colors[i] * 255 / ( 30*mult ) ) + ( 20*i ), 255 ), 0 );
+            }
+            
+            for(i = 0; i < 3; i++) {
+                lights[i] = Math.max( Math.min( parseInt( ( ( colors[i] /* + colors[i+3] */ ) ) - 20 ), 255 ), 0 );
+            }
 
             var deg = ( rooms.reduce( function( a, b ) { return a + b; }, 0 ) % ( 30*rooms.length ) ) * 360 / ( 30*rooms.length );
-            var color_event = 0;
-            var time = 0;
-
+            
 
             $( document ).ready(function() {
 
                 $( '#color-box' ).css( 'background', 'linear-gradient( ' + deg + 'deg, rgba(' + colors[0] + ',' + colors[1] + ',' + colors[2] + ',1) 0%, rgba(' + colors[3] + ',' + colors[4] + ',' + colors[5] + ',1) 100%)' );
-
+                
 
                 // Color manager
                 $('#color').click(function() {
@@ -212,12 +237,17 @@
                     if( status == 0 ) {
                         $( '#color-box' ).css( 'opacity', '1');
                         $( '#color-box-2' ).css( 'opacity', '1');
-                        color_event = setInterval( color, 1500 );
+                        $( '#light2' ).attr( 'color', 'rgb(' + lights[0] + ',' + lights[1] + ',' + lights[2] + ')' );
+                        color_event = setInterval( color_func, 1500 );
+                        light_event = setInterval( light_func, 10 );
                         arte.featureAttributes.status = 1;
                     } else if( status == 1 ) {
                         $( '#color-box' ).css( 'opacity', '0');
                         $( '#color-box-2' ).css( 'opacity', '0');
+                        $( '#light' ).attr( 'color', '#FFF' );
+                        $( '#light2' ).attr( 'color', '#FFF' );
                         clearInterval( color_event );
+                        clearInterval( light_event );
                         arte.featureAttributes.status = 0;
                     }
                 });
@@ -266,33 +296,76 @@
                     $('.commands').css('bottom', 0);
                     $('#artwork').toggle();
                 });
+                
+                
 
 
                 // This event is triggered when a new marker is no more recognized
                 $('body').on( 'markerLost', function() {
                     arte.artworkRecognized = 0;
 
+                    $( '#color-box' ).css( 'opacity', '0');
+                    $( '#color-box-2' ).css( 'opacity', '0');
                     $('.commands').css('bottom', '-22vw');
                     $('#artwork').toggle();
+                    
+                    clearInterval( light_event );
                 });
 
             });
+            
+            
+            // Light gradient with intensity values
+            function light_func() {
+                var v = $('#light').attr('light').intensity;
+                if( dir == 1 ) {
+                    v -= 0.01;
+                } else {
+                    v += 0.01;
+                }
+                
+                if( v == 0 ) {
+                    dir = 0;
+                } else if( v == 0.99 ) {
+                    dir = 1;
+                }
+                
+                $('#light').attr('light', 'intensity: ' + v.toFixed(2) );
+                $('#light2').attr('light', 'intensity: ' + (1 - v).toFixed(2) );
+            }
 
 
             // Change color and rotation degree of baground gradient based on room values
-            function color() {
-                for( i = 0; i < rooms.length; i++ )
+            // Change light colors based on room values
+            function color_func() {
+                for( i = 0; i < rooms.length; i++ ) {
                     rooms[i] = rooms[i] + ( ( Math.round( Math.random() ) * 5 ) * Math.random() ) + ( ( Math.round( Math.random() ) * -5 ) * Math.random() );
+                }
 
-                for( i = 0; i < colors.length; i++ )
-                    colors[i] = Math.min( ( rooms[i] * 255 / ( 30*mult ) ) + ( 20*i ), 255 );
+                for( i = 0; i < 6; i++ ) {
+                    colors[i] = 0;
+                    for( j = 0; j < Math.floor( rooms.length / 6 ); j++ ) {
+                        colors[i] += rooms[i+(j*6)];
+                    }
+                }
 
-                var deg = ( rooms.reduce( function( a, b ) { return a + b; }, 0 ) % ( 30*rooms.length ) ) * 360 / ( 30*rooms.length );
+                for(var i = 0; i < colors.length; i++) {
+                    colors[i] = Math.max( Math.min( ( colors[i] * 255 / ( 30*mult ) ) + ( 20*i ), 255 ), 0 );
+                }
 
-                if( time % 2 == 0 ) {
+                for(var i = 0; i < 3; i++) {
+                    lights[i] = Math.max( Math.min( parseInt( ( ( colors[i] /* + colors[i+3] */ ) ) - 20 ), 255 ), 0 );
+                }
+
+                deg = ( rooms.reduce( function( a, b ) { return a + b; }, 0 ) % ( 30*rooms.length ) ) * 360 / ( 30*rooms.length );
+                
+                
+                if( time % 2 == 1 ) {
+                    $( '#light2' ).attr( 'color', 'rgb(' + lights[0] + ',' + lights[1] + ',' + lights[2] + ')' );
                     $( '#color-box' ).css( 'background', 'linear-gradient( ' + deg + 'deg, rgba(' + colors[0] + ',' + colors[1] + ',' + colors[2] + ',1) 0%, rgba(' + colors[3] + ',' + colors[4] + ',' + colors[5] + ',1) 100%)' );
                     $( '#color-box' ).css( 'opacity', '1');
                 } else {
+                    $( '#light' ).attr( 'color', 'rgb(' + lights[0] + ',' + lights[1] + ',' + lights[2] + ')' );
                     $( '#color-box-2' ).css( 'background', 'linear-gradient( ' + deg + 'deg, rgba(' + colors[0] + ',' + colors[1] + ',' + colors[2] + ',1) 0%, rgba(' + colors[3] + ',' + colors[4] + ',' + colors[5] + ',1) 100%)' );
                     $( '#color-box' ).css( 'opacity', '0');
                 }
