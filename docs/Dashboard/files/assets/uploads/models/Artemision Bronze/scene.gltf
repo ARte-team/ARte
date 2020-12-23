@@ -5,12 +5,12 @@
       "componentType": 5126,
       "count": 65532,
       "max": [
-        1053.15087890625,
-        516.7003173828125,
-        1674.06103515625
+        2136.726806640625,
+        471.20223999023438,
+        2013.699462890625
       ],
       "min": [
-        0,
+        0.2117919921875,
         0,
         0
       ],
@@ -22,21 +22,21 @@
       "componentType": 5126,
       "count": 65532,
       "max": [
-        0.99999964237213135,
-        0.99998325109481812,
-        0.99999946355819702
+        0.99985241889953613,
+        0.99999457597732544,
+        0.99997454881668091
       ],
       "min": [
-        -0.99995481967926025,
-        -0.99999934434890747,
-        -0.99999964237213135
+        -0.99999570846557617,
+        -0.99998706579208374,
+        -0.99999827146530151
       ],
       "type": "VEC3"
     },
     {
       "bufferView": 0,
       "componentType": 5125,
-      "count": 318303,
+      "count": 319725,
       "max": [
         65531
       ],
@@ -51,14 +51,14 @@
       "componentType": 5126,
       "count": 65534,
       "max": [
-        1050.7540283203125,
-        516.416748046875,
-        1682.0753173828125
+        2151.72509765625,
+        503.63906860351562,
+        2013.699462890625
       ],
       "min": [
         0,
-        0,
-        0.18060910701751709
+        12.4886474609375,
+        0
       ],
       "type": "VEC3"
     },
@@ -68,22 +68,22 @@
       "componentType": 5126,
       "count": 65534,
       "max": [
-        0.99999964237213135,
-        0.99998325109481812,
-        0.99999946355819702
+        0.9999622106552124,
+        0.99997717142105103,
+        0.99997073411941528
       ],
       "min": [
-        -0.99999523162841797,
-        -0.99999535083770752,
-        -0.9999997615814209
+        -0.99999570846557617,
+        -0.99999958276748657,
+        -0.99999827146530151
       ],
       "type": "VEC3"
     },
     {
       "bufferView": 0,
-      "byteOffset": 1273212,
+      "byteOffset": 1278900,
       "componentType": 5125,
-      "count": 286725,
+      "count": 301077,
       "max": [
         65533
       ],
@@ -96,43 +96,43 @@
       "bufferView": 1,
       "byteOffset": 3145584,
       "componentType": 5126,
-      "count": 64,
+      "count": 6136,
       "max": [
-        953.679931640625,
-        473.59527587890625,
-        1392.7713623046875
+        2141.85107421875,
+        500.99923706054688,
+        2011.977783203125
       ],
       "min": [
-        102.28271484375,
-        61.635177612304688,
-        93.976913452148438
+        0.34112548828125,
+        2.060821533203125,
+        0.97383302450180054
       ],
       "type": "VEC3"
     },
     {
       "bufferView": 1,
-      "byteOffset": 3146352,
+      "byteOffset": 3219216,
       "componentType": 5126,
-      "count": 64,
+      "count": 6136,
       "max": [
-        0.95062625408172607,
-        0.99859386682510376,
-        0.99996072053909302
+        0.9990994930267334,
+        0.99982166290283203,
+        0.99912327527999878
       ],
       "min": [
-        -0.92353540658950806,
-        -0.97424107789993286,
-        -0.93850833177566528
+        -0.9979555606842041,
+        -0.9995461106300354,
+        -0.99974977970123291
       ],
       "type": "VEC3"
     },
     {
       "bufferView": 0,
-      "byteOffset": 2420112,
+      "byteOffset": 2483208,
       "componentType": 5125,
-      "count": 66,
+      "count": 7665,
       "max": [
-        63
+        6135
       ],
       "min": [
         0
@@ -144,24 +144,24 @@
     "extras": {
       "author": "SMK – National Gallery of Denmark (https://sketchfab.com/smkmuseum)",
       "license": "CC0-1.0 (http://creativecommons.org/publicdomain/zero/1.0/)",
-      "source": "https://sketchfab.com/3d-models/discobolus-the-discus-thrower-50f50abf45414ad8a658325df7a5fcb3",
-      "title": "Discobolus (The Discus Thrower)"
+      "source": "https://sketchfab.com/3d-models/zeus-or-poseidon-from-the-artemision-d4876aa609304682945145debedfc77e",
+      "title": "Zeus or Poseidon from the Artemision"
     },
-    "generator": "Sketchfab-7.79.0",
+    "generator": "Sketchfab-7.80.0",
     "version": "2.0"
   },
   "bufferViews": [
     {
       "buffer": 0,
-      "byteLength": 2420376,
+      "byteLength": 2513868,
       "byteOffset": 0,
       "name": "floatBufferViews",
       "target": 34963
     },
     {
       "buffer": 0,
-      "byteLength": 3147120,
-      "byteOffset": 2420376,
+      "byteLength": 3292848,
+      "byteOffset": 2513868,
       "byteStride": 12,
       "name": "floatBufferViews",
       "target": 34962
@@ -169,15 +169,9 @@
   ],
   "buffers": [
     {
-      "byteLength": 5567496,
+      "byteLength": 5806716,
       "uri": "scene.bin"
     }
-  ],
-  "extensionsRequired": [
-    "KHR_materials_pbrSpecularGlossiness"
-  ],
-  "extensionsUsed": [
-    "KHR_materials_pbrSpecularGlossiness"
   ],
   "materials": [
     {
@@ -187,23 +181,17 @@
         0,
         0
       ],
-      "extensions": {
-        "KHR_materials_pbrSpecularGlossiness": {
-          "diffuseFactor": [
-            1,
-            1,
-            1,
-            1
-          ],
-          "glossinessFactor": 0,
-          "specularFactor": [
-            0,
-            0,
-            0
-          ]
-        }
-      },
-      "name": "default"
+      "name": "default",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "metallicFactor": 0,
+        "roughnessFactor": 0.59999999999999998
+      }
     }
   ],
   "meshes": [
@@ -264,24 +252,6 @@
       "children": [
         2
       ],
-      "matrix": [
-        1,
-        0,
-        0,
-        0,
-        0,
-        1,
-        -1.6081226229577292e-16,
-        0,
-        0,
-        1.6081226229577292e-16,
-        1,
-        0,
-        0,
-        -1.3500311979441904e-13,
-        0,
-        1
-      ],
       "name": "RootNode (model correction matrix)"
     },
     {
@@ -301,12 +271,12 @@
         0,
         1,
         0,
-        -461.99996948242188,
-        -221.46966552734375,
-        -1.5810098648071289,
+        -1003.3129272460938,
+        -282.82852172851562,
+        -0.29681509733200073,
         1
       ],
-      "name": "The_Discobolus_SMK_KAS1549_10pct.obj.cleaner.gles"
+      "name": "Zeus_or_Poseidon_from_the_Artemision_SMK_KAS2100_10pct.obj.cleaner.gles"
     },
     {
       "children": [
