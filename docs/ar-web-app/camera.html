@@ -23,6 +23,10 @@
         <script src="https://sdk.amazonaws.com/js/aws-sdk-2.7.16.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js"></script>
         <script src="./js/jquery-3.5.1.min.js"></script>
+        <script src="./js/Tone.js"></script>
+        <script src="./js/tone-ui.js"></script>
+	    <script src="./js/components.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/seedrandom/3.0.5/seedrandom.min.js"></script>
 
         <!-- ARte js library -->
         <script src="./js/ARte.js"></script>
@@ -96,7 +100,7 @@
 
             <!-- url='https://arte-team.github.io/ARte/ar-web-app/img/markers/1' -->
             <a-nft type='nft'
-                   url='ar-web-app/img/markers/Discobolus/Discobolus'
+                   url='https://arte-team.github.io/ARte/ar-web-app/img/markers/Discobolus/Discobolus'
                    smooth='true'
                    smoothCount='10'
                    smoothTolerance='0.01'
@@ -120,7 +124,7 @@
                     <!--<a-entity id="directionaltarget" position="0 0 -1"></a-entity>-->
                 </a-light>
                 <a-entity
-                    gltf-model='../Dashboard/files/assets/uploads/models/Discobolus/scene.gltf'
+                    gltf-model='https://arte-team.github.io/ARte/Dashboard/files/assets/uploads/models/Discobolus/scene.gltf'
                     scale="0.15 0.15 0.15"
                     position="80 -20 -100"
                     rotation="-90 0 0"
@@ -131,7 +135,7 @@
 
             <!-- url='https://arte-team.github.io/ARte/ar-web-app/img/markers/1' -->
             <a-nft type='nft'
-                   url='ar-web-app/img/markers/Nike of Samothrace/Nike of Samothrace'
+                   url='https://arte-team.github.io/ARte/ar-web-app/img/markers/Nike of Samothrace/Nike of Samothrace'
                    smooth='true'
                    smoothCount='10'
                    smoothTolerance='0.01'
@@ -164,7 +168,7 @@
                     id="model2">
                 </a-entity>-->
                 <a-entity
-                    gltf-model='../Dashboard/files/assets/uploads/models/Nike of Samothrace/scene.gltf'
+                    gltf-model='https://arte-team.github.io/ARte/Dashboard/files/assets/uploads/models/Nike of Samothrace/scene.gltf'
                     scale="5 5 5"
                     position="120 -30 -80"
                     rotation="-90 0 0"
@@ -174,7 +178,7 @@
             </a-nft>
 
             <a-nft type='nft'
-                   url='ar-web-app/img/markers/Artemision Bronze/Artemision Bronze'
+                   url='https://arte-team.github.io/ARte/ar-web-app/img/markers/Artemision Bronze/Artemision Bronze'
                    smooth='true'
                    smoothCount='10'
                    smoothTolerance='0.01'
@@ -198,7 +202,7 @@
                     <!--<a-entity id="directionaltarget3_2" position="0 -50 -100"></a-entity>-->
                 </a-light>
                 <a-entity
-                    gltf-model='../Dashboard/files/assets/uploads/models/Artemision Bronze/scene.gltf'
+                    gltf-model='https://arte-team.github.io/ARte/Dashboard/files/assets/uploads/models/Artemision Bronze/scene.gltf'
                     scale="0.1 0.1 0.1"
                     position="110 -50 -100"
                     rotation="-90 0 0"
@@ -208,7 +212,7 @@
             </a-nft>
 
             <a-nft type='nft'
-                   url='ar-web-app/img/markers/Lion Gate of Mycenae/Lion Gate of Mycenae'
+                   url='https://arte-team.github.io/ARte/ar-web-app/img/markers/Lion Gate of Mycenae/Lion Gate of Mycenae'
                    smooth='true'
                    smoothCount='10'
                    smoothTolerance='0.01'
@@ -231,7 +235,7 @@
                          id="light4_2">
                 </a-light>
                 <a-entity
-                    gltf-model='../Dashboard/files/assets/uploads/models/Lion Gate of Mycenae/scene.gltf'
+                    gltf-model='https://arte-team.github.io/ARte/Dashboard/files/assets/uploads/models/Lion Gate of Mycenae/scene.gltf'
                     scale="30 30 30"
                     position="120 -50 -200"
                     rotation="-90 0 0"
@@ -241,7 +245,7 @@
             </a-nft>
 
             <a-nft type='nft'
-                   url='ar-web-app/img/markers/Athena of Velletri/Athena of Velletri'
+                   url='https://arte-team.github.io/ARte/ar-web-app/img/markers/Athena of Velletri/Athena of Velletri'
                    smooth='true'
                    smoothCount='10'
                    smoothTolerance='0.01'
@@ -265,7 +269,7 @@
                     <!--<a-entity id="directionaltarget5_2" position="0 0 0"></a-entity>-->
                 </a-light>
                 <a-entity
-                    gltf-model='../Dashboard/files/assets/uploads/models/Athena of Velletri/scene.gltf'
+                    gltf-model='https://arte-team.github.io/ARte/Dashboard/files/assets/uploads/models/Athena of Velletri/scene.gltf'
                     scale="50 50 50"
                     position="120 -50 -100"
                     rotation="-90 0 0"
@@ -397,9 +401,15 @@
 
 
             // Background gradient simulation
-            var rooms = [10, 4, 2, 5, 15, 3, 2, 10, 5, 6, 8, 8, 20, 1, 0, 13, 7, 9, 10];
+            var rooms = [10, 4, 2, 5, 15, 3, 2, 10, 5, 6, 8, 8, 20, 1, 0, 13, 7, 9];
+            var sensors = [[12.0, 3.6, 87.3], [54.5, 21.9, 3.8], [84.2, 72.1, 1.0], [10.7, 8.8, 2.3], [79.5, 67.2, 90.2], [54.3, 34.7, 70.4], [17.9, 87.2, 60.8], [11.3, 32.6, 73.2], [1.0, 34.2, 2.0], [99.3, 56.4, 79.0], [23.5, 73.6, 49.1], [10.3, 2.9, 85.2], [82.4, 78.5, 39.5], [58.2, 30.2, 20.0], [9.5, 74.5, 29.8], [63.2, 66.5, 49.7], [28.3, 9.6, 1.0], [50.3, 49.8, 52.9]];
             var colors = [];
             var lights = [];
+            
+            var current_room = 5;
+            
+            var APP = {};
+            var SEED = sensors[current_room-1].reduce( function( a, b ) { return a + b; }, 0 );
 
             var mult = Math.floor( rooms.length / 6 );      // Multiplicator for background colors value calculation
             var time = 0;                                   // Clock for background gradient
@@ -424,13 +434,18 @@
             }
 
             var deg = ( rooms.reduce( function( a, b ) { return a + b; }, 0 ) % ( 30*rooms.length ) ) * 360 / ( 30*rooms.length );
-
-
+            
+            
             $( document ).ready(function() {
 
+                // initialize color feature
                 $( '#color-box' ).css( 'background', 'linear-gradient( ' + deg + 'deg, rgba(' + colors[0] + ',' + colors[1] + ',' + colors[2] + ',1) 0%, rgba(' + colors[3] + ',' + colors[4] + ',' + colors[5] + ',1) 100%)' );
+                
+                
+                // Initialize music feature
+                APP.MusicGenerator.init( SEED );
 
-
+                
                 // Color manager
                 $('#color').click(function() {
                     var status = arte.featureAttributes.status;
@@ -459,10 +474,10 @@
                     var status = arte.featureAttributes.status;
 
                     if( status == 0 ) {
-
+                        APP.MusicGenerator.play();
                         arte.featureAttributes.status = 1;
                     } else if( status == 1 ) {
-
+                        APP.MusicGenerator.pause();
                         arte.featureAttributes.status = 0;
                     }
                 });
@@ -482,7 +497,6 @@
                         arte.stopFeature();
                         $(this).removeClass('pressed');
                     } else {
-                        $('.commands .button').removeClass('pressed');
                         $(this).addClass('pressed');
                     }
                 });
@@ -493,20 +507,6 @@
                 $('body').on( 'markerFound', function(e) {
                     arte.artworkRecognized = 1;
                     arte.artworkID = 1;
-
-                    function printObject(o) {
-                      var out = '';
-                      for (var p in o) {
-                        out += p + ': ' + o[p] + '\n';
-                      }
-                      alert(out);
-                    }
-
-                    printObject(e);
-                    printObject(this);
-
-                    // TODO recognize which marker has been detected
-
 
                     $('.commands').css('bottom', 0);
                     $('#artwork').toggle();
@@ -522,9 +522,18 @@
                     $( '#color-box' ).css( 'opacity', '0');
                     $( '#color-box-2' ).css( 'opacity', '0');
                     $('.commands').css('bottom', '-22vw');
+                    $('.commands .button').removeClass('pressed');
                     $('#artwork').toggle();
+                    
+                    $( '#color-box' ).css( 'opacity', '0');
+                    $( '#color-box-2' ).css( 'opacity', '0');
+                    $( '#light' ).attr( 'color', '#FFF' );
+                    $( '#light2' ).attr( 'color', '#FFF' );
 
+                    arte.stopFeature();
+                    clearInterval( color_event );
                     clearInterval( light_event );
+                    APP.MusicGenerator.pause();
                 });
 
             });
@@ -573,6 +582,8 @@
                 }
 
                 deg = ( rooms.reduce( function( a, b ) { return a + b; }, 0 ) % ( 30*rooms.length ) ) * 360 / ( 30*rooms.length );
+                
+                SEED = sensors[current_room-1].reduce( function( a, b ) { return a + b; }, 0 );
 
 
                 if( time % 2 == 1 ) {
@@ -587,6 +598,579 @@
 
                 time = time + 1;
             }
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+           
+
+document.documentElement.addEventListener('mousedown', () => {
+  if (Tone.context.state !== 'running') Tone.context.resume();
+});
+
+
+(function() {
+
+  APP.MusicGenerator = {};
+
+  var _v_key      = "WeAddaBabyEetsABoy"; // change this to refresh the seed
+  var _roots      = "C Db D Eb E F F# G Ab A Bb".split(" ");
+  var _modes      = "maj min".split(" ");
+  var _hold       = "HOLD";
+  var _container  = document.getElementById("staff-container");
+  var _min_oct    = 2;
+  var _max_oct    = 5;
+  var _playing    = false;
+  var _res        = 8;
+  var _curr_meas  = 0;
+  var _curr_note  = 0;
+  var _scale      = [];
+  var _measures   = [];
+  var _abc        = "";
+  var _total_abc  = "";
+  var _treb_abc   = "";
+  var _bass_abc   = "";
+  var _gen_meas   = 0;
+  var _meas_gen   = 4;
+  var _first_one  = true;
+
+  var _bpm        = null;
+  var _generator  = null;
+  var _len_seqs   = null;
+  var _mode       = null;
+  var _output     = null;
+  var _root       = null;
+  var _seed       = null;
+  var _synth      = null;
+
+  APP.MusicGenerator.init = function(seed) {
+    _seed = seed + _v_key;
+    _setGenerator(_seed);
+    _setKey();
+    if(!_synth) _setSynth();
+    _setTransport();
+    _genStaff();
+    _renderStaff();    
+
+    _genLengthSequences();
+    _genScale();
+
+    _addMeasure(_meas_gen);
+  };
+
+  APP.MusicGenerator.play = playPlayer;
+  APP.MusicGenerator.pause = pausePlayer;
+  APP.MusicGenerator.report = reportData;
+
+
+  //////////////
+  // PUBLIC METHODS
+  //////////////
+
+  // play the player
+  function playPlayer() {
+    Tone.Transport.start();
+  }
+
+  // pause the player
+  function pausePlayer() {
+    Tone.Transport.stop();
+  }
+
+  // reporting the data
+  function reportData() {
+    _output = {
+      root: _root, mode: _mode, resolution: _res,
+      scale: _scale, measures: _measures, abc: _total_abc
+    };
+  }
+
+
+  //////////////
+  // PRIVATE METHODS
+  //////////////
+
+  // get a unique random number generator based on the seed
+  function _setGenerator(seed) {
+    _generator = new Math.seedrandom(seed);
+  }
+
+  // get randomly generated key and mode
+  function _setKey() {
+    _root = _roots[Math.floor(_generator.quick() * _roots.length)];
+
+    var mode_index = Math.floor(_generator.quick() * _modes.length);
+    _mode = _modes[mode_index];
+  }
+
+  // play the bass and treble notes
+  function _playSong() {
+    var measure = _measures[_curr_meas];
+    if(measure) {
+      var treb = measure.treb[_curr_note];
+      var bass = measure.bass[_curr_note];
+      if(treb.chord) {
+        _synth.triggerAttackRelease(treb.chord, treb.len + "n");
+      }
+      if(bass.chord) {
+        _synth.triggerAttackRelease(bass.chord, bass.len + "n");
+      }
+      if(_curr_note + _curr_meas === 0) {
+        var hidden = document.querySelector(".hide"); 
+        if(hidden) hidden.className = "";
+      }
+      _curr_note++;
+      if(_curr_note >= _res) {
+        _curr_note = 0;
+        _curr_meas++;
+        if(_gen_meas % _meas_gen === 0) {
+          _addMeasure(_meas_gen);
+        } else if (_gen_meas % _meas_gen === 3) {
+          // scroll to the bottom of container
+          var hidden = document.querySelector(".hide"); 
+          if(hidden) hidden.className = "";          
+          _utilScrollTo(_container, _container.scrollHeight, 500);
+        }
+        _gen_meas++;
+      }
+    } else {
+      pausePlayer();
+    }
+  }
+
+  // add a measure to the sequence
+  function _addMeasure(how_many, loaded) {
+    loaded = loaded || 0;
+    var get_measure = _getMeasure();
+    get_measure.then(function(measure) {
+      loaded++;
+      _measures.push(measure);
+      _staffABC(measure);
+      if(loaded < how_many) {
+        _addMeasure(how_many, loaded);
+      } else {
+        _renderStaff();
+      }
+    });
+  }
+
+  // generate a measure's worth of notes
+  function _getMeasure() {
+    return new Promise(function(resMeasure, rejMeasure) {
+      var data = {
+        scale: _scale.length / 2,
+        bass: { max_notes: 1, offset: 0 },
+        treb: { max_notes: 3, offset: Math.floor(_scale.length / 2) }
+      };
+      var measure = {
+        bass: [], treb: []
+      };
+
+      // for each clef
+      var get_treb = _getClef('treb', data);
+      get_treb.then(function(t) {
+        measure.treb = measure.treb.concat(t);
+        var get_bass = _getClef('bass', data);
+        get_bass.then(function(b) {
+          measure.bass = measure.bass.concat(b);
+          resMeasure(measure);
+        }, function(b) {
+          rejMeasure(b);
+        });
+      }, function(t) {
+        rejMeasure(t);
+      });
+    });
+  }
+
+  // generate notes for a clef
+  function _getClef(clef_name, data) {
+    return new Promise(function(resClef, rejClef) {
+      var _clef_generator = new Math.seedrandom(_generator.int32() + "");
+      // find a sequence
+      var seq = _len_seqs[Math.floor(_clef_generator.quick() * _len_seqs.length)];
+      // shuffle the sequence order
+      _utilShuffleArray(seq);
+
+      // set the data
+      var max_notes = data[clef_name].max_notes;
+      var note_offset = data[clef_name].offset;
+
+      var chord_promises = [];
+      // for each length in sequence
+      for(var s = 0; s < seq.length; s++) {
+        // generate x notes for a random bass count. no rests.
+        var note_count = Math.ceil(_clef_generator.quick() * max_notes);
+        // generate random note length
+        var note_length = seq[s];
+        chord_promises.push(_getChord(_clef_generator, data.scale, note_offset, note_count, note_length));
+      }
+
+      Promise.all(chord_promises).then(function(chords) {
+        var clef = [];
+        for(var i = 0; i < chords.length; i++) {
+          var chord = chords[i];
+          clef.push(chord);
+          if(chord.len) {
+            var chord_length_i = _res / chord.len;
+            for(var e = 0; e < chord_length_i - 1; e++) {
+              clef.push(_hold);
+            }
+          }
+        }
+        resClef(clef);
+      }, function(chords) {
+        rejClef(chords);
+      });
+
+    });
+  }
+
+  // generate the chord notes
+  function _getChord(_clef_generator, scale, offset, note_count, note_length) {
+
+    return new Promise(function(resNotes, rejNotes) {
+      // used note indexes
+      var used_note_indexes = [];
+      var note_promises = [];
+      // generate the notes
+      for(var i = 0; i < note_count; i++) {
+        note_promises.push(_getNote(_clef_generator, scale, offset, used_note_indexes));
+      }
+      Promise.all(note_promises).then(function(chord) {
+
+        var abc = _getABC(chord, note_length);
+        // add notes to measure
+        resNotes({ abc: abc, chord: chord, len: note_length });
+      }, function(chord) {
+        rejNotes(chord);
+      });
+    });
+  }
+
+  // generate a note
+  function _getNote(_clef_generator, scale, offset, used_note_indexes) {
+    return new Promise(function(resNote, rejNote) {
+      // add the note to the chord
+      resNote(_note());
+
+      function _note() {
+        // get a random index
+        var index = Math.floor(_clef_generator.quick() * scale) + offset;
+        // for measuring note is a "good" one.
+        var good_note = true;
+        // ensure we havent selected this index
+        if(used_note_indexes.indexOf(index) !== -1) good_note = false;
+        // or one below it
+        if(index > 0 && used_note_indexes.indexOf(index - 1) !== -1) good_note = false;
+        // or one above it
+        if(used_note_indexes.indexOf(index + 1) !== -1) good_note = false;
+
+        // if we found a good note
+        if(good_note) {
+          // add the index to the used array
+          used_note_indexes.push(index);
+          // grab the note
+          var note = _scale[index];
+          // build the tone version of the note
+          var n = note.note + note.octave;
+          return n;
+        } else {
+          return _note();
+        }
+      }
+    });
+  }
+
+
+  //////////////
+  // ABC MUSICAL NOTATION
+  //////////////
+
+  // get abc notation for notes at a certain length
+  function _getABC(notes, len) {
+    if(!len) return "";
+    var str = notes.length > 1 ? "[" : "";
+    for(var n = 0; n < notes.length; n++) {
+      str += _ABCNotation(notes[n], len);
+    }
+    str += notes.length > 1 ? "]" : "";
+    return str;
+  }
+
+  // render the current abc to staff
+  function _renderStaff() {
+    var $par = document.createElement("div");
+    if(_first_one) {
+      _first_one = false;
+    } else {
+      $par.className = "hide";
+    }
+    var $el = document.createElement("div");
+
+    $par.appendChild($el);
+    _abc += _treb_abc;
+    _abc += "\n" + _bass_abc;
+    var cleaned = _abc;
+    _total_abc += cleaned;
+    _treb_abc = "[V: 1] ";
+    _bass_abc = "[V: 2] ";
+  }
+
+  // take a measure and generate the abc output
+  function _staffABC(measure) {
+    var abc = "";
+
+    for(var i = 0; i < measure.treb.length; i++) {
+      if(measure.treb[i].abc) {
+        _treb_abc += measure.treb[i].abc + " ";
+      }
+    }
+    for(var i = 0; i < measure.bass.length; i++) {
+      if(measure.bass[i].abc) {
+        _bass_abc += measure.bass[i].abc + " ";
+      }
+    }
+    _treb_abc = _treb_abc.replace(/ $/g, "|");
+    _bass_abc = _bass_abc.replace(/ $/g, "|");
+  }
+
+
+  // set the initial staff
+  function _genStaff() {
+    _abc = [
+      "M:/4/4",
+      "O:I",
+      "R:R",
+      "Q:1/4=" + _bpm,
+      "",
+      "X:2",
+      "T:" + _seed.replace(_v_key, ""),
+      "C:" + _root.replace(/b$/g, "♭") + " " + _mode + ", " + _bpm + " bpm",
+    ].join("\n");
+  }
+
+  // abc notation
+  function _ABCNotation(note, length) {
+    note = note.replace(/([A-G])b/,"$1");
+    note = note
+      .replace(/(.)1/, "$1,,,")
+      .replace(/(.)2/, "$1,,")
+      .replace(/(.)3/, "$1,")
+      .replace(/(.)4/, "$1");
+    if(note.match(/(.)5|6/)) {
+      note = note
+        .replace(/(.)5/, "$1")
+        .replace(/(.)6/, "$1'")
+        .toLowerCase();
+    }
+    note += _res / length;
+    return note;
+  }
+
+
+  //////////////
+  // DATA
+  //////////////
+
+  // generate the scale
+  function _genScale() {
+    // generate the scale
+    var _steps_lib = _genStepsLib();
+    var _notes_lib = _genNotesLib();
+    var steps = _steps_lib;
+    var start = _notes_lib.indexOf(_root + _min_oct);
+    var last_note = (_max_oct - _min_oct) * 8;
+    for(var o = 0; o < last_note; o++) {
+      var index = start + steps[o % steps.length] + (Math.floor(o / steps.length) * 12);
+      var note = _notes_lib[index];
+      if(note) {
+        _scale.push({ note: note.match(/[^\d]+/)[0], octave: note.match(/\d/)[0] });
+      }
+    }
+    if(!_scale.length) console.error("Too high up. Lower the octave or note count.");
+  }
+
+  // potential combinations of note lengths
+  // this could be done programmatically.
+  function _genLengthSequences() {
+    _len_seqs = [
+      [1],
+      [2,2],
+      [2,4,4],
+      [2,4,8,8],
+      [4,4,4,4],
+      [2,8,8,8,8],
+      [4,4,4,8,8],
+      [8,8,8,8,8,8,8,8],
+    ];
+  }
+
+  // set the notes for the key
+  function _genStepsLib() {
+    // generate major and minor integer step arrays from whole/half notation
+    // whole/half note steps for minor and major
+    var mode = {
+      maj:        "W W H W W W H",
+      min:        "W H W W H W W",
+    }[_mode].split(" ");
+    // start each with root step
+    var steps = [0];
+
+    // loop through
+    var step = 0;
+    for(var s = 0; s < mode.length; s++) {
+      var key = mode[s];
+      if(key === "W") {
+        steps.push(steps[s] + 2);
+      } else if(key == "WH") {
+        steps.push(steps[s] + 3);
+      } else {
+        steps.push(steps[s] + 1);
+      }
+      step++;
+    }
+    return steps;
+  }
+
+  // generate every possible note/octave pairing in order
+  function _genNotesLib() {
+    var notes = [];
+    for(var i = 0; i < 9; i++) {
+      var n = "C Db D Eb E F Gb G Ab A Bb B".split(" ");
+      for(var x = 0; x < n.length; x++) notes.push(n[x] + i);
+    }
+    return notes;
+  }
+
+
+
+
+
+  //////////////
+  // TONE.js
+  //////////////
+
+  // set the tone js transport
+  function _setTransport() {
+    _bpm = Math.round(_generator.quick() * 60) + 60;
+    Tone.Transport.bpm.value = _bpm;
+    Tone.Transport.scheduleRepeat(function(time) {
+      _playSong();
+    }, _res + "n");
+  }
+
+  // set the synthesizer
+  function _setSynth() {
+
+    // master compression
+    var multiband = new Tone.MultibandCompressor({
+      lowFrequency: 200,
+      highFrequency: 1300,
+      low: { threshold: -12 }
+     });
+
+    var reverb = new Tone.Freeverb();
+        reverb.roomSize.value = 0.6;
+        reverb.wet.value = 0.2;
+
+    Tone.Master.chain(reverb, multiband);
+
+    _synth = new Tone.PolySynth(Tone.SimpleSynth).toMaster();
+    _synth.set({
+      oscillator: {
+        type: "triangle"
+      },
+      envelope: {
+        attack: 0.05,
+        decay: 0.1,
+        sustain: 0.3,
+        release: 1
+      }
+    });
+  }
+
+
+
+
+
+
+  //////////////
+  // UTILS
+  //////////////
+
+  // shuffle an array
+  // http://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+  function _utilShuffleArray(array) {
+    var currentIndex = array.length, temporaryValue, randomIndex;
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+      // Pick a remaining element...
+      randomIndex = Math.floor(_generator() * currentIndex);
+      currentIndex -= 1;
+      // And swap it with the current element.
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+
+    return array;
+  }
+
+  function _utilScrollTo(element, to, duration) {
+    if (duration <= 0) return;
+    var difference = to - element.scrollTop;
+    var perTick = difference / duration * 10;
+
+    setTimeout(function() {
+      element.scrollTop = element.scrollTop + perTick;
+      if (element.scrollTop === to) return;
+      _utilScrollTo(element, to, duration - 10);
+    }, 10);
+  }
+
+
+}());
         </script>
     </body>
 </html>
