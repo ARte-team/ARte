@@ -25,31 +25,13 @@
         <script src="./js/jquery-3.5.1.min.js"></script>
         <script src="./js/Tone.js"></script>
         <script src="./js/tone-ui.js"></script>
-	    <script src="./js/components.js"></script>
+	      <script src="./js/components.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/seedrandom/3.0.5/seedrandom.min.js"></script>
 
         <!-- ARte js library -->
         <script src="./js/ARte.js"></script>
         <script src="./js/gesture-detector.js"></script>
 
-        <!--<script>
-          AFRAME.registerComponent('markerhandler', {
-            init: function () {
-              const marker = this.el;
-              alert(marker);
-
-        			marker.addEventListener("markerFound", ()=> {
-        				var markerId = marker.id;
-        				alert('Marker Found: ', markerId);
-        			});
-
-        			marker.addEventListener("markerLost",() =>{
-        				var markerId = marker.id;
-        				alert('Marker Lost: ', markerId);
-        			});
-            }
-          });
-      </script>-->
     </head>
     <body class="page-camera">
         <!-- Header -->
@@ -64,10 +46,8 @@
             <div>Loading, please wait...</div>
         </div>
 
-        <!-- Artwork description -->
-        <div id="artwork" hidden>
-            <div class="title"></div>
-        </div>
+        <!-- Artwork title -->
+        <div id="artworkTitle" hidden></div>
 
         <!-- Info popup -->
         <div id="info" hidden>
@@ -84,9 +64,8 @@
             </div>
         </div>
 
-
         <!-- Color animation box -->
-        <div id="color-box"></div>
+        <div id="color-box-1"></div>
         <div id="color-box-2"></div>
 
         <!-- AR core -->
@@ -98,149 +77,50 @@
             embedded
             id="scene">
 
-            <!-- url='https://arte-team.github.io/ARte/ar-web-app/img/markers/1' -->
-            <a-nft type='nft'
-                   url='https://arte-team.github.io/ARte/ar-web-app/img/markers/Discobolus/Discobolus'
-                   smooth='true'
-                   smoothCount='10'
-                   smoothTolerance='0.01'
-                   smoothThreshold='5'>
-                <a-light type="directional"
-                         position="0 100 0"
-                         rotation="0 0 0"
-                         color="#FFF"
-                         target="#model"
-                         light="intensity: 1;"
-                         id="light">
-                    <!--<a-entity id="directionaltarget" position="0 0 -1"></a-entity>-->
-                </a-light>
-                <a-light type="directional"
-                         position="0 100 0"
-                         rotation="0 0 0"
-                         color="#FFF"
-                         target="#model"
-                         light="intensity: 0;"
-                         id="light2">
-                    <!--<a-entity id="directionaltarget" position="0 0 -1"></a-entity>-->
-                </a-light>
-                <a-entity
-                    gltf-model='https://arte-team.github.io/ARte/Dashboard/files/assets/uploads/models/Discobolus/scene.gltf'
-                    scale="0.15 0.15 0.15"
-                    position="80 -20 -100"
-                    rotation="-90 0 0"
-                    gesture-handler="minScale: 0.25; maxScale: 10"
-                    id="model">
-                </a-entity>
-            </a-nft>
-
-            <!-- url='https://arte-team.github.io/ARte/ar-web-app/img/markers/1' -->
-            <a-nft type='nft'
-                   url='https://arte-team.github.io/ARte/ar-web-app/img/markers/Nike of Samothrace/Nike of Samothrace'
-                   smooth='true'
-                   smoothCount='10'
-                   smoothTolerance='0.01'
-                   smoothThreshold='5'>
-                <a-light type="directional"
-                         position="0 100 0"
-                         rotation="0 0 0"
-                         color="#FFF"
-                         target="#model2"
-                         light="intensity: 3;"
-                         id="light2_1">
-                    <!--<a-entity id="directionaltarget2_1" position="0 -30 -80"></a-entity>-->
-                </a-light>
-                <a-light type="directional"
-                         position="0 100 0"
-                         rotation="0 0 0"
-                         color="#FFF"
-                         target="#model2"
-                         light="intensity: 0;"
-                         id="light2_2">
-                    <!--<a-entity id="directionaltarget2_2" position="0 -30 -80"></a-entity>-->
-                </a-light>
-                <!-- Different gltf model -->
-                <!--<a-entity
-                    gltf-model='../Dashboard/files/assets/uploads/models/Nike of Samothrace/scene.gltf'
-                    scale="90 90 90"
-                    position="120 -50 -100"
-                    rotation="-90 0 0"
-                    gesture-handler="minScale: 0.25; maxScale: 10"
-                    id="model2">
-                </a-entity>-->
-                <a-entity
-                    gltf-model='https://arte-team.github.io/ARte/Dashboard/files/assets/uploads/models/Nike of Samothrace/scene.gltf'
-                    scale="5 5 5"
-                    position="120 -30 -80"
-                    rotation="-90 0 0"
-                    gesture-handler="minScale: 0.25; maxScale: 10"
-                    id="model2">
-                </a-entity>
-            </a-nft>
-
             <a-nft type='nft'
                    url='https://arte-team.github.io/ARte/ar-web-app/img/markers/Artemision Bronze/Artemision Bronze'
                    smooth='true'
                    smoothCount='10'
                    smoothTolerance='0.01'
-                   smoothThreshold='5'>
+                   smoothThreshold='5'
+                   id="3ecdcfe1-c596-46e6-9a29-de443dd80638"
+                   title="Artemision Bronze">
                 <a-light type="directional"
                          position="0 100 0"
                          rotation="0 0 0"
                          color="#FFF"
-                         target="#model3"
+                         target="#modelArtemisionBronze"
                          light="intensity: 1;"
-                         id="light3_1">
+                         id="lightArtemisionBronze_1">
                     <!--<a-entity id="directionaltarget3_1" position="0 -50 -100"></a-entity>-->
                 </a-light>
                 <a-light type="directional"
                          position="0 100 0"
                          rotation="0 0 0"
                          color="#FFF"
-                         target="#model3"
+                         target="#modelArtemisionBronze"
                          light="intensity: 0;"
-                         id="light3_2">
+                         id="lightArtemisionBronze_2">
                     <!--<a-entity id="directionaltarget3_2" position="0 -50 -100"></a-entity>-->
                 </a-light>
-                <a-entity
+                <!--<a-entity
                     gltf-model='https://arte-team.github.io/ARte/Dashboard/files/assets/uploads/models/Artemision Bronze/scene.gltf'
                     scale="0.1 0.1 0.1"
                     position="110 -50 -100"
                     rotation="-90 0 0"
-                    gesture-handler="minScale: 0.25; maxScale: 10"
-                    id="model3">
-                </a-entity>
-            </a-nft>
+                    gesture-handler="minScale: 0.25; maxScale: 5"
+                    id="modelArtemisionBronze">
+                </a-entity>-->
 
-            <a-nft type='nft'
-                   url='https://arte-team.github.io/ARte/ar-web-app/img/markers/Lion Gate of Mycenae/Lion Gate of Mycenae'
-                   smooth='true'
-                   smoothCount='10'
-                   smoothTolerance='0.01'
-                   smoothThreshold='5'>
-                <a-light type="directional"
-                         position="0 100 100"
-                         rotation="0 0 0"
-                         color="#FFFFFF"
-                         target="#directionaltarget4_1"
-                         light="intensity: 2;"
-                         id="light4_1">
-                    <a-entity id="directionaltarget4_1" position="0 -50 0"></a-entity>
-                </a-light>
-                <a-light type="directional"
-                         position="0 100 100"
-                         rotation="0 0 0"
-                         color="#FFFFFF"
-                         target="#directionaltarget4_1"
-                         light="intensity: 0;"
-                         id="light4_2">
-                </a-light>
-                <a-entity
-                    gltf-model='https://arte-team.github.io/ARte/Dashboard/files/assets/uploads/models/Lion Gate of Mycenae/scene.gltf'
-                    scale="30 30 30"
-                    position="120 -50 -200"
-                    rotation="-90 0 0"
-                    gesture-handler="minScale: 0.25; maxScale: 10"
-                    id="model4">
+                <a-entity camera active="false">
+                  <a-entity
+                    gltf-model='https://arte-team.github.io/ARte/Dashboard/files/assets/uploads/models/Artemision Bronze/scene.gltf'
+                    scale="0.1 0.1 0.1"
+                    position="0 -50 -500"
+                    rotation="0 0 0"
+                    gesture-handler="minScale: 0.25; maxScale: 5"
+                    id="modelArtemisionBronze">
+                  </a-entity>
                 </a-entity>
             </a-nft>
 
@@ -249,37 +129,191 @@
                    smooth='true'
                    smoothCount='10'
                    smoothTolerance='0.01'
-                   smoothThreshold='5'>
+                   smoothThreshold='5'
+                   id="3ccb3d2c-84a2-43b0-aedf-d34c98c4f855"
+                   title="Athena of Velletri">
                 <a-light type="directional"
                          position="0 100 0"
                          rotation="0 0 0"
                          color="#FFF"
-                         target="#model5"
+                         target="#modelAthenaOfVelletri"
                          light="intensity: 1;"
-                         id="light5_1">
+                         id="lightAthenaOfVelletri_1">
                     <!--<a-entity id="directionaltarget5_1" position="0 -50 0"></a-entity>-->
                 </a-light>
                 <a-light type="directional"
                          position="0 0 0"
                          rotation="0 0 0"
                          color="#FFF"
-                         target="#model5"
+                         target="#modelAthenaOfVelletri"
                          light="intensity: 0;"
-                         id="light5_2">
+                         id="lightAthenaOfVelletri_2">
                     <!--<a-entity id="directionaltarget5_2" position="0 0 0"></a-entity>-->
                 </a-light>
-                <a-entity
+                <!--<a-entity
                     gltf-model='https://arte-team.github.io/ARte/Dashboard/files/assets/uploads/models/Athena of Velletri/scene.gltf'
                     scale="50 50 50"
                     position="120 -50 -100"
                     rotation="-90 0 0"
-                    gesture-handler="minScale: 0.25; maxScale: 10"
-                    id="model5">
+                    gesture-handler="minScale: 0.25; maxScale: 5"
+                    id="modelAthenaOfVelletri">
+                </a-entity>-->
+
+                <a-entity camera active="false">
+                  <a-entity
+                      gltf-model='https://arte-team.github.io/ARte/Dashboard/files/assets/uploads/models/Athena of Velletri/scene.gltf'
+                      scale="50 50 50"
+                      position="0 -50 -500"
+                      rotation="0 0 0"
+                      gesture-handler="minScale: 0.25; maxScale: 5"
+                      id="modelAthenaOfVelletri">
+                  </a-entity>
+                </a-entity>
+            </a-nft>
+
+            <a-nft type='nft'
+                   url='https://arte-team.github.io/ARte/ar-web-app/img/markers/Discobolus/Discobolus'
+                   smooth='true'
+                   smoothCount='10'
+                   smoothTolerance='0.01'
+                   smoothThreshold='5'
+                   id="12497814-467c-4d4b-adf9-25c628ac531f"
+                   title="Discobolus">
+                <a-light type="directional"
+                         position="0 100 0"
+                         rotation="0 0 0"
+                         color="#FFF"
+                         target="#modelDiscobolus"
+                         light="intensity: 1;"
+                         id="lightDiscobolus_1">
+                    <!--<a-entity id="directionaltarget" position="0 0 -1"></a-entity>-->
+                </a-light>
+                <a-light type="directional"
+                         position="0 100 0"
+                         rotation="0 0 0"
+                         color="#FFF"
+                         target="#modelDiscobolus"
+                         light="intensity: 0;"
+                         id="lightDiscobolus_2">
+                    <!--<a-entity id="directionaltarget" position="0 0 -1"></a-entity>-->
+                </a-light>
+                <!--<a-entity
+                    gltf-model='https://arte-team.github.io/ARte/Dashboard/files/assets/uploads/models/Discobolus/scene.gltf'
+                    scale="0.15 0.15 0.15"
+                    position="80 -20 -100"
+                    rotation="-90 0 0"
+                    gesture-handler="minScale: 0.5; maxScale: 5"
+                    id="modelDiscobolus">
+                </a-entity>-->
+
+                <a-entity camera active="false">
+                  <a-entity
+                      gltf-model='https://arte-team.github.io/ARte/Dashboard/files/assets/uploads/models/Discobolus/scene.gltf'
+                      scale="0.15 0.15 0.15"
+                      position="0 -50 -500"
+                      rotation="0 0 0"
+                      gesture-handler="minScale: 0.5; maxScale: 5"
+                      id="modelDiscobolus">
+                  </a-entity>
+                </a-entity>
+            </a-nft>
+
+            <a-nft type='nft'
+                   url='https://arte-team.github.io/ARte/ar-web-app/img/markers/Lion Gate of Mycenae/Lion Gate of Mycenae'
+                   smooth='true'
+                   smoothCount='10'
+                   smoothTolerance='0.01'
+                   smoothThreshold='5'
+                   id="ea090a5e-ba32-45b0-8d48-05cdf584d8b3"
+                   title="Lion Gate of Mycenae">
+                <a-light type="directional"
+                         position="0 100 100"
+                         rotation="0 0 0"
+                         color="#FFFFFF"
+                         target="#directionaltargetLionGateOfMycenae"
+                         light="intensity: 2;"
+                         id="lightLionGateOfMycenae_1">
+                    <a-entity id="directionaltargetLionGateOfMycenae" position="0 -50 0"></a-entity>
+                </a-light>
+                <a-light type="directional"
+                         position="0 100 100"
+                         rotation="0 0 0"
+                         color="#FFFFFF"
+                         target="#directionaltargetLionGateOfMycenae"
+                         light="intensity: 0;"
+                         id="lightLionGateOfMycenae_2">
+                </a-light>
+                <!--<a-entity
+                    gltf-model='https://arte-team.github.io/ARte/Dashboard/files/assets/uploads/models/Lion Gate of Mycenae/scene.gltf'
+                    scale="30 30 30"
+                    position="120 -50 -200"
+                    rotation="-90 0 0"
+                    gesture-handler="minScale: 0.25; maxScale: 5"
+                    id="modelLionGateOfMycenae">
+                </a-entity>-->
+
+                <a-entity camera active="false">
+                  <a-entity
+                      gltf-model='https://arte-team.github.io/ARte/Dashboard/files/assets/uploads/models/Lion Gate of Mycenae/scene.gltf'
+                      scale="30 30 30"
+                      position="0 -50 -500"
+                      rotation="0 0 0"
+                      gesture-handler="minScale: 0.25; maxScale: 5"
+                      id="modelLionGateOfMycenae">
+                  </a-entity>
+                </a-entity>
+            </a-nft>
+
+            <a-nft type='nft'
+                   url='https://arte-team.github.io/ARte/ar-web-app/img/markers/Nike of Samothrace/Nike of Samothrace'
+                   smooth='true'
+                   smoothCount='10'
+                   smoothTolerance='0.01'
+                   smoothThreshold='5'
+                   id="f4f54716-6d0f-4e7d-8eac-7430c77087ec"
+                   title="Nike of Samothrace">
+                <a-light type="directional"
+                         position="0 100 0"
+                         rotation="0 0 0"
+                         color="#FFF"
+                         target="#modelNikeOfSamothrace"
+                         light="intensity: 3;"
+                         id="lightNikeOfSamothrace_1">
+                    <!--<a-entity id="directionaltarget2_1" position="0 -30 -80"></a-entity>-->
+                </a-light>
+                <a-light type="directional"
+                         position="0 100 0"
+                         rotation="0 0 0"
+                         color="#FFF"
+                         target="#modelNikeOfSamothrace"
+                         light="intensity: 0;"
+                         id="lightNikeOfSamothrace_2">
+                    <!--<a-entity id="directionaltarget2_2" position="0 -30 -80"></a-entity>-->
+                </a-light>
+                <!--<a-entity
+                    gltf-model='https://arte-team.github.io/ARte/Dashboard/files/assets/uploads/models/Nike of Samothrace/scene.gltf'
+                    scale="5 5 5"
+                    position="120 -30 -80"
+                    rotation="-90 0 0"
+                    gesture-handler="minScale: 0.25; maxScale: 5"
+                    id="modelNikeOfSamothrace">
+                </a-entity>-->
+
+                <a-entity camera active="false">
+                  <a-entity
+                    gltf-model='https://arte-team.github.io/ARte/Dashboard/files/assets/uploads/models/Nike of Samothrace/scene.gltf'
+                    scale="5 5 5"
+                    position="0 -30 -500"
+                    rotation="0 0 0"
+                    gesture-handler="minScale: 0.25; maxScale: 5"
+                    id="modelNikeOfSamothrace">
+                  </a-entity>
                 </a-entity>
             </a-nft>
 
 
-            <!-- NON HO TROVATO UN MODELLO PER QUESTO -->
+
+            <!-- NON HO TROVATO UN MODELLO PER QUESTO E NEANCHE PER IL KOUROS DI SAMO -->
             <!--<a-nft type='nft'
                    url='ar-web-app/img/markers/Chariotter of Delphi/Chariotter of Delphi'
                    smooth='true'
@@ -314,7 +348,9 @@
                 </a-entity>
             </a-nft>-->
 
-            <a-entity camera></a-entity>
+            <!--<a-entity id="rig">
+              <a-camera id="camera"></a-camera>
+            </a-entity>-->
         </a-scene>
 
         <script>
@@ -365,39 +401,12 @@
                     arte.stopFeature();
 
                     $('.commands .button').removeClass('pressed');
-                } else  {
-                    //startFeature();
-                }
+                } /*else  {
+                    startFeature();
+                }*/
             }
 
             document.addEventListener( 'visibilitychange', sendMessageIdle, false );
-
-            var el = document.getElementById( "model" );
-            var initialScale = el.object3D.scale.clone();
-            var scaleFactor = 1;
-            var rotationFactor = 2;
-
-
-            // Scale model when double finger gesture is detected
-            function handleScale( event ) {
-                scaleFactor *= 1 + event.detail.spreadChange / event.detail.startSpread;
-                scaleFactor = Math.min( Math.max( scaleFactor, 0.25 ), 10 );
-
-                el.object3D.scale.x = scaleFactor * initialScale.x;
-                el.object3D.scale.y = scaleFactor * initialScale.y;
-                el.object3D.scale.z = scaleFactor * initialScale.z;
-            }
-
-
-            // Rotate model when one finger gesture is detected
-            function handleRotation( event ) {
-                sceneEl.camera.rotation.y += event.detail.positionChange.x;// * rotationFactor;
-                sceneEl.camera.rotation.x += event.detail.positionChange.y;// * rotationFactor;
-            }
-
-            var sceneEl = document.getElementById( "scene" );
-            sceneEl.addEventListener( 'onefingermove', handleRotation );
-            sceneEl.addEventListener( 'twofingermove', handleScale );
 
 
             // Background gradient simulation
@@ -405,9 +414,9 @@
             var sensors = [[12.0, 3.6, 87.3], [54.5, 21.9, 3.8], [84.2, 72.1, 1.0], [10.7, 8.8, 2.3], [79.5, 67.2, 90.2], [54.3, 34.7, 70.4], [17.9, 87.2, 60.8], [11.3, 32.6, 73.2], [1.0, 34.2, 2.0], [99.3, 56.4, 79.0], [23.5, 73.6, 49.1], [10.3, 2.9, 85.2], [82.4, 78.5, 39.5], [58.2, 30.2, 20.0], [9.5, 74.5, 29.8], [63.2, 66.5, 49.7], [28.3, 9.6, 1.0], [50.3, 49.8, 52.9]];
             var colors = [];
             var lights = [];
-            
+
             var current_room = 5;
-            
+
             var APP = {};
             var SEED = sensors[current_room-1].reduce( function( a, b ) { return a + b; }, 0 );
 
@@ -434,52 +443,115 @@
             }
 
             var deg = ( rooms.reduce( function( a, b ) { return a + b; }, 0 ) % ( 30*rooms.length ) ) * 360 / ( 30*rooms.length );
-            
-            
-            $( document ).ready(function() {
 
-                // initialize color feature
-                $( '#color-box' ).css( 'background', 'linear-gradient( ' + deg + 'deg, rgba(' + colors[0] + ',' + colors[1] + ',' + colors[2] + ',1) 0%, rgba(' + colors[3] + ',' + colors[4] + ',' + colors[5] + ',1) 100%)' );
-                
-                
+
+            // Lights of the recognized artwork
+            let light1 = null;
+            let light2 = null;
+
+            // Camera of the recognized artwork
+            let camera = null;
+
+            // Variables for the gestures (scale and rotation)
+            let artworkModel = null;
+            let initialScale = null;
+            let initialRotation = null;
+
+            $( document ).ready(function() {
+                // Get HTML elements
+                const artworkTitle = $('#artworkTitle');
+                const colorBox1 = $('#color-box-1');
+                const colorBox2 = $('#color-box-2');
+
+                const sceneEl = document.getElementById( "scene" );
+
+                // Gesture constants
+                let scaleFactor      = 2;
+                const rotationFactor = 2;
+
+                // Scale model when double finger gesture is detected
+                function handleScale( event ) {
+                    scaleFactor *= 1 + event.detail.spreadChange / event.detail.startSpread;
+                    scaleFactor = Math.min( Math.max( scaleFactor, 0.5 ), 5 );
+
+                    artworkModel.object3D.scale.x = scaleFactor * initialScale.x;
+                    artworkModel.object3D.scale.y = scaleFactor * initialScale.y;
+                    artworkModel.object3D.scale.z = scaleFactor * initialScale.z;
+                }
+
+                // Rotate model when one finger gesture is detected
+                function handleRotation( event ) {
+                    const dx = event.detail.positionChange.x;
+                    const dy = event.detail.positionChange.y;
+
+                    artworkModel.object3D.rotation.y += dx * rotationFactor;
+                    artworkModel.object3D.rotation.x += dy * rotationFactor;
+                }
+
+                sceneEl.addEventListener( 'onefingermove', handleRotation );
+                sceneEl.addEventListener( 'twofingermove', handleScale );
+
+
+                // Initialize color feature
+                colorBox1.css( 'background', 'linear-gradient( ' + deg + 'deg, rgba(' + colors[0] + ',' + colors[1] + ',' + colors[2] + ',1) 0%, rgba(' + colors[3] + ',' + colors[4] + ',' + colors[5] + ',1) 100%)' );
+
                 // Initialize music feature
                 APP.MusicGenerator.init( SEED );
 
-                
                 // Color manager
                 $('#color').click(function() {
-                    var status = arte.featureAttributes.status;
+                  if (!light1 || !light2) return;
 
-                    if( status == 0 ) {
-                        $( '#color-box' ).css( 'opacity', '1');
-                        $( '#color-box-2' ).css( 'opacity', '1');
-                        $( '#light2' ).attr( 'color', 'rgb(' + lights[0] + ',' + lights[1] + ',' + lights[2] + ')' );
-                        color_event = setInterval( color_func, 1500 );
-                        light_event = setInterval( light_func, 10 );
-                        arte.featureAttributes.status = 1;
-                    } else if( status == 1 ) {
-                        $( '#color-box' ).css( 'opacity', '0');
-                        $( '#color-box-2' ).css( 'opacity', '0');
-                        $( '#light' ).attr( 'color', '#FFF' );
-                        $( '#light2' ).attr( 'color', '#FFF' );
-                        clearInterval( color_event );
-                        clearInterval( light_event );
-                        arte.featureAttributes.status = 0;
-                    }
+                  var status = arte.featureAttributes.status;
+
+                  if( status == 0 ) {
+                      colorBox1.css( 'opacity', '1');
+                      colorBox2.css( 'opacity', '1');
+                      light2.attr( 'color', 'rgb(' + lights[0] + ',' + lights[1] + ',' + lights[2] + ')' );
+                      color_event = setInterval( color_func, 1500 );
+                      light_event = setInterval( light_func, 10 );
+                      arte.featureAttributes.status = 1;
+                  } else if( status == 1 ) {
+                      colorBox1.css( 'opacity', '0');
+                      colorBox2.css( 'opacity', '0');
+                      light1.attr( 'color', '#FFF' );
+                      light2.attr( 'color', '#FFF' );
+                      clearInterval( color_event );
+                      clearInterval( light_event );
+                      arte.featureAttributes.status = 0;
+                  }
+
+                  /*switch (status) {
+                    case 0:
+                      // Activate colors only on the artwork model
+                      console.log(0);
+                      break;
+                    case 1:
+                      // Activate colors on the artwork model and on the background
+                      console.log(1);
+                      break;
+                    case 2:
+                      // Activate colors only on the background
+                      console.log(2);
+                      break;
+                    default:
+                      // Deactivate
+                      console.log('default');
+                  }*/
                 });
 
 
                 // Music manager
                 $('#music').click(function() {
-                    var status = arte.featureAttributes.status;
+                  var status = arte.featureAttributes.status;
 
-                    if( status == 0 ) {
-                        APP.MusicGenerator.play();
-                        arte.featureAttributes.status = 1;
-                    } else if( status == 1 ) {
-                        APP.MusicGenerator.pause();
-                        arte.featureAttributes.status = 0;
-                    }
+                  if( status == 0 ) {
+                      APP.MusicGenerator.play();
+                      arte.featureAttributes.status = 1;
+                  } else if( status == 1 ) {
+                      APP.MusicGenerator.pause();
+                      arte.featureAttributes.status = 0;
+                  }
                 });
 
 
@@ -502,33 +574,67 @@
                 });
 
 
-                // This event is triggered when a new marker is recognized
-                // We should show artwork's informations
-                $('body').on( 'markerFound', function(e) {
-                    arte.artworkRecognized = 1;
-                    arte.artworkID = 1;
+                /*function printObject(o) {
+                  var out = '';
+                  for (var p in o)
+                    out += p + ': ' + o[p] + '\n';
+                  alert(out);
+                }*/
 
+                // This event is triggered when a new marker is recognized
+                $('a-nft').on( 'markerFound', function(e) {
+                    arte.artworkRecognized = 1;
+                    arte.artworkID = this.id;
+
+                    // Set artwork title
+                    artworkTitle.text(this.title);
+
+                    // Set artwork lights references
+                    const children = $(this).children().get();
+                    light1 = children[0];
+                    light2 = children[1];
+
+                    //alert(light1.id);
+                    //alert(light2.id);
+
+                    light1 = $("#" + light1.id);
+                    light2 = $("#" + light2.id);
+
+                    // Set variables for the gestures
+                    //alert(children[2].id);
+                    //artworkModel = document.getElementById( children[2].id );
+
+                    camera = children[2];
+                    camera.setAttribute("active", true);
+
+                    artworkModel = document.getElementById( camera.children[0].id );
+                    initialScale = artworkModel.object3D.scale.clone();
+                    initialRotation = artworkModel.object3D.rotation.clone();
+
+                    // Show artwork's title and buttons
                     $('.commands').css('bottom', 0);
-                    $('#artwork').toggle();
+                    artworkTitle.toggle();
                 });
 
-
-
-
                 // This event is triggered when a new marker is no more recognized
-                $('body').on( 'markerLost', function() {
+                $('a-nft').on( 'markerLost', function(e) {
                     arte.artworkRecognized = 0;
+                    arte.featureAttributes.status = 0;
 
-                    $( '#color-box' ).css( 'opacity', '0');
-                    $( '#color-box-2' ).css( 'opacity', '0');
+                    colorBox1.css( 'opacity', '0');
+                    colorBox2.css( 'opacity', '0');
                     $('.commands').css('bottom', '-22vw');
                     $('.commands .button').removeClass('pressed');
-                    $('#artwork').toggle();
-                    
-                    $( '#color-box' ).css( 'opacity', '0');
-                    $( '#color-box-2' ).css( 'opacity', '0');
-                    $( '#light' ).attr( 'color', '#FFF' );
-                    $( '#light2' ).attr( 'color', '#FFF' );
+                    artworkTitle.toggle();
+
+                    light1.attr( 'color', '#FFF' );
+                    light2.attr( 'color', '#FFF' );
+
+                    light1 = null;
+                    light2 = null;
+
+                    camera.setAttribute("active", false);
+                    camera = null;
 
                     arte.stopFeature();
                     clearInterval( color_event );
@@ -538,111 +644,114 @@
 
             });
 
-
             // Light gradient with intensity values
             function light_func() {
-                var v = $('#light').attr('light').intensity;
-                if( dir == 1 ) {
-                    v -= 0.01;
-                } else {
-                    v += 0.01;
-                }
+              if (!light1 || !light2) return;
 
-                if( v == 0 ) {
-                    dir = 0;
-                } else if( v == 0.99 ) {
-                    dir = 1;
-                }
+              var v = light1.attr('light').intensity;
+              if( dir == 1 ) {
+                  v -= 0.01;
+              } else {
+                  v += 0.01;
+              }
 
-                $('#light').attr('light', 'intensity: ' + v.toFixed(2) );
-                $('#light2').attr('light', 'intensity: ' + (1 - v).toFixed(2) );
+              if( v == 0 ) {
+                  dir = 0;
+              } else if( v == 0.99 ) {
+                  dir = 1;
+              }
+
+              light1.attr('light', 'intensity: ' + v.toFixed(2) );
+              light2.attr('light', 'intensity: ' + (1 - v).toFixed(2) );
             }
 
 
             // Change color and rotation degree of baground gradient based on room values
             // Change light colors based on room values
             function color_func() {
-                for( i = 0; i < rooms.length; i++ ) {
-                    rooms[i] = rooms[i] + ( ( Math.round( Math.random() ) * 5 ) * Math.random() ) + ( ( Math.round( Math.random() ) * -5 ) * Math.random() );
-                }
+              if (!light1 || !light2) return;
 
-                for( i = 0; i < 6; i++ ) {
-                    colors[i] = 0;
-                    for( j = 0; j < Math.floor( rooms.length / 6 ); j++ ) {
-                        colors[i] += rooms[i+(j*6)];
-                    }
-                }
+              for( i = 0; i < rooms.length; i++ ) {
+                  rooms[i] = rooms[i] + ( ( Math.round( Math.random() ) * 5 ) * Math.random() ) + ( ( Math.round( Math.random() ) * -5 ) * Math.random() );
+              }
 
-                for(var i = 0; i < colors.length; i++) {
-                    colors[i] = Math.max( Math.min( ( colors[i] * 255 / ( 30*mult ) ) + ( 20*i ), 255 ), 0 );
-                }
+              for( i = 0; i < 6; i++ ) {
+                  colors[i] = 0;
+                  for( j = 0; j < Math.floor( rooms.length / 6 ); j++ ) {
+                      colors[i] += rooms[i+(j*6)];
+                  }
+              }
 
-                for(var i = 0; i < 3; i++) {
-                    lights[i] = Math.max( Math.min( parseInt( ( ( colors[i] /* + colors[i+3] */ ) ) - 20 ), 255 ), 0 );
-                }
+              for(var i = 0; i < colors.length; i++) {
+                  colors[i] = Math.max( Math.min( ( colors[i] * 255 / ( 30*mult ) ) + ( 20*i ), 255 ), 0 );
+              }
 
-                deg = ( rooms.reduce( function( a, b ) { return a + b; }, 0 ) % ( 30*rooms.length ) ) * 360 / ( 30*rooms.length );
-                
-                SEED = sensors[current_room-1].reduce( function( a, b ) { return a + b; }, 0 );
+              for(var i = 0; i < 3; i++) {
+                  lights[i] = Math.max( Math.min( parseInt( ( ( colors[i] /* + colors[i+3] */ ) ) - 20 ), 255 ), 0 );
+              }
+
+              deg = ( rooms.reduce( function( a, b ) { return a + b; }, 0 ) % ( 30*rooms.length ) ) * 360 / ( 30*rooms.length );
+
+              SEED = sensors[current_room-1].reduce( function( a, b ) { return a + b; }, 0 );
 
 
-                if( time % 2 == 1 ) {
-                    $( '#light2' ).attr( 'color', 'rgb(' + lights[0] + ',' + lights[1] + ',' + lights[2] + ')' );
-                    $( '#color-box' ).css( 'background', 'linear-gradient( ' + deg + 'deg, rgba(' + colors[0] + ',' + colors[1] + ',' + colors[2] + ',1) 0%, rgba(' + colors[3] + ',' + colors[4] + ',' + colors[5] + ',1) 100%)' );
-                    $( '#color-box' ).css( 'opacity', '1');
-                } else {
-                    $( '#light' ).attr( 'color', 'rgb(' + lights[0] + ',' + lights[1] + ',' + lights[2] + ')' );
-                    $( '#color-box-2' ).css( 'background', 'linear-gradient( ' + deg + 'deg, rgba(' + colors[0] + ',' + colors[1] + ',' + colors[2] + ',1) 0%, rgba(' + colors[3] + ',' + colors[4] + ',' + colors[5] + ',1) 100%)' );
-                    $( '#color-box' ).css( 'opacity', '0');
-                }
+              if( time % 2 == 1 ) {
+                  light2.attr( 'color', 'rgb(' + lights[0] + ',' + lights[1] + ',' + lights[2] + ')' );
+                  colorBox1.css( 'background', 'linear-gradient( ' + deg + 'deg, rgba(' + colors[0] + ',' + colors[1] + ',' + colors[2] + ',1) 0%, rgba(' + colors[3] + ',' + colors[4] + ',' + colors[5] + ',1) 100%)' );
+                  colorBox1.css( 'opacity', '1');
+              } else {
+                  light1.attr( 'color', 'rgb(' + lights[0] + ',' + lights[1] + ',' + lights[2] + ')' );
+                  colorBox2.css( 'background', 'linear-gradient( ' + deg + 'deg, rgba(' + colors[0] + ',' + colors[1] + ',' + colors[2] + ',1) 0%, rgba(' + colors[3] + ',' + colors[4] + ',' + colors[5] + ',1) 100%)' );
+                  colorBox1.css( 'opacity', '0');
+              }
 
-                time = time + 1;
+              time = time + 1;
             }
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-           
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 document.documentElement.addEventListener('mousedown', () => {
   if (Tone.context.state !== 'running') Tone.context.resume();
@@ -690,7 +799,7 @@ document.documentElement.addEventListener('mousedown', () => {
     if(!_synth) _setSynth();
     _setTransport();
     _genStaff();
-    _renderStaff();    
+    _renderStaff();
 
     _genLengthSequences();
     _genScale();
@@ -756,7 +865,7 @@ document.documentElement.addEventListener('mousedown', () => {
         _synth.triggerAttackRelease(bass.chord, bass.len + "n");
       }
       if(_curr_note + _curr_meas === 0) {
-        var hidden = document.querySelector(".hide"); 
+        var hidden = document.querySelector(".hide");
         if(hidden) hidden.className = "";
       }
       _curr_note++;
@@ -767,8 +876,8 @@ document.documentElement.addEventListener('mousedown', () => {
           _addMeasure(_meas_gen);
         } else if (_gen_meas % _meas_gen === 3) {
           // scroll to the bottom of container
-          var hidden = document.querySelector(".hide"); 
-          if(hidden) hidden.className = "";          
+          var hidden = document.querySelector(".hide");
+          if(hidden) hidden.className = "";
           _utilScrollTo(_container, _container.scrollHeight, 500);
         }
         _gen_meas++;
