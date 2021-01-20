@@ -1,0 +1,8 @@
+INCLUDES += -I$(PKGDIRBASE)/monocypher/src
+INCLUDES += -I$(PKGDIRBASE)/monocypher/src/optional
+
+ifneq (,$(filter monocypher_optional,$(USEMODULE)))
+  DIRS += $(PKGDIRBASE)/monocypher/src/optional
+endif
+
+CFLAGS += -DBLAKE2_NO_UNROLLING
