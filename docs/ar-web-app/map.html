@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>ARte</title>
+        <!-- Meta -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="ARte web app">
+        <meta name="keywords" content="">
+        <meta name="author" content="ARte team">
+        <!-- Favicon icon -->
+        <link rel="icon" href="../Dashboard/files/assets/images/arte_icon.png" type="image/x-icon">
+        <!-- Required Framework -->
+        <link rel="stylesheet" type="text/css" href="..\Dashboard\files\bower_components\bootstrap\css\bootstrap.min.css">
+        <!-- feather Awesome -->
+        <link rel="stylesheet" type="text/css" href="..\Dashboard\files\assets\icon\feather\css\feather.css">
+        <!-- Style.css -->
+        <link rel="stylesheet" type="text/css" href="./css/style.css">
+        <link rel="stylesheet" type="text/css" href="..\Dashboard\files\assets\css\style.css">
+        <!-- AWS Cognito SDK -->
+        <script src="https://rawgit.com/aws/amazon-cognito-identity-js/master/dist/aws-cognito-sdk.min.js"></script>
+        <script src="https://rawgit.com/aws/amazon-cognito-identity-js/master/dist/amazon-cognito-identity.min.js"></script>
+    </head>
+    <body>
+        <!-- Pre-loader start -->
+        <div class="theme-loader">
+            <div class="ball-scale">
+                <div class='contain'>
+                    <div class="ring">
+                        <div class="frame"></div>
+                    </div>
+                    <div class="ring">
+                        <div class="frame"></div>
+                    </div>
+                    <div class="ring">
+                        <div class="frame"></div>
+                    </div>
+                    <div class="ring">
+                        <div class="frame"></div>
+                    </div>
+                    <div class="ring">
+                        <div class="frame"></div>
+                    </div>
+                    <div class="ring">
+                        <div class="frame"></div>
+                    </div>
+                    <div class="ring">
+                        <div class="frame"></div>
+                    </div>
+                    <div class="ring">
+                        <div class="frame"></div>
+                    </div>
+                    <div class="ring">
+                        <div class="frame"></div>
+                    </div>
+                    <div class="ring">
+                        <div class="frame"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Pre-loader end -->
+        <!-- Header -->
+        <header style="background-color: rgba(42, 57, 144, 1)">
+            <a href="">
+                <img src="./img/logo_white.png" alt="logo">
+            </a>
+        </header>
+
+        <style>
+          body {
+            overflow: scroll;
+          }
+        </style>
+
+                              <!-- Main-body start -->
+                              <div class="main-body" style="margin-top: 50px">
+                                  <div class="page-wrapper">
+                                        <div class="page-body">
+                                            <div id="rooms" class="row">
+
+                                                <div class="col-sm-7 col-xl-9">
+                                                  <h4 id="lastUpdate" class="m-b-20">Last update: <b>N/A</b></h4>
+                                                </div>
+
+                                                <div class="col-sm-5 col-xl-3 m-b-30" >
+                                                    <select id="sortBy" name="sortBy" class="form-control form-control-default float-right">
+                                                        <option value="idAscending" selected>Sort by room id (ascending)</option>
+                                                        <option value="idDescending">Sort by room id (descending)</option>
+                                                        <option value="currentAscending">Sort by current visitors per room (ascending)</option>
+                                                        <option value="currentDescending">Sort by current visitors per room (descending)</option>
+                                                    </select>
+                                                </div>
+
+                                                <!-- Room number ok -->
+                                                <div class="col-md-6 col-lg-3">
+                                                    <div class="card statustic-card">
+                                                        <div class="card-header">
+                                                            <h5>Room 1</h5>
+                                                        </div>
+                                                        <div class="card-block text-center">
+                                                            <span class="d-block text-c-green f-36">Accessible</span>
+                                                            <br>
+                                                            <div class="progress">
+                                                                <div class="progress-bar bg-c-green" style="width:46%"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-footer bg-c-green">
+                                                            <h6 class="text-white m-b-0">Crowding: 46%</h6>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- /Room number ok -->
+
+                                                <!-- Room number almost ok -->
+                                                <div class="col-md-6 col-lg-3">
+                                                    <div class="card statustic-card">
+                                                        <div class="card-header">
+                                                            <h5>Room 1</h5>
+                                                        </div>
+                                                        <div class="card-block text-center">
+                                                            <!--<span class="d-block text-c-yellow f-36">Accessible with restrictions</span>-->
+                                                            <span class="d-block text-c-yellow f-36">Access at risk</span>
+                                                            <br>
+                                                            <div class="progress">
+                                                                <div class="progress-bar bg-c-yellow" style="width:66%"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-footer bg-c-yellow">
+                                                            <h6 class="text-white m-b-0">Crowding: 66%</h6>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- /Room number almost ok -->
+
+                                                <!-- Room number no ok -->
+                                                <div class="col-md-6 col-lg-3">
+                                                    <div class="card statustic-card">
+                                                        <div class="card-header">
+                                                            <h5>Room 3</h5>
+                                                        </div>
+                                                        <div class="card-block text-center">
+                                                            <span class="d-block text-c-pink f-36">Non Accessible</span>
+                                                            <br>
+                                                            <div class="progress">
+                                                                <div class="progress-bar bg-c-pink" style="width:89%"></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-footer bg-c-pink">
+                                                            <h6 class="text-white m-b-0">Crowding: 89%</h6>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- /Room number no ok -->
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+        <!-- Required Jquery -->
+        <script type="text/javascript" src="..\Dashboard\files\bower_components\jquery\js\jquery.min.js"></script>
+        <script type="text/javascript" src="..\Dashboard\files\bower_components\jquery-ui\js\jquery-ui.min.js"></script>
+        <script type="text/javascript" src="..\Dashboard\files\bower_components\popper.js\js\popper.min.js"></script>
+        <script type="text/javascript" src="..\Dashboard\files\bower_components\bootstrap\js\bootstrap.min.js"></script>
+        <!-- jquery slimscroll js -->
+        <script type="text/javascript" src="..\Dashboard\files\bower_components\jquery-slimscroll\js\jquery.slimscroll.js"></script>
+        <!-- modernizr js -->
+        <!--<script type="text/javascript" src="..\Dashboard\files\bower_components\modernizr\js\modernizr.js"></script>-->
+        <!-- Chart js -->
+        <!--<script type="text/javascript" src="..\Dashboard\files\bower_components\chart.js\js\Chart.js"></script>-->
+        <!-- amchart js -->
+        <!--<script src="..\Dashboard\files\assets\pages\widget\amchart\amcharts.js"></script>
+        <script src="..\Dashboard\files\assets\pages\widget\amchart\serial.js"></script>
+        <script src="..\Dashboard\files\assets\pages\widget\amchart\light.js"></script>-->
+        <script src="..\Dashboard\files\assets\js\jquery.mCustomScrollbar.concat.min.js"></script>
+        <!--<script type="text/javascript" src="..\Dashboard\files\assets\js\SmoothScroll.js"></script>-->
+        <!-- AWS SDK -->
+        <script src="https://sdk.amazonaws.com/js/aws-sdk-2.7.16.min.js"></script>
+        <!-- custom js -->
+        <script type="text/javascript">
+          window.onload = function () {
+            return;
+
+
+            // Initialize the Amazon Cognito credentials provider
+            AWS.config.region = 'us-east-1';
+            AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+                IdentityPoolId: 'us-east-1:33cfdc7c-d841-41cb-b3b4-af3b015348da',
+            });
+
+            // Set up connection with DynamoDB
+            const dynamodb  = new AWS.DynamoDB();
+            const docClient = new AWS.DynamoDB.DocumentClient();
+
+            // Parameters for the scan of the DB
+            const params = {
+              TableName: 'ARte_Rooms'
+            };
+
+            // Store rooms returned by the query as a map
+            let rooms = new Map();
+
+            // Get the HTML elements
+            const roomsDiv   = document.getElementById("rooms");
+            const lastUpdate = document.getElementById("lastUpdate").firstElementChild;
+            const sortBy     = document.getElementById("sortBy");
+
+            let sortByValue = sortBy.value;
+
+            // Set select listener
+            sortBy.addEventListener("input", function(e) {
+              sortByValue = sortBy.value;
+
+              // Sort rooms based on select element
+              sortRooms();
+
+              // Reposition the cards
+              $(".room-card").remove()
+              for (let room of rooms.values())
+                createCard(room.room)
+            });
+
+            function main() {
+              docClient.scan(params, onScan);
+
+              function onScan(err, data) {
+                if (err)
+                  showErrorModal("An error occurred!");
+                else {
+                  data.Items.forEach(function(room) {
+                    // Check if the room is already in the map and set a flag accordingly
+                    if (rooms.has(room.roomID))
+                      rooms.set(room.roomID, {room: room, update: true});
+                    else
+                      rooms.set(room.roomID, {room: room, update: false});
+                  });
+
+                  // Continue scanning if we have more rooms (per scan 1MB limitation)
+                  if (data.LastEvaluatedKey) {
+                    params.ExclusiveStartKey = data.LastEvaluatedKey;
+                    docClient.scan(params, onScan);
+                  }
+
+                  // Sort rooms based on select element
+                  sortRooms();
+                  //console.log(rooms);
+
+                  updateCards();
+                }
+              }
+            }
+
+            // Sort rooms based on select element
+            function sortRooms() {
+              switch (sortByValue) {
+                case "idAscending":
+                  rooms = new Map([...rooms.entries()].sort());
+                  break;
+                case "idDescending":
+                  rooms = new Map([...rooms.entries()].sort( (x,y) => y[0] - x[0] ));
+                  break;
+                case "currentAscending":
+                  rooms = new Map([...rooms.entries()].sort( (x,y) => x[1].room.peopleCurrent - y[1].room.peopleCurrent ));
+                  break;
+                case "currentDescending":
+                  rooms = new Map([...rooms.entries()].sort( (x,y) => y[1].room.peopleCurrent - x[1].room.peopleCurrent ));
+                  break;
+              }
+            }
+
+            // Update room cards
+            function updateCards() {
+              if (rooms.size == 0)   return;
+
+              let obj, room;
+              for (obj of rooms.values()) {
+                room = obj.room;
+
+                // Check if room was already in rooms
+                if (obj.update)
+                  updateCard(room);
+                else
+                  createCard(room);
+              }
+
+              // Update last update label
+              lastUpdate.innerHTML = room.datetime;
+            }
+
+            // Create room card
+            function createCard(room) {
+              // Create different cards based on current room crowding
+              let card = "";
+              const crowding = room.crowding * 100;
+
+              if (room.crowding <= 0.5)
+                card = "<div id='" + room.roomID + "' class='col-md-6 col-lg-3 room-card'><div class='card statustic-card'><div class='card-header'><h5>Room " + room.roomID + "</h5></div><div class='card-block text-center'><span class='d-block text-c-green f-36'>Accessible</span><br><div class='progress'><div class='progress-bar bg-c-green' style='width:" + crowding + "%''></div></div></div><div class='card-footer bg-c-green'><h6 class='text-white m-b-0'>Crowding: " + crowding + "%</h6></div></div></div>";
+              else if (room.crowding <= 0.75)
+                card = "<div id='" + room.roomID + "' class='col-md-6 col-lg-3 room-card'><div class='card statustic-card'><div class='card-header'><h5>Room " + room.roomID + "</h5></div><div class='card-block text-center'><span class='d-block text-c-green f-36'>Access at risk</span><br><div class='progress'><div class='progress-bar bg-c-green' style='width:" + crowding + "%''></div></div></div><div class='card-footer bg-c-green'><h6 class='text-white m-b-0'>Crowding: " + crowding + "%</h6></div></div></div>";
+              else
+                card = "<div id='" + room.roomID + "' class='col-md-6 col-lg-3 room-card'><div class='card statustic-card'><div class='card-header'><h5>Room " + room.roomID + "</h5></div><div class='card-block text-center'><span class='d-block text-c-green f-36'>Non Accessible</span><br><div class='progress'><div class='progress-bar bg-c-green' style='width:" + crowding + "%''></div></div></div><div class='card-footer bg-c-green'><h6 class='text-white m-b-0'>Crowding: " + crowding + "%</h6></div></div></div>";
+
+              roomsDiv.insertAdjacentHTML("beforeend", card);
+
+              /* Card Structure
+              <!-- Room number ok -->
+              <div class="col-md-6 col-lg-3">
+                  <div class="card statustic-card">
+                      <div class="card-header">
+                          <h5>Room 1</h5>
+                      </div>
+                      <div class="card-block text-center">
+                          <span class="d-block text-c-green f-36">Accessible</span>
+                          <br>
+                          <div class="progress">
+                              <div class="progress-bar bg-c-green" style="width:46%"></div>
+                          </div>
+                      </div>
+                      <div class="card-footer bg-c-green">
+                          <h6 class="text-white m-b-0">Crowding: 46%</h6>
+                      </div>
+                  </div>
+              </div>
+              <!-- /Room number ok -->
+              */
+            }
+
+            // Update room card
+            function updateCard(room) {
+              //console.log(room);
+              // Create different cards based on current room crowding
+              let card = "";
+              const crowding = room.crowding * 100;
+
+              if (room.crowding <= 0.5)
+                card = "<div class='card statustic-card'><div class='card-header'><h5>Room " + room.roomID + "</h5></div><div class='card-block text-center'><span class='d-block text-c-green f-36'>" + room.peopleCurrent + "</span><p class='m-b-0'>Current visitors</p><div class='widget-statstic-card'><div class='text-right'><span class='f-right bg-c-green'>" + crowding + "%</span></div></div><div class='progress'><div class='progress-bar bg-c-green' style='width:" + crowding + "%''></div></div></div><div class='card-footer bg-c-green'><h6 class='text-white m-b-0'>Total visitors: " + room.peopleTotal + "</h6></div></div>";
+              else if (room.crowding <= 0.75)
+                card = "<div class='card statustic-card'><div class='card-header'><h5>Room " + room.roomID + "</h5></div><div class='card-block text-center'><span class='d-block text-c-yellow f-36'>" + room.peopleCurrent + "</span><p class='m-b-0'>Current visitors</p><div class='widget-statstic-card'><div class='text-right'><span class='f-right bg-c-yellow'>" + crowding + "%</span></div></div><div class='progress'><div class='progress-bar bg-c-yellow' style='width:" + crowding + "%''></div></div></div><div class='card-footer bg-c-yellow'><h6 class='text-white m-b-0'>Total visitors: " + room.peopleTotal + "</h6></div></div>";
+              else
+                card = "<div class='card statustic-card'><div class='card-header'><h5>Room " + room.roomID + "</h5></div><div class='card-block text-center'><span class='d-block text-c-pink f-36'>" + room.peopleCurrent + "</span><p class='m-b-0'>Current visitors</p><div class='widget-statstic-card'><div class='text-right'><span class='f-right bg-c-pink'>" + crowding + "%</span></div></div><div class='progress'><div class='progress-bar bg-c-pink' style='width:" + crowding + "%''></div></div></div><div class='card-footer bg-c-pink'><h6 class='text-white m-b-0'>Total visitors: " + room.peopleTotal + "</h6></div></div>";
+
+              document.getElementById(room.roomID).innerHTML = card;
+            }
+
+            // Refresh the page every 5 seconds
+            function refreshPage() {
+              main();
+              setTimeout(refreshPage, 5000);
+            }
+            refreshPage();
+          }
+        </script>
+
+        <!--<script src="..\Dashboard\files\assets\js\pcoded.min.js"></script>
+        <script src="..\Dashboard\files\assets\js\vartical-layout.min.js"></script>
+        <script type="text/javascript" src="..\Dashboard\files\assets\pages\dashboard\custom-dashboard.js"></script>-->
+        <script type="text/javascript" src="..\Dashboard\files\assets\js\script.min.js"></script>
+
+</body>
+
+</html>

@@ -1,24 +1,25 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <title>ARte</title>
+        <!-- Meta -->
         <meta charset="utf-8">
+        <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">-->
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content="ARte web app">
         <meta name="keywords" content="">
         <meta name="author" content="ARte team">
-        <title>ARte</title>
-
+        <!-- Favicon icon -->
+        <link rel="icon" href="../Dashboard/files/assets/images/arte_icon.png" type="image/x-icon">
         <!-- CSS -->
         <link rel="stylesheet" type="text/css" href="./css/style.css">
-
         <!-- AR libs -->
         <script src="./js/aframe-master.min.js"></script>
         <script src="./js/aframe-ar-nft.js"></script>
-
         <!-- Utility -->
         <script src="./js/aws.js"></script>
         <script src="./js/pahoMQTTClient.js"></script>
         <script src="./js/utils.js"></script>
-
         <!-- External libs -->
         <script src="https://sdk.amazonaws.com/js/aws-sdk-2.7.16.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js"></script>
@@ -27,11 +28,9 @@
         <script src="./js/tone-ui.js"></script>
 	      <script src="./js/components.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/seedrandom/3.0.5/seedrandom.min.js"></script>
-
         <!-- ARte js library -->
         <script src="./js/ARte.js"></script>
         <script src="./js/gesture-detector.js"></script>
-
     </head>
     <body class="page-camera">
         <!-- Header -->
@@ -723,6 +722,9 @@
                   light2.attr( 'color', 'rgb(' + lights[0] + ',' + lights[1] + ',' + lights[2] + ')' );
                   colorBox1.css( 'background', 'linear-gradient( ' + deg + 'deg, rgba(' + colors[0] + ',' + colors[1] + ',' + colors[2] + ',1) 0%, rgba(' + colors[3] + ',' + colors[4] + ',' + colors[5] + ',1) 100%)' );
                   colorBox1.css( 'opacity', '1');
+
+                  //let bgImage = "../athens.jpg";
+                  //colorBox1.css( 'background-image', "url('" + bgImage + "')");
               } else {
                   light1.attr( 'color', 'rgb(' + lights[0] + ',' + lights[1] + ',' + lights[2] + ')' );
                   colorBox2.css( 'background', 'linear-gradient( ' + deg + 'deg, rgba(' + colors[0] + ',' + colors[1] + ',' + colors[2] + ',1) 0%, rgba(' + colors[3] + ',' + colors[4] + ',' + colors[5] + ',1) 100%)' );
