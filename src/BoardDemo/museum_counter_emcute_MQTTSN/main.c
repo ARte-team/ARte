@@ -125,9 +125,13 @@ int* people_flow(t_museum* m){
   time(&my_time);
   timeinfo = localtime(&my_time);
 
+  m->peopleTotal = 0;
+
   int i;
 
   for(i = 0; i < m->numRooms; i++){
+
+    srand(time(NULL));
 
     int p = rand() % 100;
 
@@ -184,6 +188,8 @@ static int cmd_start(int argc, char **argv){
       printf("Usage: %s <address> <port> <numRooms>\n", argv[0]);
       return 1;
   }
+  
+  int flag = 0;
 
   // museum structs
   t_museum* m = (t_museum*)malloc(sizeof(t_museum));
@@ -204,12 +210,15 @@ static int cmd_start(int argc, char **argv){
 
   // initialize the array and the daily number of people
   init_values(m->array, m->numRooms);
+  
+  // it tries to connect to the gateway
+  if (con(argv[1], atoi(argv[2])))
+    flag = 1;
 
   while(1){
-    // it tries to connect to the gateway
-    if (con(argv[1], atoi(argv[2]))) {
+    if (flag && con(argv[1], atoi(argv[2])))
       continue;
-    }
+      
     // takes the current date and time
     char datetime[20];
     time_t current;
@@ -233,12 +242,12 @@ static int cmd_start(int argc, char **argv){
     // publish to the topic
     pub(topic, json, 0);
 
-    // it disconnects from the gateway
-    discon();
-
     // it sleeps for ten seconds
     xtimer_sleep(10);
   }
+  
+  // it disconnects from the gateway
+  discon();
 
   return 0;
 }

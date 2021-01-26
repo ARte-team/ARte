@@ -33,7 +33,7 @@
 
 #include "Heap.h"
 
-extern BrokerStates* bstate;
+BrokerStates* bstate;
 
 void Users_initialize(BrokerStates* aBrokerState)
 {

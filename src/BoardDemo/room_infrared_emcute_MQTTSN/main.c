@@ -103,6 +103,7 @@ static int con(char* addr, int port){
 // function that generates a random value
 // for the infrared radiaton
 static float gen_random_value(int max){
+  srand(time(NULL));
   return (rand() / (float)RAND_MAX) * max;
 }
 
@@ -113,18 +114,23 @@ static int cmd_start(int argc, char **argv){
       return 1;
   }
 
+  int flag = 0;
+
   // name of the topic
   char topic[32];
   sprintf(topic, "sensor/room");
 
   // json that it will published
   char json[128];
+  
+  // it tries to connect to the gateway
+  if (con(argv[1], atoi(argv[2]))) {
+    flag = 1;
 
   while(1){
-    // it tries to connect to the gateway
-    if (con(argv[1], atoi(argv[2]))) {
+    if (flag && con(argv[1], atoi(argv[2])))
       continue;
-    }
+      
     // takes the current date and time
     char datetime[20];
     time_t current;
@@ -149,13 +155,12 @@ static int cmd_start(int argc, char **argv){
     // publish to the topic
     pub(topic, json, 0);
 
-    // it disconnects from the gateway
-    discon();
-
-
     // it sleeps for five seconds
     xtimer_sleep(5);
   }
+  
+  // it disconnects from the gateway
+  discon();
 
   return 0;
 }

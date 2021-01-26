@@ -35,7 +35,7 @@ map LOG_LEVELS
 }
 BE*/
 
-enum Log_levels {
+enum {
 	TRACE_MAXIMUM = 1,
 	TRACE_MEDIUM,
 	TRACE_MINIMUM,
@@ -50,7 +50,7 @@ enum Log_levels {
 	LOG_ERROR,
 	LOG_SEVERE,
 	LOG_FATAL,
-};
+} Log_levels;
 
 
 /*BE

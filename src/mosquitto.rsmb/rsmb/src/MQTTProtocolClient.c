@@ -655,10 +655,9 @@ int MQTTProtocol_processQueued(Clients* client)
 		if (client->protocol == PROTOCOL_MQTTS && strlen(m->publish->topic) > 2 &&
 				MQTTSProtocol_getRegisteredTopicId(client, m->publish->topic) == 0)
 		{
-			if (client->pendingRegistration == NULL) {
+			if (client->pendingRegistration == NULL)
 				rc = MQTTSProtocol_startRegistration(client, m->publish->topic);
 				goto exit;
-			}
 		}
 
 #endif

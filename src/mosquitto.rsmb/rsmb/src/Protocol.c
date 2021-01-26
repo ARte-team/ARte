@@ -41,7 +41,7 @@
 /**
  * Broker state structure.
  */
-extern BrokerStates* bstate;
+BrokerStates* bstate;
 
 /**
  * Initializes the protocol module

@@ -125,11 +125,13 @@ int people_flow(void){
   if(timeinfo->tm_hour < 9 || timeinfo->tm_hour > 18)
     return 0;
 
+  srand(time(NULL));
+
   int p = rand() % 100;
 
   // people flow based on the visiting hour
   if(timeinfo->tm_hour == 9 || timeinfo->tm_hour == 18) {
-    if(p <= 25)
+    if(p <= 20)
       return 1;
     else
       return 0;
@@ -137,14 +139,14 @@ int people_flow(void){
 
   if((timeinfo->tm_hour < 12) ||
      (timeinfo->tm_hour > 14 && timeinfo->tm_hour < 17)) {
-    if(p <= 50)
+    if(p <= 60)
       return 1;
     else
       return 0;
   }
 
   else {
-    if(p <= 75)
+    if(p <= 40)
       return 1;
     else
       return 0;
@@ -174,6 +176,8 @@ static int cmd_start(int argc, char **argv){
       printf("Usage: %s <address> <port> <roomID> <roomCapacity> <infraredSensors>\n", argv[0]);
       return 1;
   }
+  
+  int flag = 0;
 
   // room struct
   t_rooms* r = (t_rooms*)malloc(sizeof(t_rooms));
@@ -197,11 +201,14 @@ static int cmd_start(int argc, char **argv){
   // initialize the room
   init_num_people(r);
 
+  // it tries to connect to the gateway
+  if (con(argv[1], atoi(argv[2])))
+    flag = 1;
+
   while(1){
-    // it tries to connect to the gateway
-    if (con(argv[1], atoi(argv[2]))) {
+    if (flag && con(argv[1], atoi(argv[2])))
       continue;
-    }
+    
     // takes the current date and time
     char datetime[20];
     time_t current;
@@ -225,12 +232,12 @@ static int cmd_start(int argc, char **argv){
     // publish to the topic
     pub(topic, json, 0);
 
-    // it disconnects from the gateway
-    discon();
-
     // it sleeps for five seconds
     xtimer_sleep(5);
   }
+  
+  // it disconnects from the gateway
+  discon();
 
   return 0;
 }
