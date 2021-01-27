@@ -61,21 +61,32 @@
             </div>
         </div>
         <!-- Pre-loader end -->
-        <!-- Header -->
-        <header style="background-color: rgba(42, 57, 144, 1)">
-            <a href="">
-                <img src="./img/logo_white.png" alt="logo">
-            </a>
-        </header>
 
+        <!-- Custom style for the page -->
         <style>
           body {
             overflow: scroll;
           }
+          header {
+            background-color: rgba(42, 57, 144, 1);
+          }
+          .main-body {
+             margin-top: 50px;
+          }
         </style>
 
+        <!-- Header -->
+        <header>
+            <a href="./camera.html">
+              <img src="./img/logo_white.png" alt="Logo">
+            </a>
+            <a href="">
+              <img id="map" src="./img/icons/map.svg" alt="Map">
+            </a>
+        </header>
+
                               <!-- Main-body start -->
-                              <div class="main-body" style="margin-top: 50px">
+                              <div class="main-body">
                                   <div class="page-wrapper">
                                         <div class="page-body">
                                             <div id="rooms" class="row">
@@ -182,26 +193,51 @@
         <!-- custom js -->
         <script type="text/javascript">
           window.onload = function () {
-            return;
-
-
-            // Initialize the Amazon Cognito credentials provider
-            AWS.config.region = 'us-east-1';
-            AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-                IdentityPoolId: 'us-east-1:33cfdc7c-d841-41cb-b3b4-af3b015348da',
-            });
-
-            // Set up connection with DynamoDB
-            const dynamodb  = new AWS.DynamoDB();
-            const docClient = new AWS.DynamoDB.DocumentClient();
-
-            // Parameters for the scan of the DB
-            const params = {
-              TableName: 'ARte_Rooms'
-            };
+            let mqttClient = null;
+            const topic = "sensor/room";
 
             // Store rooms returned by the query as a map
             let rooms = new Map();
+
+            function onConnect() {
+              const conn = mqttClient.isConn();
+
+              if (conn)
+                mqttClient.sub(topic);
+              else
+                alert("Error while loading the page. Try to refresh it!");
+            }
+
+            function onReceive(msg) {
+              const room = JSON.parse(msg);
+
+              if (rooms.has(room.roomID))
+                rooms.set(room.roomID, {room: room, update: true});
+              else
+                rooms.set(room.roomID, {room: room, update: false});
+
+              // Sort rooms based on select element
+              sortRooms();
+              //console.log(rooms);
+
+              updateCards();
+            }
+
+            // Initialize Amazon Cognito credentials provider
+            AWS.config.region      = 'us-east-1';
+            AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+              IdentityPoolId: 'us-east-1:33cfdc7c-d841-41cb-b3b4-af3b015348da'
+            });
+
+            // Obtain credentials
+            AWS.config.credentials.get(function(){
+              // Credentials will be available when this function is called
+              const host       = 'a194ad8wufud1k-ats.iot.us-east-1.amazonaws.com';
+              const requestUrl = SigV4Utils.getSignedUrl(host, AWS.config.region, AWS.config.credentials);
+              mqttClient       = new PahoMQTTClient(requestUrl, uuid);
+              mqttClient.conn(onConnect, onReceive);
+            });
+
 
             // Get the HTML elements
             const roomsDiv   = document.getElementById("rooms");
@@ -223,7 +259,7 @@
                 createCard(room.room)
             });
 
-            function main() {
+            /*function main() {
               docClient.scan(params, onScan);
 
               function onScan(err, data) {
@@ -251,7 +287,7 @@
                   updateCards();
                 }
               }
-            }
+            }*/
 
             // Sort rooms based on select element
             function sortRooms() {
@@ -336,21 +372,21 @@
               const crowding = room.crowding * 100;
 
               if (room.crowding <= 0.5)
-                card = "<div class='card statustic-card'><div class='card-header'><h5>Room " + room.roomID + "</h5></div><div class='card-block text-center'><span class='d-block text-c-green f-36'>" + room.peopleCurrent + "</span><p class='m-b-0'>Current visitors</p><div class='widget-statstic-card'><div class='text-right'><span class='f-right bg-c-green'>" + crowding + "%</span></div></div><div class='progress'><div class='progress-bar bg-c-green' style='width:" + crowding + "%''></div></div></div><div class='card-footer bg-c-green'><h6 class='text-white m-b-0'>Total visitors: " + room.peopleTotal + "</h6></div></div>";
+                card = "<div id='" + room.roomID + "' class='col-md-6 col-lg-3 room-card'><div class='card statustic-card'><div class='card-header'><h5>Room " + room.roomID + "</h5></div><div class='card-block text-center'><span class='d-block text-c-green f-36'>Accessible</span><br><div class='progress'><div class='progress-bar bg-c-green' style='width:" + crowding + "%''></div></div></div><div class='card-footer bg-c-green'><h6 class='text-white m-b-0'>Crowding: " + crowding + "%</h6></div></div></div>";
               else if (room.crowding <= 0.75)
-                card = "<div class='card statustic-card'><div class='card-header'><h5>Room " + room.roomID + "</h5></div><div class='card-block text-center'><span class='d-block text-c-yellow f-36'>" + room.peopleCurrent + "</span><p class='m-b-0'>Current visitors</p><div class='widget-statstic-card'><div class='text-right'><span class='f-right bg-c-yellow'>" + crowding + "%</span></div></div><div class='progress'><div class='progress-bar bg-c-yellow' style='width:" + crowding + "%''></div></div></div><div class='card-footer bg-c-yellow'><h6 class='text-white m-b-0'>Total visitors: " + room.peopleTotal + "</h6></div></div>";
+                card = "<div id='" + room.roomID + "' class='col-md-6 col-lg-3 room-card'><div class='card statustic-card'><div class='card-header'><h5>Room " + room.roomID + "</h5></div><div class='card-block text-center'><span class='d-block text-c-green f-36'>Access at risk</span><br><div class='progress'><div class='progress-bar bg-c-green' style='width:" + crowding + "%''></div></div></div><div class='card-footer bg-c-green'><h6 class='text-white m-b-0'>Crowding: " + crowding + "%</h6></div></div></div>";
               else
-                card = "<div class='card statustic-card'><div class='card-header'><h5>Room " + room.roomID + "</h5></div><div class='card-block text-center'><span class='d-block text-c-pink f-36'>" + room.peopleCurrent + "</span><p class='m-b-0'>Current visitors</p><div class='widget-statstic-card'><div class='text-right'><span class='f-right bg-c-pink'>" + crowding + "%</span></div></div><div class='progress'><div class='progress-bar bg-c-pink' style='width:" + crowding + "%''></div></div></div><div class='card-footer bg-c-pink'><h6 class='text-white m-b-0'>Total visitors: " + room.peopleTotal + "</h6></div></div>";
+                card = "<div id='" + room.roomID + "' class='col-md-6 col-lg-3 room-card'><div class='card statustic-card'><div class='card-header'><h5>Room " + room.roomID + "</h5></div><div class='card-block text-center'><span class='d-block text-c-green f-36'>Non Accessible</span><br><div class='progress'><div class='progress-bar bg-c-green' style='width:" + crowding + "%''></div></div></div><div class='card-footer bg-c-green'><h6 class='text-white m-b-0'>Crowding: " + crowding + "%</h6></div></div></div>";
 
               document.getElementById(room.roomID).innerHTML = card;
             }
 
             // Refresh the page every 5 seconds
-            function refreshPage() {
+            /*function refreshPage() {
               main();
               setTimeout(refreshPage, 5000);
             }
-            refreshPage();
+            refreshPage();*/
           }
         </script>
 

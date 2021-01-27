@@ -103,6 +103,10 @@ header a img {
     height: 50px;
     margin: 10px 0;
 }
+#map {
+    position: fixed;
+    right: 1%;
+}
 #info {
     position: fixed;
     top: 80px;
@@ -220,7 +224,7 @@ header a img {
 }
 
 
-/*Css for page where choosing between the Dashboard and Web App*/
+/* Css for the initial page where choosing between the Dashboard and Web App */
 @media only screen and (max-width: 600px) {
     .page-adv {
         font-family: 'Questrial', sans-serif;

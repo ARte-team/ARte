@@ -36,7 +36,10 @@
         <!-- Header -->
         <header>
             <a href="">
-                <img src="./img/logo_white.png" alt="logo">
+              <img src="./img/logo_white.png" alt="Logo">
+            </a>
+            <a href="./map.html">
+              <img id="map" src="./img/icons/map.svg" alt="Map">
             </a>
         </header>
 
@@ -60,6 +63,12 @@
             </div>
             <div class="button" id="music">
                 <img src="./img/icons/note.svg" alt="Music">
+            </div>
+            <div class="button" id="storytelling">
+                <img src="./img/icons/storytelling.svg" alt="Storytelling">
+            </div>
+            <div class="button" id="contextualization">
+                <img src="./img/icons/contextualization.svg" alt="Contextualization">
             </div>
         </div>
 
@@ -353,49 +362,54 @@
         <script>
             // Set unique deviceID for the user
             // Check if cookie is already present
-            var uuid;
+            let uuid;
 
-            if(accessCookie("deviceID") == '') {
+            if(accessCookie("deviceID") === "") {
                 uuid = createUUID();
                 createCookie("deviceID", uuid, 12);
             } else {
                 uuid = accessCookie("deviceID");
             }
 
-            var mqttClient = null;
+            function onConnect() {
+              const conn = mqttClient.isConn();
+              if (!conn)
+                alert("Error while loading the page. Try to refresh it!");
+            }
 
-            function onConnect() {}
+            //alert("uuid: " + uuid);
+            let mqttClient = null;
 
             // Initialize Amazon Cognito credentials provider
             AWS.config.region      = 'us-east-1';
             AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-              IdentityPoolId: 'us-east-1:73b2cfba-525a-4f90-ba69-2c4ca9de375a',
+              IdentityPoolId: 'us-east-1:33cfdc7c-d841-41cb-b3b4-af3b015348da'
             });
-
 
             // Obtain credentials
             AWS.config.credentials.get(function(){
               // Credentials will be available when this function is called
-              var host       = 'a38agfpa1egwwp-ats.iot.us-east-1.amazonaws.com';
-              var requestUrl = SigV4Utils.getSignedUrl(host, AWS.config.region, AWS.config.credentials);
-              mqttClient     = new PahoMQTTClient(requestUrl, uuid);
+              const host       = 'a194ad8wufud1k-ats.iot.us-east-1.amazonaws.com';
+              const requestUrl = SigV4Utils.getSignedUrl(host, AWS.config.region, AWS.config.credentials);
+              mqttClient       = new PahoMQTTClient(requestUrl, uuid);
               mqttClient.conn(onConnect);
             });
 
-
             // Initialize ARte object for feature interaction
-            var arte = new ARte(uuid);
+            const arte = new ARte(uuid);
 
-            var message = '';
-
+            const topic = "smartphone";
+            let message = "";
 
             // Send message to broker when browser is idle mode
             // Set visibilitychange event listener
             function sendMessageIdle() {
                 if ( document.hidden ) {
                     message = arte.getMessage();
-                    mqttClient.pub(message, 'daily');
+                    mqttClient.pub(message, topic);
                     arte.stopFeature();
+
+                    //alert("message published idle");
 
                     $('.commands .button').removeClass('pressed');
                 } /*else  {
@@ -448,7 +462,7 @@
 
             // Variables for the gestures (scale and rotation)
             let artworkModel = null;
-            let initialModelScale = null;
+            let initialModelScale    = null;
             let initialModelRotation = null;
 
             $( document ).ready(function() {
@@ -491,6 +505,13 @@
                 sceneEl.addEventListener( 'twofingermove', handleScale );
 
 
+                // Get functionalities buttons
+                const colorBtn             = $('#color');
+                const musicBtn             = $('#music');
+                const contextualizationBtn = $('#contextualization');
+                const storytellingBtn      = $('#storytelling');
+
+
                 // Initialize color feature
                 colorBox1.css( 'background', 'linear-gradient( ' + deg + 'deg, rgba(' + colors[0] + ',' + colors[1] + ',' + colors[2] + ',1) 0%, rgba(' + colors[3] + ',' + colors[4] + ',' + colors[5] + ',1) 100%)' );
 
@@ -514,30 +535,43 @@
                   synth.triggerAttackRelease("B4", "8n", now + 6);
                 }
 
+                function stopSound() {
+                  synth.triggerRelease("8n");
+                }
 
                 // Color manager
-                $('#color').click(function() {
+                colorBtn.click(function() {
                   if (!light1 || !light2) return;
 
-                  var status = arte.featureAttributes.status;
+                  const status = arte.getStatus();
+                  const feature = "Color";
 
                   if( status == 0 ) {
+                      colorBtn.addClass('pressed');
+
                       colorBox1.css( 'opacity', '1');
                       colorBox2.css( 'opacity', '1');
                       light2.attr( 'color', 'rgb(' + lights[0] + ',' + lights[1] + ',' + lights[2] + ')' );
                       color_event = setInterval( color_func, 1500 );
                       light_event = setInterval( light_func, 10 );
-                      arte.featureAttributes.status = 1;
+
+                      arte.startFeature(feature);
                   } else if( status == 1 ) {
+                      colorBtn.removeClass('pressed');
+
                       colorBox1.css( 'opacity', '0');
                       colorBox2.css( 'opacity', '0');
                       light1.attr( 'color', '#FFF' );
                       light2.attr( 'color', '#FFF' );
                       clearInterval( color_event );
                       clearInterval( light_event );
-                      arte.featureAttributes.status = 0;
+
+                      arte.stopFeature();
+                      sendMessage();
                   }
 
+                  // FORSE PER QUESTO CONVERREBBE AVERE PIÙ TASTI (MAGARI FACENDO SCOMPARIRE QUELLI DEL "MENU" PRECEDENTE), 
+                  // PUÒ ESSERE NOIOSO DOVERLI SCORRERE TUTTI PER DISATTIVARE LA FUNZIONALITÀ
                   /*switch (status) {
                     case 0:
                       // Activate colors only on the artwork model
@@ -559,37 +593,34 @@
 
 
                 // Music manager
-                $('#music').click(function() {
-                  var status = arte.featureAttributes.status;
+                musicBtn.click(function() {
+                  const status = arte.getStatus();
+                  const feature = "Music";
 
                   if( status == 0 ) {
+                      musicBtn.addClass('pressed');
+
                       //APP.MusicGenerator.play();
                       startSound();
-                      arte.featureAttributes.status = 1;
+
+                      arte.startFeature(feature);
                   } else if( status == 1 ) {
+                      musicBtn.removeClass('pressed');
+
                       //APP.MusicGenerator.pause();
-                      arte.featureAttributes.status = 0;
+                      stopSound();
+
+                      arte.stopFeature();
+                      sendMessage();
                   }
                 });
 
-
-                // Changing style to buttons when pressed
-                // Start and stop features
-                $('.commands .button').click(function() {
-                    var pressed = $(this).hasClass('pressed');
-
-                    if(arte.activeFeature != '') {
-                        message = arte.getMessage();
-                        mqttClient.pub(message, 'daily');
-                    }
-
-                    if( pressed ) {
-                        arte.stopFeature();
-                        $(this).removeClass('pressed');
-                    } else {
-                        $(this).addClass('pressed');
-                    }
-                });
+                // Function to call when a feature is stopped
+                function sendMessage() {
+                  message = arte.getMessage();
+                  mqttClient.pub(message, topic);
+                  //alert("message published");
+                }
 
                 /*function printObject(o) {
                   var out = '';
@@ -633,7 +664,6 @@
                 // This event is triggered when a new marker is no more recognized
                 $('a-nft').on( 'markerLost', function(e) {
                     arte.artworkRecognized = 0;
-                    arte.featureAttributes.status = 0;
 
                     colorBox1.css( 'opacity', '0');
                     colorBox2.css( 'opacity', '0');
@@ -663,6 +693,7 @@
                     clearInterval( color_event );
                     clearInterval( light_event );
                     //APP.MusicGenerator.pause();
+                    stopSound();
                 });
 
             });
