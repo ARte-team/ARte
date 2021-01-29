@@ -55,6 +55,19 @@ body {
     z-index: 499;
     opacity: 0;
 }
+#contextualization-box {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: opacity 1.4s linear;
+    z-index: 500;
+    opacity: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
 .commands {
     position: fixed;
     bottom: -22vw;
@@ -71,7 +84,7 @@ body {
     height: calc( 16vw - 2px );
     border-radius: 50%;
     /*margin: 3vw 22.66vw 3vw 11.33vw;*/
-    margin: 0 30.66vw 6vw 3.33vw;
+    margin: 0 3.33vw 6vw 3.33vw;
     border: 1px solid #ABABAB;
     float: left;
     transition: all 0.2s ease-in-out;
@@ -79,7 +92,11 @@ body {
 }
 .commands div.button:first-of-type {
     /*margin: 3vw 11.33vw 3vw 22.66vw;*/
-    margin: 0 3.33vw 6vw 30.66vw;
+    margin: 0 3.33vw 6vw 8vw;
+}
+.commands div.button:last-of-type {
+    /*margin: 3vw 11.33vw 3vw 22.66vw;*/
+    margin: 0 8vw 6vw 3.33vw;
 }
 .commands div.button.pressed {
     background-color: #B7B7B7;

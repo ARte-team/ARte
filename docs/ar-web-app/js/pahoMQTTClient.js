@@ -20,7 +20,7 @@ class PahoMQTTClient {
         // With an arrow function "this" represents the owner of the function
         // while with a regular function "this" represents the object that calls the function
         this.isConnected = true;
-        if callbackConnection != null
+        if(callbackConnection != null)
           callbackConnection();
       },
       useSSL: true,
@@ -29,7 +29,7 @@ class PahoMQTTClient {
       onFailure: function() {
         // Connect failed
         console.log("onFailure: connect failed");
-        if callbackConnection != null
+        if(callbackConnection != null)
           callbackConnection();
       }
     };
@@ -51,7 +51,7 @@ class PahoMQTTClient {
     // Called when a message arrives
     function onMessageArrived(message) {
       console.log("onMessageArrived:" + message.payloadString);
-      if callbackReceive != null
+      if(callbackReceive != null)
         callbackReceive(message.payloadString);
     }
 

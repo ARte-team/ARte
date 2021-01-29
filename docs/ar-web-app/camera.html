@@ -4,7 +4,6 @@
         <title>ARte</title>
         <!-- Meta -->
         <meta charset="utf-8">
-        <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">-->
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content="ARte web app">
         <meta name="keywords" content="">
@@ -75,6 +74,9 @@
         <!-- Color animation box -->
         <div id="color-box-1"></div>
         <div id="color-box-2"></div>
+        
+        <!-- Contextualization box -->
+        <div id="contextualization-box"></div>
 
         <!-- AR core -->
         <a-scene
@@ -319,43 +321,6 @@
                 </a-entity>
             </a-nft>
 
-
-
-            <!-- NON HO TROVATO UN MODELLO PER QUESTO E NEANCHE PER IL KOUROS DI SAMO -->
-            <!--<a-nft type='nft'
-                   url='ar-web-app/img/markers/Chariotter of Delphi/Chariotter of Delphi'
-                   smooth='true'
-                   smoothCount='10'
-                   smoothTolerance='0.01'
-                   smoothThreshold='5'>
-                <a-light type="directional"
-                         position="0 0 0"
-                         rotation="-90 0 0"
-                         color="#FFF"
-                         target="#directionaltarget"
-                         light="intensity: 1;"
-                         id="light2_1">
-                    <a-entity id="directionaltarget" position="0 0 -1"></a-entity>
-                </a-light>
-                <a-light type="directional"
-                         position="0 0 0"
-                         rotation="-90 0 0"
-                         color="#FFF"
-                         target="#directionaltarget"
-                         light="intensity: 0;"
-                         id="light2_2">
-                    <a-entity id="directionaltarget" position="0 0 -1"></a-entity>
-                </a-light>
-                <a-entity
-                    gltf-model='../Dashboard/files/assets/uploads/models/Chariotter of Delphi/scene.gltf'
-                    scale="90 90 90"
-                    position="120 -50 -100"
-                    rotation="-90 0 0"
-                    gesture-handler="minScale: 0.25; maxScale: 10"
-                    id="model2">
-                </a-entity>
-            </a-nft>-->
-
             <a-entity camera><a-entity>
         </a-scene>
 
@@ -470,6 +435,7 @@
                 const artworkTitle = $('#artworkTitle');
                 const colorBox1 = $('#color-box-1');
                 const colorBox2 = $('#color-box-2');
+                const contextualizationBox = $('#contextualization-box');
 
                 const sceneEl = document.getElementById("scene");
 
@@ -508,9 +474,8 @@
                 // Get functionalities buttons
                 const colorBtn             = $('#color');
                 const musicBtn             = $('#music');
-                const contextualizationBtn = $('#contextualization');
                 const storytellingBtn      = $('#storytelling');
-
+                const contextualizationBtn = $('#contextualization');
 
                 // Initialize color feature
                 colorBox1.css( 'background', 'linear-gradient( ' + deg + 'deg, rgba(' + colors[0] + ',' + colors[1] + ',' + colors[2] + ',1) 0%, rgba(' + colors[3] + ',' + colors[4] + ',' + colors[5] + ',1) 100%)' );
@@ -538,6 +503,10 @@
                 function stopSound() {
                   synth.triggerRelease("8n");
                 }
+                
+                // Initialize storytelling feature
+                var audioElement = document.createElement('audio');
+                audioElement.setAttribute('src', './audio/1.mp3');
 
                 // Color manager
                 colorBtn.click(function() {
@@ -569,26 +538,6 @@
                       arte.stopFeature();
                       sendMessage();
                   }
-
-                  // FORSE PER QUESTO CONVERREBBE AVERE PIÙ TASTI (MAGARI FACENDO SCOMPARIRE QUELLI DEL "MENU" PRECEDENTE), 
-                  // PUÒ ESSERE NOIOSO DOVERLI SCORRERE TUTTI PER DISATTIVARE LA FUNZIONALITÀ
-                  /*switch (status) {
-                    case 0:
-                      // Activate colors only on the artwork model
-                      console.log(0);
-                      break;
-                    case 1:
-                      // Activate colors on the artwork model and on the background
-                      console.log(1);
-                      break;
-                    case 2:
-                      // Activate colors only on the background
-                      console.log(2);
-                      break;
-                    default:
-                      // Deactivate
-                      console.log('default');
-                  }*/
                 });
 
 
@@ -614,6 +563,52 @@
                       sendMessage();
                   }
                 });
+                
+                
+                // Storytelling manager
+                storytellingBtn.click(function() {
+                  const status = arte.getStatus();
+                  const feature = "Storytelling";
+
+                  if( status == 0 ) {
+                      storytellingBtn.addClass('pressed');
+
+                      audioElement.play();
+
+                      arte.startFeature(feature);
+                  } else if( status == 1 ) {
+                      storytellingBtn.removeClass('pressed');
+
+                      audioElement.pause();
+                      audioElement.currentTime = 0;
+
+                      arte.stopFeature();
+                      sendMessage();
+                  }
+                });
+                
+                
+                // Contextualization manager
+                contextualizationBtn.click(function() {
+                  const status = arte.getStatus();
+                  const feature = "Contextualization";
+
+                  if( status == 0 ) {
+                      contextualizationBtn.addClass('pressed');
+
+                      contextualizationBox.css('opacity', '1');
+                      contextualizationBox.css('background-image', 'url("./img/contextualization/athens.jpg")');
+
+                      arte.startFeature(feature);
+                  } else if( status == 1 ) {
+                      contextualizationBtn.removeClass('pressed');
+
+                      contextualizationBox.css('opacity', '0');
+
+                      arte.stopFeature();
+                      sendMessage();
+                  }
+                });
 
                 // Function to call when a feature is stopped
                 function sendMessage() {
@@ -621,13 +616,6 @@
                   mqttClient.pub(message, topic);
                   //alert("message published");
                 }
-
-                /*function printObject(o) {
-                  var out = '';
-                  for (var p in o)
-                    out += p + ': ' + o[p] + '\n';
-                  alert(out);
-                }*/
 
                 // This event is triggered when a new marker is recognized
                 $('a-nft').on( 'markerFound', function(e) {
