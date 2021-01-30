@@ -36,7 +36,8 @@ static int discon(void){
         puts("error: unable to disconnect");
         return 1;
     }
-    puts("Disconnect successful");
+    //puts("Disconnect successful");
+    
     return 0;
 }
 
@@ -96,7 +97,8 @@ static int con(char* addr, int port){
       printf("error: unable to connect to [%s]:%i\n", addr, port);
       return 1;
   }
-  printf("Successfully connected to gateway at [%s]:%i\n", addr, port);
+  //printf("Successfully connected to gateway at [%s]:%i\n", addr, port);
+  
   return 0;
 }
 
@@ -114,8 +116,6 @@ static int cmd_start(int argc, char **argv){
       return 1;
   }
 
-  int flag = 0;
-
   // name of the topic
   char topic[32];
   sprintf(topic, "sensor/room");
@@ -123,12 +123,9 @@ static int cmd_start(int argc, char **argv){
   // json that it will published
   char json[128];
   
-  // it tries to connect to the gateway
-  if (con(argv[1], atoi(argv[2]))) {
-    flag = 1;
-
   while(1){
-    if (flag && con(argv[1], atoi(argv[2])))
+    // it tries to connect to the gateway
+    if (con(argv[1], atoi(argv[2])))
       continue;
       
     // takes the current date and time
@@ -155,12 +152,12 @@ static int cmd_start(int argc, char **argv){
     // publish to the topic
     pub(topic, json, 0);
 
+    // it disconnects from the gateway
+    discon();
+
     // it sleeps for five seconds
     xtimer_sleep(5);
   }
-  
-  // it disconnects from the gateway
-  discon();
 
   return 0;
 }

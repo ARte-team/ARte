@@ -19,7 +19,10 @@ class Callback:
             msg["infraredValues"] = []
 
             for board in roomDict["infraredBoards"]:
-                msg["infraredValues"].append(board["value"])
+                if roomDict["counterBoard"]["peopleCurrent"] == 0:
+                    msg["infraredValues"].append(0.0)
+                else:    
+                    msg["infraredValues"].append(board["value"])
 
             print("\nmessage to publish: ", msg)
             MQTTClient.publish(topicName, json.dumps(msg), qos)

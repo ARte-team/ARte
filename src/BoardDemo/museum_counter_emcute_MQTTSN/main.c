@@ -44,7 +44,8 @@ static int discon(void){
         puts("error: unable to disconnect");
         return 1;
     }
-    puts("Disconnect successful");
+    //puts("Disconnect successful");
+    
     return 0;
 }
 
@@ -104,7 +105,8 @@ static int con(char* addr, int port){
       printf("error: unable to connect to [%s]:%i\n", addr, port);
       return 1;
   }
-  printf("Successfully connected to gateway at [%s]:%i\n", addr, port);
+  //printf("Successfully connected to gateway at [%s]:%i\n", addr, port);
+  
   return 0;
 }
 
@@ -125,15 +127,13 @@ int* people_flow(t_museum* m){
   time(&my_time);
   timeinfo = localtime(&my_time);
 
-  m->peopleTotal = 0;
+  int i, p;
 
-  int i;
+  srand(time(NULL));
 
   for(i = 0; i < m->numRooms; i++){
 
-    srand(time(NULL));
-
-    int p = rand() % 100;
+    p = rand() % 100;
 
     // opening hours of the museum 9am - 7pm
     if(timeinfo->tm_hour < 9 || timeinfo->tm_hour > 18) {
@@ -188,11 +188,12 @@ static int cmd_start(int argc, char **argv){
       printf("Usage: %s <address> <port> <numRooms>\n", argv[0]);
       return 1;
   }
-  
-  int flag = 0;
 
   // museum structs
   t_museum* m = (t_museum*)malloc(sizeof(t_museum));
+  
+  // initialize the total number of visitors to zero
+  m->peopleTotal = 0;
 
   // number of rooms
   m->numRooms = atoi(argv[3]);
@@ -211,12 +212,9 @@ static int cmd_start(int argc, char **argv){
   // initialize the array and the daily number of people
   init_values(m->array, m->numRooms);
   
-  // it tries to connect to the gateway
-  if (con(argv[1], atoi(argv[2])))
-    flag = 1;
-
   while(1){
-    if (flag && con(argv[1], atoi(argv[2])))
+    // it tries to connect to the gateway
+    if (con(argv[1], atoi(argv[2])))
       continue;
       
     // takes the current date and time
@@ -232,7 +230,11 @@ static int cmd_start(int argc, char **argv){
 
     // update the values for the museum
     m->peopleCurrent = gen_num_people(m);
-    m->peopleTotal  += m->peopleCurrent;
+    if(m->peopleTotal == 0)
+      m->peopleTotal  += m->peopleCurrent;
+    else
+      m->peopleTotal  += m->peopleCurrent / 2;
+    
 
     // fills a json document for each room
     sprintf(json, "{\"roomID\": %d, \"datetime\": \"%s\", \"peopleCurrent\": %d, "
@@ -241,14 +243,14 @@ static int cmd_start(int argc, char **argv){
 
     // publish to the topic
     pub(topic, json, 0);
+    
+    // it disconnects from the gateway
+    discon();
 
     // it sleeps for ten seconds
     xtimer_sleep(10);
   }
   
-  // it disconnects from the gateway
-  discon();
-
   return 0;
 }
 
