@@ -318,11 +318,11 @@
                                                                     <div class="row">
                                                                         <div class="col-sm-6">
                                                                             <p class="m-b-10 f-w-600">Most used feature</p>
-                                                                            <h6 class="text-muted f-w-400">Contextualization (20328)</h6>
+                                                                            <h6 id="artworkMostUsedFeature" class="text-muted f-w-400"></h6>
                                                                         </div>
                                                                         <div class="col-sm-6">
                                                                           <p class="m-b-10 f-w-600">Least used feature</p>
-                                                                          <h6 class="text-muted f-w-400">Rebuilding missing components (529)</h6>
+                                                                          <h6 id="artworkLeastUsedFeature" class="text-muted f-w-400"></h6>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -427,9 +427,11 @@
         const docClient = new AWS.DynamoDB.DocumentClient();
 
         // Get the HTML elements
-        const artworkImage = document.getElementById("artworkImage");
-        const artworkRoom  = document.getElementById("artworkRoom");
-        const artworkViews  = document.getElementById("artworkViews");
+        const artworkImage            = document.getElementById("artworkImage");
+        const artworkRoom             = document.getElementById("artworkRoom");
+        const artworkViews            = document.getElementById("artworkViews");
+        const artworkMostUsedFeature  = document.getElementById("artworkMostUsedFeature");
+        const artworkLeastUsedFeature = document.getElementById("artworkLeastUsedFeature");
 
         const viewTable   = document.getElementById("viewTable");
         const tableBodyJQ = $("#tableBody");
@@ -487,9 +489,32 @@
 
           for (let i=0; i<rows; i++) {
             const artwork = arts[i];
-            /*tableBodyJQ.append("<tr><td>" + (i+1) + ".</td><td><img src='" + artwork.photo + "' alt='Artwork image' class='img-fluid img-30'></td><td>" + artwork.title + "</td><td>" + artwork.room + "</td><td>" + artwork.views + "</td><td class='text-right'>Contextualization (20328)</td></tr>");*/
+            let views = 0;
+            let mostUsedFeature = {"name": "N/A", "views": 0};
 
-            tableBodyJQ.append("<tr><td>" + (i+1) + ".</td><td><img src='" + artwork.photo + "' alt='Artwork image' width='30' height='30'></td><td>" + artwork.title + "</td><td>" + artwork.room + "</td><td>" + artwork.views + "</td><td class='text-right'>Contextualization (20328)</td></tr>");
+            // Check if features usage is present
+            if (artwork.featuresStats) {
+              // Get artwork views
+              if (artwork.featuresStats.views)
+                views = artwork.featuresStats.views;
+
+              // Get the most used feature
+              for (const property in artwork.featuresStats) {
+                if (artwork.featuresStats[property].views && artwork.featuresStats[property].views > mostUsedFeature.views) {
+                    mostUsedFeature.name  = property;
+                    mostUsedFeature.views = artwork.featuresStats[property].views;
+                }
+              }
+            }
+
+            if (mostUsedFeature.views > 0)
+              mostUsedFeature = mostUsedFeature.name + " (" + mostUsedFeature.views + ")";
+            else
+              mostUsedFeature = mostUsedFeature.name;
+
+            /*tableBodyJQ.append("<tr><td>" + (i+1) + ".</td><td><img src='" + artwork.photo + "' alt='Artwork image' class='img-fluid img-30'></td><td>" + artwork.title + "</td><td>" + artwork.room + "</td><td>" + views + "</td><td class='text-right'>" + mostUsedFeature + "</td></tr>");*/
+
+            tableBodyJQ.append("<tr><td>" + (i+1) + ".</td><td><img src='" + artwork.photo + "' alt='Artwork image' width='30' height='30'></td><td>" + artwork.title + "</td><td>" + artwork.room + "</td><td>" + views + "</td><td class='text-right'>" + mostUsedFeature + "</td></tr>");
 
             /* Structure of each table row
             <tr>
@@ -675,7 +700,33 @@
           descriptionNonEdit.value = artwork.description;*/
           artworkImage.src = artwork.photo;
           artworkRoom.innerHTML  = artwork.room;
-          artworkViews.innerHTML = artwork.views;
+          artworkViews.innerHTML = artwork.featuresStats ? artwork.featuresStats.views : "0";
+
+          let mostUsedFeature  = {"name": "N/A", "views": 0};
+          let leastUsedFeature = {"name": "N/A", "views": Infinity};
+
+          // Get the most and least used features
+          for (const property in artwork.featuresStats) {
+            if (artwork.featuresStats[property].views) {
+              // Check if the feature is the most used
+              if (artwork.featuresStats[property].views > mostUsedFeature.views) {
+                mostUsedFeature.name  = property;
+                mostUsedFeature.views = artwork.featuresStats[property].views;
+              }
+              // Check if the feature is the least used
+              if (artwork.featuresStats[property].views < leastUsedFeature.views) {
+                leastUsedFeature.name  = property;
+                leastUsedFeature.views = artwork.featuresStats[property].views;
+              }
+            }
+          }
+
+          mostUsedFeature  = mostUsedFeature.views > 0 ? mostUsedFeature.name + " (" + mostUsedFeature.views + ")" : "N/A";
+          leastUsedFeature = leastUsedFeature.views < Infinity ?
+            leastUsedFeature.name + " (" + leastUsedFeature.views + ")" : "N/A";
+
+          artworkMostUsedFeature.innerHTML  = mostUsedFeature;
+          artworkLeastUsedFeature.innerHTML = leastUsedFeature;
 
           setTimeout(function() {
             artInfoJQ.fadeIn();

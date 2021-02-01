@@ -37,6 +37,14 @@
 }
 
 /* Add ellipsis when the text is longer than 2 lines */
+.text-ellipsis-1 {
+   overflow: hidden;
+   text-overflow: ellipsis;
+   display: -webkit-box;
+   -webkit-line-clamp: 1; /* number of lines to show */
+   -webkit-box-orient: vertical;
+}
+
 .text-ellipsis {
    overflow: hidden;
    text-overflow: ellipsis;

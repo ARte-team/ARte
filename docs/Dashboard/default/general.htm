@@ -213,7 +213,7 @@
 
                                             <!-- Top stats cards -->
                                             <!-- statistic-card start -->
-                                            <div class="col-xl-3 col-md-6">
+                                            <div class="col-xl-3 col-md-6 m-auto">
                                                 <div class="card bg-c-yellow text-white">
                                                     <div class="card-block">
                                                         <div class="row align-items-center">
@@ -230,7 +230,7 @@
                                             </div>
                                             <!-- statistic-card end -->
 
-                                            <div class="col-xl-3 col-md-6">
+                                            <div class="col-xl-3 col-md-6 m-auto">
                                                 <div class="card bg-c-green text-white">
                                                     <div class="card-block">
                                                         <div class="row align-items-center">
@@ -245,7 +245,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-xl-3 col-md-6">
+                                            <div class="col-xl-3 col-md-6 m-auto">
                                                 <div class="card bg-c-pink text-white">
                                                     <div class="card-block">
                                                         <div class="row align-items-center">
@@ -260,7 +260,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-xl-3 col-md-6">
+                                            <div class="col-xl-3 col-md-6 m-auto">
                                                 <div class="card bg-c-blue text-white">
                                                     <div class="card-block">
                                                         <div class="row align-items-center">
@@ -276,7 +276,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-xl-3 col-md-6">
+                                            <div class="col-xl-3 col-md-6 m-auto">
                                               <div class="card bg-c-yellow text-white">
                                                 <div class="card-block">
                                                   <div class="row align-items-center">
@@ -291,7 +291,7 @@
                                                 </div>
                                               </div>
                                             </div>
-                                            <div class="col-xl-3 col-md-6">
+                                            <div class="col-xl-3 col-md-6 m-auto">
                                               <div class="card bg-c-green text-white">
                                                 <div class="card-block">
                                                   <div class="row align-items-center">
@@ -306,7 +306,7 @@
                                                 </div>
                                               </div>
                                             </div>
-                                            <div class="col-xl-3 col-md-6">
+                                            <div class="col-xl-3 col-md-6 m-auto">
                                               <div class="card bg-c-pink text-white">
                                                 <div class="card-block">
                                                   <div class="row align-items-center">
@@ -321,7 +321,7 @@
                                                 </div>
                                               </div>
                                             </div>
-                                            <div class="col-xl-3 col-md-6">
+                                            <div class="col-xl-3 col-md-6 m-auto">
                                               <div class="card bg-c-blue text-white">
                                                 <div class="card-block">
                                                   <div class="row align-items-center">
@@ -339,23 +339,23 @@
                                             <!-- /Top stats cards -->
 
                                             <!-- Chart usage of ARte web app -->
-                                            <div class="col-xl-4 col-md-6 m-auto">
+                                            <div class="col-xl-4 m-auto">
                                                 <div class="card">
                                                     <div class="card-header">
-                                                        <h5>Usage of ARte web app</h5>
+                                                        <h5>Usage of the ARte web app</h5>
                                                     </div>
                                                     <div class="card-block">
-                                                        <canvas id="arteUserChart" height="250"></canvas>
+                                                        <canvas id="arteUsersChart" height="300"></canvas>
                                                     </div>
                                                     <div class="card-footer">
                                                         <div class="row text-center b-t-default">
                                                             <div class="col-6 b-r-default m-t-15">
-                                                                <h5>85%</h5>
-                                                                <p class="text-muted m-b-0">Using</p>
+                                                                <h5 id="used">0%</h5>
+                                                                <p class="text-muted m-b-0">Visitors who used it</p>
                                                             </div>
                                                             <div class="col-6 m-t-15">
-                                                                <h5>15%</h5>
-                                                                <p class="text-muted m-b-0">Not using</p>
+                                                                <h5 id="notUsed">0%</h5>
+                                                                <p class="text-muted m-b-0">Visitors who did not use it</p>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -363,55 +363,88 @@
                                             </div>
                                             <!-- /Chart usage of ARte web app -->
 
-                                            <!-- Chart usage of ARte web app today -->
-                                            <div class="col-xl-4 col-md-6 m-auto">
+                                            <!-- Chart features usage -->
+                                            <div class="col-xl-5 m-auto">
                                                 <div class="card">
                                                     <div class="card-header">
-                                                        <h5>Usage of ARte web app Today</h5>
+                                                        <h5>Features Usage of the ARte web app</h5>
                                                     </div>
                                                     <div class="card-block">
-                                                        <canvas id="arteUserChartToday" height="250"></canvas>
+                                                        <canvas id="artefeaturesChart" height="300"></canvas>
                                                     </div>
                                                     <div class="card-footer">
                                                         <div class="row text-center b-t-default">
-                                                            <div class="col-6 b-r-default m-t-15">
-                                                                <h5>72%</h5>
-                                                                <p class="text-muted m-b-0">Using</p>
+                                                            <div class="col-3 b-r-default m-t-15">
+                                                                <h5 id="contextualization">0%</h5>
+                                                                <p class="text-muted m-b-0">Contextualization</p>
                                                             </div>
-                                                            <div class="col-6 m-t-15">
-                                                                <h5>28%</h5>
-                                                                <p class="text-muted m-b-0">Not using</p>
+                                                            <div class="col-3 b-r-default m-t-15">
+                                                                <h5 id="color">0%</h5>
+                                                                <p class="text-muted m-b-0">Interactive Color</p>
+                                                            </div>
+                                                            <div class="col-3 b-r-default m-t-15">
+                                                                <h5 id="music">0%</h5>
+                                                                <p class="text-muted m-b-0">Interactive Music</p>
+                                                            </div>
+                                                            <div class="col-3 m-t-15">
+                                                                <h5 id="storytelling">0%</h5>
+                                                                <p class="text-muted m-b-0">Storytelling</p>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <!-- /Chart usage of ARte web app today -->
+                                            <!-- /Chart features usage -->
 
-                                            <!-- Chart usage of ARte web app now -->
-                                            <div class="col-xl-4 col-md-6 m-auto">
-                                                <div class="card">
+                                            <!-- General Stats -->
+                                            <div class="col-xl-3 m-auto">
+                                                <div class="card latest-update-card">
                                                     <div class="card-header">
-                                                        <h5>Usage of ARte web app Now</h5>
+                                                        <h5>General Stats</h5>
                                                     </div>
                                                     <div class="card-block">
-                                                        <canvas id="arteUserChartNow" height="250"></canvas>
-                                                    </div>
-                                                    <div class="card-footer">
-                                                        <div class="row text-center b-t-default">
-                                                            <div class="col-6 b-r-default m-t-15">
-                                                                <h5>79%</h5>
-                                                                <p class="text-muted m-b-0">Using</p>
+                                                        <div class="latest-update-box">
+                                                            <div class="row p-b-45">
+                                                                <div class="col-auto update-meta">
+                                                                    <i class="fa fa-image bg-c-blue update-icon"></i>
+                                                                </div>
+                                                                <div class="col">
+                                                                    <h6>Most viewed artwork</h6>
+                                                                    <p id="mostViewedArtwork" class="text-muted m-b-0">N/A</p>
+                                                                </div>
                                                             </div>
-                                                            <div class="col-6 m-t-15">
-                                                                <h5>21%</h5>
-                                                                <p class="text-muted m-b-0">Not using</p>
+                                                            <div class="row p-b-45">
+                                                                <div class="col-auto update-meta">
+                                                                    <i class="fa fa-building-o bg-c-pink update-icon"></i>
+                                                                </div>
+                                                                <div class="col">
+                                                                    <h6>Most viewed room</h6>
+                                                                    <p id="mostViewedRoom" class="text-muted m-b-0">N/A</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row p-b-45">
+                                                                <div class="col-auto update-meta">
+                                                                    <i class="fa fa-users bg-c-yellow update-icon"></i>
+                                                                </div>
+                                                                <div class="col">
+                                                                    <h6>Day with more visitors</h6>
+                                                                    <p id="mostVisitorsDay" class="text-muted m-b-10">N/A</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row p-b-45">
+                                                                <div class="col-auto update-meta">
+                                                                    <i class="fa fa-eur bg-c-green update-icon"></i>
+                                                                </div>
+                                                                <div class="col">
+                                                                    <h6>Day with more money</h6>
+                                                                    <p id="mostIncomeDay" class="text-muted m-b-0">N/A</p>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <!-- /Chart usage of ARte web app now -->
+                                            <!-- /General Stats -->
 
                                             <!-- Visitors analytics -->
                                             <div class="col-xl-12 col-md-12">
@@ -576,6 +609,16 @@
       // Store lists of timesAndPeople of every day returned by the query as a map
       const timesAndPeople = new Map()
 
+      // Store dates and values with most visitors and most income
+      const mostVisitors = { "date": null, "value": -1 };
+      //const mostIncome   = { "date": null, "value": -1 };
+
+      // Store most viewed artwork and room
+      const mostViewed = { "artwork": {"name": null, "views": -1}, "room": {"name": null, "people": -1} };
+
+      // Store ARte web app features usage
+      const featuresUsage = {"total": 0};
+
       // Get the HTML elements
       const todayVisitors    = document.getElementById("todayVisitors");
       const todayIncome      = document.getElementById("todayIncome");
@@ -587,6 +630,19 @@
       const totalExhibitions = document.getElementById("totalExhibitions");
       const totalArtworks    = document.getElementById("totalArtworks");
 
+      const mostViewedArtwork = document.getElementById("mostViewedArtwork");
+      const mostViewedRoom    = document.getElementById("mostViewedRoom");
+      const mostVisitorsDay   = document.getElementById("mostVisitorsDay");
+      const mostIncomeDay     = document.getElementById("mostIncomeDay");
+
+      const used    = document.getElementById("used");
+      const notUsed = document.getElementById("notUsed");
+
+      const contextualization = document.getElementById("contextualization");
+      const color             = document.getElementById("color");
+      const music             = document.getElementById("music");
+      const storytelling      = document.getElementById("storytelling");
+
       // Constants
       const ticketCost = 5;
 
@@ -594,94 +650,6 @@
       const today = getDatetime().substring(0, 10);
 
       main();
-
-
-
-      var ctx = document.getElementById("arteUserChart").getContext("2d");
-      window.myDoughnut = new Chart(ctx, {
-          type: "doughnut",
-          data: {
-              datasets: [{
-                  data: [85, 15],
-                  backgroundColor: ["#fe9365", "#01a9ac"],
-                  label: "Dataset"
-              }],
-              labels: ["Using", "Not using"]
-          },
-          options: {
-              maintainAspectRatio: !1,
-              responsive: !0,
-              legend: {
-                  position: "bottom"
-              },
-              title: {
-                  display: !0,
-                  text: ""
-              },
-              animation: {
-                  animateScale: !0,
-                  animateRotate: !0
-              }
-          }
-      });
-
-      ctx = document.getElementById("arteUserChartToday").getContext("2d");
-      window.myDoughnut = new Chart(ctx, {
-          type: "doughnut",
-          data: {
-              datasets: [{
-                  data: [72, 28],
-                  backgroundColor: ["#fe9365", "#01a9ac"],
-                  label: "Dataset"
-              }],
-              labels: ["Using", "Not using"]
-          },
-          options: {
-              maintainAspectRatio: !1,
-              responsive: !0,
-              legend: {
-                  position: "bottom"
-              },
-              title: {
-                  display: !0,
-                  text: ""
-              },
-              animation: {
-                  animateScale: !0,
-                  animateRotate: !0
-              }
-          }
-      });
-
-      ctx = document.getElementById("arteUserChartNow").getContext("2d");
-      window.myDoughnut = new Chart(ctx, {
-          type: "doughnut",
-          data: {
-              datasets: [{
-                  data: [79, 21],
-                  backgroundColor: ["#fe9365", "#01a9ac"],
-                  label: "Dataset"
-              }],
-              labels: ["Using", "Not using"]
-          },
-          options: {
-              maintainAspectRatio: !1,
-              responsive: !0,
-              legend: {
-                  position: "bottom"
-              },
-              title: {
-                  display: !0,
-                  text: ""
-              },
-              animation: {
-                  animateScale: !0,
-                  animateRotate: !0
-              }
-          }
-      });
-
-
 
       async function main() {
         // Variables for top cards
@@ -691,21 +659,24 @@
         let artworksAvailable = 0;
 
         let res = await scanStatsDB(peopleTotal, peopleTotalToday);
-        peopleTotal = res[0];
+        peopleTotal      = res[0];
         peopleTotalToday = res[1];
 
         res = await scanArtworksDB(artworksNumber, artworksAvailable);
-        artworksNumber = res[0];
+        artworksNumber    = res[0];
         artworksAvailable = res[1];
 
+        res = await scanRoomsDB();
+
         updateCards(peopleTotal, peopleTotalToday, artworksNumber, artworksAvailable);
-        updateCharts();
+        updateStats();
+        updateCharts(peopleTotal);
       }
 
       async function scanStatsDB(peopleTotal, peopleTotalToday) {
         // Parameters for the scan of the Stats DB
         const params = {
-          TableName: 'ARte_DailyStats'
+          TableName: "ARte_DailyStats"
         };
 
         return new Promise( function(resolve) {
@@ -723,6 +694,12 @@
 
                 if (day.datetime == today)
                   peopleTotalToday = day.peopleTotal;
+
+                // Check if the day is the one with more visitors
+                if (day.peopleTotal > mostVisitors.value) {
+                  mostVisitors.date  = day.datetime.substring(0, 11);
+                  mostVisitors.value = day.peopleTotal;
+                }
               });
 
               // Continue scanning if we have more rooms (per scan 1MB limitation)
@@ -743,7 +720,7 @@
       async function scanArtworksDB(artworksNumber, artworksAvailable) {
         // Parameters for the scan of the DB
         const params = {
-          TableName: 'ARte_Artworks'
+          TableName: "ARte_Artworks"
         };
 
         return new Promise( function(resolve) {
@@ -757,6 +734,30 @@
                 if (artwork.available)
                   artworksAvailable++;
 
+                // Update features usage
+                if (artwork.title && artwork.featuresStats) {
+                  // Collect stats about features usage
+                  for (const property in artwork.featuresStats) {
+                    if (artwork.featuresStats[property].views) {
+                      if (featuresUsage[property])
+                        featuresUsage[property] += artwork.featuresStats[property].views;
+                      else
+                        featuresUsage[property] = artwork.featuresStats[property].views;
+
+                      featuresUsage.total += artwork.featuresStats[property].views;
+                    }
+                  }
+
+                  //console.log("featuresUsage");
+                  //console.log(featuresUsage);
+
+                  // Check if the artwork is the most viewed
+                  if (artwork.featuresStats.views > mostViewed.artwork.views) {
+                    mostViewed.artwork.name  = artwork.title;
+                    mostViewed.artwork.views = artwork.featuresStats.views;
+                  }
+                }
+
                 artworksNumber++;
               });
 
@@ -768,7 +769,41 @@
 
               //console.log("artworksNumber in onScan function: " + artworksNumber);
               //console.log("artworksAvailable in onScan function: " + artworksAvailable);
+
               resolve([artworksNumber, artworksAvailable]);
+            }
+          }
+        });
+      }
+
+      async function scanRoomsDB() {
+        // Parameters for the scan of the DB
+        const params = {
+          TableName: "ARte_Rooms"
+        };
+
+        return new Promise( function(resolve) {
+          docClient.scan(params, onScan);
+
+          function onScan(err, data) {
+            if (err)
+              showErrorModal("An error occurred!");
+            else {
+              data.Items.forEach(function(room) {
+                  // Check if the room is the most viewed
+                  if (room.peopleTotal > mostViewed.room.people) {
+                    mostViewed.room.name   = room.roomID;
+                    mostViewed.room.people = room.peopleTotal;
+                  }
+              });
+
+              // Continue scanning if we have more rooms (per scan 1MB limitation)
+              if (data.LastEvaluatedKey) {
+                params.ExclusiveStartKey = data.LastEvaluatedKey;
+                docClient.scan(params, onScan);
+              }
+
+              resolve();
             }
           }
         });
@@ -789,33 +824,141 @@
         animateValue(totalArtworks, 0, artworksNumber, duration);
       }
 
-      function updateCharts() {
+      function updateStats() {
+        if (mostVisitors.date != null) {
+          mostVisitorsDay.innerHTML = mostVisitors.date + " (" + mostVisitors.value + ")";
+          mostIncomeDay.innerHTML   = mostVisitors.date + " (" + (mostVisitors.value * ticketCost) + ")";
+        }
+
+        if (mostViewed.artwork.name != null)
+          mostViewedArtwork.innerHTML = mostViewed.artwork.name + " (" + mostViewed.artwork.views + ")";
+
+        if (mostViewed.room.name != null)
+          mostViewedRoom.innerHTML = mostViewed.room.name + " (" + mostViewed.room.people + ")";
+      }
+
+      function updateCharts(peopleTotal) {
+        if (featuresUsage.total != 0) {
+          // If peopleTotal then update the chart about the usage of the ARte web app
+          if (peopleTotal) {
+            const perc = Math.round(mostViewed.artwork.views / peopleTotal * 100);
+
+            updateDoughnutChart("arteUsersChart",
+                                [perc, 100 - perc],
+                                ["#f95c6f", "#2a3990"],
+                                ["Used", "Not used"],
+                                [used, notUsed]);
+          }
+
+          // Update the features usage of the ARte web app
+          const data = [0, 0, 0, 0];
+
+          for (const feature in featuresUsage) {
+            const fUsage = featuresUsage[feature];
+            if (fUsage > 0) {
+              if (feature === "Contextualization")  data[0] = Math.round(featuresUsage[feature] / featuresUsage.total * 100);
+              else if (feature === "Color")         data[1] = Math.round(featuresUsage[feature] / featuresUsage.total * 100);
+              else if (feature === "Music")         data[2] = Math.round(featuresUsage[feature] / featuresUsage.total * 100);
+              else if (feature === "Storytelling")  data[3] = Math.round(featuresUsage[feature] / featuresUsage.total * 100);
+            }
+          }
+
+          //console.log("data");
+          //console.log(data);
+
+          updateDoughnutChart("artefeaturesChart",
+                              data,
+                              ["#f95c6f", "#2a3990", "#8029d0", "#ca3ab0"],
+                              ["Contextualization", "Interactive Color", "Interactive Music", "Storytelling"],
+                              [contextualization, color, music, storytelling]);
+        }
+
         if (days.size == 0)   return;
 
         days.sort( (x,y) => compareDates(x,y) );
 
-        function compareDates(x, y) {
-          var d1 = new Date(x.date);
-          var d2 = new Date(y.date);
+        //console.log("days after ordering");
+        //console.log(days);
 
-          if (d1 < d2)       return -1;
-          else if (d1 == d2) return 0;
-          else               return 1;
+        // If compareDates(x, y) returns less than 0, sort x to an index lower than y (i.e. x comes first).
+        // If compareDates(x, y) returns 0, leave x and y unchanged with respect to each other,
+        // but sorted with respect to all different elements.
+        // If compareDates(x, y) returns greater than 0, sort y to an index lower than x (i.e. y comes first).
+        function compareDates(x, y) {
+          // Get arrays of day, month, year
+          x = x.date.split("/");
+          y = y.date.split("/");
+          // Compare years, if equals compare months, if equals compare days
+          return x[2] - y[2] || x[1] - y[1] || x[0] - y[0];
         }
+
+        /*days = [
+          { "date": "27/12/2020", "value": 238 },
+          { "date": "28/12/2020", "value": 0 },
+          { "date": "29/12/2020", "value": 18 },
+          { "date": "30/12/2020", "value": 165 },
+          { "date": "31/12/2020", "value": 0 },
+          { "date": "01/01/2021", "value": 103 },
+          { "date": "02/01/2021", "value": 69 },
+          { "date": "03/01/2021", "value": 75 },
+          { "date": "04/01/2021", "value": 48 },
+          { "date": "05/01/2021", "value": 36 },
+        ];*/
+
 
         function convertIntoIncomes(item) {
           return { "date": item.date, "value": item.value * ticketCost };
         }
 
-        todayPeople = timesAndPeople.get(today);
+        const todayPeople = timesAndPeople.get(today);
         updateAmChart("todayVisitorsAnalytics", todayPeople, "#fe9365", "#6579fe", "time", "people", "JJ:NN:SS", "ss");
 
         updateAmChart("visitorsAnalytics", days, "#fe5d70", "#fe9365");
         updateAmChart("incomeAnalytics", days.map(convertIntoIncomes), "#0ac282", "#0df3a3");
       }
 
+      function updateDoughnutChart(id, data, bgColors, labels, elems) {
+        const ctx = document.getElementById(id).getContext("2d");
+        window.myDoughnut = new Chart(ctx, {
+            type: "doughnut",
+            data: {
+                datasets: [{
+                    data: data,
+                    backgroundColor: bgColors,
+                    label: "Dataset"
+                }],
+                labels: labels
+            },
+            options: {
+                maintainAspectRatio: !1,
+                responsive: !0,
+                legend: {
+                    position: "bottom"
+                },
+                title: {
+                    display: !0,
+                    text: ""
+                },
+                animation: {
+                    animateScale: !0,
+                    animateRotate: !0
+                }
+            }
+        });
+
+        for (let i=0; i<data.length; i++)
+          elems[i].innerHTML = data[i] + "%";
+
+        /*contextualization.innerHTML = data[0] + "%";
+        color.innerHTML             = data[1] + "%";
+        music.innerHTML             = data[2] + "%";
+        storytelling.innerHTML      = data[3] + "%";*/
+      }
+
       function updateAmChart(name, data, lineColor, negativeLineColor,
                              dateField="date", valueField="value", dateFormat="DD/MM/YYYY", minPeriod="DD") {
+        if (!data)  return setNoData(name);
+
         const amchart = AmCharts.makeChart(name, {
           "type": "serial",
           "theme": "light",
@@ -887,6 +1030,29 @@
         amchart.zoomToIndexes(
           Math.round(amchart.dataProvider.length * 0.4), Math.round(amchart.dataProvider.length * 0.55)
         );
+      }
+
+      // amChart function to set text instead of the chart when no data
+      function setNoData(id) {
+        const ratio  = window.devicePixelRatio;
+        const width  = 200;
+        const height = 100;
+
+        const c = "<canvas id='myCanvas' width='" + (width * ratio) + "' height='" + (height * ratio) + "' style='margin: 0; position: absolute; top: 50%; left: 50%; -ms-transform: translate(-50%, -50%); transform: translate(-50%, -50%);'>No data ☹</canvas>";
+
+        const div = document.getElementById(id);
+        div.insertAdjacentHTML("beforeend", c);
+
+        const canvas = document.getElementById("myCanvas");
+        canvas.style.width  = width + "px";
+        canvas.style.height = height + "px";
+
+        const ctx     = canvas.getContext("2d");
+        ctx.scale(ratio, ratio);
+        ctx.font      = "20px Open-Sans";
+        ctx.textAlign = "center";
+        ctx.fillStyle = "grey";
+        ctx.fillText("No data ☹", canvas.width/4, canvas.height/4);
       }
 
     }
