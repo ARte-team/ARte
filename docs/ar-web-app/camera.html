@@ -336,13 +336,49 @@
                 uuid = accessCookie("deviceID");
             }
 
+            let conn = null;
+            let flag = 0;
+            let current_room = 1;
+            
+            // Arrays for the museum data
+            var rooms = [10, 4, 2, 5, 15, 3, 2, 10, 5, 6, 8, 8, 20, 1, 0, 13, 7, 9];
+            var sensors = [[12.0, 3.6, 87.3], [54.5, 21.9, 3.8], [84.2, 72.1, 1.0], [10.7, 8.8, 2.3], [79.5, 67.2, 90.2], [54.3, 34.7, 70.4], [17.9, 87.2, 60.8], [11.3, 32.6, 73.2], [1.0, 34.2, 2.0], [99.3, 56.4, 79.0], [23.5, 73.6, 49.1], [10.3, 2.9, 85.2], [82.4, 78.5, 39.5], [58.2, 30.2, 20.0], [9.5, 74.5, 29.8], [63.2, 66.5, 49.7], [28.3, 9.6, 1.0], [50.3, 49.8, 52.9]];
+            
+
             function onConnect() {
-              const conn = mqttClient.isConn();
+              conn = mqttClient.isConn();
               if (!conn)
                 alert("Error while loading the page. Try to refresh it!");
+              else
+                mqttClient.sub("sensor/room");
             }
 
-            //alert("uuid: " + uuid);
+            function onReceive(msg) {
+              if(conn){
+                msg = JSON.parse(msg);
+                if(msg.roomID != 0) {
+                  current_room = msg.roomID;
+                  if(!flag){
+                    rooms   = [];
+                    sensors = [];
+                    flag = 1;
+                  }
+                  for(let i = 0; i < current_room; i++){
+                    if(rooms.length < current_room){
+                      rooms.push(0);
+                      sensors.push([]);
+                    }
+                    else 
+                      break;
+                  }
+                  rooms[current_room - 1]   = msg.peopleCurrent;
+                  sensors[current_room - 1] = msg.infraredValues;
+                }
+              }
+              else
+                alert("Connection error. Try to refresh the page!");
+            }
+
             let mqttClient = null;
 
             // Initialize Amazon Cognito credentials provider
@@ -357,7 +393,7 @@
               const host       = 'a194ad8wufud1k-ats.iot.us-east-1.amazonaws.com';
               const requestUrl = SigV4Utils.getSignedUrl(host, AWS.config.region, AWS.config.credentials);
               mqttClient       = new PahoMQTTClient(requestUrl, uuid);
-              mqttClient.conn(onConnect);
+              mqttClient.conn(onConnect, onReceive);
             });
 
             // Initialize ARte object for feature interaction
@@ -384,14 +420,9 @@
 
             document.addEventListener( 'visibilitychange', sendMessageIdle, false );
 
-
             // Background gradient simulation
-            var rooms = [10, 4, 2, 5, 15, 3, 2, 10, 5, 6, 8, 8, 20, 1, 0, 13, 7, 9];
-            var sensors = [[12.0, 3.6, 87.3], [54.5, 21.9, 3.8], [84.2, 72.1, 1.0], [10.7, 8.8, 2.3], [79.5, 67.2, 90.2], [54.3, 34.7, 70.4], [17.9, 87.2, 60.8], [11.3, 32.6, 73.2], [1.0, 34.2, 2.0], [99.3, 56.4, 79.0], [23.5, 73.6, 49.1], [10.3, 2.9, 85.2], [82.4, 78.5, 39.5], [58.2, 30.2, 20.0], [9.5, 74.5, 29.8], [63.2, 66.5, 49.7], [28.3, 9.6, 1.0], [50.3, 49.8, 52.9]];
             var colors = [];
             var lights = [];
-
-            var current_room = 5;
 
             var APP = {};
             var SEED = sensors[current_room-1].reduce( function( a, b ) { return a + b; }, 0 );
@@ -713,9 +744,9 @@
             function color_func() {
               if (!light1 || !light2) return;
 
-              for( i = 0; i < rooms.length; i++ ) {
+              /*for( i = 0; i < rooms.length; i++ ) {
                   rooms[i] = rooms[i] + ( ( Math.round( Math.random() ) * 5 ) * Math.random() ) + ( ( Math.round( Math.random() ) * -5 ) * Math.random() );
-              }
+              }*/
 
               for( i = 0; i < 6; i++ ) {
                   colors[i] = 0;
