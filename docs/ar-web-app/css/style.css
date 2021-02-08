@@ -19,16 +19,18 @@ a-scene {
     color: white;
 }
 #artworkTitle {
-    background:rgba(0, 0, 0, 0.75);
+    background: rgba(0, 0, 0, 0.75);
     color: #FFF;
     text-shadow: 1px 1px 0 0 #ABABAB;
     position: fixed;
-    bottom: 25vw;
-    left: 2vw;
+    bottom: 32vw;
+    left: 8vw;
     font-family: Helvetica;
     font-size: 1.5rem;
     padding-left: 2px;
     padding-right: 2px;
+    z-index: 1000;
+    transition: opacity 0.2s linear;
 }
 body {
     margin: 0px;
@@ -106,6 +108,26 @@ body {
     width: 8vw;
     transform: translateY(-50%);
 }
+#fix-artwork-button {
+    width: calc( 10vw - 2px );
+    height: calc( 10vw - 2px );
+    border-radius: 50%;
+    border: 1px solid #ABABAB;
+    position: fixed;
+    bottom: 30vw;
+    right: 8vw;
+    z-index: 1000;
+    background-color: rgba(255, 255, 255, 1);
+    transition: opacity 0.2s linear;
+}
+#fix-artwork-button.pressed {
+    background-color: #B7B7B7;
+}
+#fix-artwork-button img {
+    margin: calc( 5vw - 1px ) calc( 2.5vw - 1px ) 0 calc( 2.5vw - 1px );
+    width: 5vw;
+    transform: translateY(-50%);
+}
 header {
     background-color: rgba(42, 57, 144, 0.5);
     position: fixed;
@@ -123,19 +145,6 @@ header a img {
 #map {
     position: fixed;
     right: 1%;
-}
-#info {
-    position: fixed;
-    top: 80px;
-    width: 100vw;
-    z-index: 1000;
-}
-#info p {
-    color: #FFF;
-    text-shadow: 1px 1px 0 #999;
-    text-align: center;
-    font-family: Helvetica;
-    font-size: 1rem;
 }
 
 

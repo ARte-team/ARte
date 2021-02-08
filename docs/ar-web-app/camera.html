@@ -50,11 +50,6 @@
         <!-- Artwork title -->
         <div id="artworkTitle" hidden></div>
 
-        <!-- Info popup -->
-        <div id="info" hidden>
-            <p></p>
-        </div>
-
         <!-- Features panel -->
         <div class="commands">
             <div class="button" id="color">
@@ -77,6 +72,11 @@
         
         <!-- Contextualization box -->
         <div id="contextualization-box"></div>
+        
+        <!-- Fix artwork button -->
+        <!--<div id="fix-artwork-button" hidden>
+            <img src="./img/icons/lock.svg" alt="Fix">
+        </div>-->
 
         <!-- AR core -->
         <a-scene
@@ -102,7 +102,6 @@
                          target="#modelArtemisionBronze"
                          light="intensity: 1;"
                          id="lightArtemisionBronze_1">
-                    <!--<a-entity id="directionaltarget3_1" position="0 -50 -100"></a-entity>-->
                 </a-light>
                 <a-light type="directional"
                          position="0 100 0"
@@ -111,16 +110,7 @@
                          target="#modelArtemisionBronze"
                          light="intensity: 0;"
                          id="lightArtemisionBronze_2">
-                    <!--<a-entity id="directionaltarget3_2" position="0 -50 -100"></a-entity>-->
                 </a-light>
-                <!--<a-entity
-                    gltf-model='https://arte-team.github.io/ARte/Dashboard/files/assets/uploads/models/Artemision Bronze/scene.gltf'
-                    scale="0.1 0.1 0.1"
-                    position="110 -50 -100"
-                    rotation="-90 0 0"
-                    gesture-handler="minScale: 0.25; maxScale: 5"
-                    id="modelArtemisionBronze">
-                </a-entity>-->
 
                 <a-entity
                   position="110 -50 -100"
@@ -149,7 +139,6 @@
                          target="#modelAthenaOfVelletri"
                          light="intensity: 1;"
                          id="lightAthenaOfVelletri_1">
-                    <!--<a-entity id="directionaltarget5_1" position="0 -50 0"></a-entity>-->
                 </a-light>
                 <a-light type="directional"
                          position="0 0 0"
@@ -158,16 +147,7 @@
                          target="#modelAthenaOfVelletri"
                          light="intensity: 0;"
                          id="lightAthenaOfVelletri_2">
-                    <!--<a-entity id="directionaltarget5_2" position="0 0 0"></a-entity>-->
                 </a-light>
-                <!--<a-entity
-                    gltf-model='https://arte-team.github.io/ARte/Dashboard/files/assets/uploads/models/Athena of Velletri/scene.gltf'
-                    scale="50 50 50"
-                    position="120 -50 -100"
-                    rotation="-90 0 0"
-                    gesture-handler="minScale: 0.25; maxScale: 5"
-                    id="modelAthenaOfVelletri">
-                </a-entity>-->
 
                 <a-entity
                   position="120 -50 -100"
@@ -196,7 +176,6 @@
                          target="#modelDiscobolus"
                          light="intensity: 1;"
                          id="lightDiscobolus_1">
-                    <!--<a-entity id="directionaltarget" position="0 0 -1"></a-entity>-->
                 </a-light>
                 <a-light type="directional"
                          position="0 100 0"
@@ -205,16 +184,7 @@
                          target="#modelDiscobolus"
                          light="intensity: 0;"
                          id="lightDiscobolus_2">
-                    <!--<a-entity id="directionaltarget" position="0 0 -1"></a-entity>-->
                 </a-light>
-                <!--<a-entity
-                    gltf-model='https://arte-team.github.io/ARte/Dashboard/files/assets/uploads/models/Discobolus/scene.gltf'
-                    scale="0.15 0.15 0.15"
-                    position="80 -20 -100"
-                    rotation="-90 0 0"
-                    gesture-handler="minScale: 0.5; maxScale: 5"
-                    id="modelDiscobolus">
-                </a-entity>-->
 
                 <a-entity
                   position="80 -20 -100"
@@ -253,14 +223,6 @@
                          light="intensity: 0;"
                          id="lightLionGateOfMycenae_2">
                 </a-light>
-                <!--<a-entity
-                    gltf-model='https://arte-team.github.io/ARte/Dashboard/files/assets/uploads/models/Lion Gate of Mycenae/scene.gltf'
-                    scale="30 30 30"
-                    position="120 -50 -200"
-                    rotation="-90 0 0"
-                    gesture-handler="minScale: 0.25; maxScale: 5"
-                    id="modelLionGateOfMycenae">
-                </a-entity>-->
 
                 <a-entity
                   position="120 -50 -200"
@@ -289,7 +251,6 @@
                          target="#modelNikeOfSamothrace"
                          light="intensity: 3;"
                          id="lightNikeOfSamothrace_1">
-                    <!--<a-entity id="directionaltarget2_1" position="0 -30 -80"></a-entity>-->
                 </a-light>
                 <a-light type="directional"
                          position="0 100 0"
@@ -298,16 +259,7 @@
                          target="#modelNikeOfSamothrace"
                          light="intensity: 0;"
                          id="lightNikeOfSamothrace_2">
-                    <!--<a-entity id="directionaltarget2_2" position="0 -30 -80"></a-entity>-->
                 </a-light>
-                <!--<a-entity
-                    gltf-model='https://arte-team.github.io/ARte/Dashboard/files/assets/uploads/models/Nike of Samothrace/scene.gltf'
-                    scale="5 5 5"
-                    position="120 -30 -80"
-                    rotation="-90 0 0"
-                    gesture-handler="minScale: 0.25; maxScale: 5"
-                    id="modelNikeOfSamothrace">
-                </a-entity>-->
 
                 <a-entity
                   position="120 -30 -80"
@@ -354,7 +306,7 @@
             }
 
             function onReceive(msg) {
-              if(conn){
+              if(conn) {
                 msg = JSON.parse(msg);
                 if(msg.roomID != 0) {
                   current_room = msg.roomID;
@@ -374,9 +326,12 @@
                   rooms[current_room - 1]   = msg.peopleCurrent;
                   sensors[current_room - 1] = msg.infraredValues;
                 }
-              }
-              else
+              } else {
                 alert("Connection error. Try to refresh the page!");
+              }
+                
+              color_func();
+              light_func();
             }
 
             let mqttClient = null;
@@ -396,6 +351,7 @@
               mqttClient.conn(onConnect, onReceive);
             });
 
+            
             // Initialize ARte object for feature interaction
             const arte = new ARte(uuid);
 
@@ -410,46 +366,49 @@
                     mqttClient.pub(message, topic);
                     arte.stopFeature();
 
-                    //alert("message published idle");
-
                     $('.commands .button').removeClass('pressed');
-                } /*else  {
-                    startFeature();
-                }*/
+                }
             }
 
             document.addEventListener( 'visibilitychange', sendMessageIdle, false );
 
+            
             // Background gradient simulation
             var colors = [];
             var lights = [];
 
+            // Music generation
             var APP = {};
             var SEED = sensors[current_room-1].reduce( function( a, b ) { return a + b; }, 0 );
 
-            var mult = Math.floor( rooms.length / 6 );      // Multiplicator for background colors value calculation
+            var mult = Math.floor( rooms.length / 3 );      // Multiplicator for background colors and lights value calculation
             var time = 0;                                   // Clock for background gradient
             var dir = 1;                                    // Light gradient direction
+            var deg = 0;                                    // Grandient inclination degree
 
             var color_event;
             var light_event;
 
             for( i = 0; i < 6; i++ ) {
                 colors[i] = 0;
+                lights[i] = 0;
                 for( j = 0; j < Math.floor( rooms.length / 6 ); j++ ) {
                     colors[i] += rooms[i+(j*6)];
                 }
+                for( j = 0; j < Math.floor( rooms.length / 3 ); j++ ) {
+                    lights[i] += ( sensors[i][0] + sensors[i][1] + sensors[i][2] );
+                }
             }
 
-            for(i = 0; i < colors.length; i++) {
-                colors[i] = Math.max( Math.min( ( colors[i] * 255 / ( 30*mult ) ) + ( 20*i ), 255 ), 0 );
+            for( i = 0; i < colors.length; i++ ) {
+                colors[i] = Math.max( Math.min( ( colors[i] * 255 / ( 20*mult*2 ) ) + ( ( -1+(2*(i%2)) ) * ( lights[i%3] * 30 / ( 60*mult ) ) ), 255 ), 0 );
             }
 
-            for(i = 0; i < 3; i++) {
-                lights[i] = Math.max( Math.min( parseInt( ( ( colors[i] /* + colors[i+3] */ ) ) - 20 ), 255 ), 0 );
+            for( i = 0; i < lights.length; i++ ) {
+                lights[i] = Math.max( Math.min( ( colors[i] + ( lights[i] * 50 / ( 60*mult ) ) ), 255 ), 0 );
             }
 
-            var deg = ( rooms.reduce( function( a, b ) { return a + b; }, 0 ) % ( 30*rooms.length ) ) * 360 / ( 30*rooms.length );
+            deg = ( lights.reduce( function( a, b ) { return a + b; }, 0 ) - rooms.reduce( function( a, b ) { return a + b; }, 0 ) ) * 360 / ( 60*mult );
 
 
             // Lights of the recognized artwork
@@ -460,14 +419,15 @@
             let artworkModel = null;
             let initialModelScale    = null;
             let initialModelRotation = null;
+            
+            // Get HTML elements
+            const artworkTitle = $('#artworkTitle');
+            //const fixArtwork = $('#fix-artwork-button');
+            const colorBox1 = $('#color-box-1');
+            const colorBox2 = $('#color-box-2');
+            const contextualizationBox = $('#contextualization-box');
 
             $( document ).ready(function() {
-                // Get HTML elements
-                const artworkTitle = $('#artworkTitle');
-                const colorBox1 = $('#color-box-1');
-                const colorBox2 = $('#color-box-2');
-                const contextualizationBox = $('#contextualization-box');
-
                 const sceneEl = document.getElementById("scene");
 
                 // Gesture constants
@@ -511,17 +471,13 @@
                 // Initialize color feature
                 colorBox1.css( 'background', 'linear-gradient( ' + deg + 'deg, rgba(' + colors[0] + ',' + colors[1] + ',' + colors[2] + ',1) 0%, rgba(' + colors[3] + ',' + colors[4] + ',' + colors[5] + ',1) 100%)' );
 
-
-                // Initialize music feature
-                //APP.MusicGenerator.init( SEED );
-
-                //create a synth and connect it to the main output (your speakers)
+                // Create a synth and connect it to the main output (your speakers)
                 const synth = new Tone.Synth().toDestination();
 
                 function startSound() {
                   const now = Tone.now()
 
-                  //play a middle 'C' for the duration of an 8th note
+                  // Play a middle 'C' for the duration of an 8th note
                   synth.triggerAttackRelease("C4", "8n", now);
                   synth.triggerAttackRelease("D4", "8n", now + 1);
                   synth.triggerAttackRelease("E4", "8n", now + 2);
@@ -552,6 +508,7 @@
                       colorBox1.css( 'opacity', '1');
                       colorBox2.css( 'opacity', '1');
                       light2.attr( 'color', 'rgb(' + lights[0] + ',' + lights[1] + ',' + lights[2] + ')' );
+                      
                       color_event = setInterval( color_func, 1500 );
                       light_event = setInterval( light_func, 10 );
 
@@ -580,14 +537,12 @@
                   if( status == 0 ) {
                       musicBtn.addClass('pressed');
 
-                      //APP.MusicGenerator.play();
                       startSound();
 
                       arte.startFeature(feature);
                   } else if( status == 1 ) {
                       musicBtn.removeClass('pressed');
 
-                      //APP.MusicGenerator.pause();
                       stopSound();
 
                       arte.stopFeature();
@@ -640,12 +595,25 @@
                       sendMessage();
                   }
                 });
+                
+                // Fix artwork in scene
+                /*fixArtwork.click(function() {
+                    if( fixArtwork.hasClass('pressed') ) {
+                        fixArtwork.removeClass('pressed');
+                        sceneEl.attr( 'vr-mode-ui', 'enabled: true' );
+                        //artworkModel.object3D.position.set(1, 2, 3);
+                    } else {
+                        fixArtwork.addClass('pressed');
+                        sceneEl.attr( 'vr-mode-ui', 'enabled: false' );
+                        //artworkModel.object3D.position.set(1, 2, 3);
+                    }
+                    
+                });*/
 
                 // Function to call when a feature is stopped
                 function sendMessage() {
                   message = arte.getMessage();
                   mqttClient.pub(message, topic);
-                  //alert("message published");
                 }
 
                 // This event is triggered when a new marker is recognized
@@ -678,6 +646,7 @@
                     // Show artwork's title and buttons
                     $('.commands').css('bottom', 0);
                     artworkTitle.toggle();
+                    fixArtwork.toggle();
                 });
 
                 // This event is triggered when a new marker is no more recognized
@@ -689,6 +658,7 @@
                     $('.commands').css('bottom', '-22vw');
                     $('.commands .button').removeClass('pressed');
                     artworkTitle.toggle();
+                    fixArtwork.toggle();
 
                     // Reset model lights
                     light1.attr( 'color', '#FFF' );
@@ -711,7 +681,6 @@
                     arte.stopFeature();
                     clearInterval( color_event );
                     clearInterval( light_event );
-                    //APP.MusicGenerator.pause();
                     stopSound();
                 });
 
@@ -742,46 +711,43 @@
             // Change color and rotation degree of baground gradient based on room values
             // Change light colors based on room values
             function color_func() {
-              if (!light1 || !light2) return;
+                if (!light1 || !light2) return;
 
-              /*for( i = 0; i < rooms.length; i++ ) {
-                  rooms[i] = rooms[i] + ( ( Math.round( Math.random() ) * 5 ) * Math.random() ) + ( ( Math.round( Math.random() ) * -5 ) * Math.random() );
-              }*/
+                for( i = 0; i < 6; i++ ) {
+                    colors[i] = 0;
+                    lights[i] = 0;
+                    for( j = 0; j < Math.floor( rooms.length / 6 ); j++ ) {
+                        colors[i] += rooms[i+(j*6)];
+                    }
+                    for( j = 0; j < Math.floor( rooms.length / 3 ); j++ ) {
+                        lights[i] += ( sensors[i][0] + sensors[i][1] + sensors[i][2] );
+                    }
+                }
 
-              for( i = 0; i < 6; i++ ) {
-                  colors[i] = 0;
-                  for( j = 0; j < Math.floor( rooms.length / 6 ); j++ ) {
-                      colors[i] += rooms[i+(j*6)];
-                  }
-              }
+                for( i = 0; i < colors.length; i++ ) {
+                    colors[i] = Math.max( Math.min( ( colors[i] * 255 / ( 20*mult*2 ) ) + ( ( -1+(2*(i%2)) ) * ( lights[i%3] * 30 / ( 60*mult ) ) ), 255 ), 0 );
+                }
 
-              for(var i = 0; i < colors.length; i++) {
-                  colors[i] = Math.max( Math.min( ( colors[i] * 255 / ( 30*mult ) ) + ( 20*i ), 255 ), 0 );
-              }
+                for( i = 0; i < lights.length; i++ ) {
+                    lights[i] = Math.max( Math.min( ( colors[i] + ( lights[i] * 50 / ( 60*mult ) ) ), 255 ), 0 );
+                }
 
-              for(var i = 0; i < 3; i++) {
-                  lights[i] = Math.max( Math.min( parseInt( ( ( colors[i] /* + colors[i+3] */ ) ) - 20 ), 255 ), 0 );
-              }
+                deg = ( lights.reduce( function( a, b ) { return a + b; }, 0 ) - rooms.reduce( function( a, b ) { return a + b; }, 0 ) ) * 360 / ( 60*mult );
 
-              deg = ( rooms.reduce( function( a, b ) { return a + b; }, 0 ) % ( 30*rooms.length ) ) * 360 / ( 30*rooms.length );
-
-              SEED = sensors[current_room-1].reduce( function( a, b ) { return a + b; }, 0 );
+                SEED = sensors[current_room-1].reduce( function( a, b ) { return a + b; }, 0 );
 
 
-              if( time % 2 == 1 ) {
-                  light2.attr( 'color', 'rgb(' + lights[0] + ',' + lights[1] + ',' + lights[2] + ')' );
-                  colorBox1.css( 'background', 'linear-gradient( ' + deg + 'deg, rgba(' + colors[0] + ',' + colors[1] + ',' + colors[2] + ',1) 0%, rgba(' + colors[3] + ',' + colors[4] + ',' + colors[5] + ',1) 100%)' );
-                  colorBox1.css( 'opacity', '1');
+                if( time % 2 == 1 ) {
+                    light2.attr( 'color', 'rgb(' + lights[0] + ',' + lights[1] + ',' + lights[2] + ')' );
+                    colorBox1.css( 'background', 'linear-gradient( ' + deg + 'deg, rgba(' + colors[0] + ',' + colors[1] + ',' + colors[2] + ',1) 0%, rgba(' + colors[3] + ',' + colors[4] + ',' + colors[5] + ',1) 100%)' );
+                    colorBox1.css( 'opacity', '1');
+                } else {
+                    light1.attr( 'color', 'rgb(' + lights[0] + ',' + lights[1] + ',' + lights[2] + ')' );
+                    colorBox2.css( 'background', 'linear-gradient( ' + deg + 'deg, rgba(' + colors[0] + ',' + colors[1] + ',' + colors[2] + ',1) 0%, rgba(' + colors[3] + ',' + colors[4] + ',' + colors[5] + ',1) 100%)' );
+                    colorBox1.css( 'opacity', '0');
+                }
 
-                  //let bgImage = "../athens.jpg";
-                  //colorBox1.css( 'background-image', "url('" + bgImage + "')");
-              } else {
-                  light1.attr( 'color', 'rgb(' + lights[0] + ',' + lights[1] + ',' + lights[2] + ')' );
-                  colorBox2.css( 'background', 'linear-gradient( ' + deg + 'deg, rgba(' + colors[0] + ',' + colors[1] + ',' + colors[2] + ',1) 0%, rgba(' + colors[3] + ',' + colors[4] + ',' + colors[5] + ',1) 100%)' );
-                  colorBox1.css( 'opacity', '0');
-              }
-
-              time = time + 1;
+                time = time + 1;
             }
 
 
