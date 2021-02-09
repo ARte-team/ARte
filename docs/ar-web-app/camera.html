@@ -1,32 +1,39 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <title>ARte</title>
+        
         <!-- Meta -->
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content="ARte web app">
         <meta name="keywords" content="">
         <meta name="author" content="ARte team">
+        
         <!-- Favicon icon -->
         <link rel="icon" href="../Dashboard/files/assets/images/arte_icon.png" type="image/x-icon">
+        
         <!-- CSS -->
         <link rel="stylesheet" type="text/css" href="./css/style.css">
+        
         <!-- AR libs -->
         <script src="./js/aframe-master.min.js"></script>
         <script src="./js/aframe-ar-nft.js"></script>
+        
         <!-- Utility -->
         <script src="./js/aws.js"></script>
         <script src="./js/pahoMQTTClient.js"></script>
         <script src="./js/utils.js"></script>
+        
         <!-- External libs -->
         <script src="https://sdk.amazonaws.com/js/aws-sdk-2.7.16.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js"></script>
         <script src="./js/jquery-3.5.1.min.js"></script>
         <script src="./js/Tone.js"></script>
         <script src="./js/tone-ui.js"></script>
-	      <script src="./js/components.js"></script>
+        <script src="./js/components.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/seedrandom/3.0.5/seedrandom.min.js"></script>
+        
         <!-- ARte js library -->
         <script src="./js/ARte.js"></script>
         <script src="./js/gesture-detector.js"></script>
@@ -35,10 +42,10 @@
         <!-- Header -->
         <header>
             <a href="">
-              <img src="./img/logo_white.png" alt="Logo">
+                <img src="./img/logo_white.png" alt="Logo">
             </a>
             <a href="./map.html">
-              <img id="map" src="./img/icons/map.svg" alt="Map">
+                <img id="map" src="./img/icons/map.svg" alt="Map">
             </a>
         </header>
 
@@ -273,7 +280,7 @@
                 </a-entity>
             </a-nft>
 
-            <a-entity camera><a-entity>
+            <a-entity camera></a-entity>
         </a-scene>
 
         <script>
@@ -329,9 +336,6 @@
               } else {
                 alert("Connection error. Try to refresh the page!");
               }
-                
-              color_func();
-              light_func();
             }
 
             let mqttClient = null;
