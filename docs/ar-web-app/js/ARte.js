@@ -9,6 +9,7 @@ class ARte {
         this.featureAttributes  = { status: 0 };
         this.startTime          = 0;
         this.stopTime           = 0;
+		this.newArtwork			= 0; 
 
         this.uuid               = uuid;
 
@@ -18,7 +19,7 @@ class ARte {
             feature: '',
             usageTime: '',
             artworkID: '',
-            new: true
+            newArtwork: true
         }
     }
 
@@ -51,6 +52,7 @@ class ARte {
             this.message['deviceID']  = this.uuid;
             this.message['artworkID'] = this.artworkID;
             this.message['feature']   = this.activeFeature;
+			this.message['newArtwork']= this.newArtwork;
 
             return JSON.stringify(this.message);
         }

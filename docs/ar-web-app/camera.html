@@ -366,7 +366,7 @@
             function sendMessage() {
                 message = arte.getMessage();
                 mqttClient.pub(message, topic);
-                arte.new = false;
+                arte.newArtwork = false;
             }
             
             // Music generation
@@ -683,7 +683,7 @@
                     if( arte.featureAttributes.status == 1 ) {
                         arte.stopFeature();
                         sendMessage();
-                        arte.new = true;
+                        arte.newArtwork = true;
                         
                         colorBox1.css( 'opacity', '0');
                         colorBox2.css( 'opacity', '0');
