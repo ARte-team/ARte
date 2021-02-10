@@ -1,8 +1,13 @@
-// Functions for cookie creation
+// Function for cookie creation
 function createCookie(cookieName, cookieValue, hoursToExpire) {
     var date = new Date();
     date.setTime(date.getTime() + (hoursToExpire*60*60*1000));
     document.cookie = cookieName + "=" + cookieValue + "; expires=" + date.toGMTString();
+}
+
+// Function for cookie deletion
+function deleteCookie(cookieName) {
+    document.cookie = cookieName + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 }
 
 
@@ -20,7 +25,7 @@ function accessCookie(cookieName) {
 
 
 // Create unique devideID            
-function createUUID(){
+function createUUID() {
     var dt = new Date().getTime();
     var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
         var r = (dt + Math.random()*16)%16 | 0;

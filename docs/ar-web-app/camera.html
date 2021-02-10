@@ -361,29 +361,28 @@
 
             const topic = "smartphone";
             let message = "";
-
-            // Send message to broker when browser is idle mode
-            // Set visibilitychange event listener
-            function sendMessageIdle() {
-                if ( document.hidden ) {
-                    message = arte.getMessage();
-                    mqttClient.pub(message, topic);
-                    arte.stopFeature();
-
-                    $('.commands .button').removeClass('pressed');
-                }
+            
+            // Function to call when a feature is stopped
+            function sendMessage() {
+                message = arte.getMessage();
+                mqttClient.pub(message, topic);
+                arte.new = false;
             }
-
-            document.addEventListener( 'visibilitychange', sendMessageIdle, false );
-
+            
+            // Music generation
+            var APP = {};
+            var SEED = sensors[current_room-1].reduce( function( a, b ) { return a + b; }, 0 );
+            
+            // Create a synth and connect it to the main output (your speakers)
+            const synth = new Tone.Synth().toDestination();
+            
+            // Initialize storytelling feature
+            var audioElement = document.createElement('audio');
+            audioElement.setAttribute('src', './audio/1.mp3');
             
             // Background gradient simulation
             var colors = [];
             var lights = [];
-
-            // Music generation
-            var APP = {};
-            var SEED = sensors[current_room-1].reduce( function( a, b ) { return a + b; }, 0 );
 
             var mult = Math.floor( rooms.length / 3 );      // Multiplicator for background colors and lights value calculation
             var time = 0;                                   // Clock for background gradient
@@ -475,9 +474,6 @@
                 // Initialize color feature
                 colorBox1.css( 'background', 'linear-gradient( ' + deg + 'deg, rgba(' + colors[0] + ',' + colors[1] + ',' + colors[2] + ',1) 0%, rgba(' + colors[3] + ',' + colors[4] + ',' + colors[5] + ',1) 100%)' );
 
-                // Create a synth and connect it to the main output (your speakers)
-                const synth = new Tone.Synth().toDestination();
-
                 function startSound() {
                   const now = Tone.now()
 
@@ -494,10 +490,6 @@
                 function stopSound() {
                   synth.triggerRelease("8n");
                 }
-                
-                // Initialize storytelling feature
-                var audioElement = document.createElement('audio');
-                audioElement.setAttribute('src', './audio/1.mp3');
 
                 // Color manager
                 colorBtn.click(function() {
@@ -614,12 +606,6 @@
                     
                 });*/
 
-                // Function to call when a feature is stopped
-                function sendMessage() {
-                  message = arte.getMessage();
-                  mqttClient.pub(message, topic);
-                }
-
                 // This event is triggered when a new marker is recognized
                 $('a-nft').on( 'markerFound', function(e) {
                     arte.artworkRecognized = 1;
@@ -650,7 +636,7 @@
                     // Show artwork's title and buttons
                     $('.commands').css('bottom', 0);
                     artworkTitle.toggle();
-                    fixArtwork.toggle();
+                    //fixArtwork.toggle();
                 });
 
                 // This event is triggered when a new marker is no more recognized
@@ -662,7 +648,7 @@
                     $('.commands').css('bottom', '-22vw');
                     $('.commands .button').removeClass('pressed');
                     artworkTitle.toggle();
-                    fixArtwork.toggle();
+                    //fixArtwork.toggle();
 
                     // Reset model lights
                     light1.attr( 'color', '#FFF' );
@@ -689,6 +675,36 @@
                 });
 
             });
+            
+            // Send message to broker when browser is idle mode
+            // Set visibilitychange event listener
+            function sendMessageIdle() {
+                if ( document.hidden ) {
+                    if( arte.featureAttributes.status == 1 ) {
+                        arte.stopFeature();
+                        sendMessage();
+                        arte.new = true;
+                        
+                        colorBox1.css( 'opacity', '0');
+                        colorBox2.css( 'opacity', '0');
+                        light1.attr( 'color', '#FFF' );
+                        light2.attr( 'color', '#FFF' );
+                        clearInterval( color_event );
+                        clearInterval( light_event );
+                        
+                        synth.triggerRelease("8n");
+                        
+                        audioElement.pause();
+                        audioElement.currentTime = 0;
+                        
+                        contextualizationBox.css('opacity', '0');
+
+                        $('.commands .button').removeClass('pressed');
+                    }
+                }
+            }
+
+            document.addEventListener( 'visibilitychange', sendMessageIdle, false );
 
             // Light gradient with intensity values
             function light_func() {

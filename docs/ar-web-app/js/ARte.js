@@ -17,7 +17,8 @@ class ARte {
             datetime: '',
             feature: '',
             usageTime: '',
-            artworkID: ''
+            artworkID: '',
+            new: true
         }
     }
 
