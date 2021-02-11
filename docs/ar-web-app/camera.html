@@ -300,8 +300,8 @@
             let current_room = 1;
             
             // Arrays for the museum data
-            var rooms = [10, 4, 2, 5, 15, 3, 2, 10, 5, 6, 8, 8, 20, 1, 0, 13, 7, 9];
-            var sensors = [[12.0, 3.6, 87.3], [54.5, 21.9, 3.8], [84.2, 72.1, 1.0], [10.7, 8.8, 2.3], [79.5, 67.2, 90.2], [54.3, 34.7, 70.4], [17.9, 87.2, 60.8], [11.3, 32.6, 73.2], [1.0, 34.2, 2.0], [99.3, 56.4, 79.0], [23.5, 73.6, 49.1], [10.3, 2.9, 85.2], [82.4, 78.5, 39.5], [58.2, 30.2, 20.0], [9.5, 74.5, 29.8], [63.2, 66.5, 49.7], [28.3, 9.6, 1.0], [50.3, 49.8, 52.9]];
+            var rooms = [10, 4, 12, 5, 15, 3, 2, 10, 5, 16, 8, 8, 20, 1, 0, 13, 7, 9];
+            var sensors = [[12.0, 13.6, 17.3], [14.5, 11.9, 3.8], [14.2, 12.1, 11.0], [0.7, 8.8, 2.3], [9.5, 7.2, 0.2], [4.3, 4.7, 0.4], [17.9, 17.2, 10.8], [11.3, 12.6, 13.2], [11.0, 14.2, 12.0], [9.3, 6.4, 9.0], [3.5, 3.6, 9.1], [0.3, 2.9, 5.2], [2.4, 8.5, 19.5], [18.2, 10.2, 20.0], [9.5, 4.5, 19.8], [3.2, 16.5, 9.7], [8.3, 9.6, 1.0], [0.3, 19.8, 2.9]];
             
 
             function onConnect() {
@@ -317,11 +317,11 @@
                 msg = JSON.parse(msg);
                 if(msg.roomID != 0) {
                   current_room = msg.roomID;
-                  if(!flag){
+                  /*if(!flag){
                     rooms   = [];
                     sensors = [];
                     flag = 1;
-                  }
+                  }*/
                   for(let i = 0; i < current_room; i++){
                     if(rooms.length < current_room){
                       rooms.push(0);
@@ -331,7 +331,7 @@
                       break;
                   }
                   rooms[current_room - 1]   = msg.peopleCurrent;
-                  sensors[current_room - 1] = msg.infraredValues;
+                  sensors[current_room - 1] = (msg.infraredValues).map(x => parseInt(x));
                 }
               } else {
                 alert("Connection error. Try to refresh the page!");
@@ -366,7 +366,7 @@
             function sendMessage() {
                 message = arte.getMessage();
                 mqttClient.pub(message, topic);
-                arte.newArtwork = false;
+                arte.new = false;
             }
             
             // Music generation
@@ -394,21 +394,28 @@
 
             for( i = 0; i < 6; i++ ) {
                 colors[i] = 0;
-                lights[i] = 0;
                 for( j = 0; j < Math.floor( rooms.length / 6 ); j++ ) {
                     colors[i] += rooms[i+(j*6)];
                 }
+                
+            }
+            
+            for( i = 0; i < 3; i++ ) {
+                lights[i] = 0;
                 for( j = 0; j < Math.floor( rooms.length / 3 ); j++ ) {
-                    lights[i] += ( sensors[i][0] + sensors[i][1] + sensors[i][2] );
+                    lights[i] += Math.round( sensors[i+(j*3)][0] + sensors[i+(j*3)][1] + sensors[i+(j*3)][2] );
                 }
             }
-
-            for( i = 0; i < colors.length; i++ ) {
-                colors[i] = Math.max( Math.min( ( colors[i] * 255 / ( 20*mult*2 ) ) + ( ( -1+(2*(i%2)) ) * ( lights[i%3] * 30 / ( 60*mult ) ) ), 255 ), 0 );
-            }
+            
+            console.log(colors);
+            console.log(lights);
 
             for( i = 0; i < lights.length; i++ ) {
-                lights[i] = Math.max( Math.min( ( colors[i] + ( lights[i] * 50 / ( 60*mult ) ) ), 255 ), 0 );
+                lights[i] = Math.max( Math.min( ( colors[i] + Math.ceil( lights[i] * 50 / ( 60*mult ) ) ), 255 ), 0 );
+            }
+            
+            for( i = 0; i < colors.length; i++ ) {
+                colors[i] = Math.max( Math.min( ( colors[i] * 255 / ( 20*mult/2 ) ) + ( ( -1+(2*(i%2)) ) * ( lights[i%3] * 30 / ( 60*mult ) ) ), 255 ), 0 );
             }
 
             deg = ( lights.reduce( function( a, b ) { return a + b; }, 0 ) - rooms.reduce( function( a, b ) { return a + b; }, 0 ) ) * 360 / ( 60*mult );
@@ -683,7 +690,7 @@
                     if( arte.featureAttributes.status == 1 ) {
                         arte.stopFeature();
                         sendMessage();
-                        arte.newArtwork = true;
+                        arte.new = true;
                         
                         colorBox1.css( 'opacity', '0');
                         colorBox2.css( 'opacity', '0');
@@ -735,21 +742,27 @@
 
                 for( i = 0; i < 6; i++ ) {
                     colors[i] = 0;
-                    lights[i] = 0;
                     for( j = 0; j < Math.floor( rooms.length / 6 ); j++ ) {
                         colors[i] += rooms[i+(j*6)];
                     }
+                }
+                
+                for( i = 0; i < 3; i++ ) {
+                    lights[i] = 0;
                     for( j = 0; j < Math.floor( rooms.length / 3 ); j++ ) {
-                        lights[i] += ( sensors[i][0] + sensors[i][1] + sensors[i][2] );
+                        lights[i] += Math.round( sensors[i+(j*3)][0] + sensors[i+(j*3)][1] + sensors[i+(j*3)][2] );
                     }
                 }
-
-                for( i = 0; i < colors.length; i++ ) {
-                    colors[i] = Math.max( Math.min( ( colors[i] * 255 / ( 20*mult*2 ) ) + ( ( -1+(2*(i%2)) ) * ( lights[i%3] * 30 / ( 60*mult ) ) ), 255 ), 0 );
-                }
+                
+                console.log(rooms);
+                console.log(sensors);
 
                 for( i = 0; i < lights.length; i++ ) {
-                    lights[i] = Math.max( Math.min( ( colors[i] + ( lights[i] * 50 / ( 60*mult ) ) ), 255 ), 0 );
+                    lights[i] = Math.max( Math.min( colors[i] + Math.ceil( lights[i] * 50 / ( 60*mult ) ), 255 ), 0 );
+                }
+                
+                for( i = 0; i < colors.length; i++ ) {
+                    colors[i] = Math.max( Math.min( ( colors[i] * 255 / ( 20*mult/2 ) ) + ( ( -1+(2*(i%2)) ) * ( lights[i%3] * 30 / ( 60*mult ) ) ), 255 ), 0 );
                 }
 
                 deg = ( lights.reduce( function( a, b ) { return a + b; }, 0 ) - rooms.reduce( function( a, b ) { return a + b; }, 0 ) ) * 360 / ( 60*mult );
@@ -768,6 +781,10 @@
                 }
 
                 time = time + 1;
+                
+                console.log(colors);
+                console.log(lights);
+                console.log(deg);
             }
 
 
