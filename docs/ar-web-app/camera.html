@@ -481,17 +481,37 @@
                 // Initialize color feature
                 colorBox1.css( 'background', 'linear-gradient( ' + deg + 'deg, rgba(' + colors[0] + ',' + colors[1] + ',' + colors[2] + ',1) 0%, rgba(' + colors[3] + ',' + colors[4] + ',' + colors[5] + ',1) 100%)' );
 
+                const notes = ["C4", "C#4", "D4", "D#4", "E4", "F4", "F#4", "G4", "G#4", "A4", "A#4", "B4", "C5", "C#5"];
+
+                // List of notes
                 function startSound() {
+
+                  let seed        = 0;
+                  let listValues  = [];
+                  let music       = [];
+
+                  // Generate the seed
+                  for (i = 1; i < rooms.length; i++) {
+                    seed += rooms[i - 1] * rooms[i]
+                  }
+
+                  for (i = 1; i < sensors.length; i++) {
+                    for (j = 0; j < sensors[i].length; j++) {
+                      seed += sensors[i - 1][j] * sensors[i][j];
+                    }
+
+                    listValues.push(Math.floor(seed / i));
+                  }
+
                   const now = Tone.now()
 
-                  // Play a middle 'C' for the duration of an 8th note
-                  synth.triggerAttackRelease("C4", "8n", now);
-                  synth.triggerAttackRelease("D4", "8n", now + 1);
-                  synth.triggerAttackRelease("E4", "8n", now + 2);
-                  synth.triggerAttackRelease("F4", "8n", now + 3);
-                  synth.triggerAttackRelease("G4", "8n", now + 4);
-                  synth.triggerAttackRelease("A4", "8n", now + 5);
-                  synth.triggerAttackRelease("B4", "8n", now + 6);
+                  // Play random notes
+                  for (i = 0; i < listValues.length * 4; i++) {
+                    music.push(notes[listValues[i % listValues.length] % 14]);
+
+                    synth.triggerAttackRelease(music[i], "8n", now + i / 2);
+                  }
+                  
                 }
 
                 function stopSound() {
