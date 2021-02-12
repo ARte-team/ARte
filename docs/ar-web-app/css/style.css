@@ -128,6 +128,7 @@ body {
     width: 5vw;
     transform: translateY(-50%);
 }
+
 header {
     background-color: rgba(42, 57, 144, 0.5);
     position: fixed;
@@ -251,12 +252,14 @@ header a img {
 
 
 /* Css for the initial page where choosing between the Dashboard and Web App */
+.page-adv {
+    font-family: 'Questrial', sans-serif;
+    background-color: #2a3990;
+    overflow: hidden;
+    text-align: center;
+}
+
 @media only screen and (max-width: 600px) {
-    .page-adv {
-        font-family: 'Questrial', sans-serif;
-        background-color: #2a3990;
-        overflow: hidden;
-    }
     .page-adv a {
         text-decoration: none;
         color: #FFF;
@@ -264,7 +267,7 @@ header a img {
         background-color: rgba(0, 0, 0, 0.4);
         display: block;
         width: 66%;
-        margin: 1rem 0;
+        margin: 1rem auto;
         border-radius: 3px;
         transition: all 0.2 ease-in-out;
     }
@@ -281,11 +284,6 @@ header a img {
     }
 }
 @media only screen and (min-width: 600px) {
-    .page-adv {
-        font-family: 'Questrial', sans-serif;
-        background-color: #2a3990;
-        overflow: hidden;
-    }
     .page-adv a {
         text-decoration: none;
         color: #FFF;
@@ -293,7 +291,7 @@ header a img {
         background-color: rgba(0, 0, 0, 0.4);
         display: block;
         width: 25%;
-        margin: 1rem 0;
+        margin: 1rem auto;
         border-radius: 3px;
         transition: all 0.2 ease-in-out;
     }

@@ -38,7 +38,7 @@
     <script src="https://rawgit.com/aws/amazon-cognito-identity-js/master/dist/amazon-cognito-identity.min.js"></script>
     <!-- Verify user -->
     <script type="text/javascript" src="../files/assets/js/utils.js"></script>
-    <script type="text/javascript" src="..\files\assets\js\userValidation.js"></script>
+    <script type="text/javascript" src="../files/assets/js/userValidation.js"></script>
 </head>
 
 <body>
@@ -480,19 +480,25 @@
         });
 
 
-        function validatePasswords() {
+        async function validatePasswords() {
           let err = password.value !== "" ? showSuccess(password, passwordError) :
                                             showError(password, passwordError, "Password cannot be blank");
 
-          return err + (matchPasswords(password, repeatPassword) ? showSuccess(repeatPassword, passwordMatchError) :
-                                                                   showError(repeatPassword, passwordMatchError, "Passwords do not match"));
+          // Check if passwords match
+          err += matchPasswords(password, repeatPassword) ? showSuccess(repeatPassword, passwordMatchError) :
+                                                            showError(repeatPassword, passwordMatchError, "Passwords do not match");
+          if (err)
+            return err;
 
-          //TODO check with user password
+          // Check with user password
+          const isOk = await authUser(getCookie("email"), password.value);
+          return err + (isOk ? showSuccess(password, passwordError) :
+                               showError(password, passwordError, "Wrong password"));
         }
 
-        function handleFormSubmit() {
+        async function handleFormSubmit() {
           // Validate the form against the constraints
-          const err = validate();
+          const err = await validate();
           //console.log("err: " + err);
 
           if (err == 0)
@@ -500,14 +506,14 @@
         }
 
         // Validate the form and return the errors
-        function validate() {
+        async function validate() {
           let err = validateTitle(title, titleError);
           err += validateAuthor(author, authorError);
           err += validateDescription(description, descriptionError);
           err += validateRoom(room, roomError);
           err += validate3Dmodel(model, modelError);
           err += validatePhoto(photo, photoError);
-          err += validatePasswords();
+          err += await validatePasswords();
           return err;
         }
 
@@ -592,9 +598,7 @@
               "model3D":     modelValue,
               "photo":       photoValue,
               "available":   availableValue,
-              "keyword":     titleValue.toLowerCase(),
-              "views":       0,
-              "viewTime":    0
+              "keyword":     titleValue.toLowerCase()
             }
           };
 

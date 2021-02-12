@@ -38,7 +38,7 @@
     <script src="https://rawgit.com/aws/amazon-cognito-identity-js/master/dist/amazon-cognito-identity.min.js"></script>
     <!-- Verify user -->
     <script type="text/javascript" src="../files/assets/js/utils.js"></script>
-    <script type="text/javascript" src="..\files\assets\js\userValidation.js"></script>
+    <script type="text/javascript" src="../files/assets/js/userValidation.js"></script>
 </head>
 
 <body>
@@ -979,8 +979,8 @@
         }
 
         // When the continue button in the modal is clicked, check password and display the editable card
-        document.getElementById("btnContinue").onclick = function () {
-          if(!checkPassword())
+        document.getElementById("btnContinue").onclick = async function () {
+          if(!await checkPassword())
             return;
 
           // Set the values of the card
@@ -1004,15 +1004,20 @@
         }
 
         // Check passwords in the modal to unlock the editable card
-        function checkPassword() {
+        async function checkPassword() {
           let err = password.value !== "" ? showSuccess(password, passwordError) :
                                             showError(password, passwordError, "Password cannot be blank");
 
+          // Check if passwords match
           err += matchPasswords(password, repeatPassword) ? showSuccess(repeatPassword, passwordMatchError) :
                                                             showError(repeatPassword, passwordMatchError, "Passwords do not match");
-          if (err > 0)  return false;
+          if (err)
+            return false;
 
-          // TODO check password with the one of the user
+          // Check with user password
+          const isOk = await authUser(getCookie("email"), password.value);
+          return err + (isOk ? showSuccess(password, passwordError) :
+                               showError(password, passwordError, "Wrong password"));
           return true;
         }
 

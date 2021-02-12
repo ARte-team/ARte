@@ -15,6 +15,21 @@
 #define EMCUTE_PORT (1883U)
 #define EMCUTE_PRIO (THREAD_PRIORITY_MAIN - 1)
 
+#define STRLEN_MAX 10
+
+#define ACCESSIBLE     "GREEN"
+#define ACCESS_AT_RISK "YELLOW"
+#define NON_ACCESSIBLE "RED"
+
+#define ANSI_COLOR_RED     "\x1b[31m"
+#define ANSI_COLOR_GREEN   "\x1b[32m"
+#define ANSI_COLOR_YELLOW  "\x1b[33m"
+#define ANSI_BOLD_RED      "\x1b[1m\x1b[31m"
+#define ANSI_BOLD_GREEN    "\x1b[1m\x1b[32m"
+#define ANSI_BOLD_YELLOW   "\x1b[1m\x1b[33m"
+#define ANSI_COLOR_RESET   "\x1b[0m"
+
+
 static char stack[THREAD_STACKSIZE_DEFAULT];
 static msg_t queue[8];
 
@@ -43,7 +58,7 @@ static int discon(void){
         return 1;
     }
     //puts("Disconnect successful");
-    
+
     return 0;
 }
 
@@ -104,7 +119,7 @@ static int con(char* addr, int port){
       return 1;
   }
   //printf("Successfully connected to gateway at [%s]:%i\n", addr, port);
-  
+
   return 0;
 }
 
@@ -172,6 +187,27 @@ static void gen_num_people(t_rooms* r, int capacity){
   }
 }
 
+// function to set LED light (physically connected to the board)
+// based on room crowding
+static void setLedLight(float crowding) {
+  char color[STRLEN_MAX]      = NON_ACCESSIBLE;
+  //char ansi_color[STRLEN_MAX] = ANSI_COLOR_RED;
+  char ansi_color[STRLEN_MAX] = ANSI_BOLD_RED;
+
+  if (crowding <= 0.5) {
+    strncpy(color, ACCESSIBLE, STRLEN_MAX);
+    //strncpy(ansi_color, ANSI_COLOR_GREEN, STRLEN_MAX);
+    strncpy(ansi_color, ANSI_BOLD_GREEN, STRLEN_MAX);
+  }
+  else if (crowding <= 0.75) {
+    strncpy(color, ACCESS_AT_RISK, STRLEN_MAX);
+    //strncpy(ansi_color, ANSI_COLOR_YELLOW, STRLEN_MAX);
+    strncpy(ansi_color, ANSI_BOLD_YELLOW, STRLEN_MAX);
+  }
+
+  printf("LED light set to %s %s %s\n", ansi_color, color, ANSI_COLOR_RESET);
+}
+
 // new shell command: start the process
 static int cmd_start(int argc, char **argv){
   if (argc < 6) {
@@ -205,7 +241,7 @@ static int cmd_start(int argc, char **argv){
     // it tries to connect to the gateway
     if (con(argv[1], atoi(argv[2])))
       continue;
-    
+
     // takes the current date and time
     char datetime[20];
     time_t current;
@@ -220,14 +256,19 @@ static int cmd_start(int argc, char **argv){
     // update the values for the room
     gen_num_people(r, capacity);
 
+    float crowding = (float)r->peopleCurrent / capacity;
+
     // fills a json document for each room
     sprintf(json, "{\"roomID\": %d, \"datetime\": \"%s\", \"infraredSensors\": %d, "
                   "\"peopleCurrent\": %d, \"peopleTotal\": %d, \"crowding\": \"%.2f\"}",
                   roomID, datetime, infraredSensors,
-                  r->peopleCurrent, r->peopleTotal, (float)r->peopleCurrent / capacity);
+                  r->peopleCurrent, r->peopleTotal, crowding);
 
     // publish to the topic
     pub(topic, json, 0);
+
+    // set the light of the physically connected LED
+    setLedLight(crowding);
 
     // it disconnects from the gateway
     discon();

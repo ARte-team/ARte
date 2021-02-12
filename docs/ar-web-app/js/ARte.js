@@ -9,23 +9,29 @@ class ARte {
         this.featureAttributes  = { status: 0 };
         this.startTime          = 0;
         this.stopTime           = 0;
-		this.newArtwork			= 0; 
+		    this.newView			      = true;
 
         this.uuid               = uuid;
 
-        this.message = {
+        this.message = {};
+
+        /*this.message = {
             deviceID: '',
             datetime: '',
             feature: '',
             usageTime: '',
             artworkID: '',
-            newArtwork: true
-        }
+            newView: true
+        }*/
     }
 
     // Get Web App feature status
     getStatus() {
       return this.featureAttributes.status;
+    }
+
+    setNewView(status) {
+      this.newView = status;
     }
 
     // When a feature button is pressed, take the start time
@@ -52,7 +58,7 @@ class ARte {
             this.message['deviceID']  = this.uuid;
             this.message['artworkID'] = this.artworkID;
             this.message['feature']   = this.activeFeature;
-			this.message['newArtwork']= this.newArtwork;
+			      this.message['newView']   = this.newView;
 
             return JSON.stringify(this.message);
         }

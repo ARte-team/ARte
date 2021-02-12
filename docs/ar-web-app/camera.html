@@ -2,29 +2,29 @@
 <html lang="en">
     <head>
         <title>ARte</title>
-        
+
         <!-- Meta -->
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content="ARte web app">
         <meta name="keywords" content="">
         <meta name="author" content="ARte team">
-        
+
         <!-- Favicon icon -->
         <link rel="icon" href="../Dashboard/files/assets/images/arte_icon.png" type="image/x-icon">
-        
+
         <!-- CSS -->
         <link rel="stylesheet" type="text/css" href="./css/style.css">
-        
+
         <!-- AR libs -->
         <script src="./js/aframe-master.min.js"></script>
         <script src="./js/aframe-ar-nft.js"></script>
-        
+
         <!-- Utility -->
         <script src="./js/aws.js"></script>
         <script src="./js/pahoMQTTClient.js"></script>
         <script src="./js/utils.js"></script>
-        
+
         <!-- External libs -->
         <script src="https://sdk.amazonaws.com/js/aws-sdk-2.7.16.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js"></script>
@@ -33,7 +33,7 @@
         <script src="./js/tone-ui.js"></script>
         <script src="./js/components.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/seedrandom/3.0.5/seedrandom.min.js"></script>
-        
+
         <!-- ARte js library -->
         <script src="./js/ARte.js"></script>
         <script src="./js/gesture-detector.js"></script>
@@ -57,6 +57,9 @@
         <!-- Artwork title -->
         <div id="artworkTitle" hidden></div>
 
+        <!-- Artwork information -->
+        <div id="artworkInfo"></div>
+
         <!-- Features panel -->
         <div class="commands">
             <div class="button" id="color">
@@ -73,17 +76,23 @@
             </div>
         </div>
 
+        <!-- Artwork information button -->
+        <div id="info">
+          <img src="./img/icons/info.svg" alt="Artwork information">
+        </div>
+        <!-- Fix artwork button -->
+        <!--<div id="fix-artwork-button" hidden>
+          <img src="./img/icons/lock.svg" alt="Fix">
+        </div>-->
+
+
         <!-- Color animation box -->
         <div id="color-box-1"></div>
         <div id="color-box-2"></div>
-        
+
         <!-- Contextualization box -->
         <div id="contextualization-box"></div>
-        
-        <!-- Fix artwork button -->
-        <!--<div id="fix-artwork-button" hidden>
-            <img src="./img/icons/lock.svg" alt="Fix">
-        </div>-->
+
 
         <!-- AR core -->
         <a-scene
@@ -298,11 +307,11 @@
             let conn = null;
             let flag = 0;
             let current_room = 1;
-            
+
             // Arrays for the museum data
             var rooms = [10, 4, 12, 5, 15, 3, 2, 10, 5, 16, 8, 8, 20, 1, 0, 13, 7, 9];
             var sensors = [[12.0, 13.6, 17.3], [14.5, 11.9, 3.8], [14.2, 12.1, 11.0], [0.7, 8.8, 2.3], [9.5, 7.2, 0.2], [4.3, 4.7, 0.4], [17.9, 17.2, 10.8], [11.3, 12.6, 13.2], [11.0, 14.2, 12.0], [9.3, 6.4, 9.0], [3.5, 3.6, 9.1], [0.3, 2.9, 5.2], [2.4, 8.5, 19.5], [18.2, 10.2, 20.0], [9.5, 4.5, 19.8], [3.2, 16.5, 9.7], [8.3, 9.6, 1.0], [0.3, 19.8, 2.9]];
-            
+
 
             function onConnect() {
               conn = mqttClient.isConn();
@@ -327,7 +336,7 @@
                       rooms.push(0);
                       sensors.push([]);
                     }
-                    else 
+                    else
                       break;
                   }
                   rooms[current_room - 1]   = msg.peopleCurrent;
@@ -355,31 +364,31 @@
               mqttClient.conn(onConnect, onReceive);
             });
 
-            
+
             // Initialize ARte object for feature interaction
             const arte = new ARte(uuid);
 
             const topic = "smartphone";
             let message = "";
-            
+
             // Function to call when a feature is stopped
             function sendMessage() {
                 message = arte.getMessage();
                 mqttClient.pub(message, topic);
-                arte.new = false;
+                arte.setNewView(false);
             }
-            
+
             // Music generation
             var APP = {};
             var SEED = sensors[current_room-1].reduce( function( a, b ) { return a + b; }, 0 );
-            
+
             // Create a synth and connect it to the main output (your speakers)
             const synth = new Tone.Synth().toDestination();
-            
+
             // Initialize storytelling feature
             var audioElement = document.createElement('audio');
             audioElement.setAttribute('src', './audio/1.mp3');
-            
+
             // Background gradient simulation
             var colors = [];
             var lights = [];
@@ -397,23 +406,23 @@
                 for( j = 0; j < Math.floor( rooms.length / 6 ); j++ ) {
                     colors[i] += rooms[i+(j*6)];
                 }
-                
+
             }
-            
+
             for( i = 0; i < 3; i++ ) {
                 lights[i] = 0;
                 for( j = 0; j < Math.floor( rooms.length / 3 ); j++ ) {
                     lights[i] += Math.round( sensors[i+(j*3)][0] + sensors[i+(j*3)][1] + sensors[i+(j*3)][2] );
                 }
             }
-            
+
             console.log(colors);
             console.log(lights);
 
             for( i = 0; i < lights.length; i++ ) {
                 lights[i] = Math.max( Math.min( ( colors[i] + Math.ceil( lights[i] * 50 / ( 60*mult ) ) ), 255 ), 0 );
             }
-            
+
             for( i = 0; i < colors.length; i++ ) {
                 colors[i] = Math.max( Math.min( ( colors[i] * 255 / ( 20*mult/2 ) ) + ( ( -1+(2*(i%2)) ) * ( lights[i%3] * 30 / ( 60*mult ) ) ), 255 ), 0 );
             }
@@ -429,13 +438,7 @@
             let artworkModel = null;
             let initialModelScale    = null;
             let initialModelRotation = null;
-            
-            // Get HTML elements
-            const artworkTitle = $('#artworkTitle');
-            //const fixArtwork = $('#fix-artwork-button');
-            const colorBox1 = $('#color-box-1');
-            const colorBox2 = $('#color-box-2');
-            const contextualizationBox = $('#contextualization-box');
+
 
             $( document ).ready(function() {
                 const sceneEl = document.getElementById("scene");
@@ -472,11 +475,24 @@
                 sceneEl.addEventListener( 'twofingermove', handleScale );
 
 
+                // Get HTML elements
+                const artworkTitle = $('#artworkTitle');
+                const artworkInfo  = $("artworkInfo");
+
+                //const fixArtwork = $('#fix-artwork-button');
+                const infoBtn = $("info");
+
                 // Get functionalities buttons
                 const colorBtn             = $('#color');
                 const musicBtn             = $('#music');
                 const storytellingBtn      = $('#storytelling');
                 const contextualizationBtn = $('#contextualization');
+
+                const colorBox1 = $('#color-box-1');
+                const colorBox2 = $('#color-box-2');
+
+                const contextualizationBox = $('#contextualization-box');
+
 
                 // Initialize color feature
                 colorBox1.css( 'background', 'linear-gradient( ' + deg + 'deg, rgba(' + colors[0] + ',' + colors[1] + ',' + colors[2] + ',1) 0%, rgba(' + colors[3] + ',' + colors[4] + ',' + colors[5] + ',1) 100%)' );
@@ -511,7 +527,7 @@
 
                     synth.triggerAttackRelease(music[i], "8n", now + i / 2);
                   }
-                  
+
                 }
 
                 function stopSound() {
@@ -531,7 +547,7 @@
                       colorBox1.css( 'opacity', '1');
                       colorBox2.css( 'opacity', '1');
                       light2.attr( 'color', 'rgb(' + lights[0] + ',' + lights[1] + ',' + lights[2] + ')' );
-                      
+
                       color_event = setInterval( color_func, 1500 );
                       light_event = setInterval( light_func, 10 );
 
@@ -572,8 +588,8 @@
                       sendMessage();
                   }
                 });
-                
-                
+
+
                 // Storytelling manager
                 storytellingBtn.click(function() {
                   const status = arte.getStatus();
@@ -595,8 +611,8 @@
                       sendMessage();
                   }
                 });
-                
-                
+
+
                 // Contextualization manager
                 contextualizationBtn.click(function() {
                   const status = arte.getStatus();
@@ -618,7 +634,7 @@
                       sendMessage();
                   }
                 });
-                
+
                 // Fix artwork in scene
                 /*fixArtwork.click(function() {
                     if( fixArtwork.hasClass('pressed') ) {
@@ -630,8 +646,85 @@
                         sceneEl.attr( 'vr-mode-ui', 'enabled: false' );
                         //artworkModel.object3D.position.set(1, 2, 3);
                     }
-                    
+
                 });*/
+
+                // Initialize the Amazon Cognito credentials provider
+                AWS.config.region = "us-east-1";
+                AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+                    IdentityPoolId: "us-east-1:33cfdc7c-d841-41cb-b3b4-af3b015348da",
+                });
+
+                // Set up connection with DynamoDB
+                const dynamodb  = new AWS.DynamoDB();
+                const docClient = new AWS.DynamoDB.DocumentClient();
+
+                let infoActivated = false;
+
+                infoBtn.click( async function() {
+                  if (infoActivated) {
+                    infoActivated = false;
+                    hideArtworkInfo();
+                    infoBtn.removeClass('pressed');
+                  }
+                  else {
+                    const artwork = await queryDB(arte.artworkID);
+                    if (artwork) {
+                      infoActivated = true;
+                      showArtworkInfo(artwork);
+                      infoBtn.addClass('pressed');
+                    }
+                  }
+                });
+
+                async function queryDB(input) {
+                  if (!input)   return null;
+
+                  const params = {
+                    TableName : "ARte_Artworks",
+                    KeyConditionExpression: "#id = :i",
+                    ExpressionAttributeNames: {
+                        "#id": "artworkID",
+                    },
+                    ExpressionAttributeValues: {
+                        ":i": input
+                    }
+                  };
+
+                  return new Promise( function(resolve) {
+                    docClient.scan(params, onScan);
+
+                    function onScan(err, data) {
+                      if (err) {
+                        //showErrorModal("An error occurred!");
+                        // TODO qua va mostrato un messaggio d'errore. Usiamo alert o importiamo la modal?
+                        resolve(null);
+                      }
+                      else {
+                        //console.log(data);
+                        let artwork;
+                        data.Items.forEach(function(a) {
+                          artwork = a;
+                        });
+
+                        resolve(artwork);
+                      }
+                    }
+                  });
+                }
+
+                function showArtworkInfo(artwork) {
+                  artworkInfo.html("<b>" + artwork.title + "<\b>\n" + artwork.description);
+
+                  // TODO show the div
+                }
+
+                function hideArtworkInfo() {
+                  artworkInfo.html("");
+
+                  // TODO hide the div
+                }
+
 
                 // This event is triggered when a new marker is recognized
                 $('a-nft').on( 'markerFound', function(e) {
@@ -702,7 +795,7 @@
                 });
 
             });
-            
+
             // Send message to broker when browser is idle mode
             // Set visibilitychange event listener
             function sendMessageIdle() {
@@ -710,20 +803,20 @@
                     if( arte.featureAttributes.status == 1 ) {
                         arte.stopFeature();
                         sendMessage();
-                        arte.new = true;
-                        
+                        arte.setNewView(true);
+
                         colorBox1.css( 'opacity', '0');
                         colorBox2.css( 'opacity', '0');
                         light1.attr( 'color', '#FFF' );
                         light2.attr( 'color', '#FFF' );
                         clearInterval( color_event );
                         clearInterval( light_event );
-                        
+
                         synth.triggerRelease("8n");
-                        
+
                         audioElement.pause();
                         audioElement.currentTime = 0;
-                        
+
                         contextualizationBox.css('opacity', '0');
 
                         $('.commands .button').removeClass('pressed');
@@ -766,21 +859,21 @@
                         colors[i] += rooms[i+(j*6)];
                     }
                 }
-                
+
                 for( i = 0; i < 3; i++ ) {
                     lights[i] = 0;
                     for( j = 0; j < Math.floor( rooms.length / 3 ); j++ ) {
                         lights[i] += Math.round( sensors[i+(j*3)][0] + sensors[i+(j*3)][1] + sensors[i+(j*3)][2] );
                     }
                 }
-                
+
                 console.log(rooms);
                 console.log(sensors);
 
                 for( i = 0; i < lights.length; i++ ) {
                     lights[i] = Math.max( Math.min( colors[i] + Math.ceil( lights[i] * 50 / ( 60*mult ) ), 255 ), 0 );
                 }
-                
+
                 for( i = 0; i < colors.length; i++ ) {
                     colors[i] = Math.max( Math.min( ( colors[i] * 255 / ( 20*mult/2 ) ) + ( ( -1+(2*(i%2)) ) * ( lights[i%3] * 30 / ( 60*mult ) ) ), 255 ), 0 );
                 }
@@ -801,11 +894,12 @@
                 }
 
                 time = time + 1;
-                
+
                 console.log(colors);
                 console.log(lights);
                 console.log(deg);
             }
+
 
 
 

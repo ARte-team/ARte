@@ -34,7 +34,7 @@
     <script src="https://rawgit.com/aws/amazon-cognito-identity-js/master/dist/amazon-cognito-identity.min.js"></script>
     <!-- Verify user -->
     <script type="text/javascript" src="../files/assets/js/utils.js"></script>
-    <script type="text/javascript" src="..\files\assets\js\userValidation.js"></script>
+    <script type="text/javascript" src="../files/assets/js/userValidation.js"></script>
 </head>
 
 <body>
@@ -339,7 +339,7 @@
                                             <!-- /Top stats cards -->
 
                                             <!-- Chart usage of ARte web app -->
-                                            <div class="col-xl-4 m-auto">
+                                            <div class="col-xl-4-custom">
                                                 <div class="card">
                                                     <div class="card-header">
                                                         <h5>Usage of the ARte web app</h5>
@@ -364,7 +364,7 @@
                                             <!-- /Chart usage of ARte web app -->
 
                                             <!-- Chart features usage -->
-                                            <div class="col-xl-5 m-auto">
+                                            <div class="col-xl-5-custom">
                                                 <div class="card">
                                                     <div class="card-header">
                                                         <h5>Features Usage of the ARte web app</h5>
@@ -380,7 +380,7 @@
                                                             </div>
                                                             <div class="col-3 b-r-default m-t-15">
                                                                 <h5 id="color">0%</h5>
-                                                                <p class="text-muted m-b-0">Interactive Color</p>
+                                                                <p class="text-muted m-b-0">Dynamic Artwork</p>
                                                             </div>
                                                             <div class="col-3 b-r-default m-t-15">
                                                                 <h5 id="music">0%</h5>
@@ -397,7 +397,7 @@
                                             <!-- /Chart features usage -->
 
                                             <!-- General Stats -->
-                                            <div class="col-xl-3 m-auto">
+                                            <div class="col-xl-3-custom">
                                                 <div class="card latest-update-card">
                                                     <div class="card-header">
                                                         <h5>General Stats</h5>
@@ -869,7 +869,7 @@
           updateDoughnutChart("artefeaturesChart",
                               data,
                               ["#f95c6f", "#2a3990", "#8029d0", "#ca3ab0"],
-                              ["Contextualization", "Interactive Color", "Interactive Music", "Storytelling"],
+                              ["Contextualization", "Dynamic Artwork", "Interactive Music", "Storytelling"],
                               [contextualization, color, music, storytelling]);
         }
 

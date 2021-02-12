@@ -32,7 +32,7 @@
         <script src="https://rawgit.com/aws/amazon-cognito-identity-js/master/dist/amazon-cognito-identity.min.js"></script>
         <!-- Verify user -->
         <script type="text/javascript" src="../files/assets/js/utils.js"></script>
-        <script type="text/javascript" src="..\files\assets\js\userValidation.js"></script>
+        <script type="text/javascript" src="../files/assets/js/userValidation.js"></script>
     </head>
 
     <body>
@@ -384,7 +384,7 @@
             function createCard(room) {
               // Create different cards based on current room crowding
               let card = "";
-              const crowding = room.crowding * 100;
+              const crowding = Math.round(room.crowding * 100);
 
               if (room.crowding <= 0.5)
                 card = "<div id='" + room.roomID + "' class='col-md-6 col-lg-3 room-card'><div class='card statustic-card'><div class='card-header'><h5>Room " + room.roomID + "</h5></div><div class='card-block text-center'><span class='d-block text-c-green f-36'>" + room.peopleCurrent + "</span><p class='m-b-0'>Current visitors</p><div class='widget-statstic-card'><div class='text-right'><span class='f-right bg-c-green'>" + crowding + "%</span></div></div><div class='progress'><div class='progress-bar bg-c-green' style='width:" + crowding + "%''></div></div></div><div class='card-footer bg-c-green'><h6 class='text-white m-b-0'>Total visitors: " + room.peopleTotal + "</h6></div></div></div>";
@@ -430,7 +430,7 @@
               //console.log(room);
               // Create different cards based on current room crowding
               let card = "";
-              const crowding = room.crowding * 100;
+              const crowding = Math.round(room.crowding * 100);
 
               if (room.crowding <= 0.5)
                 card = "<div class='card statustic-card'><div class='card-header'><h5>Room " + room.roomID + "</h5></div><div class='card-block text-center'><span class='d-block text-c-green f-36'>" + room.peopleCurrent + "</span><p class='m-b-0'>Current visitors</p><div class='widget-statstic-card'><div class='text-right'><span class='f-right bg-c-green'>" + crowding + "%</span></div></div><div class='progress'><div class='progress-bar bg-c-green' style='width:" + crowding + "%''></div></div></div><div class='card-footer bg-c-green'><h6 class='text-white m-b-0'>Total visitors: " + room.peopleTotal + "</h6></div></div>";

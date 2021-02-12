@@ -221,13 +221,13 @@
           const authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails(authenticationData);
 
           const poolData = {
-            UserPoolId : 'us-east-1_nFn2Epxsq',
-            ClientId :   '770tifd14ogfb9vmo6onje5r5r'
+            UserPoolId: 'us-east-1_nFn2Epxsq',
+            ClientId:   '770tifd14ogfb9vmo6onje5r5r'
           };
           const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
           const userData = {
-            Username : emailValue,
-            Pool :     userPool
+            Username: emailValue,
+            Pool:     userPool
           };
 
           const cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);

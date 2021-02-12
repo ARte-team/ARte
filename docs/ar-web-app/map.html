@@ -105,7 +105,7 @@
                                                 </div>
 
                                                 <!-- Room number ok -->
-                                                <div class="col-md-6 col-lg-3">
+                                                <!--<div class="col-md-6 col-lg-3">
                                                     <div class="card statustic-card">
                                                         <div class="card-header">
                                                             <h5>Room 1</h5>
@@ -121,17 +121,16 @@
                                                             <h6 class="text-white m-b-0">Crowding: 46%</h6>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div>-->
                                                 <!-- /Room number ok -->
 
                                                 <!-- Room number almost ok -->
-                                                <div class="col-md-6 col-lg-3">
+                                                <!--<div class="col-md-6 col-lg-3">
                                                     <div class="card statustic-card">
                                                         <div class="card-header">
                                                             <h5>Room 1</h5>
                                                         </div>
                                                         <div class="card-block text-center">
-                                                            <!--<span class="d-block text-c-yellow f-36">Accessible with restrictions</span>-->
                                                             <span class="d-block text-c-yellow f-36">Access at risk</span>
                                                             <br>
                                                             <div class="progress">
@@ -142,11 +141,11 @@
                                                             <h6 class="text-white m-b-0">Crowding: 66%</h6>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div>-->
                                                 <!-- /Room number almost ok -->
 
                                                 <!-- Room number no ok -->
-                                                <div class="col-md-6 col-lg-3">
+                                                <!--<div class="col-md-6 col-lg-3">
                                                     <div class="card statustic-card">
                                                         <div class="card-header">
                                                             <h5>Room 3</h5>
@@ -162,7 +161,7 @@
                                                             <h6 class="text-white m-b-0">Crowding: 89%</h6>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div>-->
                                                 <!-- /Room number no ok -->
 
                                             </div>
@@ -190,9 +189,25 @@
         <!--<script type="text/javascript" src="..\Dashboard\files\assets\js\SmoothScroll.js"></script>-->
         <!-- AWS SDK -->
         <script src="https://sdk.amazonaws.com/js/aws-sdk-2.7.16.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js"></script>
         <!-- custom js -->
+        <script src="./js/aws.js"></script>
+        <script src="./js/pahoMQTTClient.js"></script>
+        <script src="./js/utils.js"></script>
+
         <script type="text/javascript">
           window.onload = function () {
+            // Set unique deviceID for the user
+            // Check if cookie is already present
+            let uuid;
+
+            if(accessCookie("deviceID") === "") {
+                uuid = createUUID();
+                createCookie("deviceID", uuid, 12);
+            } else {
+                uuid = accessCookie("deviceID");
+            }
+
             let mqttClient = null;
             const topic = "sensor/room";
 
@@ -211,7 +226,7 @@
             function onReceive(msg) {
               const room = JSON.parse(msg);
 
-              if (rooms.has(room.roomID))
+              /*if (rooms.has(room.roomID))
                 rooms.set(room.roomID, {room: room, update: true});
               else
                 rooms.set(room.roomID, {room: room, update: false});
@@ -220,7 +235,25 @@
               sortRooms();
               //console.log(rooms);
 
-              updateCards();
+              updateCards();*/
+
+
+
+              if (rooms.has(room.roomID))
+                rooms.set(room.roomID, room);
+              else
+                rooms.set(room.roomID, room);
+
+              // Sort rooms based on select element
+              sortRooms();
+
+              // Reposition the cards
+              $(".room-card").remove()
+              for (let room of rooms.values())
+                createCard(room)
+
+              // Update last update label
+              lastUpdate.innerHTML = room.datetime;
             }
 
             // Initialize Amazon Cognito credentials provider
@@ -256,38 +289,9 @@
               // Reposition the cards
               $(".room-card").remove()
               for (let room of rooms.values())
-                createCard(room.room)
+                //createCard(room.room)
+                createCard(room)
             });
-
-            /*function main() {
-              docClient.scan(params, onScan);
-
-              function onScan(err, data) {
-                if (err)
-                  showErrorModal("An error occurred!");
-                else {
-                  data.Items.forEach(function(room) {
-                    // Check if the room is already in the map and set a flag accordingly
-                    if (rooms.has(room.roomID))
-                      rooms.set(room.roomID, {room: room, update: true});
-                    else
-                      rooms.set(room.roomID, {room: room, update: false});
-                  });
-
-                  // Continue scanning if we have more rooms (per scan 1MB limitation)
-                  if (data.LastEvaluatedKey) {
-                    params.ExclusiveStartKey = data.LastEvaluatedKey;
-                    docClient.scan(params, onScan);
-                  }
-
-                  // Sort rooms based on select element
-                  sortRooms();
-                  //console.log(rooms);
-
-                  updateCards();
-                }
-              }
-            }*/
 
             // Sort rooms based on select element
             function sortRooms() {
@@ -308,7 +312,7 @@
             }
 
             // Update room cards
-            function updateCards() {
+            /*function updateCards() {
               if (rooms.size == 0)   return;
 
               let obj, room;
@@ -318,19 +322,21 @@
                 // Check if room was already in rooms
                 if (obj.update)
                   updateCard(room);
-                else
+                else {
                   createCard(room);
+                  obj.update = true;
+                }
               }
 
               // Update last update label
               lastUpdate.innerHTML = room.datetime;
-            }
+            }*/
 
             // Create room card
             function createCard(room) {
               // Create different cards based on current room crowding
               let card = "";
-              const crowding = room.crowding * 100;
+              const crowding = Math.round(room.crowding * 100);
 
               if (room.crowding <= 0.5)
                 card = "<div id='" + room.roomID + "' class='col-md-6 col-lg-3 room-card'><div class='card statustic-card'><div class='card-header'><h5>Room " + room.roomID + "</h5></div><div class='card-block text-center'><span class='d-block text-c-green f-36'>Accessible</span><br><div class='progress'><div class='progress-bar bg-c-green' style='width:" + crowding + "%''></div></div></div><div class='card-footer bg-c-green'><h6 class='text-white m-b-0'>Crowding: " + crowding + "%</h6></div></div></div>";
@@ -365,28 +371,22 @@
             }
 
             // Update room card
-            function updateCard(room) {
+            /*function updateCard(room) {
               //console.log(room);
               // Create different cards based on current room crowding
               let card = "";
               const crowding = room.crowding * 100;
 
               if (room.crowding <= 0.5)
-                card = "<div id='" + room.roomID + "' class='col-md-6 col-lg-3 room-card'><div class='card statustic-card'><div class='card-header'><h5>Room " + room.roomID + "</h5></div><div class='card-block text-center'><span class='d-block text-c-green f-36'>Accessible</span><br><div class='progress'><div class='progress-bar bg-c-green' style='width:" + crowding + "%''></div></div></div><div class='card-footer bg-c-green'><h6 class='text-white m-b-0'>Crowding: " + crowding + "%</h6></div></div></div>";
+                card = "<div class='card statustic-card'><div class='card-header'><h5>Room " + room.roomID + "</h5></div><div class='card-block text-center'><span class='d-block text-c-green f-36'>Accessible</span><br><div class='progress'><div class='progress-bar bg-c-green' style='width:" + crowding + "%''></div></div></div><div class='card-footer bg-c-green'><h6 class='text-white m-b-0'>Crowding: " + crowding + "%</h6></div></div>";
               else if (room.crowding <= 0.75)
-                card = "<div id='" + room.roomID + "' class='col-md-6 col-lg-3 room-card'><div class='card statustic-card'><div class='card-header'><h5>Room " + room.roomID + "</h5></div><div class='card-block text-center'><span class='d-block text-c-green f-36'>Access at risk</span><br><div class='progress'><div class='progress-bar bg-c-green' style='width:" + crowding + "%''></div></div></div><div class='card-footer bg-c-green'><h6 class='text-white m-b-0'>Crowding: " + crowding + "%</h6></div></div></div>";
+                card = "<div class='card statustic-card'><div class='card-header'><h5>Room " + room.roomID + "</h5></div><div class='card-block text-center'><span class='d-block text-c-green f-36'>Access at risk</span><br><div class='progress'><div class='progress-bar bg-c-green' style='width:" + crowding + "%''></div></div></div><div class='card-footer bg-c-green'><h6 class='text-white m-b-0'>Crowding: " + crowding + "%</h6></div></div>";
               else
-                card = "<div id='" + room.roomID + "' class='col-md-6 col-lg-3 room-card'><div class='card statustic-card'><div class='card-header'><h5>Room " + room.roomID + "</h5></div><div class='card-block text-center'><span class='d-block text-c-green f-36'>Non Accessible</span><br><div class='progress'><div class='progress-bar bg-c-green' style='width:" + crowding + "%''></div></div></div><div class='card-footer bg-c-green'><h6 class='text-white m-b-0'>Crowding: " + crowding + "%</h6></div></div></div>";
+                card = "<div class='card statustic-card'><div class='card-header'><h5>Room " + room.roomID + "</h5></div><div class='card-block text-center'><span class='d-block text-c-green f-36'>Non Accessible</span><br><div class='progress'><div class='progress-bar bg-c-green' style='width:" + crowding + "%''></div></div></div><div class='card-footer bg-c-green'><h6 class='text-white m-b-0'>Crowding: " + crowding + "%</h6></div></div>";
 
               document.getElementById(room.roomID).innerHTML = card;
-            }
+            }*/
 
-            // Refresh the page every 5 seconds
-            /*function refreshPage() {
-              main();
-              setTimeout(refreshPage, 5000);
-            }
-            refreshPage();*/
           }
         </script>
 

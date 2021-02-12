@@ -52,6 +52,119 @@
    -webkit-line-clamp: 2; /* number of lines to show */
    -webkit-box-orient: vertical;
 }
+
+/* For the web app row in the Dashboard */
+.col-xl-3-custom {
+	-webkit-box-flex: 0;
+	-ms-flex: 0 0 92%;
+	flex: 0 0 92%;
+	max-width: 92%;
+
+	margin-left: 4%;
+}
+.col-xl-4-custom {
+	-webkit-box-flex: 0;
+	-ms-flex: 0 0 92%;
+	flex: 0 0 92%;
+	max-width: 92%;
+
+	margin-left: 4%;
+}
+.col-xl-5-custom {
+	-webkit-box-flex: 0;
+	-ms-flex: 0 0 92%;
+	flex: 0 0 92%;
+	max-width: 92%;
+
+	margin-left: 4%;
+}
+
+@media only screen and (min-width: 576px) {
+	.col-xl-3-custom {
+		-webkit-box-flex: 0;
+		-ms-flex: 0 0 95%;
+		flex: 0 0 95%;
+		max-width: 95%;
+
+		margin-left: 3%;
+	}
+	.col-xl-4-custom {
+		-webkit-box-flex: 0;
+		-ms-flex: 0 0 95%;
+		flex: 0 0 95%;
+		max-width: 95%;
+
+		margin-left: 3%;
+	}
+	.col-xl-5-custom {
+		-webkit-box-flex: 0;
+		-ms-flex: 0 0 95%;
+		flex: 0 0 95%;
+		max-width: 95%;
+
+		margin-left: 3%;
+	}
+}
+
+@media only screen and (min-width: 720px) {
+	.col-xl-3-custom {
+		-webkit-box-flex: 0;
+		-ms-flex: 0 0 96%;
+		flex: 0 0 96%;
+		max-width: 96%;
+
+		margin-left: 2%;
+		margin-right: 2%;
+	}
+	.col-xl-4-custom {
+		-webkit-box-flex: 0;
+		-ms-flex: 0 0 96%;
+		flex: 0 0 96%;
+		max-width: 96%;
+
+		margin-left: 2%;
+		margin-right: 2%;
+	}
+	.col-xl-5-custom {
+		-webkit-box-flex: 0;
+		-ms-flex: 0 0 96%;
+		flex: 0 0 96%;
+		max-width: 96%;
+
+		margin-left: 2%;
+		margin-right: 2%;
+	}
+}
+
+@media only screen and (min-width: 1790px) {
+	.col-xl-3-custom {
+		-webkit-box-flex: 0;
+		-ms-flex: 0 0 23%;
+		flex: 0 0 23%;
+		max-width: 23%;
+
+		margin-left: 1%;
+		margin-right: 0;
+	}
+	.col-xl-4-custom {
+		-webkit-box-flex: 0;
+		-ms-flex: 0 0 32%;
+		flex: 0 0 32%;
+		max-width: 32%;
+
+		margin-left: 1%;
+		margin-right: 0;
+	}
+	.col-xl-5-custom {
+		-webkit-box-flex: 0;
+		-ms-flex: 0 0 40%;
+		flex: 0 0 40%;
+		max-width: 40%;
+
+		margin-left: 1.5%;
+		margin-right: 0.5%;
+	}
+}
 /* /Additions */
 
 
