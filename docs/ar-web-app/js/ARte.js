@@ -3,8 +3,8 @@
 class ARte {
 
     constructor(uuid) {
-        this.artworkRecognized  = 0;
-        this.artworkID          = 1;
+        this.artworkRecognized  = false;
+        this.artworkID          = null;
         this.activeFeature      = '';
         this.featureAttributes  = { status: 0 };
         this.startTime          = 0;
@@ -14,20 +14,31 @@ class ARte {
         this.uuid               = uuid;
 
         this.message = {};
+    }
 
-        /*this.message = {
-            deviceID: '',
-            datetime: '',
-            feature: '',
-            usageTime: '',
-            artworkID: '',
-            newView: true
-        }*/
+    getArtworkRecognized() {
+      return this.artworkRecognized;
+    }
+
+    getArtworkID() {
+      return this.artworkID;
+    }
+
+    getActiveFeature() {
+      return this.activeFeature;
     }
 
     // Get Web App feature status
     getStatus() {
       return this.featureAttributes.status;
+    }
+
+    setArtworkRecognized(status) {
+      this.artworkRecognized = status;
+    }
+
+    setArtworkID(id) {
+      this.artworkID = id;
     }
 
     setNewView(status) {
@@ -60,8 +71,10 @@ class ARte {
             this.message['feature']   = this.activeFeature;
 			      this.message['newView']   = this.newView;
 
-            return JSON.stringify(this.message);
+            return this.message;
         }
+
+        return null;
     }
 
 }
