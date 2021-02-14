@@ -23,12 +23,12 @@ a-scene {
     color: #FFF;
     text-shadow: 1px 1px 0 0 #ABABAB;
     position: fixed;
-    bottom: 32vw;
+    bottom: 30vh;
     left: 8vw;
+    right: 8vw;
     font-family: Helvetica;
     font-size: 1.5rem;
-    padding-left: 2px;
-    padding-right: 2px;
+    padding: 5px;
     z-index: 1000;
     transition: opacity 0.2s linear;
 }
@@ -120,10 +120,14 @@ body {
 .commands div.button img {
     margin: calc( 8vw - 1px ) calc( 4vw - 1px ) 0 calc( 4vw - 1px );
     width: 8vw;
-    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -moz-transform:    translateY(-50%);
+    -ms-transform:     translateY(-50%);
+    -o-transform:      translateY(-50%);
+    transform:         translateY(-50%);
 }
 #fix-artwork-button {
-    width: calc( 10vw - 2px );
+    width:  calc( 10vw - 2px );
     height: calc( 10vw - 2px );
     border-radius: 50%;
     border: 1px solid #ABABAB;
@@ -140,7 +144,11 @@ body {
 #fix-artwork-button img {
     margin: calc( 5vw - 1px ) calc( 2.5vw - 1px ) 0 calc( 2.5vw - 1px );
     width: 5vw;
-    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -moz-transform:    translateY(-50%);
+    -ms-transform:     translateY(-50%);
+    -o-transform:      translateY(-50%);
+    transform:         translateY(-50%);
 }
 header {
     background-color: rgba(42, 57, 144, 0.5);
@@ -157,7 +165,7 @@ header a img {
     margin: 10px 0;
 }
 #info {
-    width: calc( 10vw - 2px );
+    width:  calc( 10vw - 2px );
     height: calc( 10vw - 2px );
     border-radius: 50%;
     border: 1px solid #ABABAB;
@@ -172,9 +180,17 @@ header a img {
     background-color: #B7B7B7;
 }
 #info img {
-    margin: calc( 5vw - 1px ) calc( 2.5vw - 1px ) 0 calc( 2.5vw - 1px );
-    width: 5vw;
-    transform: translateY(-50%);
+    /* For filled black circle info */
+    /*margin: calc( 5vw - 1px ) calc( 2.5vw - 1px ) 0 calc( 2.5vw - 1px );*/
+    /*width: 5vw;*/
+    /* For outlined circle info */
+    margin: calc( 5vw - 1px ) calc( 5vw - 1px ) 0 calc( -1.4vw + 1px );
+    width: 12vw;
+    -webkit-transform: translateY(-50%);
+    -moz-transform:    translateY(-50%);
+    -ms-transform:     translateY(-50%);
+    -o-transform:      translateY(-50%);
+    transform:         translateY(-50%);
 }
 #map {
     position: fixed;
@@ -183,63 +199,68 @@ header a img {
 
 
 /* CSS for the intro page before launching the Web App */
-.page-intro {
-    font-family: 'Questrial', sans-serif;
-    background-color: #2a3990;
-    overflow: hidden;
-    padding-top: 50vh;
-}
-.page-intro .container {
-    transform: translateY(-50%);
-    padding-bottom: 6%;
-}
-.page-intro .container .logo {
-    background-image: url('../img/logo_home.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    width: 90%;
-    max-width: 600px;
-    height: 65vw;
-    max-height: 400px;
-    margin: 3% auto;
-}
-.page-intro .container p {
-    color: #FFF;
-    font-family: 'Questrial', sans-serif;
-    padding: 0 10% 5% 10%;
-    text-align: center;
-    font-size: 4.5vw;
-    line-height: 6vw;
-}
-.page-intro .container p span {
-    color: rgb(226, 87, 69);
-    font-weight: bold;
-}
-.page-intro .container a.button {
-    background-color: #FFF;
-    color: #3A3A3A;
-    font-family: 'Questrial', sans-serif;
-    padding: 4% 5%;
-    text-align: center;
-    font-size: 5vw;
-    line-height: 6vw;
-    text-decoration: none;
-    width: 60%;
-    display: block;
-    border-radius: 3px;
-    margin: 0 auto;
-    font-weight: bold;
-    box-shadow: 2px 2px #1A1A1A;
-}
 .page-intro .container a {
     color: #00ccff;
 }
 .page-intro .container a:hover {
     color: #59deff;
 }
-
-@media only screen and (min-width: 1080px) {
+.page-intro .container p span {
+    color: rgb(226, 87, 69);
+    font-weight: bold;
+}
+@media only screen and (max-width: 550px) and (orientation: portrait) {
+  .page-intro {
+      font-family: 'Questrial', sans-serif;
+      background-color: #2a3990;
+      overflow: hidden;
+      padding-top: 50vh;
+  }
+  .page-intro .container {
+      -webkit-transform: translateY(-50%);
+      -moz-transform:    translateY(-50%);
+      -ms-transform:     translateY(-50%);
+      -o-transform:      translateY(-50%);
+      transform:         translateY(-50%);
+      padding-bottom: 6%;
+  }
+  .page-intro .container .logo {
+      background-image: url('../img/logo_home.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      width: 90%;
+      max-width: 600px;
+      height: 65vw;
+      max-height: 400px;
+      margin: 3% auto;
+  }
+  .page-intro .container p {
+      color: #FFF;
+      font-family: 'Questrial', sans-serif;
+      padding: 0 10% 5% 10%;
+      text-align: center;
+      font-size: 4.5vw;
+      line-height: 6vw;
+  }
+  .page-intro .container a.button {
+      background-color: #FFF;
+      color: #3A3A3A;
+      font-family: 'Questrial', sans-serif;
+      padding: 4% 5%;
+      text-align: center;
+      font-size: 5vw;
+      line-height: 6vw;
+      text-decoration: none;
+      width: 60%;
+      display: block;
+      border-radius: 3px;
+      margin: 0 auto;
+      font-weight: bold;
+      box-shadow: 2px 2px #1A1A1A;
+  }
+}
+@media only screen and (min-width: 550px) {
   .page-intro {
       font-family: 'Questrial', sans-serif;
       background-color: #2a3990;
@@ -282,15 +303,62 @@ header a img {
       box-shadow: 2px 2px #1A1A1A;
   }
 }
+@media screen and (max-height: 550px) and (orientation: landscape) {
+  html {
+    overflow: auto;
+  }
+  .page-intro .container {
+      padding-bottom: 1%;
+  }
+  .page-intro {
+      font-family: 'Questrial', sans-serif;
+      background-color: #2a3990;
+      overflow: hidden;
+  }
+  .page-intro .container .logo {
+      background-image: url('../img/logo_home.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      width: 20%;
+      height: 15vw;
+      margin: 1% auto;
+  }
+  .page-intro .container p {
+      color: #FFF;
+      font-family: 'Questrial', sans-serif;
+      padding: 0 1% 3% 1%;
+      text-align: center;
+      font-size: 12px;
+      line-height: 12px;
+  }
+  .page-intro .container a.button {
+      background-color: #FFF;
+      color: #3A3A3A;
+      font-family: 'Questrial', sans-serif;
+      padding: 1% 1%;
+      text-align: center;
+      font-size: 12px;
+      line-height: 12px;
+      text-decoration: none;
+      width: 20%;
+      display: block;
+      border-radius: 3px;
+      margin: 0 auto;
+      font-weight: bold;
+      box-shadow: 2px 2px #1A1A1A;
+  }
+}
 
 
 /* Css for the initial page where choosing between the Dashboard and Web App */
+.page-adv {
+    font-family: 'Questrial', sans-serif;
+    background-color: #2a3990;
+    overflow: hidden;
+    text-align: center;
+}
 @media only screen and (max-width: 600px) {
-    .page-adv {
-        font-family: 'Questrial', sans-serif;
-        background-color: #2a3990;
-        overflow: hidden;
-    }
     .page-adv a {
         text-decoration: none;
         color: #FFF;
@@ -298,7 +366,7 @@ header a img {
         background-color: rgba(0, 0, 0, 0.4);
         display: block;
         width: 66%;
-        margin: 1rem 0;
+        margin: 1rem auto;
         border-radius: 3px;
         transition: all 0.2 ease-in-out;
     }
@@ -315,11 +383,6 @@ header a img {
     }
 }
 @media only screen and (min-width: 600px) {
-    .page-adv {
-        font-family: 'Questrial', sans-serif;
-        background-color: #2a3990;
-        overflow: hidden;
-    }
     .page-adv a {
         text-decoration: none;
         color: #FFF;
@@ -327,7 +390,7 @@ header a img {
         background-color: rgba(0, 0, 0, 0.4);
         display: block;
         width: 25%;
-        margin: 1rem 0;
+        margin: 1rem auto;
         border-radius: 3px;
         transition: all 0.2 ease-in-out;
     }
@@ -342,6 +405,33 @@ header a img {
         width: 30%;
         margin: 5vh 0 2rem 0;
     }
+}
+@media screen and (orientation: landscape) {
+  html {
+    overflow: auto;
+  }
+  .page-adv a {
+      text-decoration: none;
+      color: #FFF;
+      padding: 0.7rem;
+      background-color: rgba(0, 0, 0, 0.4);
+      display: block;
+      width: 15%;
+      margin: 0.7rem auto;
+      border-radius: 3px;
+      transition: all 0.2 ease-in-out;
+  }
+  .page-adv a:hover {
+      background-color: rgba(0, 0, 0, 0.65);
+      transition: all 0.2 ease-in-out;
+  }
+  .page-adv h1 {
+      font-size: 1vw;
+  }
+  .page-adv img {
+      width: 20%;
+      margin: 5vh 0 2rem 0;
+  }
 }
 
 

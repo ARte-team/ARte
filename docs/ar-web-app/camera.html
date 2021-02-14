@@ -59,6 +59,7 @@
 
         <!-- Artwork information -->
         <div id="artworkInfo" hidden></div>
+        <!--<div id="artworkInfo"><b>Discobolus</b><br><br> Discobolus of Myron ...</div>-->
 
         <!-- Features panel -->
         <div class="commands">
@@ -80,7 +81,7 @@
         <div id="info" hidden>
           <img src="./img/icons/info.svg" alt="Artwork information">
         </div>
-        
+
         <!-- Fix artwork button -->
         <!--<div id="fix-artwork-button" hidden>
           <img src="./img/icons/lock.svg" alt="Fix">
@@ -446,6 +447,24 @@
             let initialModelScale    = null;
             let initialModelRotation = null;
 
+            // Variable to lock the orientation of the device
+            /*let orientationLocked = false;
+
+            // Lock portrait orientation (in fullscreen mode artworks are distorted)
+            async function lockOrientation() {
+              if (orientationLocked)  return;
+
+              orientationLocked = true;
+              await document.body.requestFullscreen();
+              await window.screen.orientation.lock("portrait");
+            }*/
+
+            // Show a message when landscape mode
+            window.addEventListener("orientationchange", function() {
+              if (screen.orientation.angle == 90 || screen.orientation.angle == 270)
+                alert("For a better experience we suggest to use the web app in portrait mode");
+            });
+
 
             $( document ).ready(function() {
                 const sceneEl = document.getElementById("scene");
@@ -484,10 +503,10 @@
 
                 // Get HTML elements
                 const artworkTitle = $('#artworkTitle');
-                const artworkInfo  = $("artworkInfo");
+                const artworkInfo  = $('#artworkInfo');
 
                 //const fixArtwork = $('#fix-artwork-button');
-                const infoBtn = $("#info");
+                const infoBtn = $('#info');
 
                 // functionalities buttons
                 const colorBtn             = $('#color');
@@ -633,9 +652,9 @@
 
                 // Music manager
                 musicBtn.click(function() {
-                  const status  = arte.getStatus();
+                  const status        = arte.getStatus();
                   const activeFeature = arte.getActiveFeature();
-                  const feature = "Music";
+                  const feature       = "Music";
 
                   if( status == 0 ) {
                       musicBtn.addClass('pressed');
@@ -697,9 +716,9 @@
 
                 // Storytelling manager
                 storytellingBtn.click(function() {
-                  const status  = arte.getStatus();
+                  const status        = arte.getStatus();
                   const activeFeature = arte.getActiveFeature();
-                  const feature = "Storytelling";
+                  const feature       = "Storytelling";
 
                   let artwork = artworkTitle.text();
                   if (!artwork) {
@@ -846,7 +865,7 @@
                     infoBtn.removeClass('pressed');
                   }
                   else {
-                    const artwork = await queryDB(arte.artworkID);
+                    const artwork = await queryDB(arte.getArtworkID());
                     if (artwork) {
                       infoActivated = true;
                       showArtworkInfo(artwork);
@@ -870,9 +889,9 @@
                   };
 
                   return new Promise( function(resolve) {
-                    docClient.scan(params, onScan);
+                    docClient.query(params, onQuery);
 
-                    function onScan(err, data) {
+                    function onQuery(err, data) {
                       if (err) {
                         alert("Error while loading the information about the artwork. Try to refresh the page!");
                         resolve(null);
@@ -890,8 +909,7 @@
                 }
 
                 function showArtworkInfo(artwork) {
-                    artworkInfo.html("<b>" + artwork.title + "<\b><br>" + artwork.description);
-                    console.log("<b>" + artwork.title + "<\b><br>" + artwork.description);
+                    artworkInfo.html(artwork.description);
                     artworkInfo.toggle();
                 }
 
@@ -1076,7 +1094,7 @@
                   }
 
                   time = time + 1;
-                    
+
                 }
             });
 
