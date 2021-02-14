@@ -177,11 +177,11 @@
                                           <span class="pcoded-mtext">Rooms</span>
                                       </a>
                                   </li>
-                                  <li>
+                                  <!--<li>
                                       <a href="features.htm">
                                           <span class="pcoded-mtext">Features</span>
                                       </a>
-                                  </li>
+                                  </li>-->
                               </ul>
                           </li>
                           <li class="pcoded-hasmenu active pcoded-trigger">
@@ -607,6 +607,7 @@
         const docClient = new AWS.DynamoDB.DocumentClient();
 
         // Get modal inputs
+        const editModalJQ = $("#editModal");
         const password       = document.getElementById("passModal");
         const repeatPassword = document.getElementById("confirmPassModal");
         let repeated = false;
@@ -690,7 +691,7 @@
         });
 
         model.addEventListener("input", function(e) {
-          setFakeInputFileValue(modelEditText, model.files, true, "\\")
+          setFakeInputFileValue(modelEditText, model.files, true, "\\");
           const err = validate3Dmodel(model, modelError);
 
           if (err) {
@@ -704,7 +705,7 @@
         });
 
         photo.addEventListener("input", function(e) {
-          setFakeInputFileValue(photoEditText, photo.value, false, "\\")
+          setFakeInputFileValue(photoEditText, photo.value, false, "\\");
           const err = validatePhoto(photo, photoError);
 
           if (err) {
@@ -751,14 +752,14 @@
           console.log("model.files: " + model.files);
           console.log("photo.files: " + photo.files);
           console.log("model.files.length: " + model.files.length);
-          console.log("model.files.length: " + photo.files.length);
+          console.log("photo.files.length: " + photo.files.length);
 
           if (model.files.length > 0)
             console.log("model.files[0].name: " + model.files[0].name);
           if (photo.files.length > 0)
             console.log("photo.files[0].name: " + photo.files[0].name);
 
-          console.log("=====================================");*/
+          console.log("=====================================");//*/
 
           // Check if multiple input value
           if(multiple) {
@@ -773,14 +774,14 @@
 
               /*console.log("value[0]: " + value[0]);
               console.log("value[0] instanceof String? " + (value[0] instanceof String));
-              console.log("typeof value[0] === 'string'? " + (typeof value[0] === "string"));*/
+              console.log("typeof value[0] === 'string'? " + (typeof value[0] === "string"));//*/
 
               // Check if value[0] is directly a string (i.e. just retrieved URL from server)
               if (typeof v === "string" || v instanceof String)
                 str = v;
               // Else user has selected a file, so access the name
               else
-                str = v[0].name;
+                str = v.name;
 
               const s = str.split(sep);
       	      elem.innerHTML = s[s.length-1];
@@ -980,7 +981,8 @@
 
         // When the continue button in the modal is clicked, check password and display the editable card
         document.getElementById("btnContinue").onclick = async function () {
-          if(!await checkPassword())
+          const err = await checkPassword();
+          if (err)
             return;
 
           // Set the values of the card
@@ -998,9 +1000,15 @@
           setFakeInputFileValue(modelEditText, artwork.model3D, true)
           setFakeInputFileValue(photoEditText, artwork.photo)
 
-          this.setAttribute("data-dismiss", "modal");
-          document.getElementById('nonEditArt').style.display = "none";
-          document.getElementById('editArt').style.display    = "inherit";
+          // Reset modal
+          //this.setAttribute("data-dismiss", "modal");
+          editModalJQ.modal("hide");
+          password.value       = "";
+          repeatPassword.value = "";
+          repeated = false;
+
+          nonEditArtJQ.css("display", "none");
+          editArtJQ.css("display", "inherit");
         }
 
         // Check passwords in the modal to unlock the editable card
@@ -1012,13 +1020,12 @@
           err += matchPasswords(password, repeatPassword) ? showSuccess(repeatPassword, passwordMatchError) :
                                                             showError(repeatPassword, passwordMatchError, "Passwords do not match");
           if (err)
-            return false;
+            return err;
 
           // Check with user password
           const isOk = await authUser(getCookie("email"), password.value);
           return err + (isOk ? showSuccess(password, passwordError) :
                                showError(password, passwordError, "Wrong password"));
-          return true;
         }
 
         // When the Submit button is clicked, validate the form and send update if ok
@@ -1053,11 +1060,12 @@
           availableValue   = available.checked;
 
           const formData = new FormData();
-          let updated = false;
+          let updated3DModel = false;
+          let updatedPhoto   = false;
 
           // Check if the model has been changed
           if (model.files.length > 0) {
-            updated = true;
+            updated3DModel = true;
             modelValue = model.files;
 
             for (let file of modelValue)
@@ -1066,7 +1074,7 @@
 
           // Check if the photo has been changed
           if (photo.files.length > 0) {
-            updated = true;
+            updatedPhoto = true;
             photoValue = photo.files[0];
 
             // TODO
@@ -1076,7 +1084,7 @@
           }
 
           // Check if at least one of the two types of file has been changed
-          if (updated) {
+          if (updated3DModel || updatedPhoto) {
             formData.append("title", titleValue);
             formData.append("update", true);
 
@@ -1099,8 +1107,10 @@
                 }
 
                 // Get URLs to be send to the db
-                modelValue = obj.modelURLs;
-                photoValue = obj.photoURL;
+                if (updated3DModel)
+                  modelValue = obj.modelURLs;
+                if (updatedPhoto)
+                  photoValue = obj.photoURL;
 
                 updateItem();
 

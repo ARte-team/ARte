@@ -85,25 +85,30 @@ async function authUser(username, password) {
 
   const cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
   return new Promise( function(resolve) {
-    cognitoUser.authenticateUser(authenticationDetails, {
-      onSuccess: function (result) {
-        //const accessToken = result.getAccessToken().getJwtToken();
+    try {
+      cognitoUser.authenticateUser(authenticationDetails, {
+        onSuccess: function (result) {
+          //const accessToken = result.getAccessToken().getJwtToken();
 
-        // Use the idToken for Logins Map when Federating User Pools with identity pools or
-        // when passing through an Authorization Header to an API Gateway Authorizer
-        //const idToken = result.idToken.jwtToken;
+          // Use the idToken for Logins Map when Federating User Pools with identity pools or
+          // when passing through an Authorization Header to an API Gateway Authorizer
+          //const idToken = result.idToken.jwtToken;
 
-        //console.log("result");
-        //console.log(result);
+          //console.log("result");
+          //console.log(result);
 
-        resolve(true);
-      },
-      onFailure: function(err) {
-        resolve(false);
-      },
-      newPasswordRequired: function(userAttributes, requiredAttributes) {
-        resolve(false);
-      }
-    });
+          resolve(true);
+        },
+        onFailure: function(err) {
+          resolve(false);
+        },
+        newPasswordRequired: function(userAttributes, requiredAttributes) {
+          resolve(false);
+        }
+      });
+    } catch (error) {
+      //console.error(error);
+      resolve(false);
+    }
   });
 }

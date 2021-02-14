@@ -1,39 +1,88 @@
 <?php
 $modelFiles = $_FILES["model3D"];
 $photoFile  = $_FILES["photo"];
-$title = $_POST["title"];
+$title  = $_POST["title"];
 $update = $_POST["update"];
+
+function strlenIsOk($s) {
+  return $s && strlen($s) <= 50;
+}
+
+function sendError($msg) {
+  $obj->status = "error";
+  $obj->msg = $msg;
+
+  $json = json_encode($obj);
+  echo $json;
+}
+
+
+// Check if input file objects exist
+if(!$modelFiles && !$photoFile) {
+  sendError("Invalid input!");
+  return;
+}
+
+// Validate input string length
+$check = strlenIsOk($title);
+if (!$check) {
+  sendError("Invalid artwork!");
+  return;
+}
 
 $modelDir = "../uploads/models/" . $title . "/";
 $photoDir = "../uploads/images/" . $title . "/";
 
 /*echo $modelDir . "\n";
 echo $photoDir . "\n";
-echo "update ? " . $update . "\n";*/
+echo "update ? " . $update . "\n";//*/
 
 // Init the models directory
 if (!is_dir($modelDir))
     mkdir($modelDir, 0777, true);
-else if ($update)
+else if ($update && $modelFiles)
     array_map("unlink", glob("$modelDir/*.*"));
 
 // Init the photos directory
 if (!is_dir($photoDir))
     mkdir($photoDir, 0777, true);
-else if ($update)
+else if ($update && $photoFile)
     array_map("unlink", glob("$photoDir/*.*"));
+
 
 // Create a URL for each 3D model file (.gltf, .bin, ...)
 $modelURLs = [];
-foreach ($modelFiles["name"] as &$filename)
-    $modelURLs[] = $modelDir . basename($filename);
+if ($modelFiles) {
+  foreach ($modelFiles["name"] as &$filename) {
+    $name  = basename($filename);
+    $check = strlenIsOk($name);
 
-// break the reference with the last element
-unset($value);
+    if (!$check) {
+      sendError("Invalid model3D filename!");
+      return;
+    }
 
-$photoURL = $photoDir . basename($photoFile["name"]);
+    $modelURLs[] = $modelDir . $name;
+  }
 
-//echo $modelURL . "\n" . $photoURL . "\n";
+  // break the reference with the last element
+  unset($value);
+}
+
+// Create a URL for the photo file
+$photoURL = "";
+if ($photoFile) {
+  $name  = basename($photoFile["name"]);
+  $check = strlenIsOk($name);
+
+  if (!$check) {
+    sendError("Invalid photo filename!");
+    return;
+  }
+
+  $photoURL = $photoDir . $name;
+}
+
 /*echo $modelURLs[0] . "\n";
 echo $modelURLs[1] . "\n";
 echo $photoURL . "\n";//*/
@@ -53,22 +102,17 @@ echo $modelFileTypes[1] . "\n";
 echo $photoFileType . "\n";//*/
 
 // 2 types: model and photo but model can consist of multiple files
-$n = 1 + count($modelURLs);
+$n = count($modelURLs);
+if ($photoFile)
+  $n++;
 
-function sendError($msg) {
-  $obj->status = "error";
-  $obj->msg = $msg;
-
-  $json = json_encode($obj);
-  echo $json;
-}
-
-
-// Check if image file is a actual image or fake image
-$check = getimagesize($photoFile["tmp_name"]);
-if (!$check) {
-  sendError($photoFile["name"] . " is not an image!");
-  return;
+// Check if photo file is an actual image or fake image
+if ($photoFile) {
+  $check = getimagesize($photoFile["tmp_name"]);
+  if (!$check) {
+    sendError($photoFile["name"] . " is not an image!");
+    return;
+  }
 }
 
 // Check if one of the files already exists
@@ -96,16 +140,16 @@ if (!$update) {
 $filesize = $modelFiles["size"][0];
 $maxSize = 15728640; // 15 Mb
 for ($i = 0; $i < $n; $i++) {
-  if ($i < $n-1)
+  if (!$photoFile || ($modelFiles && $photoFile && $i < $n-1))
     $filesize = $modelFiles["size"][$i];
-  else {
+  else if ($photoFile) {
     $filesize = $photoFile["size"];
     $maxSize = 5242880; // 5 Mb
   }
 
   // Check model size
   if ($filesize > $maxSize) {
-    if ($i < $n-1)
+    if (!$photoFile || ($modelFiles && $photoFile && $i < $n-1))
       sendError("Sorry, " . $modelfiles["name"][$i] . " is too large");
     else
       sendError("Sorry, " . $photofile["name"] . " is too large");
@@ -124,14 +168,19 @@ foreach ($modelFileTypes as &$modelFileType)
 unset($value);
 
 // Allow certain file formats
-if($photoFileType != "jpg" && $photoFileType != "jpeg" && $photoFileType != "png") {
+if($photoFile && $photoFileType != "jpg" && $photoFileType != "jpeg" && $photoFileType != "png") {
   sendError("Sorry, only .jpg, .jpeg and .png images are allowed");
   return;
 }
 
 // Upload files
-$file   = $modelFiles["tmp_name"][0];
-$target = $modelURLs[0];
+$file   = null;
+$target = null;
+
+if ($modelFiles) {
+  $file   = $modelFiles["tmp_name"][0];
+  $target = $modelURLs[0];
+}
 
 /*echo count($modelFiles["tmp_name"]) . "\n";
 echo "tmp_name model[0]: " . $file . "\n";
@@ -144,11 +193,11 @@ echo "photoFile['size']: " . $photoFile["size"] . "\n";
 echo "modelFiles['error'][0]: " . $modelFiles['error'][0];//*/
 
 for ($i = 0; $i < $n; $i++) {
-  if ($i < $n-1) {
+  if (!$photoFile || ($modelFiles && $photoFile && $i < $n-1)) {
     $file   = $modelFiles["tmp_name"][$i];
     $target = $modelURLs[$i];
   }
-  else {
+  else if ($photoFile) {
     $file   = $photoFile["tmp_name"];
     $target = $photoURL;
   }
@@ -157,7 +206,7 @@ for ($i = 0; $i < $n; $i++) {
   //echo $target . "\n";
 
   if (!move_uploaded_file($file, $target)) {
-    if ($i < $n-1)
+    if (!$photoFile || ($modelFiles && $photoFile && $i < $n-1))
       sendError("Sorry, there was an error uploading " . $modelfiles["name"][$i]);
     else
       sendError("Sorry, there was an error uploading " . $photofile["name"]);
@@ -171,8 +220,8 @@ foreach ($modelFiles["name"] as &$filename)
     $modelURLs[] = "../files/assets/uploads/models/" . $title . "/" . basename($filename);
 
 $obj->modelURLs = $modelURLs;
-$obj->photoURL = "../files/assets/uploads/images/" . $title . "/" . basename($photoFile["name"]);
-$obj->status = "success";
+$obj->photoURL  = "../files/assets/uploads/images/" . $title . "/" . basename($photoFile["name"]);
+$obj->status    = "success";
 
 $json = json_encode($obj);
 

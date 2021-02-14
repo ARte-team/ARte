@@ -8,6 +8,8 @@ table = dynamodb.Table('ARte_Artworks')
 def isInt(x):
     return isinstance(x, int)
 
+def isBool(x):
+    return isinstance(x, bool)
 
 patternUUID = re.compile("^[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}$")
 
@@ -58,6 +60,7 @@ def lambda_handler(event, context):
         feature     = event["feature"]
         artworkID   = event["artworkID"]
         usageTime   = event["usageTime"]
+        newView     = event["newView"]
 
         if not checkUUID(deviceID):
             print("deviceID NO OK")
@@ -77,6 +80,10 @@ def lambda_handler(event, context):
 
         if not isInt(usageTime):
             print("usageTime NO OK")
+            return res
+
+        if not isBool(newView):
+            print("newView NO OK")
             return res
 
         # The message is OK
@@ -141,12 +148,15 @@ def lambda_handler(event, context):
         if res != None: #and res["ResponseMetadata"]["HTTPStatusCode"] == 200:
             return res
 
+        # Set if the view must be counted or not
+        viewValue = 1 if newView else 0
+
         # Else this is not the first time the artwork receives data from smartphones for the feature
         res = table.update_item(
             Key={
                 "artworkID": event["artworkID"]
             },
-            UpdateExpression="set #fs.#v = #fs.#v + :one, #fs.#vt = #fs.#vt + :u, #fs.#f.#v = #fs.#f.#v + :one, #fs.#f.#vt = #fs.#f.#vt + :u",
+            UpdateExpression="set #fs.#v = #fs.#v + :vv, #fs.#vt = #fs.#vt + :u, #fs.#f.#v = #fs.#f.#v + :vv, #fs.#f.#vt = #fs.#f.#vt + :u",
             ExpressionAttributeNames={
                 "#fs": "featuresStats",
                 "#v" : "views",
@@ -154,8 +164,8 @@ def lambda_handler(event, context):
                 "#f":   event["feature"]
             },
             ExpressionAttributeValues={
-                ":one":  1,
-                ":u":    event["usageTime"]
+                ":vv":  viewValue,
+                ":u":   event["usageTime"]
             },
             ReturnValues="UPDATED_NEW"
         );

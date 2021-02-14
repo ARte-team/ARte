@@ -175,11 +175,11 @@
                                           <span class="pcoded-mtext">Rooms</span>
                                       </a>
                                   </li>
-                                  <li>
+                                  <!--<li>
                                       <a href="features.htm">
                                           <span class="pcoded-mtext">Features</span>
                                       </a>
-                                  </li>
+                                  </li>-->
                               </ul>
                           </li>
                           <li class="pcoded-hasmenu">
@@ -462,6 +462,9 @@
                 showErrorModal("An error occurred!");
               else {
                 data.Items.forEach(function(artwork) {
+                  if (!artwork.featuresStats)
+                    artwork.featuresStats = { "views": 0 };
+
                   arts.push(artwork);
                 });
 
@@ -472,7 +475,7 @@
                 }
 
                 // Sort in descending order
-                arts = arts.sort( (x,y) => y.views - x.views );
+                arts = arts.sort( (x,y) => y.featuresStats.views - x.featuresStats.views );
 
                 updateTable(5);
               }
