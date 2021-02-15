@@ -37,7 +37,7 @@ static int discon(void){
         return 1;
     }
     //puts("Disconnect successful");
-    
+
     return 0;
 }
 
@@ -98,7 +98,7 @@ static int con(char* addr, int port){
       return 1;
   }
   //printf("Successfully connected to gateway at [%s]:%i\n", addr, port);
-  
+
   return 0;
 }
 
@@ -122,12 +122,12 @@ static int cmd_start(int argc, char **argv){
 
   // json that it will published
   char json[128];
-  
+
   while(1){
     // it tries to connect to the gateway
     if (con(argv[1], atoi(argv[2])))
       continue;
-      
+
     // takes the current date and time
     char datetime[20];
     time_t current;
@@ -146,7 +146,7 @@ static int cmd_start(int argc, char **argv){
     infrared_value = gen_random_value(atoi(argv[4]));
 
     // fills a json document for each room
-    sprintf(json, "{\"roomID\": %d, \"datetime\": \"%s\", \"value\": \"%.2f\"}",
+    sprintf(json, "{\"roomID\": %d, \"datetime\": \"%s\", \"value\": %.2f}",
                   atoi(argv[3]), datetime, infrared_value);
 
     // publish to the topic

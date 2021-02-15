@@ -237,7 +237,9 @@
 
               updateCards();*/
 
-
+              // Skip the board placed at the museum entrance
+              if (room.roomID == 0)
+                return;
 
               if (rooms.has(room.roomID))
                 rooms.set(room.roomID, room);
@@ -297,7 +299,7 @@
             function sortRooms() {
               switch (sortByValue) {
                 case "idAscending":
-                  rooms = new Map([...rooms.entries()].sort());
+                  rooms = new Map([...rooms.entries()].sort( (x,y) => x[0] - y[0] ));
                   break;
                 case "idDescending":
                   rooms = new Map([...rooms.entries()].sort( (x,y) => y[0] - x[0] ));
@@ -341,9 +343,9 @@
               if (room.crowding <= 0.5)
                 card = "<div id='" + room.roomID + "' class='col-md-6 col-lg-3 room-card'><div class='card statustic-card'><div class='card-header'><h5>Room " + room.roomID + "</h5></div><div class='card-block text-center'><span class='d-block text-c-green f-36'>Accessible</span><br><div class='progress'><div class='progress-bar bg-c-green' style='width:" + crowding + "%''></div></div></div><div class='card-footer bg-c-green'><h6 class='text-white m-b-0'>Crowding: " + crowding + "%</h6></div></div></div>";
               else if (room.crowding <= 0.75)
-                card = "<div id='" + room.roomID + "' class='col-md-6 col-lg-3 room-card'><div class='card statustic-card'><div class='card-header'><h5>Room " + room.roomID + "</h5></div><div class='card-block text-center'><span class='d-block text-c-green f-36'>Access at risk</span><br><div class='progress'><div class='progress-bar bg-c-green' style='width:" + crowding + "%''></div></div></div><div class='card-footer bg-c-green'><h6 class='text-white m-b-0'>Crowding: " + crowding + "%</h6></div></div></div>";
+                card = "<div id='" + room.roomID + "' class='col-md-6 col-lg-3 room-card'><div class='card statustic-card'><div class='card-header'><h5>Room " + room.roomID + "</h5></div><div class='card-block text-center'><span class='d-block text-c-yellow f-36'>Access at risk</span><br><div class='progress'><div class='progress-bar bg-c-yellow' style='width:" + crowding + "%''></div></div></div><div class='card-footer bg-c-yellow'><h6 class='text-white m-b-0'>Crowding: " + crowding + "%</h6></div></div></div>";
               else
-                card = "<div id='" + room.roomID + "' class='col-md-6 col-lg-3 room-card'><div class='card statustic-card'><div class='card-header'><h5>Room " + room.roomID + "</h5></div><div class='card-block text-center'><span class='d-block text-c-green f-36'>Non Accessible</span><br><div class='progress'><div class='progress-bar bg-c-green' style='width:" + crowding + "%''></div></div></div><div class='card-footer bg-c-green'><h6 class='text-white m-b-0'>Crowding: " + crowding + "%</h6></div></div></div>";
+                card = "<div id='" + room.roomID + "' class='col-md-6 col-lg-3 room-card'><div class='card statustic-card'><div class='card-header'><h5>Room " + room.roomID + "</h5></div><div class='card-block text-center'><span class='d-block text-c-pink f-36'>Non Accessible</span><br><div class='progress'><div class='progress-bar bg-c-pink' style='width:" + crowding + "%''></div></div></div><div class='card-footer bg-c-pink'><h6 class='text-white m-b-0'>Crowding: " + crowding + "%</h6></div></div></div>";
 
               roomsDiv.insertAdjacentHTML("beforeend", card);
 

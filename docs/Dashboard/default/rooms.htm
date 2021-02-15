@@ -341,7 +341,7 @@
             function sortRooms() {
               switch (sortByValue) {
                 case "idAscending":
-                  rooms = new Map([...rooms.entries()].sort());
+                  rooms = new Map([...rooms.entries()].sort( (x,y) => x[0] - y[0] ));
                   break;
                 case "idDescending":
                   rooms = new Map([...rooms.entries()].sort( (x,y) => y[0] - x[0] ));
@@ -365,7 +365,7 @@
             function updateCards() {
               if (rooms.size == 0)   return;
 
-              let obj, room;
+              let obj, room, mostRecentDate = "00/00/0000 00:00:00";
               for (obj of rooms.values()) {
                 room = obj.room;
 
@@ -374,10 +374,13 @@
                   updateCard(room);
                 else
                   createCard(room);
+
+                if (compareDatetimes(room.datetime, mostRecentDate) > 0)
+                  mostRecentDate = room.datetime;
               }
 
               // Update last update label
-              lastUpdate.innerHTML = room.datetime;
+              lastUpdate.innerHTML = mostRecentDate;
             }
 
             // Create room card

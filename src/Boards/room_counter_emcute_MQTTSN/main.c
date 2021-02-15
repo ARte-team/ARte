@@ -260,7 +260,7 @@ static int cmd_start(int argc, char **argv){
 
     // fills a json document for each room
     sprintf(json, "{\"roomID\": %d, \"datetime\": \"%s\", \"infraredSensors\": %d, "
-                  "\"peopleCurrent\": %d, \"peopleTotal\": %d, \"crowding\": \"%.2f\"}",
+                  "\"peopleCurrent\": %d, \"peopleTotal\": %d, \"crowding\": %.2f}",
                   roomID, datetime, infraredSensors,
                   r->peopleCurrent, r->peopleTotal, crowding);
 

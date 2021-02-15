@@ -104,7 +104,7 @@ def lambda_handler(event, context):
                 },
                 UpdateExpression="set #dt = :d, peopleCurrent = :pc, peopleTotal = :pt, crowding = :c, infraredValues = :i",
                 ExpressionAttributeNames={
-                    "#dt": datetime
+                    "#dt": "datetime"
                 },
                 ExpressionAttributeValues={
                     ":d":  datetime,

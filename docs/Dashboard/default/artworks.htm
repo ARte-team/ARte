@@ -301,7 +301,7 @@
                                                                     <hr>
                                                                 </div>
 
-                                                                <div class="card-block">
+                                                                <!--<div class="card-block">
                                                                     <div class="row">
                                                                         <div class="col-sm-6">
                                                                             <p class="m-b-10 f-w-600">Room</p>
@@ -325,7 +325,47 @@
                                                                           <h6 id="artworkLeastUsedFeature" class="text-muted f-w-400"></h6>
                                                                         </div>
                                                                     </div>
+                                                                </div>-->
+
+                                                                <div class="card-block">
+                                                                    <div class="row">
+                                                                        <div class="col-sm-6">
+                                                                            <p class="m-b-10 f-w-600">Title</p>
+                                                                            <h6 id="artworkTitle" class="text-muted f-w-400"></h6>
+                                                                        </div>
+                                                                        <div class="col-sm-6">
+                                                                            <p class="m-b-10 f-w-600">Room</p>
+                                                                            <h6 id="artworkRoom" class="text-muted f-w-400"></h6>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <h6 class="m-b-10 m-t-10 p-b-5"></h6>
+
+                                                                    <div class="row">
+                                                                        <div class="col-sm-6">
+                                                                            <p class="m-b-10 f-w-600">Views</p>
+                                                                            <h6 id="artworkViews" class="text-muted f-w-400"></h6>
+                                                                        </div>
+                                                                        <div class="col-sm-6">
+                                                                            <p class="m-b-10 f-w-600">View time</p>
+                                                                            <h6 id="artworkViewTime" class="text-muted f-w-400"></h6>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <h6 class="m-b-10 m-t-10 p-b-5"></h6>
+
+                                                                    <div class="row">
+                                                                        <div class="col-sm-6">
+                                                                            <p class="m-b-10 f-w-600">Most used feature</p>
+                                                                            <h6 id="artworkMostUsedFeature" class="text-muted f-w-400"></h6>
+                                                                        </div>
+                                                                        <div class="col-sm-6">
+                                                                          <p class="m-b-10 f-w-600">Least used feature</p>
+                                                                          <h6 id="artworkLeastUsedFeature" class="text-muted f-w-400"></h6>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
+
                                                             </div>
                                                     </div>
                                                 </div>
@@ -428,8 +468,10 @@
 
         // Get the HTML elements
         const artworkImage            = document.getElementById("artworkImage");
+        const artworkTitle            = document.getElementById("artworkTitle");
         const artworkRoom             = document.getElementById("artworkRoom");
         const artworkViews            = document.getElementById("artworkViews");
+        const artworkViewTime         = document.getElementById("artworkViewTime");
         const artworkMostUsedFeature  = document.getElementById("artworkMostUsedFeature");
         const artworkLeastUsedFeature = document.getElementById("artworkLeastUsedFeature");
 
@@ -698,12 +740,11 @@
           artwork = artworks.get(artworkID);
 
           // Set the values of the card
-          /*titleNonEdit.value       = artwork.title;
-          authorNonEdit.value      = artwork.author;
-          descriptionNonEdit.value = artwork.description;*/
           artworkImage.src = artwork.photo;
-          artworkRoom.innerHTML  = artwork.room;
-          artworkViews.innerHTML = artwork.featuresStats ? artwork.featuresStats.views : "0";
+          artworkTitle.innerHTML    = artwork.title;
+          artworkRoom.innerHTML     = artwork.room;
+          artworkViews.innerHTML    = artwork.featuresStats ? artwork.featuresStats.views : "0";
+          artworkViewTime.innerHTML = artwork.featuresStats ? elapsedTime(artwork.featuresStats.viewTime * 1000) : "0";
 
           let mostUsedFeature  = {"name": "N/A", "views": 0};
           let leastUsedFeature = {"name": "N/A", "views": Infinity};

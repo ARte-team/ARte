@@ -875,22 +875,10 @@
 
         if (days.size == 0)   return;
 
-        days.sort( (x,y) => compareDates(x,y) );
+        days.sort( (x,y) => compareDates(x.date, y.date) );
 
         //console.log("days after ordering");
         //console.log(days);
-
-        // If compareDates(x, y) returns less than 0, sort x to an index lower than y (i.e. x comes first).
-        // If compareDates(x, y) returns 0, leave x and y unchanged with respect to each other,
-        // but sorted with respect to all different elements.
-        // If compareDates(x, y) returns greater than 0, sort y to an index lower than x (i.e. y comes first).
-        function compareDates(x, y) {
-          // Get arrays of day, month, year
-          x = x.date.split("/");
-          y = y.date.split("/");
-          // Compare years, if equals compare months, if equals compare days
-          return x[2] - y[2] || x[1] - y[1] || x[0] - y[0];
-        }
 
         /*days = [
           { "date": "27/12/2020", "value": 238 },

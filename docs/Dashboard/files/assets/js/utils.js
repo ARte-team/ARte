@@ -106,6 +106,53 @@ function elapsedTime(elapsedMs) {
   return elapsedYears == 1 ? elapsedYears + " year" : elapsedYears + " years";
 }
 
+// If compareDatetimes(x, y) returns less than 0, x is lower than y.
+// If compareDatetimes(x, y) returns 0, x and y are equal.
+// If compareDatetimes(x, y) returns greater than 0, x is greater than y.
+// Datetimes are in the format DD/MM/YYYY HH:MM:SS
+function compareDatetimes(x, y) {
+  if (!x || !y)   return false;
+
+  // Get arrays of dates and times
+  x = x.split(" ");
+  y = y.split(" ");
+
+  const dateCmp = compareDates(x[0], y[0]);
+  if (dateCmp != 0)
+    return dateCmp;
+
+  return compareTimes(x[1], y[1]);
+}
+
+// If compareDates(x, y) returns less than 0, x is lower than y.
+// If compareDates(x, y) returns 0, x and y are equal.
+// If compareDates(x, y) returns greater than 0, x is greater than y.
+// Dates are in the format DD/MM/YYYY
+function compareDates(x, y) {
+  if (!x || !y)   return false;
+
+  // Get arrays of day, month, year
+  x = x.split("/");
+  y = y.split("/");
+
+  // Compare years, if equals compare months, if equals compare days
+  return x[2] - y[2] || x[1] - y[1] || x[0] - y[0];
+}
+
+// If compareTimes(x, y) returns less than 0, x is lower than y.
+// If compareTimes(x, y) returns 0, x and y are equal.
+// If compareTimes(x, y) returns greater than 0, x is greater than y.
+// Times are in the format HH:MM:SS
+function compareTimes(x, y) {
+  if (!x || !y)   return false;
+
+  // Get arrays of hours, minutes, seconds
+  x = x.split(":");
+  y = y.split(":");
+
+  // Compare hours, if equals compare minutes, if equals compare seconds
+  return x[0] - y[0] || x[1] - y[1] || x[2] - y[2];
+}
 
 function showErrorModal(title) {
   swal(title, {
