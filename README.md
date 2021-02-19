@@ -30,6 +30,13 @@ At the same time, after an explicit agreement of the user, several data are anon
   - a brief list of the functionalities that is still missing and will be done till the 3rd and final delivery,
   - a brief presentation of the evaluation conducted since the 1st delivery,
   - a brief list of what we expect to evaluate till the 3rd and final delivery.
+- [3rd delivery](3rd%20delivery.md): a document that that briefly explains:
+  - the comments that we received during the 2nd delivery and how we have addressed them,
+  - changes made to our design, architecture and evaluation plan since the 2nd delivery,
+  - a brief presentation of the technical work done since the 2nd delivery,
+  - a brief presentation of the evaluation conducted since the 2nd delivery,
+  - a brief list of the functionality that is still missing.
+
 
 
 ## Presentation 1
