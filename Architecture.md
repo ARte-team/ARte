@@ -1,45 +1,96 @@
 # Architecture
 
 ### Overview
-The architecture of **ARte** is mainly based on the **MQTT** communication protocol. The main purpose is to collect data about most liked works of art and areas of the museum, through the visitors' use of a **web application** and several **STM32 NUcleo boards**. The first one runs on the user’s smartphones, collects data with the camera and the use of augmented reality according to the **crowdsensing** technique, and finally sends them to an MQTT cloud message broker. The boards, instead, use a specific sensor to detect people entering in a certain area of the museum and publish messages on the broker as well. The broker is linked to a **database**, which has the role of storing all the informations. This last component has a specific structure, in order to obtain the best performances: two main relations manage web app data, storing info about real-time daily utilization, a third one deals with people counting and the last one with artwork's informations.
-The **website** extracts informations from the database, providing a detailed report, in the form of a readable dashboard website, to museum’s managers. The visitors' web app also displays real-time data about the number of users occupying specific areas of the museum, in order to allow people to avoid crowded areas.
+The architecture of **ARte** is mainly based on the **MQTT** communication protocol. The main purposes are **enhancing visitors' experience** in visiting the museum, maintaining **social distance** (**COVID-19** era) and collecting data about the most liked artworks and areas of the museum, through the use of a **web application** and several **STM32 Nucleo boards**.
 
-![Architecture](/img/architecture.png)  
+The first one runs on the **visitors’ smartphones**, collects information while they are using the **augmented reality** powered by **IoT data**, according to the **crowdsensing** technique, and finally sends them to an MQTT cloud message broker. Furthermore, it displays real-time data about crowding of specific areas of the museum, so that visitors can avoid crowding situations.
+The STM boards, on the other hand, are divided into two types, based on the sensor they implement:
+- **People counting boards** use a specific sensor to count people entering a certain area of the museum
+- **Motion detection boards** use PIR sensors to detect people's motion in some areas of interest
 
-### Smartphone app
-It is proposed in the form of a **web app**, available through a simple website. In this way visitors doesn’t need to install any OS-based app, since it’s required only an Internet connection and a browser. The app makes use of *Three.js* and *Three.ar.js* APIs for the virtual and augmented reality components, which allow users to **interact** with museum’s artworks and simultaneously providing background data. Then, using *Paho Javascript* APIs, informations are sent to the broker on a specific topic identified by a device ID via MQTT, a lightweight and widely adopted messaging protocol designed for constrained devices. The app pushes data in real-time using this unique random generated ID, so, informations are collected anonymously in order to guarantee **users’ privacy**. In the end, each action of the user corresponds to a specific score that will be translated into information data by a post cloud processing. The application also receives data from the broker about the most crowded areas of the museum in order to provide a useful info for the visitor.  
+and both publish messages on the broker as well.
+
+The message broker is linked to a cloud service, which has the role of storing all the information of interest for ARte, through its **database**, and feeding the mobile web app with all the data needed for its **IoT interactive features**.
+The database has a specific structure designed to obtain the best **performances**: a relation manages web app data and artworks’ information, a second one deals with data sent by people counting boards placed in the museum rooms and a last one with information on the daily visitors flow at the museum entrance.
+
+A website (aimed at museum’s managers) extracts information from the ARte database, providing a detailed report, in the form of a readable **dashboard**.
+
+![Architecture](/img/architecture.svg)  
 
 ### STM32 Nucleo board
-The board makes use of the **X-NUCLEO-53L0A1 expansion board** that features the VL53L0X ranging and gesture detection sensor (based on ST’s FlightSense™, Time-of-Flight technology) to detect when new people enter certain areas. Near the board will be installed a led, that lights up in different colors according to the number of visitors in the room (given by the sensor), to avoid overcrowding. The board stores a local counter and sends real-time data for web app and dashboard consultings, but also provide less frequent updates to the databases, in order to have detailed statistics over time. Such data are published via MQTT on a topic identified by the room ID where the board is installed. We decided to implement this solution using the **RIOT-OS** operating system that supports most low-power IoT devices and microcontroller architectures. The software has been developed in *C* language.
+
+![STM32 Nucleo board](/img/stm32_nucleo_board.png)
+
+As mentioned above, the boards are distinguished in people counting boards and motion detection boards based on their functionalities and the corresponding sensor they implement.
+
+**People counting boards** make use of the **X-NUCLEO-53L0A1 expansion board** that features the VL53L0X ranging and gesture detection sensor (based on ST’s FlightSense™, Time-of-Flight technology) to spot when new people enter certain areas. Near the board will be installed a **LED**, that lights up in different colors based on the number of visitors in the room (given by the sensor via PIN), to avoid overcrowding. Every board stores a local counter and sends real-time data for **web app IoT interactive features** and dashboard consulting, in order to have detailed statistics over time.
+
+![X-NUCLEO-53L0A1 expansion board](/img/X-NUCLEO-53L0A1.png)
+
+**Motion detection boards** make use of the **STEVAL-IDI009V1 evaluation board**, which conditions the signal generated by a passive infrared (PIR) sensor, for human movement detection. In every museum room, a determined number of these boards are installed in order to detect the visitors flow inside it.
+
+![STEVAL-IDI009V1 evaluation board](/img/STEVAL-IDI009V1.png)
+
+Such data (from both types of boards) are published via **MQTT** on a topic identified by the room ID where the board is installed. The MQTT-SN bridge collects all data from a specific room in order to send a single message to the backend at fixed time intervals and to align the detected values of the PIR sensors with the actual number of visitors inside the room.
+
+As we did not have the physical hardware (neither the X-NUCLEO-53L0A1 expansion board and the STEVAL-IDI009V1 evaluation board) and the museum is currently closed due to the COVID-19 situation, we had to simulate the IoT system with the native **emulator of RIOT-OS**, which supports most low-power IoT devices and microcontroller architectures. The software has been developed in *C* language and the visitors’ flow was implemented taking into account possible museum attendance times. The computed crowding situation of the room is given in input to the associated **LED** placed above the room entrance and connected via PIN in order to properly illuminate it. The LED acts as a traffic light to limit access to rooms whose number of visitors is high.
+
+![Boards architecture](/img/boards_architecture.svg)
+
+### Smartphone app
+The Smartphone App is proposed in the form of a **web app**, available through a simple website. In this way, visitors don't need to install any OS-based app, as only an Internet connection and a browser is needed. The app makes use of **Three.js** and **Three.ar.js** APIs for virtual and augmented reality components, which allow users to **interact** with museum’s artworks and simultaneously provide background data.
+
+The **Dynamic Artwork Reimagination** and **Interactive Music** features are powered by data sent from the motion detection boards scattered throughout the museum. Such data (referring to visitors’ flow inside every room of the museum) are received by subscribing to a specific topic at the MQTT broker and then are processed by simple Javascript algorithms, coded in the app according to the **edge computing** principle, to produce graphical effects on the artwork 3D model and the background and to generate unique music.
+
+Usage information (such as framed artwork, features enabled on it and view time) is sent to the broker, using **Paho Javascript APIs**, on a specific topic identified by a device ID via **MQTT**, a lightweight and widely adopted messaging protocol designed for constrained devices. The app pushes data in real-time using this unique randomly generated ID, therefore information is collected anonymously in order to guarantee **users’ privacy**. The device ID is also used to correctly count the number of views of artworks by associating a view with each artwork the visitor interacts with within a session.
+
+The application also receives data sent by **people counting boards** scattered throughout the museum by subscribing to a specific topic at the message broker in order to display **real-time crowding situations** of the rooms through a scrollable list. In this way, visitors can check the accessibility of the next rooms they want to visit and, therefore, decide to enter them later on if rooms are currently non-accessible or too crowded for them.
+
+![Dynamic Artwork Reimagination](/img/dynamic_artwork_reimagination.jpg)
 
 ### MQTT cloud message broker
-The broker runs on an online server, using **Amazon AWS IoT services**. It makes use of the MQTT protocol which offers a lightweight message exchange. The broker role is to forward messages published by the visitors’ devices to the database (persistent layer), which then will be queried by the dashboard website. Users’ privacy is guaranteed by the random generation of the device ID which is both used as a topic of the broker and converted into a specific key by the Daily relation of the database. Messages are JSONs of the following form:  
-{ &lt;deviceID&gt;, &lt;datetime&gt;, &lt;feature&gt;, &lt;usageTime&gt;, &lt;artworkID&gt; }  
-{ &lt;roomID&gt;, &lt;datetime&gt;, &lt;count&gt; }  
-respectively submitted by the smartphones and the boards on different topics.    
+The broker runs on an online server, using **Amazon AWS IoT services**. It makes use of the MQTT protocol which offers a lightweight message exchange. The broker role is to forward messages published by the visitors’ devices and the STM boards to the database (persistent layer) by specifying rules that trigger the associated AWS Lambda functions. The database will then be queried by the dashboard website to display information.
+
+**Users’ privacy** is guaranteed by the random generation of a device ID which is used to properly count artworks’ views without repetition during a session.
+
+Broker received messages are JSONs of the following form:  
+{ \<deviceID>, \<feature>, \<usageTime>, \<artworkID>, \<newArtwork> }  
+{ \<roomID>, \<datetime>, \<peopleCurrent>, \<peopleTotal>, \<crowdingPercentage>, \<infraredValues> }  
+respectively submitted by the smartphones and the MQTT-SN bridge on different topics.
+MQTT-SN bridge received messages are JSONs of the following form:  
+{ \<roomID>, \<datetime>, \<peopleCurrent>,  \<peopleTotal> }  
+{ \<roomID>, \<datetime>, \<infraredSensors>, \<peopleCurrent>, \<peopleTotal>, \<crowdingPercentage> }  
+{ \<roomID>, \<datetime>, \<value> }  
+respectively submitted by the people counting board at the museum entrance, the people counting boards at the rooms entrance and the motion detection boards on topics identified by the room ID.
+
+### AWS Cognito
+Cognito is an Amazon web service for secure user sign-up, sign-in, and access control. In ARte Architecture, it is mainly adopted to perform communication between the client software (of the ARte web app and dashboard website) and the backend resources protected by **server-side access control**, defining **AWS IAM policies** for Cognito roles.
+Furthermore, we used Cognito to implement sign-in of museum managers in the dashboard website but not sign-up by design, as we decided to provide them with server-side-created accounts when needed. In this way, any user cannot sign-up and access museum information.
+
+### AWS Lambda
+Lambda is a serverless compute service where we defined functions triggered by the **AWS IoT Message Broker** based on the execution of specific rules upon message receipt belonging to a determined MQTT topic. We implemented two lambda functions triggered respectively by the STM board sending and of smartphone sending events. Both functions perform **server-side input validation** and add or update entries in the corresponding database tables.
 
 ### Database
-The database is implemented using **Amazon DynamoDB**, a fully managed NoSQL database service that provides fast and predictable performance with seamless scalability, and contains four relations: two manage the data flow from users to museum’s managers, one for data collected by the boards and a last but not least to store information about artworks available in the museum. Here is a short description of how each database works:
-* _Daily relation_: it stores instant users habits on the web app. Each time a new user enters the museum, it is registered in a “visitors vector” and then it begins pushing data about used features on this relation. Each received message by the broker is stored as:  
-{ &lt;deviceID&gt;, &lt;datetime&gt;, &lt;feature&gt;, &lt;usageTime&gt;, &lt;artworkID&gt; }  
-where the *deviceID* and *datetime* attributes are the primary keys, *feature* is the used functionality and *usageTime* is the interval of time the visitor has used this feature.
-* _Cumulative relation_: it is updated periodically, cumulating info from the daily relation, in order to clean it improving performances and give quick pre-computed information to the website. It is populated by a **lambda function**, which stores tuples in this format:  
-{ &lt;artworkID&gt;, &lt;datetime&gt;, camera, &lt;featuresAnalysis&gt;, &lt;deviceIDs&gt; }  
-where the *artworkID* and *datetime* attributes are the primary keys while *deviceIDs* is an array used to avoid double counting a visitor and *featuresAnalysis* is an array of JSON objects.  
-These contain the following fields:  
-{ &lt;feature&gt;, &lt;countUsage&gt;, &lt;countUsageTime&gt; }  
-where *feature* is the name of the functionality, *countUsage* is the number of visitors which used it and *countUsageTime* is the collective amount of time of use.  
-So, each entry corresponds to one update of the artwork on a daily basis, indeed the *datetime* is equivalent to the time of the update.  
-The lambda function counts the number of visitors that use the different features in a day by using the *deviceID* field.
-* _People relation_: this relation has the role to store information about the number of people which visited a certain area of the museum at a specific time. Information are periodically received from the broker and are in the following format:  
-{ &lt;roomID&gt;, &lt;datetime&gt;, &lt;count&gt; }  
-where the *roomID* and *datetime* attributes are the primary keys while *count* represents the number of people in the room at the specified date time.
-* _Artworks relation_: it holds information about each work of art. It may be useful for the museum managers since the museum may change its layout periodically. In this way it is possible to modify the content of the table, adding or removing artworks. Its entries are as follows:
-{ &lt;artworkID&gt;, &lt;datetime&gt;, &lt;description&gt;, &lt;roomID&gt; }  
-where the *artworkID* attribute is the primary key, *datetime* references to the inserting or updating of the entry, *description* is self-explanatory and *roomID* is the room ID in which the artwork is located.  
+The ARte database is implemented using **Amazon DynamoDB**, a fully managed NoSQL database service that provides fast and predictable performance with seamless scalability, and contains three relations: one manages web app data and artworks’ information, a second one deals with real-time data collected by people counting boards placed inside the museum rooms and a last but not least one to store information about the daily visitors flow at the museum entrance. Here is a short description of how each table works:
+- **Daily Relation**: it stores daily people flow inside the museum in order to **track the trend of the museum** during opening hours. Its entries are periodically updated by a people counting board placed at the museum’s entrance and are as follows:  
+{ \<date>, \<peopleTotal>, \<timesAndPeople> }  
+where *date* is the primary key and denotes the date on which data are collected while *peopleTotal* represents the total number of people who visited the museum on such date and *timesAndPeople* is an array consisting of tuples (people, time) denoting the number of visitors in the museum at that specific time.
+- **Rooms Relation**: this relation has the role of storing information about the **current and total number of people who visited each room of the museum**. The information is periodically received by AWS Lambda functions triggered by the MQTT broker rules and is stored in the following format:  
+{ \<roomID>, \<crowding>, \<datetime>, \<infraredValues>, \<peopleCurrent>, \<peopleTotal> }  
+where the *roomID* attribute is the primary key while *crowding* is the percentage of crowding of the room, *datetime* references to the datetime of the STM board when the message is sent, *infraredValues* is an array of values collected by the infrared sensors in the room, *peopleCurrent* represents the number of people in the room at the specified datetime and *peopleTotal* is the total number of visitors that entered in the room.
+- **Artworks Relation**: it holds **information about each work of art including the statistics on features usage** that visitors activated on it. The table is of interest for the museum managers because they can learn about the most liked artworks and preferred interactions with them. Other information includes the possibility to adapt to museum layout changes. Its entries are as follows:  
+{ \<artworkID>, \<author>, \<available>, \<datetime>, \<description>, \<keyword>, \<model3D>, \<photo>, \<room>, \<title>, \<featuresStats> }  
+where the *artworkID* attribute is the primary key while *author* is the artwork’s author, *available* denotes if the art of work is currently exhibited in the museum, *datetime* references to the inserting or updating datetime of the entry by museum managers via the dashboard website, *description* provides historical details about the artwork, *keyword* is used for searching an item in the table, *model3D* and *photo* are URLs for the corresponding resources, *room* is the room ID in which the artwork is located, *title* is the artwork’s title and *featuresStats* is a JSON object used to store information about every feature activated on the work of art. The *featureStats* object is as follows:  
+{ \<views>, \<viewTime>, \<featureName1>, …, \<featureNameN> }  
+where *views* denotes the number of times that the work of art has been displayed in the web app (one view for each session), *viewTime* is the total time that visitors have viewed the artwork via the web app and *featureNameX* is a JSON object in its turn containing *views* and *viewTime* about the specified feature.
 
-### Website
-Implemented using the main web programming languages as *HTML* and *Javascript*, it offers a *Bootstrap* realized frontend for museum’s managers. Selected and reworked informations are proposed in a simple and comprehensible **dashboard**, with the use of charts and diagrams. Its functionalities include the possibility to modify information about a specific work of art, to remove it and to add a new one. It also displays informations about the most visited areas both in real-time via MQTT broker messaging system and querying the database via javascript APIs provided by Amazon AWS.
+### Dashboard Website
+The website is implemented using the main web programming languages (CSS, HTML and Javascript) and offers a Bootstrap realized frontend for **museum’s managers**.
+Information is presented in a simple and comprehensible dashboard using charts extensively. The dashboard functionalities include the possibility to add information about a specific work of art, to modify it and to remove it.
+For **analytics purposes**, it offers the possibility to display information about the visitors’ interaction with every artwork (e.g. to know the favorite artworks), the daily visitors flow of the museum (e.g. to monitor the museum trend and income) and the number of visitors of every room both in real-time and in absolute terms (e.g. to know the most visited room ) by querying the database via Javascript APIs provided by Amazon AWS.
+
+![Dashboard Website](/img/ARte_dashboard.png)
 
 ## Previous versions
-[Version 1](https://github.com/ARte-team/ARte/blob/325640a8c1b247c1c019b6fa6bcdf795172146f2/Architecture.md) of the document.
+[Version 1](https://github.com/ARte-team/ARte/blob/325640a8c1b247c1c019b6fa6bcdf795172146f2/Architecture.md) of the document.  
+[Version 2](https://github.com/ARte-team/ARte/blob/680a84dcb82bbda3c669698417057f9012c2db3b/Architecture.md) of the document.
