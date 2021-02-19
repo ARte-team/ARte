@@ -61,7 +61,7 @@ Regarding the **ARte evaluation**, we only improved the drafting of the document
 
 ![Final Evaluation](/img/technology_evaluation_4.png)
 
-## List of the functionality that is still missing and which you aspect you did not manage to evaluate
+## List of the functionality that is still missing
 - We decided not to implement two of the old proposed features (**animation** and **rebuilding of missing components**) at the moment because not really of interest for the course. We preferred to focus on the new IoT ones as explained above.
 
 ## Future developments
