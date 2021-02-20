@@ -13,7 +13,8 @@ We are three students of the MSc of *Engineering in Computer Science* of *Sapien
 
 ## ARte
 **ARte** (Augmented Reality to educate) is a smartphone **application** for the *Sapienza University of Rome*'s [Arte Classica Museum](https://web.uniroma1.it/polomuseale/museo-arte-classica) that aims to improve the **interaction** between visitors and **artworks** and **social distancing** (**COVID-19** era), providing useful information to the museum’s managers at the same time.
-By accessing the mobile app website, visitors will be able to perform various functionalities on their device based on the **Augmented Reality** technology powered by IoT data. Such data are provided by several **STM32 Nucleo boards** installed throughout the museum.
+
+By accessing the mobile app website, visitors will be able to perform various functionalities on their device based on the **Augmented Reality** technology powered by IoT data. Such data are provided by several **STM32 Nucleo boards** installed throughout the museum.  
 At the same time, after the explicit agreement of the user, data about the usage of the web app is anonymously collected to preserve **privacy** via **crowdsensing**.
 
 All data is then displayed on a **dashboard** website to allow museum managers to analyze it for statistical purposes.  
@@ -52,7 +53,7 @@ All data is then displayed on a **dashboard** website to allow museum managers t
 - [Results](https://docs.google.com/forms/d/11A8Guf2jv1bYf-7WIxithKmYAJZCRF3bdkaXESRKFlY/viewanalytics) of the second survey about the UX, UI and the idea.
 
 ## Presentation 3
-- [Demo]() of the project.
+- [Demo](https://www.youtube.com/watch?v=6YFTCDXP_BE&feature=youtu.be&ab_channel=ClaudiuIvan) of the project.
 - [Hackster article]() presenting the project.
 - Presentation [slides](/presentations/Presentation3.pdf).
 - [Results](https://docs.google.com/forms/d/1CCmUVQD0STFRPkQpCFzw4UYprfHkEvRJJFHbHnFnGvA/viewanalytics) of the third survey about the UX, UI and the idea.
