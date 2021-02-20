@@ -47,9 +47,6 @@ To evaluate the **GUI**, **Simplicity** and **Usability** we relied on two surve
 
 <p align="center"><img src="/img/Charts/Survey%203/Do%20you%20think%20the%20icons%20are%20explanatory%20of%20the%20features%20they%20represent.svg"></p>
 
-GRAFICO DA 3RD SURVEY - do you think the app is overall simple to use?
-GRAFICO DA 3RD SURVEY - Do you think the icons are explanatory of the features they represent?
-
 Talking about **Accessibility**, we evaluated it both for the web app and the dashboard once we completed their implementation through the tools indicated in the last section of this document, in particular **Web accessibility** website and a11y color contrast analyzer. Both the services stated that all the rules about accessibility were observed.
 
 <p align="center"><img src="/img/web_accessibility.png"></p>
