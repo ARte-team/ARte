@@ -94,7 +94,7 @@ But what data? Ever heard about **crowdsensing**? It is a technique where a larg
 
 However, smartphones are not the only devices that collect data because several **STM32 Nucleo boards** are installed in every room of the museum (plus one located at the museum entrance) and provide information by **counting the number of visitors** who enter and leave and by detecting people’s movement inside the room and around the artworks. Such data, in addition to being displayed on the dashboard website, feeds our algorithms to generate unique graphical and musical effects on visitors’ smartphones according to the principles of edge computing. 
 
-<p align="center"><img src="/img/people_counting_and_motiontransparent.png"></p>
+![People counting and motion](/img/people_counting_and_motion.png)
 
 In the current particular historical period (**COVID-19** era), information about how many people are in a given area of the museum can obviously help to maintain **social distancing** and avoid crowding situations. By leveraging data collected by STM boards, implementing the people counting functionality, we offer the possibility for
 - visitors to **real-time** consult, via a rooms list available in the **mobile web app**, the accessibility of the next rooms they want to visit and, so, decide to enter them later on if rooms are currently non-accessible or too crowded for them.

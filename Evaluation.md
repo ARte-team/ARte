@@ -43,6 +43,10 @@ Therefore, we designed and implemented the ARte architecture and software compon
 
 To evaluate the **GUI**, **Simplicity** and **Usability** we relied on two surveys we conducted in which we showed a short demo of the web app, based initially on mockups and then on the actual implementation. The following questions about the mobile web app confirmed the fact that is intuitive and easy to use and that the GUI is appreciated by visitors.
 
+<p align="center"><img src="/img/Charts/Survey%203/Do%20you%20think%20the%20app%20is%20overall%20simple%20to%20use_.svg"></p>
+
+<p align="center"><img src="/img/Charts/Survey%203/Do%20you%20think%20the%20icons%20are%20explanatory%20of%20the%20features%20they%20represent.svg"></p>
+
 GRAFICO DA 3RD SURVEY - do you think the app is overall simple to use?
 GRAFICO DA 3RD SURVEY - Do you think the icons are explanatory of the features they represent?
 
@@ -56,15 +60,16 @@ Talking about **Privacy**, we carried out an evaluation by design indeed ARte do
 
 ### Summary
 
+<p align="center">
 | Aspect | Evaluation tools | Result |
 | --- | --- | --- |
-| **Accessibility** | Web accessibility and a11y | <span style="color: green;">Success</span> |
-| **GUI** | Surveys | <span style="color: green;">Success</span> |
-| **Privacy** | Design | <span style="color: green;">Success</span> |
-| **Simplicity** | Surveys | <span style="color: green;">Success</span> |
-| **Usability** | Surveys | <span style="color: green;">Success</span> |
-| **UX** | Surveys and metrics | <span style="color: green;">Success</span> |
-
+| **Accessibility** | Web accessibility and a11y | <span style="color: green;"><b>Success</b></span> |
+| **GUI** | Surveys | <span style="color: green;"><b>Success</b></span> |
+| **Privacy** | Design | <span style="color: green;"><b>Success</b></span> |
+| **Simplicity** | Surveys | <span style="color: green;"><b>Success</b></span> |
+| **Usability** | Surveys | <span style="color: green;"><b>Success</b></span> |
+| **UX** | Surveys and metrics | <span style="color: green;"><b>Success</b></span> |
+</p>
 
 ## Technical
 **Quality of Service (QoS)** is crucial for the ARte system, this means we have different aspects that had to be analyzed from a technical point of view, such as:
@@ -81,14 +86,16 @@ In the end, AWS Cognito can scale millions of users.
 
 ### Summary
 
+<p align="center">
 | Aspect | Evaluation tools | Result |
 | --- | --- | --- |
-| **Compliance with standards** | Code skills and W3C online tool | <span style="color: green;">Success</span> |
-| **Cost** | Market research | <span style="color: green;">Success</span> |
-| **Latency** | Pingdom | <span style="color: green;">Success</span> |
-| **Performance** | Pingdom | <span style="color: green;">Success</span> |
-| **Scalability** | Cloud Service documentation | <span style="color: green;">Success</span> |
-| **Security** | Design and code skills and SSLlabs | <span style="color: green;">Success</span> |
+| **Compliance with standards** | Code skills and W3C online tool | <span style="color: green;"><b>Success</b></span> |
+| **Cost** | Market research | <span style="color: green;"><b>Success</b></span> |
+| **Latency** | Pingdom | <span style="color: green;"><b>Success</b></span> |
+| **Performance** | Pingdom | <span style="color: green;"><b>Success</b></span> |
+| **Scalability** | Cloud Service documentation | <span style="color: green;"><b>Success</b></span> |
+| **Security** | Design and code skills and SSLlabs | <span style="color: green;"><b>Success</b></span> |
+</p>
 
 ## Hardware and software choice
 The **ARte** project is composed of different hardware components and software services. The previously mentioned metrics were crucial in the choice of the different parts we used to assemble the puzzle:
@@ -112,6 +119,7 @@ Here are a list of some tools or techniques that we used to evaluate the aforeme
 
 ## AWS IoT Core Message Broker
 
+<p align="center">
 | Resource | Description | Default | Adjustable |
 | --- | --- | --- | --- |
 | Connect requests per second per account | AWS IoT Core restricts an account to a maximum number of MQTT CONNECT requests per second. | 500 | Yes |
@@ -128,7 +136,8 @@ Here are a list of some tools or techniques that we used to evaluate the aforeme
 | Subscriptions per connection | AWS IoT Core supports 50 subscriptions per connection. AWS IoT Core might reject subscription requests on the same connection in excess of this amount and the connection is closed. Clients should validate the SUBACK message to ensure that their subscription requests have been successfully processed. | 50 | No |
 | Subscriptions per second per account | AWS IoT Core restricts an account to a maximum number of subscriptions per second. For example, if there are 2 MQTT SUBSCRIBE requests sent within a second, each with 3 subscriptions (topic filters), AWS IoT Core counts those as 6 subscriptions. | 500 | Yes |
 | Throughput per second per connection | Data received or sent over a client connection is processed at a maximum throughput rate. Data that exceeds the maximum throughput is delayed in processing. | 512 KiB | No |
-
+</p>
 
 ## Previous versions
 [Version 1](https://github.com/ARte-team/ARte/blob/325640a8c1b247c1c019b6fa6bcdf795172146f2/Evaluation.md) of the document.
+[Version 2](https://github.com/ARte-team/ARte/blob/680a84dcb82bbda3c669698417057f9012c2db3b/Evaluation.md) of the document.
