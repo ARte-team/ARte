@@ -1,64 +1,114 @@
 # Evaluation
 
 ## Overview
-In a kind of system as the one we want to create, **performances** need to be evaluated using different metrics, which are related to technical aspects, but also to user experience parameters.
-As explained in [design](Design.md) and [architecture](Architecture.md) sections, the users that will use ARte application are of two different types: visitors, which have to easily interact with the smartphone app, via an **intuitive** and attractive interface, and managers, which need data displayed in an understandable way and a **feasible** method to update artworks information.
-For sure another aspect that a final user will take into account will be **response time** performances, as no user will use the application if it isn’t enough **smooth** and no manager will allow to wait for required data for a too large amount of time.  In order to achieve this results we also have to take into account the hardware components and verify the correctness of their implementation.  
+In a kind of system like the ARte one, **performances** need to be evaluated using different metrics, which are related to **technical aspects**, but also to **user experience** parameters. As explained in [Design](Design.md) and [Architecture](Architecture.md) documents, ARte addresses two different types of users: 
 
-More in general, the **Key Performance Indicator** or **KPI**, provides a good understanding of the four main indicators a developer has to take care when projecting a new service:
+- **museum visitors** (who want to interact with artworks by using the smartphone web app) need a simple, **intuitive** and **attractive interface**
+- **museum managers** (who wish to get museum statistics using the dashboard website) need data displayed in a clear and easily understandable way, as well as a feasible method to update artworks’ information to respond to museum layout changes
+
+Another relevant aspect that we had to take into account is **response time** performances, since no user will use an application if it isn’t sufficiently smooth and no manager will accept to wait for requested data for too long a period of time.
+
+In order to achieve these results we also had to take into account the **hardware components** and verify the **correctness** of their implementations.
+
+More in general, the **Key Performance Indicator (KPI)**, provides a good understanding of the four main indicators a developer has to pay attention to when designing a new service:
 
 - **General indicators**
 - **Quality indicators**
 - **Cost indicators**
 - **Service indicators**
 
-
 ## User Experience
-User experience is the first main aspect to be considered for the two web apps. It needs to be polish, understandable, responsive, but also interesting and accessible:
+User experience is the first major aspect we considered for the ARte project and it concerns the way a user interacts and experiences our service, including the person's perceptions of utility, ease of use, and efficiency.
 
-- **Usability**: nobody wants to wait too much for a 3D model or an animation to appear, for an action to be performed or a web page to be loaded. Moreover features need to be bug-free.
-- **Simplicity**: app must be intuitive for both types of user. Understandable use of features and and easily identifiable position are again something that has to be considered.
-- **GUI**: the eye wants its part, so polish interface and an inspired style are much appreciated by visitors and managers.
-- **UX**: the service we propose has to improve the overall user experience, providing something that can’t be observed visiting a museum which doesn’t use this kind of system.
-- **Accessibility**: all kind of users have to be able to interact with the applications, also the ones affected by disabilities.
-- **Privacy**: users' personal information need to remain hidden. No kind of data about people has to be stored.
-- **Surveys and interviews**: AR web app has to propose features which can solicit people to use it. In this sense we conducted some interviews and and survey, aiming to find some liked interactions. Interviews and surveys will support us in the entire development cycle in order to direct our work in the right direction.
+Taking into account that UX is subjective, our aim is the service we offer must improve the overall user experience by providing something unique to the museum’s visitor that cannot be observed by visiting it without the ARte web app and by providing useful information to the museum's managers in order to better organize the layout of the museum itself and/or of the guided tours through the dashboard website.
+
+Extracting three main questions results from the last survey, we can say that the goal was fully achieved, confirming the goodness of our work:
+
+<p align="center"><img src="/img/Charts/Survey%203/Do%20you%20think%20the%20app%20can%20enhance%20your%20museum_s%20visit_.svg"></p>
+
+<p align="center"><img src="/img/Charts/Survey%203/Do%20you%20think%20the%20app%20provides%20a%20unique%20experience%20of%20this%20kind.svg"></p>
+
+<p align="center"><img src="/img/Charts/Survey%203/From%201%20to%205,%20in%20which%201%20express%20the%20minimum%20approval%20and%205%20the%20maximum,%20how%20much%20would%20you%20score%20our%20app.svg"></p>
+
+Furthermore, during the development of the project we also considered the following aspects as UX evaluation metrics:
+
+
+- **Accessibility**: every type of user must be able to interact with the application, even those with disabilities.
+- **GUI**: the eye wants its part, so a clear, understandable and responsive user interface but also captivating with an inspired style compliant with material design guidelines are highly appreciated by users.
+- **Privacy**: users' personal information must remain hidden, so it must be properly protected. To have it at the highest level and given the functionalities of the app, no type of sensitive data has to be stored unless necessary or publicly disclosed.
+- **Simplicity**: the app must be intuitive for any user. Understandable use of features and easily identifiable position on the screen are once again something that has to be taken into account.
+- **Usability**: nobody wants to wait too much for a 3D model to appear, for an action to be performed or for a web page to load. Moreover features must be bug-free as much as possible.
+
+Therefore, we designed and implemented the ARte architecture and software components always keeping these key aspects in mind.
+
+To evaluate the **GUI**, **Simplicity** and **Usability** we relied on two surveys we conducted in which we showed a short demo of the web app, based initially on mockups and then on the actual implementation. The following questions about the mobile web app confirmed the fact that is intuitive and easy to use and that the GUI is appreciated by visitors.
+
+GRAFICO DA 3RD SURVEY - do you think the app is overall simple to use?
+GRAFICO DA 3RD SURVEY - Do you think the icons are explanatory of the features they represent?
+
+Talking about **Accessibility**, we evaluated it both for the web app and the dashboard once we completed their implementation through the tools indicated in the last section of this document, in particular **Web accessibility** website and a11y color contrast analyzer. Both the services stated that all the rules about accessibility were observed.
+
+<p align="center"><img src="/img/web_accessibility.png"></p>
+
+Talking about **Privacy**, we carried out an evaluation by design indeed ARte does not store any sensitive data about users, but only features’ related data. In addition, this one is also collected anonymously by generating a unique device ID for each visitor device using the mobile web app and of course by nature by STM boards, so that museum managers, but also programmers, cannot obtain any personal information about who’s using the software. In detail, the mobile web app also explicitly declares that ARte privacy policy and terms and conditions are accepted by the user who starts to use the app. If you are interested in reading them, you can find references on the [intro page](https://arte-team.github.io/ARte/ar-web-app/index.html) of the mobile web app.
 
 ![User experience evaluation](/img/user_experience_evaluation.png)
 
+### Summary
+
+| Aspect | Evaluation tools | Result |
+| --- | --- | --- |
+| **Accessibility** | Web accessibility and a11y | <span style="color: green;">Success</span> |
+| **GUI** | Surveys | <span style="color: green;">Success</span> |
+| **Privacy** | Design | <span style="color: green;">Success</span> |
+| **Simplicity** | Surveys | <span style="color: green;">Success</span> |
+| **Usability** | Surveys | <span style="color: green;">Success</span> |
+| **UX** | Surveys and metrics | <span style="color: green;">Success</span> |
+
+
 ## Technical
-*QoS* (Quality of Service) is crucial for this system, this means we have different aspects that have to be analyzed from a technical point of view, such as:
+**Quality of Service (QoS)** is crucial for the ARte system, this means we have different aspects that had to be analyzed from a technical point of view, such as:
 
-- **Latency**: the product needs to be efficient, so the values computed by the sensors of the boards and the actions performed by users (also by museum managers) must be registered without delays.
-- **Scalability**: the whole system needs to remain performant with the increasing number of connected visitors, connected managers or registered works of art. A new STM board, for example, must be able to be added in the museum without having the need to rework the whole infrastructure.
-- **Performance**: it regards computational complexity, as code execution needs to be maintained fast. Algorithmic optimization is one of the keys for a good service. This is a crucial point on a board like the one we want to use, as its hardware is not the most performing one.
-- **Reliability**: the used networks protocols has to assure the communication went fine, notifying the delivery of data. This is a synonym for assurance.
-- **Compliance with standards**: the code has to respect the main standards of good programming.
-- **Cost**: the whole system doesn’t have to impact to much on museum’s expenses. The components, which in our case are the STM boards and their sensors, have to be quite cheap and also cloud services has to be chosen looking at the best price/quality option.
+- **Compliance with standards**: the code must adhere to the main standards of good programming guidelines (safety, security, reliability, testability, maintainability and portability). To accomplish these, we constantly developed code according to *modular programming* software design technique to ensure maintainability and portability and tested it in order to avoid harmful behavior. Moreover, we evaluated the code of the websites by using the W3C online tool for HTML correctness and it did not return any error on the main pages of the AR web app and Dashboard. Thus, the code is perfectly compliant with W3C standards. To security, we dedicated a separated section a few lines below.
+- **Cost**: the whole system must not affect the expenses of the museum too much. The hardware components, which in our case are the STM boards and their sensors, have to be quite cheap as well as the cloud services have to be chosen looking at the best price/quality ratio. So, we conducted some market research for all hardware and software components and about the former: the STM32 Nucleo Board can be purchased for about 14,00 €, the STEVAL-IDI009V1 evaluation board for about 32,00 € and the X-NUCLEO-53L0A1 expansion board for about 39,00 €. Cloud services costs instead are zero because the AWS Educate service is free for students and educators. Concerning hardware prices, we reported the prices for a single piece of each component, but probably for multiple components the expense could be lower. Nevertheless, this is clearly an affordable cost for a museum.
+- **Latency**: the service needs to be efficient, so the values computed by the sensors of the boards and the actions performed by users (also by museum managers) must be carried out without or within minimum tolerant delays. Latency was evaluated together with Performance using the Pingdom online tool.
+- **Performance**: it concerns computational complexity, as code execution needs to be fast. Algorithmic optimization and efficiency are the keys to a good service. This is a crucial point on a microprocessor like the one we want to use, as its hardware is not among the best performing. Performance was evaluated using the Pingdom online tool. It provides an overall score for the load times of all elements of the page, based on various criteria. It returned a score of 80 out of 100 for the web app, which is a pretty good score for a software which has to load several heavy components like 3D models, images and storytelling audios.
+- **Scalability**: the whole system needs to remain performant with the increasing number of connected visitors, connected museum’s managers or stored information. A new STM board, for example, must be able to be added to the museum without having the need to rework the entire infrastructure. To evaluate it, we read the documentation of the chosen cloud service and AWS services proved to be really powerful in terms of scalability. DynamoDB has a throughput of up to 40,000 read request units and 40,000 write request units. AWS Lambda can process up to 1,000 concurrent executions and AWS MQTT Broker up to 500,000 concurrent connections. 
+In the end, AWS Cognito can scale millions of users. 
+- **Security**: the system must be robust against vulnerabilities in order to be resistant to cyberattacks of any kind. In order to accomplish this, secure communication protocols, correct server-side passwords and keys handling must be adopted, especially in an IoT service like this. AWS IoT Core connections use RSA keys and certificates. These plus HTTPS everywhere grant CIA requirements for data in transit between AR web app \ dashboard and the server, in order not to expose any data. Server-side access control is implemented to deny attackers to perform functionalities or access resources for which they are not entitled via Cognito authentication and IAM roles. Furthermore, server-side input validation, via triggered lambda functions, ensures protection against Injection and XSS attacks. In the end, the absence of using vulnerable libraries (as far as we know), AWS CloudWatch logging and monitoring and dashboard website defense-in-depth for most critical actions add another important security block. We assessed that a really good level of security is applied to the entire infrastructure.
 
-Security is also really important so we'll have to study how to avoid vulnerabilities. We have chosen Amazon AWS services, because their specific features and technical aspects coincide with our needs, in overspecified terms, in particular for the part of the MQTT message broker.
+![Technology evaluation](/img/technology_evaluation_4.png)
 
-![Technology evaluation](/img/technology_evaluation.png)
+### Summary
+
+| Aspect | Evaluation tools | Result |
+| --- | --- | --- |
+| **Compliance with standards** | Code skills and W3C online tool | <span style="color: green;">Success</span> |
+| **Cost** | Market research | <span style="color: green;">Success</span> |
+| **Latency** | Pingdom | <span style="color: green;">Success</span> |
+| **Performance** | Pingdom | <span style="color: green;">Success</span> |
+| **Scalability** | Cloud Service documentation | <span style="color: green;">Success</span> |
+| **Security** | Design and code skills and SSLlabs | <span style="color: green;">Success</span> |
 
 ## Hardware and software choice
-ARte project is composed by different hardware components and software services. The previously mentioned features have been crucial in the choice of the different parts we’ll use to assemble the puzzle:
-
-- **STM32 Nucleo board**: This board was the first option we considered as it adopted the requested Cortex processor and it can implement the X-NUCLEO-53L0A1 expansion, needed for our people counting feature. Technical evaluations of its functioning will be done with empirical tests: counting people in the room in a real situation and comparing the number with the one obtained from the software.
-- **Amazon AWS services**: One of the main features we considered when we analyzed the different cloud services on the market, was the cost. Amazon was the one which provided best performances with the higher saving. Every subservice we adopted has also some favorable characteristics:
-    - **DynamoDB**: it allows automatic rules for received message events from the AWS broker, ensuring reliability from broker and database, but also low latency, being designed and optimized for this purpose.
-    - **AWS IoT core**: it offers a really good broker and also a good level of security. Full table of the broker features is proposed at the end of the document.
-    - **AWS Lambda functions**: they are again helpful from the point of view of the performances aiming to have low latency in the final implementation, maintaining also a good grade of scalability. Their main role will be to optimize the size of the database relations.
-    - **Cognito**: the provided SDK help us with security problems, avoiding exposure of Amazon AWS access keys.
-- **AR.js APIs**: after having analysed different augmented reality libraries, we chose this one, because it offers a really simple implementation method and is probably the less experimental one, having a really good compatibility with all the browsers.
+The **ARte** project is composed of different hardware components and software services. The previously mentioned metrics were crucial in the choice of the different parts we used to assemble the puzzle:
+- **STM32 Nucleo board**: This board was the first option we considered as it is equipped with the requested Cortex processor and it can implement, through the X-NUCLEO-53L0A1 expansion board, the people counting feature and, through the STEVAL-IDI009V1 evaluation board, the people motion detection feature. Technical evaluations of their functioning will be carried out with empirical tests: counting people in the room in a real situation and comparing the number with the one obtained by the software and measuring the real distance of people from the sensors in the room and comparing it with data provided by sensors.
+- **Amazon Web Services (AWS)**: web services that provide a variety of cloud computing platforms and APIs, compute power, database storage, content delivery services to build sophisticated applications with increased flexibility, scalability and reliability. We have chosen Amazon AWS services, because their specific features and technical aspects coincide with our needs, in aforementioned metrics, in particular for the part of the MQTT message broker. One of the main features we considered when we analyzed the different cloud services on the market, was the cost. Amazon was the one which provided the best performances with the higher saving. Every service we adopted has also some favorable characteristics:
+    - **Amazon Cognito**: a service that lets us add user sign-in and access control to our websites quickly and easily. The provided SDK helps us with security problems, avoiding exposure of Amazon AWS access keys.
+    - **Amazon DynamoDB**: a key-value and document database that delivers single-digit millisecond performance at any scale. It's a fully managed, multi-region, multi-active, durable database with built-in security, backup and restore, and in-memory caching for internet-scale applications.
+    - **AWS IoT core**: a service that lets us connect IoT devices to the AWS cloud without the need to provision or manage servers. It can support billions of devices and trillions of messages, and can process and route those messages to AWS endpoints and to other devices reliably and securely. It offers a really good MQTT broker and also a good level of security. It allows us to define automatic rules for received message events to trigger our lambda functions. The complete table of the broker features is proposed at the end of the document.
+    - **AWS Lambda**: a serverless compute service that lets us run code without provisioning or managing servers, creating workload-aware cluster scaling logic, maintaining event integrations, or managing runtimes. We uploaded our code for two functions triggered by two different message events: MQTT messages sent by the MQTT-SN bridge (which collects STM boards data) and MQTT messages sent by visitors’ smartphone. Their role is to validate incoming data and store it in the appropriate table of the ARte DB.
+- **AR.js APIs**: a lightweight library for Augmented Reality on the Web. After analyzing several augmented reality libraries, we chose this one, because it offers a really simple implementation method and is probably the least experimental one, having really good compatibility with all the browsers.
 
 ## Tools and techniques for evaluation
-Here we propose some tools or technique that can be used to evaluate the before mentioned metrics:
+Here are a list of some tools or techniques that we used to evaluate the aforementioned metrics:
 
-- [Pagespeeds](https://developers.google.com/speed/pagespeed/insights) by Google and [Pingdom](https://tools.pingdom.com/) are really great tools which can provide a complexive evaluation for webapp page loading and AR response times. They also offer informations about GUI and accessibility quality. The browser console can also be used for more details.
-- **AWS services table** offers detailed informations about limits and available resources for each user. Observing it we can evaluate if it can be the right choice in terms of MQTT broker performances such as: message delivery times, multiple supported publishes and subscribes, etc. All these informations will be described in the last section of this document. They are also useful in the evaluation of the database performances.
-- **Users’ reactions and feedbacks** are another method, and probably the most effective one, to understand if all the aspects regarding user experience were satisfied. The main idea can also be improved with users’ proposals.
-- [W3C validator](https://validator.w3.org/) plays an important role in evaluating if the webcode respects technical standards.
-- [Web accessibility](https://webaccessibility.com/) website and [a11y](https://color.a11y.com/?wc3) color contrast analyzer are really good tools to quick evaluate accessibility, looking at readable fonts, optimal dimensions, color contrast, etc.
+- **AWS services documentation**: offers detailed information about limits and available resources to each user. Reading it we can evaluate if it can be the right choice in terms of MQTT broker performances such as message delivery times, multiple supported publishings and subscriptions, etc. This information is contained in the last section of this document. Documentation is also useful in evaluating the database performances and other services we adopted.
+- **Browser console**: can be used to know more details about page loading.
+- **[Pingdom](https://tools.pingdom.com/)** is a really great tool that can provide a comprehensive evaluation for web app page loading and AR response times. It also offers information about GUI and accessibility quality.
+- **Surveys and interviews**: AR web app has to offer features that can solicit people to use it. In this sense we conducted some interviews and surveys, which are probably the most effective method as addresses ARte potential users, with the aim of finding a proof of concept to the problem and solution we propose, to understand if all aspects concerning the UX were satisfied and to learn favorite artworks interactions. Users’ reactions and feedback supported us throughout the development cycle, in order to steer our work in the right direction. All links to survey results are available on the README. 
+- **[W3C validator](https://validator.w3.org/)** plays an important role in evaluating if the webcode respects technical standards.
+- **[Web accessibility](https://webaccessibility.com/)** website and **[a11y](https://color.a11y.com/?wc3)** color contrast analyzer are really good tools to quick evaluate accessibility, looking at readable fonts, optimal dimensions, color contrast, etc.
 
 ## AWS IoT Core Message Broker
 
