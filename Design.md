@@ -17,16 +17,16 @@ NB: The Animation and Rebuilding of missing components are currently missing by 
 ## Why ARte?
 The world is continuously evolving and the way to visit a museum is not an exception. Just looking at artworks is no longer enough, visitors want to interact with them. A clear initial proof of this concept was given to us by preliminary interviews we carried out and then was confirmed by analyzing the answers in the [first survey](https://docs.google.com/forms/d/1Dy7tSe--2VEJ7W5ga6v32OjPgh2kgCQf6i635NsuEJ0/viewanalytics) we conducted: 91,2% of the users like to visit museums, but also 93,8% of them admit that they would like to have some different kinds of interactions with the artworks with respect to the nowadays available ones.  
 
-<p align="center"><img src="/img/Charts/Survey%201/Would%20you%20like%20to%20have%20different%20types%20of%20interaction%20with%20the%20artworks_.svg"></p>
+<p align="center"><img src="/img/Charts/Survey%201/app_interaction.svg"></p>
 
 Moreover, some in the small percentage who don’t like to visit museums add that they don’t like it because *“most of the time the visit is not involving enough”* or because a simple visit may be *“boring”*. Furthermore, when we asked what they expected to find inside the *Sapienza's Arte Classica Museum* (in terms of artworks and services related to them), some answers focused again on interactivity.
-After some time, we proposed a [second survey](https://docs.google.com/forms/d/11A8Guf2jv1bYf-7WIxithKmYAJZCRF3bdkaXESRKFlY/viewanalytics) in order to confirm the aforementioned concept and most of the people responded that they would use an app to enhance their visit to a museum. 
+After some time, we proposed a [second survey](https://docs.google.com/forms/d/11A8Guf2jv1bYf-7WIxithKmYAJZCRF3bdkaXESRKFlY/viewanalytics) in order to confirm the aforementioned concept and most of the people responded that they would use an app to enhance their visit to a museum.
 
-<p align="center"><img src="/img/Charts/Survey%202/Would%20you%20use%20an%20app%20to%20improve%20your%20experience%20in%20visiting%20a%20museum_.svg"></p>
+<p align="center"><img src="/img/Charts/Survey%202/app_experience.svg"></p>
 
 In addition, half of the people who answered would be tempted to go to a museum just knowing that they can interact with artworks via the ARte web app.
 
-<p align="center"><img src="/img/Charts/Survey%202/Do%20you%20think%20the%20app%20can%20tempt%20you%20to%20visit%20a%20museum%20you%20would%20never%20had%20visited%20without_.svg"></p>
+<p align="center"><img src="/img/Charts/Survey%202/app_temptation.svg"></p>
 
 In conclusion, the need we identified is real and is also justified by several investments done by some museums in the world like *The National Museum of Singapore*, *The Art Gallery of Ontario (Toronto)* and *The Smithsonian Institution (Washington D.C.)*.
 
@@ -39,19 +39,19 @@ In the end, we conducted a last [3rd survey](https://docs.google.com/forms/d/1CC
 The reaction of the potential users was once again impressive and satisfying:
 none of the people who responded would not use an app to improve their museum visit experience
 
-<p align="center"><img src="/img/Charts/Survey%203/Would%20you%20use%20an%20app%20to%20improve%20your%20experience%20in%20visiting%20a%20museum_%20(1).svg"></p>
+<p align="center"><img src="/img/Charts/Survey%203/app_visit1.svg"></p>
 
 and the results showed very consistent interest in those features which allow users to obtain graphical, visual and sound effects.
 
-<p align="center"><img src="/img/Charts/Survey%203/From%201%20to%205%2C%20in%20which%201%20express%20the%20minimum%20approval%20and%205%20the%20maximum%2C%20how%20much%20interested%20are%20you%20in%20the%20functionalities%20about%20artworks__.svg"></p>
+<p align="center"><img src="/img/Charts/Survey%203/app_features.svg"></p>
 
 Like the second survey, this time we asked questions about the UI and UX again based on the actual implementation of the web app rather than mockups. Results show that our work has been appreciated.
 
-<p align="center"><img src="/img/Charts/Survey%203/Do%20you%20think%20the%20app%20is%20overall%20simple%20to%20use_.svg"></p>
+<p align="center"><img src="/img/Charts/Survey%203/app_simplicity.svg"></p>
 
 A final result we can be proud of is the uniqueness of the idea as shown from the following chart.
 
-<p align="center"><img src="/img/Charts/Survey%203/Have%20you%20ever%20used%20a%20similar%20app%20during%20a%20museum_s%20visit_.svg"></p>
+<p align="center"><img src="/img/Charts/Survey%203/app_unicity.svg"></p>
 
 If you are interested in all questions we proposed to the audience and the answers we received, you can check the survey results by clicking the links you find above or in the README document.
 
@@ -63,7 +63,7 @@ The analysis of such data also allowed us to define three user personas (a ficti
 - Antonio Fuentes, a freelance
 - Martina Felici, a student
 
-<p align="center"><img src="/img/Charts/Survey%203/Occupation%20(1).svg"></p>
+<p align="center"><img src="/img/Charts/Survey%203/occupation.svg"></p>
 
 <p align="center"><img src="/img/user_employee2.png"></p>
 
@@ -92,7 +92,7 @@ In addition to visitors, we have another type of user who doesn’t use the ARte
 
 But what data? Ever heard about **crowdsensing**? It is a technique where a large group of individuals having mobile devices capable of sensing and computing collectively share information. Such data are sent completely **anonymously** by the visitors’ smartphones, after an explicit agreement of the user, while using the ARte web app.
 
-However, smartphones are not the only devices that collect data because several **STM32 Nucleo boards** are installed in every room of the museum (plus one located at the museum entrance) and provide information by **counting the number of visitors** who enter and leave and by detecting people’s movement inside the room and around the artworks. Such data, in addition to being displayed on the dashboard website, feeds our algorithms to generate unique graphical and musical effects on visitors’ smartphones according to the principles of edge computing. 
+However, smartphones are not the only devices that collect data because several **STM32 Nucleo boards** are installed in every room of the museum (plus one located at the museum entrance) and provide information by **counting the number of visitors** who enter and leave and by detecting people’s movement inside the room and around the artworks. Such data, in addition to being displayed on the dashboard website, feeds our algorithms to generate unique graphical and musical effects on visitors’ smartphones according to the principles of edge computing.
 
 ![People counting and motion](/img/people_counting_and_motion.png)
 
@@ -105,7 +105,7 @@ Moreover, this data is also used by STM boards to light up **LEDs** placed above
 
 <p align="center"><img src="/img/led.png"></p>
 
-<p align="center"><img src="/img/chart_led.png"></p>
+<p align="center"><img src="/img/Charts/Survey%202/led.svg"></p>
 
 Using the dashboard, museum’s manager may have a complete view of what is happening inside the museum.  
 Here there’s a non-exhaustive list of what they can do:
@@ -125,6 +125,5 @@ In the end, the dashboard also offers the possibility to museum’s managers to 
 If you want to know more about how our system works, we suggest you take a look at the [ARte Architecture](Architecture.md).
 
 ## Previous versions
-[Version 1](https://github.com/ARte-team/ARte/blob/325640a8c1b247c1c019b6fa6bcdf795172146f2/Design.md) of the document.
-
+[Version 1](https://github.com/ARte-team/ARte/blob/325640a8c1b247c1c019b6fa6bcdf795172146f2/Design.md) of the document.  
 [Version 2](https://github.com/ARte-team/ARte/blob/680a84dcb82bbda3c669698417057f9012c2db3b/Design.md) of the document.

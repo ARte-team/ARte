@@ -40,8 +40,8 @@ All data is then displayed on a **dashboard** website to allow museum managers t
   - a brief list of the functionality that is still missing.
 
 ## Presentation 1
-- [Presentation](https://www.youtube.com/watch?v=NhSiwsODgNk&list=PLzUKKQs-wK7qTVbKUREnxrMRjf7VF-Sfi&index=2&t=0s) of the product/idea and the evaluation plan.
-- [Presentation](https://www.youtube.com/watch?v=OHi1ydnEaDs&list=PLzUKKQs-wK7qTVbKUREnxrMRjf7VF-Sfi&index=3&t=0s) of the technical approach and architecture.
+- [Presentation](https://www.youtube.com/watch?v=NhSiwsODgNk&list=PLzUKKQs-wK7qTVbKUREnxrMRjf7VF-Sfi&index=2) of the product/idea and the evaluation plan.
+- [Presentation](https://www.youtube.com/watch?v=OHi1ydnEaDs&list=PLzUKKQs-wK7qTVbKUREnxrMRjf7VF-Sfi&index=3) of the technical approach and architecture.
 - Presentation lecture [slides](/presentations/Presentation1.pdf).
 - [Results](https://docs.google.com/forms/d/1Dy7tSe--2VEJ7W5ga6v32OjPgh2kgCQf6i635NsuEJ0/viewanalytics) of the first survey about the idea
 
@@ -53,7 +53,10 @@ All data is then displayed on a **dashboard** website to allow museum managers t
 - [Results](https://docs.google.com/forms/d/11A8Guf2jv1bYf-7WIxithKmYAJZCRF3bdkaXESRKFlY/viewanalytics) of the second survey about the UX, UI and the idea.
 
 ## Presentation 3
-- [Demo](https://www.youtube.com/watch?v=6YFTCDXP_BE&feature=youtu.be&ab_channel=ClaudiuIvan) of the project.
+- [Demo](https://www.youtube.com/watch?v=6YFTCDXP_BE&list=PLzUKKQs-wK7qTVbKUREnxrMRjf7VF-Sfi&index=6) of the project.
 - [Hackster article]() presenting the project.
 - Presentation [slides](/presentations/Presentation3.pdf).
 - [Results](https://docs.google.com/forms/d/1CCmUVQD0STFRPkQpCFzw4UYprfHkEvRJJFHbHnFnGvA/viewanalytics) of the third survey about the UX, UI and the idea.
+
+## License
+This project is licensed under the MIT License.
