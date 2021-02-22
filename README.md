@@ -54,7 +54,7 @@ All data is then displayed on a **dashboard** website to allow museum managers t
 
 ## Presentation 3
 - [Demo](https://www.youtube.com/watch?v=6YFTCDXP_BE&list=PLzUKKQs-wK7qTVbKUREnxrMRjf7VF-Sfi&index=6) of the project.
-- [Hackster article]() presenting the project.
+- [Hackster article](https://www.hackster.io/claudiuivan1/arte-augmented-reality-to-educate-3a6fd0) presenting the project.
 - Presentation [slides](/presentations/Presentation3.pdf).
 - [Results](https://docs.google.com/forms/d/1CCmUVQD0STFRPkQpCFzw4UYprfHkEvRJJFHbHnFnGvA/viewanalytics) of the third survey about the UX, UI and the idea.
 

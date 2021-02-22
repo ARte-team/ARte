@@ -82,7 +82,7 @@ In the end, AWS Cognito can scale millions of users.
 
 | Aspect | Evaluation tools | Result |
 | :---: | :---: | :---: |
-| **Compliance with standards** | Web accessibility and a11y | **Success** |
+| **Compliance with standards** | W3C validation tool | **Success** |
 | **Cost** | Market research | **Success** |
 | **Latency** | Pingdom | **Success** |
 | **Performance** | Pingdom | **Success** |
